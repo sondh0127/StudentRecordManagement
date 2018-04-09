@@ -1,5 +1,7 @@
 package com.project.javafx.model;
 
+import java.time.LocalDate;
+
 public class CreditStudent extends Student {
 
     private CreditMajor creditMajor;
@@ -8,6 +10,12 @@ public class CreditStudent extends Student {
 
     public CreditStudent(int studentID, String firstName, String lastName, CreditMajor creditMajor) {
         super(studentID, firstName, lastName);
+        this.creditMajor = creditMajor;
+        this.currentCredits = 0;
+    }
+
+    public CreditStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, String password, CreditMajor creditMajor) {
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address, password);
         this.creditMajor = creditMajor;
         this.currentCredits = 0;
     }

@@ -1,5 +1,7 @@
 package com.project.javafx.model;
 
+import java.time.LocalDate;
+
 public class AnnualStudent extends Student{
 
     private AnnualClass annualClass ;
@@ -8,6 +10,11 @@ public class AnnualStudent extends Student{
     public AnnualStudent(int studentID, String firstName, String lastName, AnnualClass annualClass) {
         super(studentID, firstName, lastName);
         this.annualClass = annualClass;
+        this.studyYear = StudyYear.FIRST_YEAR;
+    }
+
+    public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, String password, AnnualClass annualClass) {
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address, password);
         this.studyYear = StudyYear.FIRST_YEAR;
     }
 

@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.AdminDashboardController">
-   <top>
-      <HBox alignment="CENTER" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER_RIGHT">
-         <children>
-            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="STUDENT MANAGEMENT SYSTEM">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Text>
-               </children>
-            </HBox>
-            <JFXButton text=" ">
-               <graphic>
-                  <MaterialDesignIconView fill="WHITE" glyphName="DOTS_VERTICAL" size="2em" />
-               </graphic>
-            </JFXButton>
-         </children>
-      </HBox>
-   </top>
    <left>
       <VBox prefWidth="210.0" style="-fx-background-color: #e1e1e1;" BorderPane.alignment="CENTER">
          <children>
@@ -144,4 +126,47 @@
          </BorderPane.margin>
       </StackPane>
    </center>
+   <top>
+      <BorderPane prefHeight="40.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
+         <center>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="STUDENT MANAGEMENT SYSTEM" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+         </center>
+         <right>
+            <HBox alignment="CENTER" prefWidth="120.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btn_minimize" graphicTextGap="0.0" onMouseClicked="#minimize" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="WINDOW_MINIMIZE" size="1.5em" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btn_maximize" graphicTextGap="0.0" onMouseClicked="#maximize" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="WINDOW_MAXIMIZE" size="1.5em" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btn_close" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" onAction="#exit" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="WINDOW_CLOSE" size="1.5em" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </right>
+         <left>
+            <HBox alignment="CENTER" prefWidth="120.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btn_option" prefWidth="100.0" text=" ">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="DOTS_HORIZONTAL" size="2em" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </left>
+      </BorderPane>
+   </top>
 </BorderPane>

@@ -3,6 +3,7 @@ package com.project.javafx.controllerfx;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.MainApp;
+import com.project.javafx.model.repository.StudentRepository;
 import com.project.javafx.ulti.ViewConstants;
 import com.project.javafx.ulti.alert.AlertMaker;
 import javafx.animation.FadeTransition;
@@ -11,12 +12,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,6 +50,18 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private JFXButton btnExit;
+
+    @FXML
+    private JFXButton btn_minimize;
+
+    @FXML
+    private JFXButton btn_maximize;
+
+    @FXML
+    private JFXButton btn_close;
+
+    @FXML
+    private JFXButton btn_option;
 
     @FXML
     private StackPane holderPane;
@@ -139,10 +158,67 @@ public class AdminDashboardController implements Initializable {
     }
 
     private void loadDataOnStart() {
-
+        StudentRepository.getInstance().readDataListFromFile();
     }
 
     private void saveDataOnClose() {
-
+        StudentRepository.getInstance().saveDataListToFile();
     }
+
+    @FXML
+    public void minimize(MouseEvent event) {
+
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    private double lastX = 0.0d;
+    private double lastY = 0.0d;
+    private double lastWidth = 0.0d;
+    private double lastHeight = 0.0d;
+
+    @FXML
+    public void maximize(MouseEvent evt) {
+
+        Node n = (Node)evt.getSource();
+
+        Window w = n.getScene().getWindow();
+
+        double currentX = w.getX();
+        double currentY = w.getY();
+        double currentWidth = w.getWidth();
+        double currentHeight = w.getHeight();
+
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        if( currentX != bounds.getMinX() &&
+                currentY != bounds.getMinY() &&
+                currentWidth != bounds.getWidth() &&
+                currentHeight != bounds.getHeight() ) {
+
+            w.setX(bounds.getMinX());
+            w.setY(bounds.getMinY());
+            w.setWidth(bounds.getWidth());
+            w.setHeight(bounds.getHeight());
+
+            lastX = currentX; // save old dimensions
+            lastY = currentY;
+            lastWidth = currentWidth;
+            lastHeight = currentHeight;
+
+        } else {
+
+            // de-maximize the window (not same as minimize)
+
+            w.setX(lastX);
+            w.setY(lastY);
+            w.setWidth(lastWidth);
+            w.setHeight(lastHeight);
+        }
+
+        evt.consume(); // don't bubble up to title bar
+    }
+
 }

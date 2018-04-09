@@ -41,9 +41,6 @@ public class StudentsController implements Initializable {
      * The data as observable list of student data from databases
      */
     private ObservableList<Student> studentObservableList = FXCollections.observableArrayList();
-    Student student = new Student(545, "Hong", "Son");
-    Student student1 = new Student(35434, "Hong", "Son");
-    Student student2 = new Student(4353, "Hong", "Son");
     @FXML
     private TableView<Student> studentTableView;
     @FXML
@@ -97,6 +94,7 @@ public class StudentsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         studentTableView.setItems(studentObservableList);
+//        StudentRepository.getInstance().initSomeStudent();
         initCols();
 
         showStudentDetail(null);
@@ -113,12 +111,8 @@ public class StudentsController implements Initializable {
 
     private void initCols() {
         //Initialize the student table, The cell must know which part of "tableUser" it needs to display
-        StudentRepository.getInstance().getList().add(student1);
-        StudentRepository.getInstance().getList().add(student2);
-        StudentRepository.getInstance().getList().add(student);
         studentObservableList.addAll(StudentRepository.getInstance().getList());
 
-        StudentRepository.getInstance().saveDataListToFile();
         studentID.setCellValueFactory((CellDataFeatures<Student,Number> cdf) -> {
             Student q = cdf.getValue();
             return new SimpleIntegerProperty(q.getStudentID());
