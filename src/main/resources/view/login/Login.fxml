@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.LoginController">
+   <children>
+      <StackPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1E90FF;">
+                     <children>
+                        <Label layoutX="241.0" layoutY="23.0" text="STUDENT INFOMATION SYSTEM" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <AnchorPane prefHeight="400.0" prefWidth="400.0" styleClass="pane" stylesheets="@../../app.css" AnchorPane.leftAnchor="225.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <JFXTabPane prefHeight="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <tabs>
+                  <Tab text="Student">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <JFXTextField fx:id="accountField" labelFloat="true" prefHeight="25.0" prefWidth="220.0" promptText="Username" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="150.0">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXPasswordField fx:id="passwordField" promptText="Password" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="220.0">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </JFXPasswordField>
+                              <ImageView fx:id="imgProgress" fitHeight="100.0" fitWidth="100.0" layoutX="142.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="14.0">
+                                 <image>
+                                    <Image url="@../../img/icons8_User_96px.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXButton fx:id="signInButton" buttonType="RAISED" layoutX="142.0" layoutY="290.0" onAction="#handleButtonLogin" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #1E90FF;" text="Login" AnchorPane.topAnchor="290.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Admin">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <JFXTextField fx:id="accountField1" labelFloat="true" prefHeight="25.0" prefWidth="220.0" promptText="Username" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="150.0">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXPasswordField fx:id="passwordField1" promptText="Password" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="220.0">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </JFXPasswordField>
+                              <ImageView fx:id="imgProgress1" fitHeight="100.0" fitWidth="100.0" layoutX="142.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="14.0">
+                                 <image>
+                                    <Image url="@../../img/icons8_User_96px.png" />
+                                 </image>
+                              </ImageView>
+                              <JFXButton fx:id="signInButton1" buttonType="RAISED" layoutX="142.0" layoutY="290.0" onAction="#handleButtonLogin" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #1E90FF;" text="Login" AnchorPane.topAnchor="290.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
