@@ -13,8 +13,13 @@ public class AnnualStudent extends Student{
         this.studyYear = StudyYear.FIRST_YEAR;
     }
 
-    public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, String password, AnnualClass annualClass) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address, password);
+    public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
+    }
+
+    public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, AnnualClass annualClass) {
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
+        this.annualClass = annualClass;
         this.studyYear = StudyYear.FIRST_YEAR;
     }
 

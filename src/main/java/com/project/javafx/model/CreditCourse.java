@@ -5,29 +5,8 @@ public class CreditCourse extends Course{
     private CreditCourse prerequisiteCourse;
     private int creditHours;
 
-    public CreditCourse(String courseCode, String courseName) {
+    public CreditCourse(String courseCode, String courseName, int creditHours) {
         super(courseCode, courseName);
-    }
-
-    public CreditCourse(String courseCode, String courseName, int capacity, CreditCourse prerequisiteCourse) {
-        super(courseCode, courseName, capacity);
-        this.prerequisiteCourse = prerequisiteCourse;
-    }
-
-    public CreditCourse(String courseCode, String courseName, int capacity, int creditHours) {
-        super(courseCode, courseName, capacity);
-        this.creditHours = creditHours;
-    }
-
-    public CreditCourse(String courseCode, String courseName, CreditCourse prerequisiteCourse, int creditHours) {
-        super(courseCode, courseName);
-        this.prerequisiteCourse = prerequisiteCourse;
-        this.creditHours = creditHours;
-    }
-
-    public CreditCourse(String courseCode, String courseName, int capacity, CreditCourse prerequisiteCourse, int creditHours) {
-        super(courseCode, courseName, capacity);
-        this.prerequisiteCourse = prerequisiteCourse;
         this.creditHours = creditHours;
     }
 

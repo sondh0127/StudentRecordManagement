@@ -94,7 +94,6 @@ public class StudentsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         studentTableView.setItems(studentObservableList);
-//        StudentRepository.getInstance().initSomeStudent();
         initCols();
 
         showStudentDetail(null);
@@ -117,7 +116,6 @@ public class StudentsController implements Initializable {
             Student q = cdf.getValue();
             return new SimpleIntegerProperty(q.getStudentID());
         });
-//        studentID.setCellValueFactory(param -> param.getValue().studentIDProperty());
         firstName.setCellValueFactory((CellDataFeatures<Student,String> cdf) -> {
             Student q = cdf.getValue();
             return new SimpleStringProperty(q.getFirstName());
@@ -163,16 +161,28 @@ public class StudentsController implements Initializable {
             lblGender.setText(student.getGender());
             lblBirdthday.setText(DateUtil.format(student.getBirthday()));
             if (student instanceof CreditStudent) {
-                int num = ((CreditStudent) student).getCurrentCredits();
-                String totalCredit = Integer.toString(num);
-                lblAddition.setText("Credit Taken: " + totalCredit);
+                if (((CreditStudent) student).getCreditMajor() != null) {
+                    int num = ((CreditStudent) student).getCurrentCredits();
+                    String totalCredit = Integer.toString(num);
+                    lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getTitleMajor());
+                    lblAddition.setText("Credit Taken: " + totalCredit);
+                } else {
+                    lblMajorClass.setText("No major yet");
+                    lblAddition.setText("");
+                }
 
-                lblMajorClass.setText("CreditMajor: " + ((CreditStudent) student).getCreditMajor().getTitleMajor());
+
             } else if (student instanceof AnnualStudent) {
-                String years = ((AnnualStudent) student).getStudyYear();
-                lblAddition.setText("Year: " + years);
+                if (((AnnualStudent) student).getAnnualClass() != null) {
+                    String years = ((AnnualStudent) student).getStudyYear();
+                    lblMajorClass.setText("Class: " + ((AnnualStudent) student).getAnnualClass().getClassName());
+                    lblAddition.setText("Year: " + years);
+                } else {
+                    lblMajorClass.setText("No class yet");
+                    lblAddition.setText("");
 
-                lblMajorClass.setText("Class: " + ((AnnualStudent) student).getAnnualClass().getClassName());
+                }
+
             }
         } else {
             lbl_fullname.setText("");
@@ -193,7 +203,7 @@ public class StudentsController implements Initializable {
     }
 
     @FXML
-    void modifyStudent(ActionEvent event) {
+    void updateStudent(ActionEvent event) {
 
     }
 
@@ -207,7 +217,7 @@ public class StudentsController implements Initializable {
     void removeStudent(ActionEvent event) {
         Student removeStudent = studentTableView.getSelectionModel().getSelectedItem();
         if (removeStudent != null) {
-            StudentRepository.getInstance().deleteUnit(removeStudent);
+            StudentRepository.getInstance().deleteElement(removeStudent);
 //            AlertMaker.showNotification("Successful", "Student Deleted", AlertMaker.image_movie_frame);
         } else {
 //            AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);
@@ -217,9 +227,10 @@ public class StudentsController implements Initializable {
     private void loadWindow(String loc, String title) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource(loc));
-            Stage stage = new Stage(StageStyle.DECORATED);
+            Stage stage = new Stage(StageStyle.UTILITY);
             stage.setTitle(title);
             stage.setScene(new Scene(parent));
+            stage.setResizable(false);
             stage.initOwner(btnAdd.getScene().getWindow());
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();

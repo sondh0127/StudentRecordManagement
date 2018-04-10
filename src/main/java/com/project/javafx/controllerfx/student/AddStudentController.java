@@ -5,8 +5,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.project.javafx.model.AnnualClass;
-import com.project.javafx.model.CreditMajor;
+import com.project.javafx.model.*;
+import com.project.javafx.model.repository.AnnualClassRepository;
+import com.project.javafx.model.repository.CreditMajorRepository;
+import com.project.javafx.model.repository.StudentRepository;
 import com.project.javafx.ulti.alert.AlertMaker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,14 +22,16 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 
 public class AddStudentController implements Initializable {
+
     private File file;
 
     @FXML
-    private ImageView avatar;
+    private ImageView viewAvatar;
 
     @FXML
     private JFXButton btnGetImg;
@@ -39,135 +43,127 @@ public class AddStudentController implements Initializable {
     private JFXButton btnBack;
 
     @FXML
-    private JFXTextField studentID;
-
-    @FXML
-    private JFXTextField firstName;
-
-    @FXML
-    private JFXTextField lastName;
-
-    @FXML
-    private RadioButton male;
-
-    @FXML
-    private ToggleGroup genderRadio;
-
-    @FXML
-    private RadioButton female;
-
-    @FXML
-    private JFXDatePicker birthday;
-
-    @FXML
-    private JFXTextField phone;
-
-    @FXML
-    private JFXTextField email;
-
-    @FXML
-    private JFXTextField address;
-
-    @FXML
-    private ToggleGroup stypeRadio;
-
-    @FXML
-    private RadioButton credit;
-
-    @FXML
-    private RadioButton yearly;
-
-    @FXML
-    private JFXComboBox<AnnualClass> cbClass;
-
-    @FXML
-    private JFXComboBox<CreditMajor> cbMajor;
-
-    @FXML
     private JFXButton btnClear;
 
     @FXML
-    void clearForm(ActionEvent event) {
-        if (event.getSource().equals(btnClear)) {
-            studentID.clear();
-            firstName.clear();
-            lastName.clear();
-            birthday.setValue(null);
-            phone.clear();
-            email.clear();
-            address.clear();
-            cbMajor.getSelectionModel().select(null);
-            cbClass.getSelectionModel().select(null);
-        }
-    }
+    private JFXTextField txtStudentID;
+
+    @FXML
+    private JFXTextField txtFirstName;
+
+    @FXML
+    private JFXTextField txtLastName;
+
+    @FXML
+    private RadioButton radioMale;
+
+    @FXML
+    private ToggleGroup genderRadioGroup;
+
+    @FXML
+    private RadioButton radioFemale;
+
+    @FXML
+    private JFXDatePicker dtpBirthday;
+
+    @FXML
+    private JFXTextField txtPhone;
+
+    @FXML
+    private JFXTextField txtEmail;
+
+    @FXML
+    private JFXTextField txtAddress;
+
+    @FXML
+    private ToggleGroup studentTypeRadioGroup;
+
+    @FXML
+    private RadioButton radioCredit;
+
+    @FXML
+    private RadioButton radioAnnual;
+
+    @FXML
+    private JFXComboBox<AnnualClass> cbxClass;
+
+    @FXML
+    private JFXComboBox<CreditMajor> cbxMajor;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        initComboBox();
+        initComboBox();
+    }
+
+    private void initComboBox() {
+        cbxClass.getItems().setAll(AnnualClassRepository.getInstance().getList());
+        cbxMajor.getItems().setAll(CreditMajorRepository.getInstance().getList());
+        cbxMajor.setVisible(false);
+        studentTypeRadioGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            cbxMajor.getSelectionModel().select(null);
+            cbxClass.getSelectionModel().select(null);
+            if (newValue.equals(radioAnnual)) {
+                cbxMajor.setVisible(false);
+                cbxClass.setVisible(true);
+            }
+            if (newValue.equals(radioCredit)) {
+                cbxMajor.setVisible(true);
+                cbxClass.setVisible(false);
+            }
+        });
 
     }
 
-//    private void initComboBox() {
-//        cbClass.getItems().setAll(FixedClassOperations.getInstance().getDataList());
-//        cbMajor.getItems().setAll(MajorOperations.getInstance().getDataList());
-//        cbMajor.setVisible(false);
-//        stypeRadio.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-//            cbMajor.getSelectionModel().select(null);
-//            cbClass.getSelectionModel().select(null);
-//            if (newValue.equals(yearly)) {
-//                cbMajor.setVisible(false);
-//                cbClass.setVisible(true);
-//            }
-//            if (newValue.equals(credit)) {
-//                cbMajor.setVisible(true);
-//                cbClass.setVisible(false);
-//            }
-//        });
-//
-//    }
-
     // TODO: 24/03/2018 need add validation (NumberFormatException for id) + new button for clearform
+    @FXML
+    void clearForm(ActionEvent event) {
+        if (event.getSource().equals(btnClear)) {
+            txtStudentID.clear();
+            txtFirstName.clear();
+            txtLastName.clear();
+            dtpBirthday.setValue(null);
+            txtPhone.clear();
+            txtEmail.clear();
+            txtAddress.clear();
+            cbxMajor.getSelectionModel().select(null);
+            cbxClass.getSelectionModel().select(null);
+        }
+    }
+
 
     @FXML
     void submitDetails() {
-//        String studentIDString = studentID.getText();
-//        String firstNameString = firstName.getText();
-//        String lastNameString = lastName.getText();
-//        String genderString = "Male";
-//        if (female.isSelected()) genderString = "Female";
-//        LocalDate birthdayDate = birthday.getValue();
-//        String phoneString = phone.getText();
-//        String emailString = email.getText();
-//        String addressString = address.getText();
-//
-//        Major major = cbMajor.getSelectionModel().getSelectedItem();
-//        FixedClass fixedClass = cbClass.getSelectionModel().getSelectedItem();
-//        Student newStudent = null;
-//        if (credit.isSelected()) {
-//            newStudent = new CreditStudent(Integer.parseInt(studentIDString), firstNameString, lastNameString, genderString, DateUtil.format(birthdayDate), phoneString, emailString, addressString, 0);
-//            if (major != null) {
-//                ((CreditStudent) newStudent).setMajor(major);
-//
-//            }
-//
-//        } else {
-//            newStudent = new FixedStudent(Integer.parseInt(studentIDString), firstNameString, lastNameString, genderString, DateUtil.format(birthdayDate), phoneString, emailString, addressString, StudyYear.FIRST_YEAR);
-//            if (fixedClass != null) {
-//                ((FixedStudent) newStudent).setFixedClass(fixedClass);
-//
-//            }
-//
-//        }
-//        if (StudentOperations.getInstance().addData(newStudent)) {
-//            AlertMaker.showNotification("Success", "Student info inserted successfully ", AlertMaker.image_movie_frame);
-//        } else {
-//            AlertMaker.showErrorMessage("Failed!", "Student ID is exist");
-//        }
+        int studentID = Integer.parseInt(txtStudentID.getText());
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
 
+        String genderString = "Male";
+        if (radioFemale.isSelected()) genderString = "Female";
+        LocalDate birthdayDate= dtpBirthday.getValue();
+        String phone = txtPhone.getText();
+        String email = txtEmail.getText();
+        String address = txtAddress.getText();
 
+        Student newStudent = null;
+        if (radioCredit.isSelected()) {
+            newStudent = new CreditStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address);
+            if (cbxMajor.getValue() != null) {
+                ((CreditStudent) newStudent).setCreditMajor(cbxMajor.getValue());
+            }
+        } else {
+            newStudent = new AnnualStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address);
+            if (cbxClass.getValue() != null) {
+                ((AnnualStudent) newStudent).setAnnualClass(cbxClass.getValue());
+            }
+        }
+        if (StudentRepository.getInstance().addElement(newStudent)) {
+            AlertMaker.showNotification("Success", "Student info inserted successfully ", AlertMaker.image_movie_frame);
+        } else {
+            AlertMaker.showErrorMessage("Failed!", "Student ID is exist");
+        }
     }
 
     @FXML
@@ -186,9 +182,9 @@ public class AddStudentController implements Initializable {
         fileChooser.getExtensionFilters()
                 .addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
         try {
-            file = fileChooser.showOpenDialog(studentID.getScene().getWindow());
+            file = fileChooser.showOpenDialog(txtStudentID.getScene().getWindow());
             Image image = new Image(file.toURI().toString());
-            avatar.setImage(image);
+            viewAvatar.setImage(image);
         } catch (Exception ex) {
 //            AlertMaker.showErrorMessage(ex);
         }
@@ -196,6 +192,6 @@ public class AddStudentController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) {
-            ((Stage) btnBack.getScene().getWindow()).close();
+        ((Stage) btnBack.getScene().getWindow()).close();
     }
 }

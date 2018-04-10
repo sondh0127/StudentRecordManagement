@@ -18,6 +18,12 @@ public class CreditMajor {
         this.minorCreditsRequired = DEFAULT_MINOR_CREDITS;
     }
 
+    public CreditMajor(String titleMajor, int majorCreditsRequired, int minorCreditsRequired) {
+        this.titleMajor = titleMajor;
+        this.majorCreditsRequired = majorCreditsRequired;
+        this.minorCreditsRequired = minorCreditsRequired;
+    }
+
     public void createMajorList() {
 
     }
@@ -48,5 +54,10 @@ public class CreditMajor {
 
     public void setMinorCatalog(CoursesCatalog<CreditCourse> minorCatalog) {
         this.minorCatalog = minorCatalog;
+    }
+
+    @Override
+    public String toString() {
+        return titleMajor;
     }
 }

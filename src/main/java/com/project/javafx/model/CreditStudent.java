@@ -8,14 +8,16 @@ public class CreditStudent extends Student {
     private int currentCredits;
     private double GPA;
 
-    public CreditStudent(int studentID, String firstName, String lastName, CreditMajor creditMajor) {
+    public CreditStudent(int studentID, String firstName, String lastName) {
         super(studentID, firstName, lastName);
-        this.creditMajor = creditMajor;
-        this.currentCredits = 0;
     }
 
-    public CreditStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, String password, CreditMajor creditMajor) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address, password);
+    public CreditStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
+    }
+
+    public CreditStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, CreditMajor creditMajor) {
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
         this.creditMajor = creditMajor;
         this.currentCredits = 0;
     }
@@ -36,6 +38,7 @@ public class CreditStudent extends Student {
 
     public void setCreditMajor(CreditMajor creditMajor) {
         this.creditMajor = creditMajor;
+        this.currentCredits = 0;
     }
 
     public int getCurrentCredits() {
