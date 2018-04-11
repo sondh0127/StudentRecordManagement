@@ -1,17 +1,5 @@
 <?xml version="1.0"?><set>
   <creditStudent>
-    <studentID>20150143</studentID>
-    <firstName>Anh</firstName>
-    <lastName>Nguyễn Việt</lastName>
-    <gender>Male</gender>
-    <birthday>1997-01-18</birthday>
-    <phone>01693018197</phone>
-    <email>fb.com/vietanhdev</email>
-    <address>Hải Dương</address>
-    <currentCredits>0</currentCredits>
-    <GPA>0.0</GPA>
-  </creditStudent>
-  <creditStudent>
     <studentID>20150661</studentID>
     <firstName>Dũng</firstName>
     <lastName>Hà Quý</lastName>
@@ -28,24 +16,48 @@
       <majorCatalog>
         <courseDataSet>
           <creditCourse>
-            <courseCode>CSC102</courseCode>
-            <courseName>Design and analysis of algorithms</courseName>
+            <courseCode>CSC202</courseCode>
+            <courseName>Compilers</courseName>
             <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
             <capacity>45</capacity>
             <currentEnrollment>0</currentEnrollment>
             <creditHours>3</creditHours>
           </creditCourse>
           <creditCourse>
-            <courseCode>CSC201</courseCode>
-            <courseName>Algorithms</courseName>
+            <courseCode>CSC105</courseCode>
+            <courseName>Functional programming</courseName>
             <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
             <capacity>45</capacity>
             <currentEnrollment>0</currentEnrollment>
             <creditHours>3</creditHours>
+          </creditCourse>
+          <creditCourse>
+            <courseCode>CSC104</courseCode>
+            <courseName>Discrete mathematics</courseName>
+            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
+            <capacity>45</capacity>
+            <currentEnrollment>0</currentEnrollment>
+            <creditHours>2</creditHours>
           </creditCourse>
           <creditCourse>
             <courseCode>CSC204</courseCode>
             <courseName>Models of computation</courseName>
+            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
+            <capacity>45</capacity>
+            <currentEnrollment>0</currentEnrollment>
+            <creditHours>2</creditHours>
+          </creditCourse>
+          <creditCourse>
+            <courseCode>CSO208</courseCode>
+            <courseName>Databases</courseName>
+            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
+            <capacity>45</capacity>
+            <currentEnrollment>0</currentEnrollment>
+            <creditHours>2</creditHours>
+          </creditCourse>
+          <creditCourse>
+            <courseCode>CSC107</courseCode>
+            <courseName>Introduction to formal proof</courseName>
             <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
             <capacity>45</capacity>
             <currentEnrollment>0</currentEnrollment>
@@ -60,8 +72,8 @@
             <creditHours>2</creditHours>
           </creditCourse>
           <creditCourse>
-            <courseCode>CSC109</courseCode>
-            <courseName>Probability</courseName>
+            <courseCode>CSO207</courseCode>
+            <courseName>Computer networks</courseName>
             <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
             <capacity>45</capacity>
             <currentEnrollment>0</currentEnrollment>
@@ -76,6 +88,14 @@
             <creditHours>2</creditHours>
           </creditCourse>
           <creditCourse>
+            <courseCode>CSC108</courseCode>
+            <courseName>Linear algebra</courseName>
+            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
+            <capacity>45</capacity>
+            <currentEnrollment>0</currentEnrollment>
+            <creditHours>2</creditHours>
+          </creditCourse>
+          <creditCourse>
             <courseCode>CSC101</courseCode>
             <courseName>Continuous mathematics</courseName>
             <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
@@ -84,8 +104,16 @@
             <creditHours>2</creditHours>
           </creditCourse>
           <creditCourse>
-            <courseCode>CSO208</courseCode>
-            <courseName>Databases</courseName>
+            <courseCode>CSC109</courseCode>
+            <courseName>Probability</courseName>
+            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
+            <capacity>45</capacity>
+            <currentEnrollment>0</currentEnrollment>
+            <creditHours>2</creditHours>
+          </creditCourse>
+          <creditCourse>
+            <courseCode>CSC203</courseCode>
+            <courseName>Concurrent programming</courseName>
             <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
             <capacity>45</capacity>
             <currentEnrollment>0</currentEnrollment>
@@ -108,20 +136,12 @@
             <creditHours>2</creditHours>
           </creditCourse>
           <creditCourse>
-            <courseCode>CSC105</courseCode>
-            <courseName>Functional programming</courseName>
+            <courseCode>CSC201</courseCode>
+            <courseName>Algorithms</courseName>
             <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
             <capacity>45</capacity>
             <currentEnrollment>0</currentEnrollment>
             <creditHours>3</creditHours>
-          </creditCourse>
-          <creditCourse>
-            <courseCode>CSC203</courseCode>
-            <courseName>Concurrent programming</courseName>
-            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
-            <capacity>45</capacity>
-            <currentEnrollment>0</currentEnrollment>
-            <creditHours>2</creditHours>
           </creditCourse>
           <creditCourse>
             <courseCode>CSC103</courseCode>
@@ -132,48 +152,16 @@
             <creditHours>2</creditHours>
           </creditCourse>
           <creditCourse>
-            <courseCode>CSC104</courseCode>
-            <courseName>Discrete mathematics</courseName>
-            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
-            <capacity>45</capacity>
-            <currentEnrollment>0</currentEnrollment>
-            <creditHours>2</creditHours>
-          </creditCourse>
-          <creditCourse>
-            <courseCode>CSC202</courseCode>
-            <courseName>Compilers</courseName>
+            <courseCode>CSC102</courseCode>
+            <courseName>Design and analysis of algorithms</courseName>
             <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
             <capacity>45</capacity>
             <currentEnrollment>0</currentEnrollment>
             <creditHours>3</creditHours>
           </creditCourse>
           <creditCourse>
-            <courseCode>CSC107</courseCode>
-            <courseName>Introduction to formal proof</courseName>
-            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
-            <capacity>45</capacity>
-            <currentEnrollment>0</currentEnrollment>
-            <creditHours>2</creditHours>
-          </creditCourse>
-          <creditCourse>
-            <courseCode>CSO207</courseCode>
-            <courseName>Computer networks</courseName>
-            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
-            <capacity>45</capacity>
-            <currentEnrollment>0</currentEnrollment>
-            <creditHours>2</creditHours>
-          </creditCourse>
-          <creditCourse>
             <courseCode>CSO209</courseCode>
             <courseName>Intelligent systems</courseName>
-            <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
-            <capacity>45</capacity>
-            <currentEnrollment>0</currentEnrollment>
-            <creditHours>2</creditHours>
-          </creditCourse>
-          <creditCourse>
-            <courseCode>CSC108</courseCode>
-            <courseName>Linear algebra</courseName>
             <DEFAULT__CAPACITY>45</DEFAULT__CAPACITY>
             <capacity>45</capacity>
             <currentEnrollment>0</currentEnrollment>
@@ -195,4 +183,16 @@
     <email>https://www.facebook.com/an.sy.161</email>
     <address>Hoà Bình</address>
   </annualStudent>
+  <creditStudent>
+    <studentID>20150143</studentID>
+    <firstName>Anh</firstName>
+    <lastName>Nguyễn Việt</lastName>
+    <gender>Male</gender>
+    <birthday>1997-01-18</birthday>
+    <phone>01693018197</phone>
+    <email>fb.com/vietanhdev</email>
+    <address>Hải Dương</address>
+    <currentCredits>0</currentCredits>
+    <GPA>0.0</GPA>
+  </creditStudent>
 </set>

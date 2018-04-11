@@ -1,16 +1,18 @@
-package com.project.javafx.model.repository;
+package com.project.javafx.repository;
 
 import com.project.javafx.model.*;
 import com.project.javafx.ulti.DateUtil;
 
+import java.lang.reflect.Type;
+
 public class StudentRepository extends AbstractRepository<Student> {
-    private static final String path = "src/main/resources/public/students.xml";
-    private static StudentRepository instance = new StudentRepository(path);
+    private static StudentRepository instance = new StudentRepository();
 
+    public StudentRepository() {
+    }
 
-
-    public StudentRepository(String filepath) {
-        super(filepath);
+    public static StudentRepository getInstance() {
+        return instance;
     }
 
     public void initSomeStudent() {
@@ -26,13 +28,14 @@ public class StudentRepository extends AbstractRepository<Student> {
         StudentRepository.getInstance().addElement(student4);
     }
 
-    public static StudentRepository getInstance() {
-        return instance;
+    @Override
+    public String converter(Student element) {
+        return String.valueOf(element.getStudentID());
     }
 
     @Override
-    public String converter(Student element) {
-        return Integer.toString(element.getStudentID());
+    public Type setListType() {
+        return null;
     }
 
 }

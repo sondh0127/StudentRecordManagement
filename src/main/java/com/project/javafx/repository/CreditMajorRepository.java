@@ -1,12 +1,16 @@
-package com.project.javafx.model.repository;
+package com.project.javafx.repository;
 
+import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.CoursesCatalog;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.model.CreditMajor;
 
+import java.lang.reflect.Type;
+import java.util.Set;
+
 public class CreditMajorRepository extends AbstractRepository<CreditMajor>{
 
-    private static final String path = "src/main/resources/public/major.xml";
+    private static final String path = "src/main/resources/public/Major.json";
     private static CreditMajorRepository instance = new CreditMajorRepository(path);
 
     public CreditMajorRepository(String filepath) {
@@ -15,6 +19,16 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor>{
 
     public static CreditMajorRepository getInstance() {
         return instance;
+    }
+
+    @Override
+    public String converter(CreditMajor element) {
+        return element.getTitleMajor();
+    }
+
+    @Override
+    public Type setListType() {
+       return new TypeToken<Set<CreditMajor>>() {}.getType();
     }
 
     public void initSomeMajor() {
@@ -47,11 +61,6 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor>{
 
         csMajor.setMajorCatalog(csCatalog);
 //        this.addData(csMajor);
-        this.addElement(csMajor);
-    }
-
-    @Override
-    public String converter(CreditMajor element) {
-        return element.getTitleMajor();
+        addElement(csMajor);
     }
 }

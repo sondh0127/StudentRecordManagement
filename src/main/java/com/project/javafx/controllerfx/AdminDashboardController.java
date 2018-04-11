@@ -3,10 +3,8 @@ package com.project.javafx.controllerfx;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.MainApp;
-import com.project.javafx.model.repository.CreditMajorRepository;
-import com.project.javafx.model.repository.StudentRepository;
+import com.project.javafx.repository.*;
 import com.project.javafx.ulti.ViewConstants;
-import com.project.javafx.ulti.alert.AlertMaker;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,8 +21,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -159,15 +155,16 @@ public class AdminDashboardController implements Initializable {
     }
 
     private void loadDataOnStart() {
-//        StudentRepository.getInstance().initSomeMajor();
-//        StudentRepository.getInstance().initSomeStudent();
-        StudentRepository.getInstance().xStreamLoad();
         CreditMajorRepository.getInstance().initSomeMajor();
+        AnnualClassRepository.getInstance().initSomeClass();
+        CreditStudentRepository.getInstance().gSonLoad();
+        AnnualStudentRepository.getInstance().gSonLoad();
     }
 
     private void saveDataOnClose() {
-        StudentRepository.getInstance().xStreamSave();
 
+        CreditStudentRepository.getInstance().gSonSave();
+        AnnualStudentRepository.getInstance().gSonSave();
     }
 
     @FXML

@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.CreditStudent;
 import com.project.javafx.model.Student;
-import com.project.javafx.model.repository.StudentRepository;
+import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -218,6 +218,7 @@ public class StudentsController implements Initializable {
         Student removeStudent = studentTableView.getSelectionModel().getSelectedItem();
         if (removeStudent != null) {
             StudentRepository.getInstance().deleteElement(removeStudent);
+            refreshTable(event);
 //            AlertMaker.showNotification("Successful", "Student Deleted", AlertMaker.image_movie_frame);
         } else {
 //            AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);

@@ -6,9 +6,9 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.project.javafx.model.*;
-import com.project.javafx.model.repository.AnnualClassRepository;
-import com.project.javafx.model.repository.CreditMajorRepository;
-import com.project.javafx.model.repository.StudentRepository;
+import com.project.javafx.repository.AnnualClassRepository;
+import com.project.javafx.repository.CreditMajorRepository;
+import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.alert.AlertMaker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -147,7 +147,7 @@ public class AddStudentController implements Initializable {
         String email = txtEmail.getText();
         String address = txtAddress.getText();
 
-        Student newStudent = null;
+        Student newStudent;
         if (radioCredit.isSelected()) {
             newStudent = new CreditStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address);
             if (cbxMajor.getValue() != null) {

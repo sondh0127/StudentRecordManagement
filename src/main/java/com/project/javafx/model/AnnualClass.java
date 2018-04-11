@@ -2,6 +2,11 @@ package com.project.javafx.model;
 
 public class AnnualClass {
 
+    @Override
+    public String toString() {
+        return className;
+    }
+
     private final String className;
     private CoursesCatalog<AnnualCourse> coursesCatalog;
 
