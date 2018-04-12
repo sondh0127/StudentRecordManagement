@@ -8,23 +8,18 @@ public class CreditStudent extends Student {
     private int currentCredits;
     private double GPA;
 
-    public CreditStudent(int studentID, String firstName, String lastName) {
-        super(studentID, firstName, lastName);
+    public CreditStudent(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.CREDIT);
     }
 
-    public CreditStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
-    }
-
-    public CreditStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, CreditMajor creditMajor) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
+    public CreditStudent(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, CreditMajor creditMajor) {
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.CREDIT);
         this.creditMajor = creditMajor;
         this.currentCredits = 0;
     }
 
     @Override
     public void addCourse(Course course) {
-
     }
 
     @Override

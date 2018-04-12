@@ -1,11 +1,19 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
-public class Student{
+public abstract class Student{
 
-    private int studentID;
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentID=" + studentID +
+                '}';
+    }
+
+    private long studentID;
     private String firstName;
     private String lastName;
 
@@ -15,46 +23,41 @@ public class Student{
     private String email;
     private String address;
 
-//    private final StringProperty educationSystem = new SimpleStringProperty("");
+    private EduSystem educationSystem;
+    private Set<Course> passedCourses;
     private Set<Course> takenCourses;
 
     public Student() {
     }
 
-    public Student(int studentID, String firstName, String lastName) {
+    public Student(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
         this.studentID = studentID;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public Student(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address ) {
-        this(studentID, firstName, lastName);
         this.gender = gender;
         this.birthday = birthday;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.educationSystem = eduSystem;
     }
 
-    public void addCourse(Course course) {
+    public abstract void addCourse(Course course);
 
-    }
+    public abstract void dropCourse(Course course);
 
-    public void dropCourse(Course course) {
-
-    }
-
-    public Grade getGrade(Course course) {
-        Set<Student> students = course.getStudentGradeTable().keySet();
-        for (Student student : students) {
-            if (student.equals(this)) {
-                return course.getStudentGradeTable().get(student);
-            }
-        }
+    // TODO: 12/04/2018 fix this
+    public Grade getGradeResult(Course course) {
+//        Set<Student> students = course.getStudentGradeTable().keySet();
+//        for (Student student : students) {
+//            if (student.equals(this)) {
+//                return course.getStudentGradeTable().get(student);
+//            }
+//        }
         return null;
     }
 
-    public int getStudentID() {
+    public long getStudentID() {
         return studentID;
     }
 
@@ -86,11 +89,49 @@ public class Student{
         return address;
     }
 
-    public Set<Course> getTakenCourses() {
-        return takenCourses;
+    public EduSystem getEducationSystem() {
+        return educationSystem;
     }
 
-    public void setTakenCourses(Set<Course> takenCourses) {
-        this.takenCourses = takenCourses;
+    public String getEducationString() {
+        return educationSystem.toString();
+    }
+
+    /**
+     * Education System distinction
+     */
+    public static enum EduSystem {
+        CREDIT("Academic Credit"),
+        ANNUAL("Annual Curriculum");
+
+        private final String text;
+
+        EduSystem(String text) {
+            this.text = text;
+        }
+
+
+        @Override
+        public String toString() {
+            return text;
+        }
+    }
+
+    /**
+     * Override equals to provide: a comparison of 2 student
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(studentID);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof Student)) {
+            return false;
+        }
+        Student student = (Student) obj;
+        return studentID == student.studentID;
     }
 }

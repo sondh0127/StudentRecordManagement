@@ -10,7 +10,7 @@ import com.project.javafx.model.Student;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.ViewConstants;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -110,11 +110,11 @@ public class StudentsController implements Initializable {
 
     private void initCols() {
         //Initialize the student table, The cell must know which part of "tableUser" it needs to display
-        studentObservableList.addAll(StudentRepository.getInstance().getList());
+        studentObservableList.addAll(StudentRepository.getInstance().findAll());
 
         studentID.setCellValueFactory((CellDataFeatures<Student,Number> cdf) -> {
             Student q = cdf.getValue();
-            return new SimpleIntegerProperty(q.getStudentID());
+            return new SimpleLongProperty(q.getStudentID());
         });
         firstName.setCellValueFactory((CellDataFeatures<Student,String> cdf) -> {
             Student q = cdf.getValue();
@@ -132,9 +132,9 @@ public class StudentsController implements Initializable {
         studentObservableList.clear();
         String searchText = searchField.getText();
         if (searchText.isEmpty()) {
-            studentObservableList.setAll(StudentRepository.getInstance().getList());
+            studentObservableList.setAll(StudentRepository.getInstance().findAll());
         } else {
-            for (Student student : StudentRepository.getInstance().getList()) {
+            for (Student student : StudentRepository.getInstance().findAll()) {
                 if (filter.getSelectedToggle().equals(IDFilter)) {
                     if (student.getStudentID() == Integer.parseInt(searchText)) {
                         studentObservableList.add(student);
@@ -210,14 +210,14 @@ public class StudentsController implements Initializable {
     @FXML
     void refreshTable(ActionEvent event) {
         studentTableView.getItems().clear();
-        studentObservableList.setAll(StudentRepository.getInstance().getList());
+        studentObservableList.setAll(StudentRepository.getInstance().findAll());
     }
 
     @FXML
     void removeStudent(ActionEvent event) {
         Student removeStudent = studentTableView.getSelectionModel().getSelectedItem();
         if (removeStudent != null) {
-            StudentRepository.getInstance().deleteElement(removeStudent);
+            StudentRepository.getInstance().delete(removeStudent);
             refreshTable(event);
 //            AlertMaker.showNotification("Successful", "Student Deleted", AlertMaker.image_movie_frame);
         } else {

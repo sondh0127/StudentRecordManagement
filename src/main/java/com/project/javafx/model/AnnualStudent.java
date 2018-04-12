@@ -7,18 +7,12 @@ public class AnnualStudent extends Student{
     private AnnualClass annualClass ;
     private StudyYear studyYear;
 
-    public AnnualStudent(int studentID, String firstName, String lastName, AnnualClass annualClass) {
-        super(studentID, firstName, lastName);
-        this.annualClass = annualClass;
-        this.studyYear = StudyYear.FIRST_YEAR;
-    }
-
     public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
     }
 
     public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, AnnualClass annualClass) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
         this.annualClass = annualClass;
         this.studyYear = StudyYear.FIRST_YEAR;
     }
@@ -31,6 +25,10 @@ public class AnnualStudent extends Student{
     @Override
     public void dropCourse(Course course) {
 
+    }
+
+    public void updateStudyYear() {
+        // check current list course, if all finish -> update year
     }
 
     public enum StudyYear {

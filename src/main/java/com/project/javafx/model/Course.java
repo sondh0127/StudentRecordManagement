@@ -3,15 +3,18 @@ package com.project.javafx.model;
 
 import java.util.Hashtable;
 
-public abstract class Course {
+public class Course {
     private final String courseCode;
     private final String courseName;
-//    private final String courseDescription = null;
+
     private final int DEFAULT_CAPACITY = 45;
     private int capacity;
     private int currentEnrollment;
 
-    private Hashtable<Student,Grade> studentGradeTable;
+    /**
+     * A table store grade of each student in this course
+     */
+    private Hashtable<? extends Student,Grade> studentGradeTable;
 
     public Course(String courseCode, String courseName) {
         this.courseCode = courseCode;
@@ -25,9 +28,13 @@ public abstract class Course {
         this.capacity = capacity;
     }
 
-    public abstract boolean addStudent(Student student);
+    public boolean addStudent(Student student) {
+        return false;
+    }
 
-    public abstract boolean removeStudent(Student student);
+    public boolean removeStudent(Student student) {
+        return false;
+    }
 
     public void addCourseGrade(Student student, Grade grade) {
 
@@ -57,11 +64,4 @@ public abstract class Course {
         this.currentEnrollment = currentEnrollment;
     }
 
-    public Hashtable<Student, Grade> getStudentGradeTable() {
-        return studentGradeTable;
-    }
-
-    public void setStudentGradeTable(Hashtable<Student, Grade> studentGradeTable) {
-        this.studentGradeTable = studentGradeTable;
-    }
 }

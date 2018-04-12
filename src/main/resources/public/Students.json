@@ -1,0 +1,37 @@
+[
+  {
+    "type": "CreditStudent",
+    "creditMajor": {
+      "DEFAULT_MAJOR_CREDITS": 120,
+      "DEFAULT_MINOR_CREDITS": 10,
+      "titleMajor": "He2llo",
+      "majorCreditsRequired": 444,
+      "minorCreditsRequired": 44
+    },
+    "currentCredits": 0,
+    "GPA": 0.0,
+    "studentID": 1299303597,
+    "firstName": "Minh",
+    "lastName": "Nguyễn Quang",
+    "gender": "Male",
+    "phone": "345345",
+    "email": "email.com",
+    "address": "address",
+    "educationSystem": "CREDIT"
+  },
+  {
+    "type": "AnnualStudent",
+    "annualClass": {
+      "className": "ClassE"
+    },
+    "studyYear": "FIRST_YEAR",
+    "studentID": 555555,
+    "firstName": "Minh55",
+    "lastName": "Nguyễn5 Quang",
+    "gender": "Male",
+    "phone": "345345",
+    "email": "email.com",
+    "address": "address",
+    "educationSystem": "ANNUAL"
+  }
+]

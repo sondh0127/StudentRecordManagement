@@ -8,7 +8,7 @@ public class AnnualClass {
     }
 
     private final String className;
-    private CoursesCatalog<AnnualCourse> coursesCatalog;
+    private CoursesCatalog<Course> coursesCatalog;
 
     public AnnualClass(String className) {
         this.className = className;
@@ -18,11 +18,11 @@ public class AnnualClass {
         return className;
     }
 
-    public CoursesCatalog<AnnualCourse> getCoursesCatalog() {
+    public CoursesCatalog<Course> getCoursesCatalog() {
         return coursesCatalog;
     }
 
-    public void setCoursesCatalog(CoursesCatalog<AnnualCourse> coursesCatalog) {
+    public void setCoursesCatalog(CoursesCatalog<Course> coursesCatalog) {
         this.coursesCatalog = coursesCatalog;
     }
 

@@ -99,8 +99,8 @@ public class AddStudentController implements Initializable {
     }
 
     private void initComboBox() {
-        cbxClass.getItems().setAll(AnnualClassRepository.getInstance().getList());
-        cbxMajor.getItems().setAll(CreditMajorRepository.getInstance().getList());
+        cbxClass.getItems().setAll(AnnualClassRepository.getInstance().findAll());
+        cbxMajor.getItems().setAll(CreditMajorRepository.getInstance().findAll());
         cbxMajor.setVisible(false);
         studentTypeRadioGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             cbxMajor.getSelectionModel().select(null);
@@ -159,7 +159,7 @@ public class AddStudentController implements Initializable {
                 ((AnnualStudent) newStudent).setAnnualClass(cbxClass.getValue());
             }
         }
-        if (StudentRepository.getInstance().addElement(newStudent)) {
+        if (StudentRepository.getInstance().save(newStudent)) {
             AlertMaker.showNotification("Success", "Student info inserted successfully ", AlertMaker.image_movie_frame);
         } else {
             AlertMaker.showErrorMessage("Failed!", "Student ID is exist");
