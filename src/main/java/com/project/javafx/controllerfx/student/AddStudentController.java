@@ -152,11 +152,13 @@ public class AddStudentController implements Initializable {
             newStudent = new CreditStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address);
             if (cbxMajor.getValue() != null) {
                 ((CreditStudent) newStudent).setCreditMajor(cbxMajor.getValue());
+                // TODO: 13/04/2018  add student to list of major
             }
         } else {
             newStudent = new AnnualStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address);
             if (cbxClass.getValue() != null) {
                 ((AnnualStudent) newStudent).setAnnualClass(cbxClass.getValue());
+                // TODO: 13/04/2018  add student to list of major
             }
         }
         if (StudentRepository.getInstance().save(newStudent)) {

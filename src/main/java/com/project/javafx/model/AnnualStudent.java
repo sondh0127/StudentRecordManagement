@@ -18,12 +18,17 @@ public class AnnualStudent extends Student{
     }
 
     @Override
-    public void addCourse(Course course) {
-
+    public void registerCourse(Course course) {
+        super.takenCourses.add(course);
     }
 
     @Override
-    public void dropCourse(Course course) {
+    protected Grade getGradeResult(Course course) {
+        return null;
+    }
+
+    @Override
+    protected void checkGraduationRequirements() {
 
     }
 
@@ -49,6 +54,8 @@ public class AnnualStudent extends Student{
         }
     }
 
+
+    // getter and setter
     public AnnualClass getAnnualClass() {
         return annualClass;
     }
@@ -57,11 +64,12 @@ public class AnnualStudent extends Student{
         this.annualClass = annualClass;
     }
 
-    public String getStudyYear() {
-        return studyYear.toString();
+    public void regiterClass(AnnualClass annualClass) {
+        this.annualClass = annualClass;
+        this.studyYear = StudyYear.FIRST_YEAR;
     }
 
-    public void setStudyYear(StudyYear studyYear) {
-        this.studyYear = studyYear;
+    public String getStudyYear() {
+        return studyYear.toString();
     }
 }

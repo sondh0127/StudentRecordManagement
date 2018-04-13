@@ -1,7 +1,7 @@
 package com.project.javafx.model;
 
-
 import java.util.Hashtable;
+import java.util.Objects;
 
 public class Course {
     private final String courseCode;
@@ -14,7 +14,7 @@ public class Course {
     /**
      * A table store grade of each student in this course
      */
-    private Hashtable<Student,Grade> studentGradeTable;
+    private Hashtable<Long, Grade> studentGradeTable = new Hashtable<>();
 
     public Course(String courseCode, String courseName) {
         this.courseCode = courseCode;
@@ -28,6 +28,7 @@ public class Course {
         this.capacity = capacity;
     }
 
+    // main method
     public boolean addStudent(Student student) {
         return false;
     }
@@ -40,6 +41,7 @@ public class Course {
 
     }
 
+    // getter and setter
     public String getCourseCode() {
         return courseCode;
     }
@@ -52,16 +54,23 @@ public class Course {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+
+    /**
+     * Override equals to provide: a comparison of 2 course
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseCode);
     }
 
-    public int getCurrentEnrollment() {
-        return currentEnrollment;
-    }
-
-    public void setCurrentEnrollment(int currentEnrollment) {
-        this.currentEnrollment = currentEnrollment;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof Course)) {
+            return false;
+        }
+        Course course = (Course) obj;
+        return courseCode.equals(course.courseCode);
     }
 
 }

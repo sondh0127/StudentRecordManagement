@@ -1,6 +1,7 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -9,7 +10,8 @@ public abstract class Student{
     @Override
     public String toString() {
         return "Student{" +
-                "studentID=" + studentID +
+                studentID +
+                ", " + firstName +lastName +
                 '}';
     }
 
@@ -24,8 +26,8 @@ public abstract class Student{
     private String address;
 
     private EduSystem educationSystem;
-    private Set<Course> passedCourses;
-    private Set<Course> takenCourses;
+    protected Set<Course> passedCourses = new HashSet<>();
+    protected Set<Course> takenCourses = new HashSet<>();
 
     public Student() {
     }
@@ -42,21 +44,27 @@ public abstract class Student{
         this.educationSystem = eduSystem;
     }
 
-    public abstract void addCourse(Course course);
+    // MAIN BEHAVIOR
+    public boolean updateProfile() {
 
-    public abstract void dropCourse(Course course);
-
-    // TODO: 12/04/2018 fix this
-    public Grade getGradeResult(Course course) {
-//        Set<Student> students = course.getStudentGradeTable().keySet();
-//        for (Student student : students) {
-//            if (student.equals(this)) {
-//                return course.getStudentGradeTable().get(student);
-//            }
-//        }
-        return null;
+        return false;
     }
 
+    public void registerCourse(Course course){
+        takenCourses.add(course);
+    }
+
+    // TODO: 13/04/2018
+    public boolean checkPassedCourse(Course course) {
+        Grade courseGrade = getGradeResult(course);
+        return false;
+    }
+
+    abstract protected Grade getGradeResult(Course course);
+
+    abstract protected void checkGraduationRequirements();
+
+    // GETTER
     public long getStudentID() {
         return studentID;
     }
@@ -100,7 +108,7 @@ public abstract class Student{
     /**
      * Education System distinction
      */
-    public static enum EduSystem {
+    public enum EduSystem {
         CREDIT("Academic Credit"),
         ANNUAL("Annual Curriculum");
 

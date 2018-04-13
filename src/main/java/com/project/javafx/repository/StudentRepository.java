@@ -21,8 +21,8 @@ public class StudentRepository extends AbstractRepository<Student> {
     }
 
     public void initSomeStudent() {
-        AnnualClass aClass = new AnnualClass("Class001");
-        CreditMajor major = new CreditMajor("Major003");
+        AnnualClass aClass = new AnnualClass("C01", "Class001");
+        CreditMajor major = new CreditMajor("Major003", "Major003");
         Student student = new AnnualStudent(20145454, "Son", "Do Hong", "Male", DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", aClass);
         Student student2 = new AnnualStudent(354634, "Son2", "Do 2Hong", "Male", DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);
         Student student4 = new AnnualStudent(35463434, "Son3", "Do 23Hong", "Male", DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);

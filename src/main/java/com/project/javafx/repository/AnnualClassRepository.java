@@ -38,7 +38,7 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
     }
 
     public void initSomeClass() {
-        AnnualClass newClass = new AnnualClass("Physic");
+        AnnualClass newClass = new AnnualClass("PHY", "Physic");
         CoursesCatalog<Course> coursesCatalog = new CoursesCatalog<>();
 
         coursesCatalog.addCourse(new Course("PHY130", "Physics I"));

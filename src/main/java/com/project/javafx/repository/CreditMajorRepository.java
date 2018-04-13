@@ -46,7 +46,7 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor> {
 //    }
 
     public void initSomeMajor() {
-        CreditMajor csMajor = new CreditMajor("Computer Science", 120, 20);
+        CreditMajor csMajor = new CreditMajor("CS01", "Computer Science", 120, 20);
         CoursesCatalog<CreditCourse> csCatalog = new CoursesCatalog<>();
 
         csCatalog.addCourse(new CreditCourse("CSC101", "Continuous mathematics", 2));

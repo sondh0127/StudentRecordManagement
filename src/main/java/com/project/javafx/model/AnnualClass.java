@@ -7,12 +7,20 @@ public class AnnualClass {
         return className;
     }
 
+    private final String classCode;
     private final String className;
     private CoursesCatalog<Course> coursesCatalog;
 
-    public AnnualClass(String className) {
+    public AnnualClass(String classCode, String className) {
+        this.classCode = classCode;
         this.className = className;
     }
+    // main method
+    public void createCatalog() {
+
+    }
+
+    // getter and setter
 
     public String getClassName() {
         return className;
@@ -26,7 +34,4 @@ public class AnnualClass {
         this.coursesCatalog = coursesCatalog;
     }
 
-    public void createCatalog() {
-
-    }
 }

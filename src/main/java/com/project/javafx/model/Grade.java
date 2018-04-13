@@ -25,7 +25,7 @@ public class Grade {
         this.finalGrade = finalGrade;
     }
 
-    public double getScore() {
+    public double calculateScore() {
         if (midtermGrade != 0 && finalGrade != 0) {
             score = (midtermGrade*30 + finalGrade*70)/100;
         }

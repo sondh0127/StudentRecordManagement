@@ -18,37 +18,48 @@ public class CreditStudent extends Student {
         this.currentCredits = 0;
     }
 
+    // Behavior
     @Override
-    public void addCourse(Course course) {
+    public void registerCourse(Course course) {
     }
 
     @Override
-    public void dropCourse(Course course) {
+    protected Grade getGradeResult(Course course) {
+        return null;
+    }
+
+    @Override
+    protected void checkGraduationRequirements() {
 
     }
 
+    public void updateCreditTaken() {
+
+    }
+
+    public void updateGPA() {
+
+    }
+
+    // getter and setter
     public CreditMajor getCreditMajor() {
         return creditMajor;
-    }
-
-    public void setCreditMajor(CreditMajor creditMajor) {
-        this.creditMajor = creditMajor;
-        this.currentCredits = 0;
     }
 
     public int getCurrentCredits() {
         return currentCredits;
     }
 
-    public void setCurrentCredits(int currentCredits) {
-        this.currentCredits = currentCredits;
+    public void setCreditMajor(CreditMajor creditMajor) {
+        this.creditMajor = creditMajor;
     }
 
     public double getGPA() {
         return GPA;
     }
 
-    public void setGPA(double GPA) {
-        this.GPA = GPA;
+    public void registerMajor(CreditMajor creditMajor) {
+        this.creditMajor = creditMajor;
+        this.currentCredits = 0;
     }
 }
