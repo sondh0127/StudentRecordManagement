@@ -14,7 +14,7 @@ public class Course {
     /**
      * A table store grade of each student in this course
      */
-    private Hashtable<? extends Student,Grade> studentGradeTable;
+    private Hashtable<Student,Grade> studentGradeTable;
 
     public Course(String courseCode, String courseName) {
         this.courseCode = courseCode;

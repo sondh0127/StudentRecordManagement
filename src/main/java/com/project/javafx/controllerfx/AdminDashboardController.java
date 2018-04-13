@@ -39,6 +39,12 @@ public class AdminDashboardController implements Initializable {
     private JFXButton btnCourse;
 
     @FXML
+    private JFXButton btnAnnual;
+
+    @FXML
+    private JFXButton btnCredit;
+
+    @FXML
     private JFXButton btnRegister;
 
     @FXML
@@ -64,7 +70,7 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private StackPane holderPane;
-    private Parent homePane, studentPane, coursePane, registerPane, settingPane;
+    private Parent homePane, studentPane, coursePane, registerPane, settingPane, majorPane, classPane;
 
     private static MainApp mainApp;
 
@@ -87,6 +93,7 @@ public class AdminDashboardController implements Initializable {
             coursePane = FXMLLoader.load(getClass().getResource(ViewConstants.COURSES_VIEW));
             registerPane = FXMLLoader.load(getClass().getResource(ViewConstants.REGISTER_VIEW));
             settingPane = FXMLLoader.load(getClass().getResource(ViewConstants.SETTINGS_VIEW));
+            majorPane = FXMLLoader.load(getClass().getResource(ViewConstants.MAJORS_VIEW));
         } catch (IOException e) {
 //            AlertMaker.showErrorMessage(e);
             e.printStackTrace();
@@ -122,6 +129,17 @@ public class AdminDashboardController implements Initializable {
     void openCourse(ActionEvent event) {
         setNode(coursePane);
     }
+
+    @FXML
+    void openAnnual(ActionEvent event) {
+
+    }
+
+    @FXML
+    void openCredit(ActionEvent event) {
+        setNode(majorPane);
+    }
+
 
     @FXML
     void openHome(ActionEvent event) {

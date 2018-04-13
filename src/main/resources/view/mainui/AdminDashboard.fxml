@@ -57,6 +57,34 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </JFXButton>
+            <JFXButton fx:id="btnAnnual" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="157.0" maxWidth="1.7976931348623157E308" onAction="#openAnnual" text="Annual">
+               <graphic>
+                  <FontAwesomeIconView glyphName="GROUP" size="20" textOrigin="CENTER" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="btnCredit" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="208.0" maxWidth="1.7976931348623157E308" onAction="#openCredit" text="Credit">
+               <graphic>
+                  <FontAwesomeIconView glyphName="MORTAR_BOARD" size="20" textOrigin="CENTER" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </JFXButton>
             <JFXButton fx:id="btnRegister" alignment="TOP_LEFT" graphicTextGap="40.0" maxWidth="1.7976931348623157E308" onAction="#openRegister" text="Register">
                <graphic>
                   <FontAwesomeIconView glyphName="LIST" size="20" text="" textOrigin="CENTER" />
