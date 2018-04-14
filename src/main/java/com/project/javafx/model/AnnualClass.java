@@ -9,7 +9,10 @@ public class AnnualClass {
 
     private final String classCode;
     private final String className;
-    private CoursesCatalog<Course> coursesCatalog;
+    private CoursesCatalog<Course> coursesCatalog1;
+    private CoursesCatalog<Course> coursesCatalog2;
+    private CoursesCatalog<Course> coursesCatalog3;
+    private CoursesCatalog<Course> coursesCatalog4;
 
     public AnnualClass(String classCode, String className) {
         this.classCode = classCode;
@@ -27,11 +30,11 @@ public class AnnualClass {
     }
 
     public CoursesCatalog<Course> getCoursesCatalog() {
-        return coursesCatalog;
+        return coursesCatalog1;
     }
 
     public void setCoursesCatalog(CoursesCatalog<Course> coursesCatalog) {
-        this.coursesCatalog = coursesCatalog;
+        this.coursesCatalog1 = coursesCatalog;
     }
 
 }

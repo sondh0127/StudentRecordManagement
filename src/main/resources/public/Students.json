@@ -24,6 +24,7 @@
       "className": "ClassE"
     },
     "studyYear": "FIRST_YEAR",
+    "graduateAble": false,
     "studentID": 555555,
     "firstName": "Minh55",
     "lastName": "Nguyễn5 Quang",
@@ -51,8 +52,7 @@
             "courseName": "Linear algebra",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -61,8 +61,7 @@
             "courseName": "Introduction to formal proof",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -71,8 +70,7 @@
             "courseName": "Probability",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -81,8 +79,7 @@
             "courseName": "Discrete mathematics",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -91,8 +88,7 @@
             "courseName": "Concurrent programming",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -101,8 +97,7 @@
             "courseName": "Digital systems",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -111,8 +106,7 @@
             "courseName": "Compilers",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -121,8 +115,7 @@
             "courseName": "Imperative programming",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -131,8 +124,7 @@
             "courseName": "Functional programming",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -141,8 +133,7 @@
             "courseName": "Models of computation",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -151,8 +142,7 @@
             "courseName": "Databases",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -161,8 +151,7 @@
             "courseName": "Intelligent systems",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -171,8 +160,7 @@
             "courseName": "Computer graphics",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -181,8 +169,7 @@
             "courseName": "Computer networks",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -191,8 +178,7 @@
             "courseName": "Design and analysis of algorithms",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -201,8 +187,7 @@
             "courseName": "Algorithms",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -211,8 +196,7 @@
             "courseName": "Continuous mathematics",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -221,8 +205,7 @@
             "courseName": "Logic and proof",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           },
           {
             "prerequisiteCourse": [],
@@ -231,14 +214,14 @@
             "courseName": "Computer architecture",
             "DEFAULT_CAPACITY": 45,
             "capacity": 45,
-            "currentEnrollment": 0,
-            "studentGradeTable": {}
+            "currentEnrollment": 0
           }
         ]
       }
     },
     "currentCredits": 0,
     "GPA": 0.0,
+    "passedCourses": [],
     "studentID": 34234,
     "firstName": "2342342342",
     "lastName": "234234",
@@ -251,8 +234,6 @@
     "phone": "423423",
     "email": "23423423",
     "address": "23423423",
-    "educationSystem": "CREDIT",
-    "passedCourses": [],
-    "takenCourses": []
+    "educationSystem": "CREDIT"
   }
 ]

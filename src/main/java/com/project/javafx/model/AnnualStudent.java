@@ -1,10 +1,12 @@
 package com.project.javafx.model;
 
+import com.project.javafx.repository.CourseRepository;
+
 import java.time.LocalDate;
 
-public class AnnualStudent extends Student{
+public class AnnualStudent extends Student implements Registerable {
 
-    private AnnualClass annualClass ;
+    private AnnualClass annualClass;
     private StudyYear studyYear;
 
     public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
@@ -17,23 +19,95 @@ public class AnnualStudent extends Student{
         this.studyYear = StudyYear.FIRST_YEAR;
     }
 
+    // METHOD
     @Override
-    public void registerCourse(Course course) {
-        super.takenCourses.add(course);
+    public boolean registerCourse(Course course) {
+        if (course instanceof CreditCourse) {
+            return false;
+        } else {
+            if (!takenCourses.contains(course)) {
+                return takenCourses.add(course.getCourseCode());
+            }
+        }
+        return false;
     }
 
     @Override
-    protected Grade getGradeResult(Course course) {
-        return null;
+    protected StudentResult getGradeResult(Course course) {
+        return course.getResult(this.getStudentID());
     }
 
     @Override
-    protected void checkGraduationRequirements() {
-
+    protected boolean checkAbleToGraduated() {
+        return graduateAble;
     }
+
+    private boolean graduateAble = false;
 
     public void updateStudyYear() {
-        // check current list course, if all finish -> update year
+        switch (studyYear) {
+            case FIRST_YEAR:
+                if (passedAllCourseInYear() || calculateAvg() > 5.0)
+                    studyYear = StudyYear.SECOND_YEAR;
+                takenCourses.clear();
+                break;
+            case SECOND_YEAR:
+                if (passedAllCourseInYear() || calculateAvg() > 5.0)
+                    studyYear = StudyYear.THIRD_YEAR;
+                takenCourses.clear();
+                break;
+            case THIRD_YEAR:
+                if (passedAllCourseInYear() || calculateAvg() > 5.0)
+                    studyYear = StudyYear.FOURTH_YEAR;
+                takenCourses.clear();
+                break;
+            case FOURTH_YEAR:
+                if (passedAllCourseInYear() || calculateAvg() > 5.0);
+                    graduateAble = true;
+                takenCourses.clear();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private boolean passedAllCourseInYear() {
+        for (String courseCode : takenCourses) {
+            Course course = CourseRepository.getInstance().findById(courseCode);
+            StudentResult result = course.getResult(getStudentID());
+            if (result.getScore() < 4) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private double calculateAvg() {
+        double sum = 0;
+        for (String courseCode : takenCourses) {
+            Course course = CourseRepository.getInstance().findById(courseCode);
+            StudentResult result = course.getResult(getStudentID());
+            sum = result.getScore();
+        }
+        return Math.round(sum / takenCourses.size() * 10.0) / 10.0;
+    }
+
+    public void regiterClass(AnnualClass annualClass) {
+        this.annualClass = annualClass;
+        this.studyYear = StudyYear.FIRST_YEAR;
+    }
+
+    // getter and setter
+    public AnnualClass getAnnualClass() {
+        return annualClass;
+    }
+
+    public void setAnnualClass(AnnualClass annualClass) {
+        this.annualClass = annualClass;
+    }
+
+    public String getStudyYear() {
+        return studyYear.toString();
     }
 
     public enum StudyYear {
@@ -52,24 +126,5 @@ public class AnnualStudent extends Student{
         public String toString() {
             return text;
         }
-    }
-
-
-    // getter and setter
-    public AnnualClass getAnnualClass() {
-        return annualClass;
-    }
-
-    public void setAnnualClass(AnnualClass annualClass) {
-        this.annualClass = annualClass;
-    }
-
-    public void regiterClass(AnnualClass annualClass) {
-        this.annualClass = annualClass;
-        this.studyYear = StudyYear.FIRST_YEAR;
-    }
-
-    public String getStudyYear() {
-        return studyYear.toString();
     }
 }

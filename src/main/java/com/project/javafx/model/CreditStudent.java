@@ -1,12 +1,15 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
-public class CreditStudent extends Student {
+public class CreditStudent extends Student implements Registerable{
 
     private CreditMajor creditMajor;
     private int currentCredits;
     private double GPA;
+
+    protected Set<String> passedCourses;
 
     public CreditStudent(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.CREDIT);
@@ -20,17 +23,18 @@ public class CreditStudent extends Student {
 
     // Behavior
     @Override
-    public void registerCourse(Course course) {
+    public boolean registerCourse(Course course) {
+        return false;
     }
 
     @Override
-    protected Grade getGradeResult(Course course) {
+    protected StudentResult getGradeResult(Course course) {
         return null;
     }
 
     @Override
-    protected void checkGraduationRequirements() {
-
+    protected boolean checkAbleToGraduated() {
+        return false;
     }
 
     public void updateCreditTaken() {
@@ -39,6 +43,12 @@ public class CreditStudent extends Student {
 
     public void updateGPA() {
 
+    }
+
+    // TODO: 13/04/2018
+    public boolean checkPassedCourse(Course course) {
+
+        return false;
     }
 
     // getter and setter

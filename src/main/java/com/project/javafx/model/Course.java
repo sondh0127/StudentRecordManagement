@@ -1,6 +1,7 @@
 package com.project.javafx.model;
 
-import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Course {
@@ -11,36 +12,60 @@ public class Course {
     private int capacity;
     private int currentEnrollment;
 
-    /**
-     * A table store grade of each student in this course
-     */
-    private Hashtable<Long, Grade> studentGradeTable = new Hashtable<>();
+    private List<StudentResult> studentResultList;
 
     public Course(String courseCode, String courseName) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.capacity = DEFAULT_CAPACITY;
+        studentResultList = new ArrayList<>();
     }
 
     public Course(String courseCode, String courseName, int capacity) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.capacity = capacity;
+        studentResultList = new ArrayList<>();
     }
 
     // main method
-    public boolean addStudent(Student student) {
+
+    /**
+     * Nhập điểm
+     */
+    public boolean updateStudentResult(Long studentID, double midtermPoint, double finalPoint) {
+        if (midtermPoint > 10 || midtermPoint < 0 || finalPoint > 10 || finalPoint < 0) {
+            return false;
+        }
+        for (StudentResult studentResult : studentResultList) {
+            if (studentResult.getStudentID().equals(studentID)) {
+                studentResult.updateResult(midtermPoint, finalPoint);
+            }
+        }
         return false;
+    }
+
+    public boolean addStudent(Student student) {
+        return studentResultList.add(new StudentResult(student.getStudentID()));
     }
 
     public boolean removeStudent(Student student) {
+        for (StudentResult studentResult : studentResultList) {
+            if (studentResult.getStudentID() == student.getStudentID()) {
+                return studentResultList.remove(studentResult);
+            }
+        }
         return false;
     }
 
-    public void addCourseGrade(Student student, Grade grade) {
-
+    public StudentResult getResult(Long studentID) {
+        for (StudentResult studentResult : studentResultList) {
+            if (studentResult.getStudentID().equals(studentID)) {
+                return studentResult;
+            }
+        }
+        return null;
     }
-
     // getter and setter
     public String getCourseCode() {
         return courseCode;
@@ -54,6 +79,9 @@ public class Course {
         return capacity;
     }
 
+    public List<StudentResult> getStudentResultList() {
+        return studentResultList;
+    }
 
     /**
      * Override equals to provide: a comparison of 2 course

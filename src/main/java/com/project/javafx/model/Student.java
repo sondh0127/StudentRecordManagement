@@ -1,19 +1,9 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public abstract class Student{
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                studentID +
-                ", " + firstName +lastName +
-                '}';
-    }
 
     private long studentID;
     private String firstName;
@@ -26,10 +16,11 @@ public abstract class Student{
     private String address;
 
     private EduSystem educationSystem;
-    protected Set<Course> passedCourses = new HashSet<>();
-    protected Set<Course> takenCourses = new HashSet<>();
 
-    public Student() {
+    public Student(long studentID, String firstName, String lastName) {
+        this.studentID = studentID;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Student(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
@@ -50,19 +41,9 @@ public abstract class Student{
         return false;
     }
 
-    public void registerCourse(Course course){
-        takenCourses.add(course);
-    }
+    abstract protected StudentResult getGradeResult(Course course);
 
-    // TODO: 13/04/2018
-    public boolean checkPassedCourse(Course course) {
-        Grade courseGrade = getGradeResult(course);
-        return false;
-    }
-
-    abstract protected Grade getGradeResult(Course course);
-
-    abstract protected void checkGraduationRequirements();
+    abstract protected boolean checkAbleToGraduated();
 
     // GETTER
     public long getStudentID() {
@@ -141,5 +122,13 @@ public abstract class Student{
         }
         Student student = (Student) obj;
         return studentID == student.studentID;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                studentID +
+                ", " + firstName +lastName +
+                '}';
     }
 }
