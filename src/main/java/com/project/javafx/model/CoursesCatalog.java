@@ -1,15 +1,13 @@
 package com.project.javafx.model;
 
+import com.project.javafx.repository.GenericRepository;
+
 import java.util.HashSet;
 import java.util.Set;
 
-public class CoursesCatalog<T extends Course> {
+public class CoursesCatalog<T extends Course> implements GenericRepository<T> {
 
-    private Set<T> courseDataSet;
-
-    public CoursesCatalog() {
-        this.courseDataSet = new HashSet<>();
-    }
+    private Set<T> courseDataSet = new HashSet<>();
 
     public void addCourse(T t) {
         this.courseDataSet.add(t);
@@ -45,4 +43,33 @@ public class CoursesCatalog<T extends Course> {
         return null;
     }
 
+    @Override
+    public T findById(String id) {
+        return null;
+    }
+
+    @Override
+    public Set<T> findAll() {
+        return null;
+    }
+
+    @Override
+    public boolean update(T entity) {
+        return false;
+    }
+
+    @Override
+    public boolean save(T entity) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(T entity) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteByID(String id) {
+        return false;
+    }
 }

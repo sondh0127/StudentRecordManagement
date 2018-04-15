@@ -8,6 +8,7 @@ public class AnnualStudent extends Student implements Registerable {
 
     private AnnualClass annualClass;
     private StudyYear studyYear;
+    private double AVG;
 
     public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
@@ -47,22 +48,22 @@ public class AnnualStudent extends Student implements Registerable {
     public void updateStudyYear() {
         switch (studyYear) {
             case FIRST_YEAR:
-                if (passedAllCourseInYear() || calculateAvg() > 5.0)
+                if (passedAllCourseInYear() || calculateAVG() > 5.0)
                     studyYear = StudyYear.SECOND_YEAR;
                 takenCourses.clear();
                 break;
             case SECOND_YEAR:
-                if (passedAllCourseInYear() || calculateAvg() > 5.0)
+                if (passedAllCourseInYear() || calculateAVG() > 5.0)
                     studyYear = StudyYear.THIRD_YEAR;
                 takenCourses.clear();
                 break;
             case THIRD_YEAR:
-                if (passedAllCourseInYear() || calculateAvg() > 5.0)
+                if (passedAllCourseInYear() || calculateAVG() > 5.0)
                     studyYear = StudyYear.FOURTH_YEAR;
                 takenCourses.clear();
                 break;
             case FOURTH_YEAR:
-                if (passedAllCourseInYear() || calculateAvg() > 5.0);
+                if (passedAllCourseInYear() || calculateAVG() > 5.0);
                     graduateAble = true;
                 takenCourses.clear();
                 break;
@@ -82,14 +83,15 @@ public class AnnualStudent extends Student implements Registerable {
         return true;
     }
 
-    private double calculateAvg() {
+    private double calculateAVG() {
         double sum = 0;
         for (String courseCode : takenCourses) {
             Course course = CourseRepository.getInstance().findById(courseCode);
             StudentResult result = course.getResult(getStudentID());
-            sum = result.getScore();
+            sum += result.getScore();
         }
-        return Math.round(sum / takenCourses.size() * 10.0) / 10.0;
+        AVG = Math.round(sum / takenCourses.size() * 10.0) / 10.0;
+        return AVG;
     }
 
     public void regiterClass(AnnualClass annualClass) {
@@ -106,8 +108,16 @@ public class AnnualStudent extends Student implements Registerable {
         this.annualClass = annualClass;
     }
 
-    public String getStudyYear() {
+    public StudyYear getStudyYear() {
+        return studyYear;
+    }
+
+    public String getStudyYearStr() {
         return studyYear.toString();
+    }
+
+    public double getAVG() {
+        return AVG;
     }
 
     public enum StudyYear {

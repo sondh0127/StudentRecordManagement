@@ -22,4 +22,16 @@ public class CreditCourse extends Course{
         prerequisiteCourse.add(courseCode);
         return false;
     }
+    
+
+
+    // getter and setter
+
+    public List<String> getPrerequisiteCourse() {
+        return prerequisiteCourse;
+    }
+
+    public int getCreditHours() {
+        return creditHours;
+    }
 }

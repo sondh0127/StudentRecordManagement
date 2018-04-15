@@ -162,7 +162,7 @@ public class StudentsController implements Initializable {
             lblBirdthday.setText(DateUtil.format(student.getBirthday()));
             if (student instanceof CreditStudent) {
                 if (((CreditStudent) student).getCreditMajor() != null) {
-                    int num = ((CreditStudent) student).getCurrentCredits();
+                    int num = ((CreditStudent) student).getTakenCredits();
                     String totalCredit = Integer.toString(num);
                     lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getTitleMajor());
                     lblAddition.setText("Credit Taken: " + totalCredit);
@@ -174,7 +174,7 @@ public class StudentsController implements Initializable {
 
             } else if (student instanceof AnnualStudent) {
                 if (((AnnualStudent) student).getAnnualClass() != null) {
-                    String years = ((AnnualStudent) student).getStudyYear();
+                    String years = ((AnnualStudent) student).getStudyYearStr();
                     lblMajorClass.setText("Class: " + ((AnnualStudent) student).getAnnualClass().getClassName());
                     lblAddition.setText("Year: " + years);
                 } else {

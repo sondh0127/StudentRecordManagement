@@ -43,7 +43,15 @@ public class StudentResult {
     }
 
     public double getScore() {
-        return calculateScore();
+        return score;
+    }
+
+    public double getScoreTranfer() {
+        if (5.5 < score && score <= 7.0) return (score + 0.5) / 3.0;
+        else if (7.0 < score && score <= 8.0) return (score - 3.45) / 1.42;
+        else if (8.0 < score && score <= 9.0) return (score / 2.5);
+        else if (9.0 < score && score <= 10.0) return (score / 2.5);
+        else return 1.9; // < 2.0 means false;
     }
 
 
