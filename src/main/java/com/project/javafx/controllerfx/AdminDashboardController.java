@@ -177,16 +177,16 @@ public class AdminDashboardController implements Initializable {
 
     private void loadDataOnStart() {
         // init
-//        CreditMajorRepository.getInstance().initSomeMajor();
-//        AnnualClassRepository.getInstance().initSomeClass();
+        CreditMajorRepository.getInstance().initSomeMajor();
+        AnnualClassRepository.getInstance().initSomeClass();
 //        StudentRepository.getInstance().initSomeStudent();
-//        CourseRepository.getInstance().initCourses();
+        CourseRepository.getInstance().initCourses();
 
         //load from file
-        CreditMajorRepository.getInstance().gSonLoad();
-        AnnualClassRepository.getInstance().gSonLoad();
+//        CreditMajorRepository.getInstance().gSonLoad();
+//        AnnualClassRepository.getInstance().gSonLoad();
         StudentRepository.getInstance().gSonLoad();
-        CourseRepository.getInstance().gSonLoad();
+//        CourseRepository.getInstance().gSonLoad();
     }
 
     private void saveDataOnClose() {
