@@ -1,10 +1,11 @@
+Cau truc cac file json
 ```
 //students.json
 [
     {
         "id": ,
         "type": ,
-        "passedCourses": [
+        "scores": [
             {
                 "courseId": ,
                 "midScore": ,
@@ -16,8 +17,7 @@
         ],
         "major": ,
         "class": ,
-        "year": ,
-        "requiredCredits": 
+        "year": 
     }
 ]
 
@@ -28,6 +28,9 @@
         "type: ,
         "midScale": ,
         "finalScale": ,
+        "studentsList": [
+            "id", "id", ...
+        ],
         "prerequisites": [
             "id", "id", ...
         ]
@@ -40,7 +43,8 @@
         "id": ,
         "courses: [
             "id", "id", ...
-        ]
+        ],
+        "requiredCredits": 
     }
 ]
 
@@ -54,3 +58,20 @@
     }
 ]
 ```
+User admin
+```$xslt
+Views:
+    - Students
+    - Courses
+    - Majors
+    - Classes
+    - Vao` diem?
+```
+User student
+```$xslt
+Views:
+    - Course registration
+    - Xem d
+    - Xet tot nghiep
+```
+
