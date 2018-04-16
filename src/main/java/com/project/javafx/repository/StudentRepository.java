@@ -12,7 +12,7 @@ public class StudentRepository extends AbstractRepository<Student> {
     private static final String path = "src/main/resources/public/Students.json";
     private static StudentRepository instance = new StudentRepository(path);
 
-    public StudentRepository(String filepath) {
+    private StudentRepository(String filepath) {
         super(filepath);
     }
 

@@ -4,6 +4,7 @@ package com.project.javafx.controllerfx;
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.MainApp;
 import com.project.javafx.repository.AnnualClassRepository;
+import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.ViewConstants;
@@ -175,13 +176,24 @@ public class AdminDashboardController implements Initializable {
     }
 
     private void loadDataOnStart() {
-        CreditMajorRepository.getInstance().initSomeMajor();
-        AnnualClassRepository.getInstance().initSomeClass();
+        // init
+//        CreditMajorRepository.getInstance().initSomeMajor();
+//        AnnualClassRepository.getInstance().initSomeClass();
+//        StudentRepository.getInstance().initSomeStudent();
+//        CourseRepository.getInstance().initCourses();
+
+        //load from file
+        CreditMajorRepository.getInstance().gSonLoad();
+        AnnualClassRepository.getInstance().gSonLoad();
         StudentRepository.getInstance().gSonLoad();
+        CourseRepository.getInstance().gSonLoad();
     }
 
     private void saveDataOnClose() {
         StudentRepository.getInstance().gSonSave();
+        CourseRepository.getInstance().gSonSave();
+        CreditMajorRepository.getInstance().gSonSave();
+        AnnualClassRepository.getInstance().gSonSave();
     }
 
     @FXML

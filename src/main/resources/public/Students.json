@@ -7,7 +7,7 @@
       "majorCreditsRequired": 444,
       "minorCreditsRequired": 44
     },
-    "currentCredits": 0,
+    "takenCredits": 0,
     "GPA": 0.0,
     "studentID": 1299303597,
     "firstName": "Minh",
@@ -24,6 +24,7 @@
       "className": "ClassE"
     },
     "studyYear": "FIRST_YEAR",
+    "AVG": 0.0,
     "graduateAble": false,
     "studentID": 555555,
     "firstName": "Minh55",
@@ -219,9 +220,9 @@
         ]
       }
     },
-    "currentCredits": 0,
-    "GPA": 0.0,
+    "takenCredits": 0,
     "passedCourses": [],
+    "GPA": 0.0,
     "studentID": 34234,
     "firstName": "2342342342",
     "lastName": "234234",

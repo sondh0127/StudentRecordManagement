@@ -94,11 +94,19 @@ public abstract class AbstractRepository<T> implements GenericRepository<T> {
         return false;
     }
 
-    protected abstract RuntimeTypeAdapterFactory<T> setAdapter();
+    protected RuntimeTypeAdapterFactory<T> setAdapter() {
+        return null;
+    }
     protected abstract Type setToken();
 
+    private Gson gson;
     public void gSonLoad() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(setAdapter()).create();
+        if (setAdapter() == null) {
+            gson = new GsonBuilder().setPrettyPrinting().create();
+        } else {
+            gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(setAdapter()).create();
+        }
+
         String fileData;
         try {
             fileData = new String(Files.readAllBytes(Paths.get(filepath)));
@@ -110,7 +118,11 @@ public abstract class AbstractRepository<T> implements GenericRepository<T> {
     }
 
     public void gSonSave() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(setAdapter()).create();
+        if (setAdapter() == null) {
+            gson = new GsonBuilder().setPrettyPrinting().create();
+        } else {
+            gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(setAdapter()).create();
+        }
         String json = gson.toJson(objects, setToken());
 //        System.out.print(json);
         try {

@@ -74,4 +74,25 @@ Views:
     - Xem d
     - Xet tot nghiep
 ```
+Hướng dẫn đọc-ghi file để test.
+```
+commend/uncommend code from : AdminDashboardController.class from "com.project.javafx.controllerfx"
+on 2 method. 
+    loadDataOnStart()
+    saveDataOnClose()
+```
+Access an object from repository(List)
+
+```
+ví dụ từ student "List"
+StudentRepository.getInstance().method();
+
+ - Available method:
+public T findById(String id);
+public Set<T> findAll();
+public boolean update(T entity);
+public boolean save(T entity);          // add new student
+public boolean delete(T entity);
+public boolean deleteByID(String id);
+```
 

@@ -1,24 +1,22 @@
 package com.project.javafx.repository;
 
+import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.CoursesCatalog;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.model.CreditMajor;
 import com.project.javafx.ulti.RuntimeTypeAdapterFactory;
 
 import java.lang.reflect.Type;
+import java.util.Set;
 
 public class CreditMajorRepository extends AbstractRepository<CreditMajor> {
 
     private static final String path = "src/main/resources/public/Major.json";
     private static CreditMajorRepository instance = new CreditMajorRepository(path);
 
-    public CreditMajorRepository(String filepath) {
+    private CreditMajorRepository(String filepath) {
         super(filepath);
     }
-
-//    public CreditMajorRepository(String filepath) {
-//        super(filepath);
-//    }
 
     public static CreditMajorRepository getInstance() {
         return instance;
@@ -30,20 +28,9 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor> {
     }
 
     @Override
-    protected RuntimeTypeAdapterFactory<CreditMajor> setAdapter() {
-        return null;
-    }
-
-    @Override
     protected Type setToken() {
-        return null;
+        return new TypeToken<Set<CreditMajor>>() {}.getType();
     }
-
-
-//    @Override
-//    public Type setTypeToken() {
-//       return new TypeToken<Set<CreditMajor>>() {}.getType();
-//    }
 
     public void initSomeMajor() {
         CreditMajor csMajor = new CreditMajor("CS01", "Computer Science", 120, 20);

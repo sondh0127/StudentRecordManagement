@@ -1,12 +1,11 @@
 package com.project.javafx.repository;
 
-import com.project.javafx.model.AnnualClass;
-import com.project.javafx.model.Course;
-import com.project.javafx.model.CoursesCatalog;
-import com.project.javafx.model.CreditCourse;
+import com.google.gson.reflect.TypeToken;
+import com.project.javafx.model.*;
 import com.project.javafx.ulti.RuntimeTypeAdapterFactory;
 
 import java.lang.reflect.Type;
+import java.util.Set;
 
 public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
 
@@ -23,13 +22,8 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
     }
 
     @Override
-    protected RuntimeTypeAdapterFactory<AnnualClass> setAdapter() {
-        return null;
-    }
-
-    @Override
     protected Type setToken() {
-        return null;
+       return new TypeToken<Set<AnnualClass>>() {}.getType();
     }
 
 
@@ -57,7 +51,7 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
         coursesCatalog.addCourse(new Course("ENG102", "Introduction to Literature"));
         coursesCatalog.addCourse(new Course("ENG121", "Technical Writing"));
 
-        newClass.setCoursesCatalog(coursesCatalog);
+        newClass.setCoursesCatalog(coursesCatalog, AnnualStudent.StudyYear.FIRST_YEAR);
         save(newClass);
     }
 
