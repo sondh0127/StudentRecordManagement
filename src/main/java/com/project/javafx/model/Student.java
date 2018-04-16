@@ -41,7 +41,7 @@ public abstract class Student{
         return false;
     }
 
-    abstract protected StudentResult getGradeResult(Course course);
+    abstract protected StudentResult getGradeResult(String courseCode);
 
     abstract protected boolean checkAbleToGraduated();
 

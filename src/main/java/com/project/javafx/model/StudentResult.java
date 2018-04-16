@@ -3,37 +3,33 @@ package com.project.javafx.model;
 public class StudentResult {
 
     private final double DEFAULT_POINT = -1;
-    private Long studentID;
     private double midtermPoint;
     private double finalPoint;
     private double score;
+    private double scale;
 
-    public StudentResult(Long studentID) {
-        this.studentID = studentID;
+    public StudentResult(double scale) {
         this.midtermPoint = DEFAULT_POINT;
         this.finalPoint = DEFAULT_POINT;
         this.score = DEFAULT_POINT;
+        this.scale = scale;
     }
 
-    private double calculateScore() {
-        if (midtermPoint != DEFAULT_POINT && finalPoint != DEFAULT_POINT) {
-            double result = midtermPoint * 0.3 + finalPoint * 0.7;
-            return Math.round(result * 10.0) / 10.0;
-        }
-        return DEFAULT_POINT;
-    }
-
-    public void updateResult(double midtermPoint, double finalPoint) {
+    public StudentResult(double midtermPoint, double finalPoint) {
         this.midtermPoint = midtermPoint;
         this.finalPoint = finalPoint;
         this.score = calculateScore();
     }
 
-    // getter and setter
-    public Long getStudentID() {
-        return studentID;
+    private double calculateScore() {
+        if (midtermPoint != DEFAULT_POINT && finalPoint != DEFAULT_POINT) {
+            double result = midtermPoint * scale + finalPoint * (1 - scale);
+            return Math.round(result * 10.0) / 10.0;
+        }
+        return DEFAULT_POINT;
     }
 
+    // getter and setter
     public double getMidtermPoint() {
         return midtermPoint;
     }

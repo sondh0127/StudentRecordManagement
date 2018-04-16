@@ -3,13 +3,14 @@ package com.project.javafx.model;
 import com.project.javafx.repository.CourseRepository;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Set;
 
 public class CreditStudent extends Student implements Registerable {
 
     private CreditMajor creditMajor;
     private int takenCredits;
-    protected Set<String> passedCourses;
+    protected Map<String, StudentResult> passedCourses;
     private double GPA;
 
     public CreditStudent(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
@@ -24,20 +25,24 @@ public class CreditStudent extends Student implements Registerable {
 
     // Behavior
     @Override
-    public boolean registerCourse(Course course) {
+    public boolean registerCourse(String courseCode) {
+        Course course = CourseRepository.getInstance().findById(courseCode);
         if (course instanceof CreditCourse) {
-            if (!takenCourses.contains(course)) {
-                return takenCourses.add(course.getCourseCode());
+            if (!takenCourses.containsKey(courseCode)) {
+                takenCourses.put(courseCode, new StudentResult(course.getScale()));
+                return true;
             }
         }
         return false;
     }
 
     @Override
-    protected StudentResult getGradeResult(Course course) {
-        if (course instanceof CreditCourse) {
-            return course.getResult(getStudentID());
-        }
+    public boolean updateStudentResult(String courseCode, double midtermPoint, double finalPoint) {
+        return false;
+    }
+
+    @Override
+    protected StudentResult getGradeResult(String courseCode) {
         return null;
     }
 
@@ -53,12 +58,12 @@ public class CreditStudent extends Student implements Registerable {
 
 
     public void updatePassedCourse() {
-        for (String courseCode : takenCourses) {
+        for (String courseCode : takenCourses.keySet()) {
             Course course = CourseRepository.getInstance().findById(courseCode);
             if (course instanceof CreditCourse) {
-                StudentResult result = course.getResult(getStudentID());
+                StudentResult result = takenCourses.get(courseCode);
                 if (result.getScoreTranfer() >= 2.0) {
-                    passedCourses.add(courseCode);
+                    passedCourses.put(courseCode,takenCourses.remove(courseCode));
                     takenCredits += ((CreditCourse) course).getCreditHours();
                 }
             } else {
@@ -68,18 +73,18 @@ public class CreditStudent extends Student implements Registerable {
     }
 
     private double calculateGPA() {
-        double sum = 0;
-        for (String courseCode : passedCourses) {
-            Course course = CourseRepository.getInstance().findById(courseCode);
-            if (course instanceof CreditCourse) {
-                double grade = course.getResult(getStudentID()).getScoreTranfer();
-                int credits = ((CreditCourse) course).getCreditHours();
-                sum += grade * credits;
-            }
-        }
-
-        // TODO: 14/04/2018 fix this ... void or double ?
-        GPA = sum/takenCredits;
+//        double sum = 0;
+//        for (String courseCode : passedCourses) {
+//            Course course = CourseRepository.getInstance().findById(courseCode);
+//            if (course instanceof CreditCourse) {
+//                double grade = course.getResult(getStudentID()).getScoreTranfer();
+//                int credits = ((CreditCourse) course).getCreditHours();
+//                sum += grade * credits;
+//            }
+//        }
+//
+//        // TODO: 14/04/2018 fix this ... void or double ?
+//        GPA = sum/takenCredits;
         return GPA;
     }
 

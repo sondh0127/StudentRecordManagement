@@ -11,21 +11,22 @@ public class Course {
     private final int DEFAULT_CAPACITY = 45;
     private int capacity;
     private int currentEnrollment;
+    private double scale;
 
-    private List<StudentResult> studentResultList;
+    private List<Long> studentList;
 
     public Course(String courseCode, String courseName) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.capacity = DEFAULT_CAPACITY;
-        studentResultList = new ArrayList<>();
+        studentList = new ArrayList<>();
     }
 
     public Course(String courseCode, String courseName, int capacity) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.capacity = capacity;
-        studentResultList = new ArrayList<>();
+        studentList = new ArrayList<>();
     }
 
     // main method
@@ -33,39 +34,40 @@ public class Course {
     /**
      * Nhập điểm
      */
-    public boolean updateStudentResult(Long studentID, double midtermPoint, double finalPoint) {
-        if (midtermPoint > 10 || midtermPoint < 0 || finalPoint > 10 || finalPoint < 0) {
-            return false;
-        }
-        for (StudentResult studentResult : studentResultList) {
-            if (studentResult.getStudentID().equals(studentID)) {
-                studentResult.updateResult(midtermPoint, finalPoint);
+//    public boolean updateStudentResult(Long studentID, double midtermPoint, double finalPoint) {
+//        if (midtermPoint > 10 || midtermPoint < 0 || finalPoint > 10 || finalPoint < 0) {
+//            return false;
+//        } else {
+//            Student student = StudentRepository.getInstance().findById(String.valueOf(studentID));
+//            if (studentResult.getCourseCode().equals(studentID)) {
+//                studentResult.updateResult(midtermPoint, finalPoint);
+//            }
+//        }
+//        return false;
+//    }
+
+    public boolean addStudent(Long studentID) {
+        return studentList.add(studentID);
+    }
+
+    public boolean removeStudent(Long studentID) {
+        for (Long id : studentList) {
+            if (studentID.equals(id)) {
+                return studentList.remove(id);
             }
         }
         return false;
     }
 
-    public boolean addStudent(Student student) {
-        return studentResultList.add(new StudentResult(student.getStudentID()));
-    }
+//    public StudentResult getResult(Long studentID) {
+//        for (StudentResult studentResult : studentList) {
+//            if (studentResult.getCourseCode().equals(studentID)) {
+//                return studentResult;
+//            }
+//        }
+//        return null;
+//    }
 
-    public boolean removeStudent(Student student) {
-        for (StudentResult studentResult : studentResultList) {
-            if (studentResult.getStudentID() == student.getStudentID()) {
-                return studentResultList.remove(studentResult);
-            }
-        }
-        return false;
-    }
-
-    public StudentResult getResult(Long studentID) {
-        for (StudentResult studentResult : studentResultList) {
-            if (studentResult.getStudentID().equals(studentID)) {
-                return studentResult;
-            }
-        }
-        return null;
-    }
     // getter and setter
     public String getCourseCode() {
         return courseCode;
@@ -79,8 +81,12 @@ public class Course {
         return capacity;
     }
 
-    public List<StudentResult> getStudentResultList() {
-        return studentResultList;
+    public double getScale() {
+        return scale;
+    }
+
+    public List<Long> getStudentList() {
+        return studentList;
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.project.javafx.model;
 
 import com.project.javafx.repository.CourseRepository;
+import com.project.javafx.repository.StudentRepository;
 
 import java.time.LocalDate;
 
@@ -22,20 +23,32 @@ public class AnnualStudent extends Student implements Registerable {
 
     // METHOD
     @Override
-    public boolean registerCourse(Course course) {
-        if (course instanceof CreditCourse) {
+    public boolean registerCourse(String courseCode) {
+        Course course = CourseRepository.getInstance().findById(courseCode);
+        if (course instanceof CreditCourse || course == null) {
             return false;
         } else {
-            if (!takenCourses.contains(course)) {
-                return takenCourses.add(course.getCourseCode());
+            if (!takenCourses.containsKey(courseCode)) {
+                takenCourses.put(courseCode, new StudentResult(course.getScale()));
+                return true;
             }
         }
         return false;
     }
 
     @Override
-    protected StudentResult getGradeResult(Course course) {
-        return course.getResult(this.getStudentID());
+    public boolean updateStudentResult(String courseCode, double midtermPoint, double finalPoint) {
+        if (midtermPoint > 10 || midtermPoint < 0 || finalPoint > 10 || finalPoint < 0) {
+            return false;
+        } else if (takenCourses.containsKey(courseCode)){
+            takenCourses.put(courseCode, new StudentResult(midtermPoint, finalPoint));
+        }
+        return false;
+    }
+
+    @Override
+    protected StudentResult getGradeResult(String courseCode) {
+        return takenCourses.get(courseCode);
     }
 
     @Override
@@ -73,9 +86,9 @@ public class AnnualStudent extends Student implements Registerable {
     }
 
     private boolean passedAllCourseInYear() {
-        for (String courseCode : takenCourses) {
-            Course course = CourseRepository.getInstance().findById(courseCode);
-            StudentResult result = course.getResult(getStudentID());
+        for (StudentResult result: takenCourses.values()) {
+//            Course course = CourseRepository.getInstance().findById(courseCode);
+//            StudentResult result = course.getResult(getStudentID());
             if (result.getScore() < 4) {
                 return false;
             }
@@ -85,9 +98,7 @@ public class AnnualStudent extends Student implements Registerable {
 
     private double calculateAVG() {
         double sum = 0;
-        for (String courseCode : takenCourses) {
-            Course course = CourseRepository.getInstance().findById(courseCode);
-            StudentResult result = course.getResult(getStudentID());
+        for (StudentResult result: takenCourses.values()) {
             sum += result.getScore();
         }
         AVG = Math.round(sum / takenCourses.size() * 10.0) / 10.0;

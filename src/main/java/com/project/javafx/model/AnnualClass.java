@@ -102,9 +102,9 @@ public class AnnualClass {
     }
 
     private void addCourseListForStudent(AnnualStudent student, CoursesCatalog<Course> catalog) {
-        for (Course course : catalog.getCourseDataSet()) {
-            student.registerCourse(course);
-        }
+//        for (Course course : catalog.getCourseDataSet()) {
+//            student.registerCourse(course);
+//        }
     }
 
 }
