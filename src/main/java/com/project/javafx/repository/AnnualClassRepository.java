@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
 
-    private static final String path = "src/main/resources/public/Class.json";
+    private static final String path = "src/main/resources/public/Classes.json";
     private static AnnualClassRepository instance = new AnnualClassRepository(path);
 
     public AnnualClassRepository(String filepath) {

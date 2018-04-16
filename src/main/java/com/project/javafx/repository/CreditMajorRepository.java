@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class CreditMajorRepository extends AbstractRepository<CreditMajor> {
 
-    private static final String path = "src/main/resources/public/Major.json";
+    private static final String path = "src/main/resources/public/Majors.json";
     private static CreditMajorRepository instance = new CreditMajorRepository(path);
 
     private CreditMajorRepository(String filepath) {
