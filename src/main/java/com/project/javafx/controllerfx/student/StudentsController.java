@@ -22,7 +22,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
@@ -32,7 +31,8 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class StudentsController implements Initializable {
@@ -41,55 +41,75 @@ public class StudentsController implements Initializable {
      * The data as observable list of student data from databases
      */
     private ObservableList<Student> studentObservableList = FXCollections.observableArrayList();
-    @FXML
-    private TableView<Student> studentTableView;
-    @FXML
-    private TableColumn<Student, Number> studentID;
-    @FXML
-    private TableColumn<Student, String> firstName;
-    @FXML
-    private TableColumn<Student, String> lastName;
-    @FXML
-    private TableColumn<Student, String> educationSystem;
-    @FXML
-    private JFXRadioButton IDFilter;
-    @FXML
-    private JFXRadioButton NameFilter;
-    @FXML
-    private JFXTextField searchField;
-    @FXML
-    private JFXButton searchButton;
-    @FXML
-    private ToggleGroup filter;
-    @FXML
-    private Label lbl_fullname;
-    @FXML
-    private Label lblEmail;
-    @FXML
-    private Label lblPhone;
-    @FXML
-    private Label lblAddress;
-    @FXML
-    private Label lblGender;
-    @FXML
-    private Label lblBirdthday;
-    @FXML
-    private Label lblAddition;
-    @FXML
-    private Label lblMajorClass;
-    @FXML
-    private VBox detailsBox;
-    private ResultSet rs;
-    @FXML
-    private JFXButton btnAdd;
-    @FXML
-    private JFXButton btnRemove;
-    @FXML
-    private JFXButton btnModify;
-    @FXML
-    private JFXButton btnRefresh;
 
     @FXML
+    private TableView<Student> studentTableView;
+
+    @FXML
+    private TableColumn<Student, Number> studentID;
+
+    @FXML
+    private TableColumn<Student, String> firstName;
+
+    @FXML
+    private TableColumn<Student, String> lastName;
+
+    @FXML
+    private TableColumn<Student, String> educationSystem;
+
+    @FXML
+    private JFXRadioButton idFilter;
+
+    @FXML
+    private JFXRadioButton nameFilter;
+
+    @FXML
+    private JFXTextField searchField;
+
+    @FXML
+    private JFXButton searchButton;
+
+    @FXML
+    private ToggleGroup filter;
+
+    @FXML
+    private Label lbl_FullName;
+
+    @FXML
+    private Label lblEmail;
+
+    @FXML
+    private Label lblPhone;
+
+    @FXML
+    private Label lblAddress;
+
+    @FXML
+    private Label lblGender;
+
+    @FXML
+    private Label lblBirdthday;
+
+    @FXML
+    private Label lblAddition;
+
+    @FXML
+    private Label lblMajorClass;
+
+    @FXML
+    private VBox detailsBox;
+
+    @FXML
+    private JFXButton btnAdd;
+
+    @FXML
+    private JFXButton btnRemove;
+
+    @FXML
+    private JFXButton btnModify;
+
+    @FXML
+    private JFXButton btnRefresh;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -100,31 +120,34 @@ public class StudentsController implements Initializable {
         // adding listener for some observable
         studentTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showStudentDetail(newValue));
         filter.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals(IDFilter)) {
+            if (newValue.equals(idFilter)) {
                 searchField.setPromptText("Search by ID");
-            } else if (newValue.equals(NameFilter)) {
+            } else if (newValue.equals(nameFilter)) {
                 searchField.setPromptText("Search by Name");
             }
         });
     }
 
     private void initCols() {
-        //Initialize the student table, The cell must know which part of "tableUser" it needs to display
+        //Initialize the student table, The cell must know which part of "studentTableView" it needs to display
         studentObservableList.addAll(StudentRepository.getInstance().findAll());
 
-        studentID.setCellValueFactory((CellDataFeatures<Student,Number> cdf) -> {
-            Student q = cdf.getValue();
-            return new SimpleLongProperty(q.getStudentID());
+        studentID.setCellValueFactory(param -> {
+            Student s = param.getValue();
+            return new SimpleLongProperty(s.getStudentID());
         });
-        firstName.setCellValueFactory((CellDataFeatures<Student,String> cdf) -> {
-            Student q = cdf.getValue();
-            return new SimpleStringProperty(q.getFirstName());
+        firstName.setCellValueFactory(param -> {
+            Student s = param.getValue();
+            return new SimpleStringProperty(s.getFirstName());
         });
-        lastName.setCellValueFactory((CellDataFeatures<Student,String> cdf) -> {
-            Student q = cdf.getValue();
-            return new SimpleStringProperty(q.getLastName());
+        lastName.setCellValueFactory(param -> {
+            Student s = param.getValue();
+            return new SimpleStringProperty(s.getLastName());
         });
-        System.out.println(studentTableView.getItems().size());
+        educationSystem.setCellValueFactory(param -> {
+            Student s = param.getValue();
+            return new SimpleStringProperty(s.getEducationString());
+        });
     }
 
     @FXML
@@ -132,60 +155,47 @@ public class StudentsController implements Initializable {
         studentObservableList.clear();
         String searchText = searchField.getText();
         if (searchText.isEmpty()) {
-            studentObservableList.setAll(StudentRepository.getInstance().findAll());
+            studentObservableList.setAll(StudentRepository.getInstance().findAll());             // empty string  => show all students
         } else {
-            for (Student student : StudentRepository.getInstance().findAll()) {
-                if (filter.getSelectedToggle().equals(IDFilter)) {
-                    if (student.getStudentID() == Integer.parseInt(searchText)) {
-                        studentObservableList.add(student);
+            for (Student s : StudentRepository.getInstance().findAll()) {
+                if (filter.getSelectedToggle().equals(idFilter)) {
+                    String id = String.valueOf(s.getStudentID());
+                    if (id.equals(searchText)) {
+                        studentObservableList.add(s);
                         break;
                     }
                 } else {
-                    String studentName = student.getLastName() + " " + student.getFirstName();
+                    // TODO: 18/04/2018 improve search engine
+                    String studentName = s.getLastName() + " " + s.getFirstName();
                     if (studentName.toLowerCase().contains(searchText.toLowerCase())) {
-                        studentObservableList.add(student);
+                        studentObservableList.add(s);
                     }
                 }
             }
         }
-
-
     }
 
     private void showStudentDetail(Student student) {
         if (student != null) {
-            lbl_fullname.setText(student.getLastName() + " " + student.getFirstName());
+            lbl_FullName.setText(student.getLastName() + " " + student.getFirstName());
             lblEmail.setText(student.getEmail());
             lblPhone.setText(student.getPhone());
             lblAddress.setText(student.getAddress());
             lblGender.setText(student.getGender());
             lblBirdthday.setText(DateUtil.format(student.getBirthday()));
+
             if (student instanceof CreditStudent) {
-                if (((CreditStudent) student).getCreditMajor() != null) {
-                    int num = ((CreditStudent) student).getTakenCredits();
-                    String totalCredit = Integer.toString(num);
-                    lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getTitleMajor());
-                    lblAddition.setText("Credit Taken: " + totalCredit);
-                } else {
-                    lblMajorClass.setText("No major yet");
-                    lblAddition.setText("");
-                }
-
-
+                int num = ((CreditStudent) student).getTakenCredits();
+                String totalCredit = String.valueOf(num);
+                lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getTitleMajor());
+                lblAddition.setText("Credit Taken: " + totalCredit);
             } else if (student instanceof AnnualStudent) {
-                if (((AnnualStudent) student).getAnnualClass() != null) {
-                    String years = ((AnnualStudent) student).getStudyYearStr();
-                    lblMajorClass.setText("Class: " + ((AnnualStudent) student).getAnnualClass().getClassName());
-                    lblAddition.setText("Year: " + years);
-                } else {
-                    lblMajorClass.setText("No class yet");
-                    lblAddition.setText("");
-
-                }
-
+                String years = ((AnnualStudent) student).getStudyYearStr();
+                lblMajorClass.setText("Class: " + ((AnnualStudent) student).getAnnualClass().getClassName());
+                lblAddition.setText("Year: " + years);
             }
         } else {
-            lbl_fullname.setText("");
+            lbl_FullName.setText("");
             lblEmail.setText("");
             lblPhone.setText("");
             lblAddress.setText("");
@@ -193,7 +203,6 @@ public class StudentsController implements Initializable {
             lblBirdthday.setText("");
             lblAddition.setText("");
             lblMajorClass.setText("");
-
         }
     }
 
@@ -210,11 +219,17 @@ public class StudentsController implements Initializable {
     @FXML
     void refreshTable(ActionEvent event) {
         studentTableView.getItems().clear();
+        // TODO: 18/04/2018 improve refresh => to preserve the current stage of table;
+//        List<Long> studentIDList = new ArrayList<>();
+//        for (Student student : studentObservableList) {
+//            studentIDList.add(student.getStudentID());
+//        }
         studentObservableList.setAll(StudentRepository.getInstance().findAll());
     }
 
     @FXML
     void removeStudent(ActionEvent event) {
+        // TODO: 18/04/2018 alert ??
         Student removeStudent = studentTableView.getSelectionModel().getSelectedItem();
         if (removeStudent != null) {
             StudentRepository.getInstance().delete(removeStudent);

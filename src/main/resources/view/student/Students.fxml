@@ -83,7 +83,7 @@
                         <Image url="@../../img/material-design-background.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="lbl_fullname" alignment="CENTER" layoutX="40.0" layoutY="100.0" text="NAME" textAlignment="CENTER">
+                  <Label fx:id="lbl_FullName" alignment="CENTER" layoutX="40.0" layoutY="100.0" text="NAME" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -225,12 +225,12 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <JFXRadioButton fx:id="IDFilter" selected="true" text="ID">
+                        <JFXRadioButton fx:id="idFilter" selected="true" text="ID">
                            <toggleGroup>
                               <ToggleGroup fx:id="filter" />
                            </toggleGroup>
                         </JFXRadioButton>
-                        <JFXRadioButton fx:id="NameFilter" text="Name" toggleGroup="$filter" />
+                        <JFXRadioButton fx:id="nameFilter" text="Name" toggleGroup="$filter" />
                         <JFXTextField fx:id="searchField" alignment="CENTER" prefWidth="350.0" promptText="Search by ID" unFocusColor="WHITE">
                            <font>
                               <Font size="14.0" />

@@ -96,6 +96,7 @@ public class AddStudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComboBox();
+        System.out.println("Init Add Menu");
     }
 
     private void initComboBox() {
@@ -136,13 +137,14 @@ public class AddStudentController implements Initializable {
 
     @FXML
     void submitDetails() {
+        // TODO: 18/04/2018 add diaglog
         int studentID = Integer.parseInt(txtStudentID.getText());
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
 
         String genderString = "Male";
         if (radioFemale.isSelected()) genderString = "Female";
-        LocalDate birthdayDate= dtpBirthday.getValue();
+        LocalDate birthdayDate = dtpBirthday.getValue();
         String phone = txtPhone.getText();
         String email = txtEmail.getText();
         String address = txtAddress.getText();
