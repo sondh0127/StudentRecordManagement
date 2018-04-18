@@ -8,6 +8,7 @@ import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.CreditStudent;
 import com.project.javafx.model.Student;
 import com.project.javafx.repository.StudentRepository;
+import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.beans.property.SimpleLongProperty;
@@ -15,6 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +26,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -116,16 +121,11 @@ public class StudentsController implements Initializable {
         studentTableView.setItems(studentObservableList);
         initCols();
 
+        // adding listener for Student Information Tab
         showStudentDetail(null);
-        // adding listener for some observable
         studentTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showStudentDetail(newValue));
-        filter.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals(idFilter)) {
-                searchField.setPromptText("Search by ID");
-            } else if (newValue.equals(nameFilter)) {
-                searchField.setPromptText("Search by Name");
-            }
-        });
+
+        initSearching();
     }
 
     private void initCols() {
@@ -147,6 +147,29 @@ public class StudentsController implements Initializable {
         educationSystem.setCellValueFactory(param -> {
             Student s = param.getValue();
             return new SimpleStringProperty(s.getEducationString());
+        });
+    }
+
+    /**
+     * Create some user interface feature for search method
+     */
+    private void initSearching() {
+        // set hotkey for searchButton
+        Parent parent = searchButton.getParent();
+        parent.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                searchButton.fire();
+                event.consume();
+            }
+        });
+
+        // add Listener for toggle search Group
+        filter.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(idFilter)) {
+                searchField.setPromptText("Search by ID");
+            } else if (newValue.equals(nameFilter)) {
+                searchField.setPromptText("Search by Name");
+            }
         });
     }
 
@@ -175,6 +198,10 @@ public class StudentsController implements Initializable {
         }
     }
 
+    /**
+     * Method help to showing all detail
+     * @param student
+     */
     private void showStudentDetail(Student student) {
         if (student != null) {
             lbl_FullName.setText(student.getLastName() + " " + student.getFirstName());
@@ -213,7 +240,7 @@ public class StudentsController implements Initializable {
 
     @FXML
     void updateStudent(ActionEvent event) {
-
+// TODO: 18/04/2018 update lul
     }
 
     @FXML
@@ -229,29 +256,33 @@ public class StudentsController implements Initializable {
 
     @FXML
     void removeStudent(ActionEvent event) {
-        // TODO: 18/04/2018 alert ??
         Student removeStudent = studentTableView.getSelectionModel().getSelectedItem();
         if (removeStudent != null) {
-            StudentRepository.getInstance().delete(removeStudent);
-            refreshTable(event);
-//            AlertMaker.showNotification("Successful", "Student Deleted", AlertMaker.image_movie_frame);
+            boolean confirmation = AlertMaker.getConfirmation("Delete Student", "Are you sure to delete student" + removeStudent.getStudentID() + " ?");
+            if (confirmation) {
+                StudentRepository.getInstance().delete(removeStudent);
+                // TODO: 18/04/2018 xoa every where
+                refreshTable(event);
+                AlertMaker.showNotification("Deleted", "Student info deleted successfully", AlertMaker.image_trash_can);
+            }
         } else {
-//            AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);
+            AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);
         }
     }
 
     private void loadWindow(String loc, String title) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource(loc));
-            Stage stage = new Stage(StageStyle.UTILITY);
+            Stage stage = new Stage(StageStyle.DECORATED); // Default Style
             stage.setTitle(title);
+            stage.getIcons().add(new Image(ViewConstants.APP_ICON));
             stage.setScene(new Scene(parent));
             stage.setResizable(false);
             stage.initOwner(btnAdd.getScene().getWindow());
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
         } catch (IOException ex) {
-//            AlertMaker.showErrorMessage(ex);
+            System.out.println(ex.getMessage());
         }
     }
 }

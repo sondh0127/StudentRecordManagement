@@ -5,11 +5,15 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
 import com.project.javafx.model.*;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.repository.StudentRepository;
-import com.project.javafx.ulti.alert.AlertMaker;
+import com.project.javafx.ulti.AlertMaker;
+import de.jensd.fx.glyphs.GlyphsBuilder;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -96,7 +100,32 @@ public class AddStudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComboBox();
-        System.out.println("Init Add Menu");
+        initValidation();
+    }
+
+    private void initValidation() {
+        initValidationForField(txtStudentID);
+        initValidationForField(txtFirstName);
+        initValidationForField(txtLastName);
+        initValidationForField(txtPhone);
+        initValidationForField(txtAddress);
+        initValidationForField(txtEmail);
+    }
+
+    private void initValidationForField(JFXTextField node) {
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        validator.setMessage("Input Required");
+        validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
+                .glyph(FontAwesomeIcon.WARNING)
+                .size("1em")
+                .styleClass("error")
+                .build());
+        node.getValidators().add(validator);
+        node.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                node.validate();
+            }
+        });
     }
 
     private void initComboBox() {
@@ -118,9 +147,8 @@ public class AddStudentController implements Initializable {
 
     }
 
-    // TODO: 24/03/2018 need add validation (NumberFormatException for id) + new button for clearform
     @FXML
-    void clearForm(ActionEvent event) {
+    private void clearForm(ActionEvent event) {
         if (event.getSource().equals(btnClear)) {
             txtStudentID.clear();
             txtFirstName.clear();
@@ -136,37 +164,66 @@ public class AddStudentController implements Initializable {
 
 
     @FXML
-    void submitDetails() {
-        // TODO: 18/04/2018 add diaglog
-        int studentID = Integer.parseInt(txtStudentID.getText());
-        String firstName = txtFirstName.getText();
-        String lastName = txtLastName.getText();
-
-        String genderString = "Male";
-        if (radioFemale.isSelected()) genderString = "Female";
-        LocalDate birthdayDate = dtpBirthday.getValue();
-        String phone = txtPhone.getText();
-        String email = txtEmail.getText();
-        String address = txtAddress.getText();
-
-        Student newStudent;
-        if (radioCredit.isSelected()) {
-            newStudent = new CreditStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address);
-            if (cbxMajor.getValue() != null) {
-                ((CreditStudent) newStudent).setCreditMajor(cbxMajor.getValue());
-                // TODO: 13/04/2018  add student to list of major
+    private void submitDetails() {
+        // TODO: 18/04/2018 make it simple LUL
+        long studentID = 0;
+        String firstName = null;
+        String lastName = null;
+        String genderString = null;
+        LocalDate birthdayDate = null;
+        String phone = null;
+        String email = null;
+        String address = null;
+        CreditMajor majorValue = null;
+        AnnualClass classValue = null;
+        Student newStudent = null;
+        try {
+            if (txtStudentID.getText().trim().isEmpty()) throw new RuntimeException("Enter student id !");
+            else studentID = Long.parseLong((txtStudentID.getText()));
+            if (txtFirstName.getText().trim().isEmpty()) throw new RuntimeException("Enter first name !");
+            else firstName = txtFirstName.getText();
+            if (txtLastName.getText().trim().isEmpty()) throw new RuntimeException("Enter last name !");
+            else lastName = txtLastName.getText();
+            if (radioFemale.isSelected()) genderString = "Female";
+            else genderString = "Male";
+            if (dtpBirthday.getValue() == null) throw new RuntimeException("Enter birth day !");
+            else birthdayDate = dtpBirthday.getValue();
+            if (txtPhone.getText().trim().isEmpty()) throw new RuntimeException("Enter phone number !");
+            else phone = txtPhone.getText();
+            if (txtEmail.getText().trim().isEmpty()) throw new RuntimeException("Enter email !");
+            else email = txtEmail.getText();
+            if (txtAddress.getText().trim().isEmpty()) throw new RuntimeException("Enter address !");
+            else address = txtAddress.getText();
+            if (radioCredit.isSelected()) {
+                majorValue = cbxMajor.getValue();
+                if (majorValue == null) throw new NullPointerException("Select a major for student !");
+            } else if (radioAnnual.isSelected()) {
+                classValue = cbxClass.getValue();
+                if (classValue == null) throw new NullPointerException("Select a class for student !");
             }
-        } else {
-            newStudent = new AnnualStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address);
-            if (cbxClass.getValue() != null) {
-                ((AnnualStudent) newStudent).setAnnualClass(cbxClass.getValue());
+            // after checking add student to data
+            if (majorValue != null) {
+                newStudent = new CreditStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address, majorValue);
                 // TODO: 13/04/2018  add student to list of major
+            } else if (classValue != null) {
+                newStudent = new AnnualStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address, classValue);
+                // TODO: 13/04/2018  add student to list of class
             }
-        }
-        if (StudentRepository.getInstance().save(newStudent)) {
-            AlertMaker.showNotification("Success", "Student info inserted successfully ", AlertMaker.image_movie_frame);
-        } else {
-            AlertMaker.showErrorMessage("Failed!", "Student ID is exist");
+            if (newStudent != null) {
+                if (StudentRepository.getInstance().save(newStudent)) {
+                    AlertMaker.showNotification("Success", "Student info inserted successfully !", AlertMaker.image_checked);
+                } else {
+                    AlertMaker.showErrorMessage("Failed!", "Student ID is exist !");
+                }
+            } else {
+                AlertMaker.showErrorMessage("Failed!", "Can't add student!");
+            }
+        } catch (NumberFormatException e) {
+            AlertMaker.showErrorMessage("Input Error", "Student ID must be number only !");
+        } catch (NullPointerException e1) {
+            AlertMaker.showErrorMessage("Input Error", e1.getMessage());
+        } catch (RuntimeException e2) {
+            AlertMaker.showErrorMessage("Input Error", e2.getMessage());
         }
     }
 

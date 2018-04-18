@@ -13,10 +13,6 @@ public class CreditStudent extends Student implements Registerable {
     protected Map<String, StudentResult> passedCourses;
     private double GPA;
 
-    public CreditStudent(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.CREDIT);
-    }
-
     public CreditStudent(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, CreditMajor creditMajor) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.CREDIT);
         this.creditMajor = creditMajor;

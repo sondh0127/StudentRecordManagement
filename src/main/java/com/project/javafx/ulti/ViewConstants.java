@@ -16,4 +16,8 @@ public class ViewConstants {
 
     public static final String MAJORS_VIEW = "/view/major_class/Majors.fxml";
     public static final String CLASSES_VIEW = "/view/major_class/Classes.fxml";
+
+    public static final String APP_ICON = "img/icons8_Graduation_Cap_32px.png";
+
+
 }

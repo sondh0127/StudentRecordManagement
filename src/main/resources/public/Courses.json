@@ -8,7 +8,8 @@
     "DEFAULT_CAPACITY": 45,
     "capacity": 45,
     "currentEnrollment": 0,
-    "studentResultList": []
+    "scale": 0.0,
+    "studentList": []
   },
   {
     "type": "CreditCourse",
@@ -19,7 +20,8 @@
     "DEFAULT_CAPACITY": 45,
     "capacity": 45,
     "currentEnrollment": 0,
-    "studentResultList": []
+    "scale": 0.0,
+    "studentList": []
   },
   {
     "type": "CreditCourse",
@@ -30,7 +32,8 @@
     "DEFAULT_CAPACITY": 45,
     "capacity": 45,
     "currentEnrollment": 0,
-    "studentResultList": []
+    "scale": 0.0,
+    "studentList": []
   },
   {
     "type": "Course",
@@ -39,7 +42,8 @@
     "DEFAULT_CAPACITY": 45,
     "capacity": 45,
     "currentEnrollment": 0,
-    "studentResultList": []
+    "scale": 0.0,
+    "studentList": []
   },
   {
     "type": "Course",
@@ -48,7 +52,8 @@
     "DEFAULT_CAPACITY": 45,
     "capacity": 45,
     "currentEnrollment": 0,
-    "studentResultList": []
+    "scale": 0.0,
+    "studentList": []
   },
   {
     "type": "Course",
@@ -57,6 +62,7 @@
     "DEFAULT_CAPACITY": 45,
     "capacity": 45,
     "currentEnrollment": 0,
-    "studentResultList": []
+    "scale": 0.0,
+    "studentList": []
   }
 ]

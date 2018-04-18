@@ -8,6 +8,7 @@ import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.ViewConstants;
+import com.project.javafx.ulti.AlertMaker;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -163,16 +164,22 @@ public class AdminDashboardController implements Initializable {
     }
 
     public void logOff(ActionEvent event) throws IOException {
-        Stage currentStage = (Stage) btnLogOut.getScene().getWindow();
-        currentStage.close();
-        saveDataOnClose();
-        mainApp.showLoginStage();
+        boolean logoffCf = AlertMaker.getConfirmation("Logout Confirmation", "Are you want to logout?");
+        if (logoffCf) {
+            Stage currentStage = (Stage) btnLogOut.getScene().getWindow();
+            currentStage.close();
+            saveDataOnClose();
+            mainApp.showLoginStage();
+        }
     }
 
     @FXML
     private void exit(ActionEvent event) {
-        saveDataOnClose();
-        Platform.exit();
+        boolean exitCf = AlertMaker.getConfirmation("Exit Confirmation", "Are you sure want to exit?");
+        if (exitCf) {
+            saveDataOnClose();
+            Platform.exit();
+        }
     }
 
     private void loadDataOnStart() {

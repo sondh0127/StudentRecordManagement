@@ -11,11 +11,7 @@ public class AnnualStudent extends Student implements Registerable {
     private StudyYear studyYear;
     private double AVG;
 
-    public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
-    }
-
-    public AnnualStudent(int studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, AnnualClass annualClass) {
+    public AnnualStudent(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, AnnualClass annualClass) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
         this.annualClass = annualClass;
         this.studyYear = StudyYear.FIRST_YEAR;

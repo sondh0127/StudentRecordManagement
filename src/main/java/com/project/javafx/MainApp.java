@@ -31,7 +31,7 @@ public class MainApp extends Application {
         primaryStage.setTitle(ViewConstants.APP_NAME);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
-        primaryStage.getIcons().add(new Image("img/icons8_Graduation_Cap_32px.png"));
+        primaryStage.getIcons().add(new Image(ViewConstants.APP_ICON));
         primaryStage.show();
         createReference();
     }
