@@ -2,16 +2,15 @@ package com.project.javafx.model;
 
 public class StudentResult {
 
-    private final double DEFAULT_POINT = -1;
     private double midtermPoint;
     private double finalPoint;
     private double score;
     private double scale;
 
     public StudentResult(double scale) {
-        this.midtermPoint = DEFAULT_POINT;
-        this.finalPoint = DEFAULT_POINT;
-        this.score = DEFAULT_POINT;
+        this.midtermPoint = -1;
+        this.finalPoint = -1;
+        this.score = -1;
         this.scale = scale;
     }
 
@@ -22,11 +21,11 @@ public class StudentResult {
     }
 
     private double calculateScore() {
-        if (midtermPoint != DEFAULT_POINT && finalPoint != DEFAULT_POINT) {
+        if (midtermPoint != -1 && finalPoint != -1) {
             double result = midtermPoint * scale + finalPoint * (1 - scale);
             return Math.round(result * 10.0) / 10.0;
         }
-        return DEFAULT_POINT;
+        return -1;
     }
 
     // getter and setter
@@ -39,6 +38,7 @@ public class StudentResult {
     }
 
     public double getScore() {
+        calculateScore();
         return score;
     }
 

@@ -1,10 +1,11 @@
 package com.project.javafx.repository;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.CoursesCatalog;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.model.CreditMajor;
-import com.project.javafx.ulti.RuntimeTypeAdapterFactory;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -20,16 +21,6 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor> {
 
     public static CreditMajorRepository getInstance() {
         return instance;
-    }
-
-    @Override
-    public String converter(CreditMajor element) {
-        return element.getTitleMajor();
-    }
-
-    @Override
-    protected Type setToken() {
-        return new TypeToken<Set<CreditMajor>>() {}.getType();
     }
 
     public void initSomeMajor() {
@@ -63,5 +54,25 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor> {
         csMajor.setMajorCatalog(csCatalog);
 //        this.addData(csMajor);
         save(csMajor);
+    }
+
+    @Override
+    public String converter(CreditMajor element) {
+        return element.getMajorCode();
+    }
+
+    @Override
+    protected Gson gsonCreator() {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+//                .setExclusionStrategies(new StudentExclusionStrategy())
+                .create();
+        return gson;
+    }
+
+    @Override
+    protected Type setToken() {
+        return new TypeToken<Set<CreditMajor>>() {
+        }.getType();
     }
 }

@@ -38,17 +38,18 @@ public class AnnualStudent extends Student implements Registerable {
             return false;
         } else if (takenCourses.containsKey(courseCode)){
             takenCourses.put(courseCode, new StudentResult(midtermPoint, finalPoint));
+            return true;
         }
         return false;
     }
 
     @Override
-    protected StudentResult getGradeResult(String courseCode) {
+    public StudentResult getGradeResult(String courseCode) {
         return takenCourses.get(courseCode);
     }
 
     @Override
-    protected boolean checkAbleToGraduated() {
+    public boolean checkAbleToGraduated() {
         return graduateAble;
     }
 

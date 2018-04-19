@@ -49,6 +49,10 @@ public class AnnualClass {
         return className;
     }
 
+    public String getClassCode() {
+        return classCode;
+    }
+
     public CoursesCatalog<Course> getCoursesCatalog(StudyYear year) {
         switch (year) {
             case FIRST_YEAR:

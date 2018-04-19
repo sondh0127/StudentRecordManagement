@@ -34,17 +34,23 @@ public class CreditStudent extends Student implements Registerable {
 
     @Override
     public boolean updateStudentResult(String courseCode, double midtermPoint, double finalPoint) {
+        if (midtermPoint > 10 || midtermPoint < 0 || finalPoint > 10 || finalPoint < 0) {
+            return false;
+        } else if (takenCourses.containsKey(courseCode)){
+            takenCourses.put(courseCode, new StudentResult(midtermPoint, finalPoint));
+            return true;
+        }
         return false;
     }
 
     @Override
-    protected StudentResult getGradeResult(String courseCode) {
-        return null;
+    public StudentResult getGradeResult(String courseCode) {
+        return takenCourses.get(courseCode);
     }
 
     @Override
     // TODO: 14/04/2018 minor add pls
-    protected boolean checkAbleToGraduated() {
+    public boolean checkAbleToGraduated() {
         int majorCreditsRequired = getCreditMajor().getMajorCreditsRequired();
         if (majorCreditsRequired == takenCredits || calculateGPA() >= 2.0) {
             return true;

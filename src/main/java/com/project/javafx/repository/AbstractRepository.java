@@ -1,8 +1,6 @@
 package com.project.javafx.repository;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.project.javafx.ulti.RuntimeTypeAdapterFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,7 +10,6 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public abstract class AbstractRepository<T> implements GenericRepository<T> {
@@ -94,37 +91,22 @@ public abstract class AbstractRepository<T> implements GenericRepository<T> {
         return false;
     }
 
-    protected RuntimeTypeAdapterFactory<T> setAdapter() {
-        return null;
-    }
-    protected abstract Type setToken();
-
-    private Gson gson;
     public void gSonLoad() {
-        if (setAdapter() == null) {
-            gson = new GsonBuilder().setPrettyPrinting().create();
-        } else {
-            gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(setAdapter()).create();
-        }
-
+        System.out.println("Loaded file: " + filepath);
+        Gson gson = gsonCreator();
         String fileData;
         try {
             fileData = new String(Files.readAllBytes(Paths.get(filepath)));
-            Type pType = setToken();
-           setData(gson.fromJson(fileData, pType));
+            setData(gson.fromJson(fileData, setToken()));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void gSonSave() {
-        if (setAdapter() == null) {
-            gson = new GsonBuilder().setPrettyPrinting().create();
-        } else {
-            gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(setAdapter()).create();
-        }
+        System.out.println("Saved file: " + filepath);
+        Gson gson = gsonCreator();
         String json = gson.toJson(objects, setToken());
-//        System.out.print(json);
         try {
             OutputStream stream = new FileOutputStream(new File(filepath));
             stream.write(json.getBytes());
@@ -133,5 +115,9 @@ public abstract class AbstractRepository<T> implements GenericRepository<T> {
             e.printStackTrace();
         }
     }
+
+    protected abstract Gson gsonCreator();
+
+    protected abstract Type setToken();
 
 }

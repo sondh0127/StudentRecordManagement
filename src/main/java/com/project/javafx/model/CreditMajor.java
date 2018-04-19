@@ -36,7 +36,12 @@ public class CreditMajor {
 
 
     // getter and setter
-    public String getTitleMajor() {
+
+    public String getMajorCode() {
+        return majorCode;
+    }
+
+    public String getMajorTitle() {
         return majorTitle;
     }
 

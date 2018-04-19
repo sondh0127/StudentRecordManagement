@@ -1,8 +1,11 @@
 package com.project.javafx.repository;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.*;
 import com.project.javafx.ulti.DateUtil;
+import com.project.javafx.ulti.StudentExclusionStrategy;
 import com.project.javafx.ulti.RuntimeTypeAdapterFactory;
 
 import java.lang.reflect.Type;
@@ -12,7 +15,7 @@ public class StudentRepository extends AbstractRepository<Student> {
     private static final String path = "src/main/resources/public/Students.json";
     private static StudentRepository instance = new StudentRepository(path);
 
-    private StudentRepository(String filepath) {
+    public StudentRepository(String filepath) {
         super(filepath);
     }
 
@@ -38,8 +41,7 @@ public class StudentRepository extends AbstractRepository<Student> {
         return String.valueOf(element.getStudentID());
     }
 
-    @Override
-    protected RuntimeTypeAdapterFactory<Student> setAdapter() {
+    private RuntimeTypeAdapterFactory<Student> setAdapter() {
         RuntimeTypeAdapterFactory<Student> adapter =
                 RuntimeTypeAdapterFactory
                         .of(Student.class, "type")
@@ -49,7 +51,36 @@ public class StudentRepository extends AbstractRepository<Student> {
     }
 
     @Override
+    protected Gson gsonCreator() {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapterFactory(setAdapter())
+                .serializeNulls()
+                .setExclusionStrategies(new StudentExclusionStrategy())
+                .create();
+        return gson;
+    }
+
+    @Override
     protected Type setToken() {
-        return new TypeToken<Set<Student>>() {}.getType();
+        return new TypeToken<Set<Student>>() {
+        }.getType();
+    }
+
+    @Override
+    public void gSonLoad() {
+        super.gSonLoad();
+        // set major and class for student List
+        for (Student student : objects) {
+            if (student instanceof CreditStudent) {
+                String majorCode = ((CreditStudent) student).getCreditMajor().getMajorCode();
+                CreditMajor major = CreditMajorRepository.getInstance().findById(majorCode);
+                ((CreditStudent) student).setCreditMajor(major);
+            } else if (student instanceof AnnualStudent) {
+                String classCode = ((AnnualStudent) student).getAnnualClass().getClassCode();
+                AnnualClass aClass = AnnualClassRepository.getInstance().findById(classCode);
+                ((AnnualStudent) student).setAnnualClass(aClass);
+            }
+        }
     }
 }

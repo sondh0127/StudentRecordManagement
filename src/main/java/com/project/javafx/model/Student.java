@@ -1,9 +1,9 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Objects;
 
-public abstract class Student{
+public abstract class Student {
 
     private long studentID;
     private String firstName;
@@ -41,9 +41,9 @@ public abstract class Student{
         return false;
     }
 
-    abstract protected StudentResult getGradeResult(String courseCode);
+    abstract public StudentResult getGradeResult(String courseCode);
 
-    abstract protected boolean checkAbleToGraduated();
+    abstract public boolean checkAbleToGraduated();
 
     // GETTER
     public long getStudentID() {
@@ -87,26 +87,6 @@ public abstract class Student{
     }
 
     /**
-     * Education System distinction
-     */
-    public enum EduSystem {
-        CREDIT("Academic Credit"),
-        ANNUAL("Annual Curriculum");
-
-        private final String text;
-
-        EduSystem(String text) {
-            this.text = text;
-        }
-
-
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
-
-    /**
      * Override equals to provide: a comparison of 2 student
      */
     @Override
@@ -128,7 +108,28 @@ public abstract class Student{
     public String toString() {
         return "Student{" +
                 studentID +
-                ", " + firstName +lastName +
+                ", " + firstName +
+                " " + lastName +
                 '}';
+    }
+
+    /**
+     * Education System distinction
+     */
+    public enum EduSystem {
+        CREDIT("Academic Credit"),
+        ANNUAL("Annual Curriculum");
+
+        private final String text;
+
+        EduSystem(String text) {
+            this.text = text;
+        }
+
+
+        @Override
+        public String toString() {
+            return text;
+        }
     }
 }

@@ -214,7 +214,7 @@ public class StudentsController implements Initializable {
             if (student instanceof CreditStudent) {
                 int num = ((CreditStudent) student).getTakenCredits();
                 String totalCredit = String.valueOf(num);
-                lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getTitleMajor());
+                lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getMajorTitle());
                 lblAddition.setText("Credit Taken: " + totalCredit);
             } else if (student instanceof AnnualStudent) {
                 String years = ((AnnualStudent) student).getStudyYearStr();
