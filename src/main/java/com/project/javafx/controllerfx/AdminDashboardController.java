@@ -197,6 +197,7 @@ public class AdminDashboardController implements Initializable {
     }
 
     private void saveDataOnClose() {
+        // TODO: 19/04/2018 save every time change or on close
         StudentRepository.getInstance().gSonSave();
         CourseRepository.getInstance().gSonSave();
         CreditMajorRepository.getInstance().gSonSave();

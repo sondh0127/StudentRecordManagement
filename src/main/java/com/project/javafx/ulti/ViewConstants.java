@@ -11,13 +11,14 @@ public class ViewConstants {
     public static final String HOME_VIEW = "/view/mainui/Home.fxml";
 
     public static final String ADD_STUDENT_VIEW = "/view/student/AddStudent.fxml";
+    public static final String UPDATE_STUDENT_PROFILE_VIEW = "/view/student/UpdateStudentProfile.fxml";
     public static final String ADD_REGISTER_VIEW = "/view/course/RegisterCourse.fxml";
 
 
     public static final String MAJORS_VIEW = "/view/major_class/Majors.fxml";
     public static final String CLASSES_VIEW = "/view/major_class/Classes.fxml";
 
-    public static final String APP_ICON = "img/icons8_Graduation_Cap_32px.png";
+    public static final String APP_ICON = "img/Student_Male_96px.png";
 
 
 }

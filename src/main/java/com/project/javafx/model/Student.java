@@ -17,11 +17,11 @@ public abstract class Student {
 
     private EduSystem educationSystem;
 
-    public Student(long studentID, String firstName, String lastName) {
-        this.studentID = studentID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+//    public Student(long studentID, String firstName, String lastName) {
+//        this.studentID = studentID;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//    }
 
     public Student(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
         this.studentID = studentID;
@@ -29,6 +29,7 @@ public abstract class Student {
         this.lastName = lastName;
         this.gender = gender;
         this.birthday = birthday;
+
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -36,9 +37,10 @@ public abstract class Student {
     }
 
     // MAIN BEHAVIOR
-    public boolean updateProfile() {
-
-        return false;
+    public void updateStudentProfile(String phone, String email, String address) {
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
     }
 
     abstract public StudentResult getGradeResult(String courseCode);

@@ -16,7 +16,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,85 +35,65 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class StudentsController implements Initializable {
 
+    public static UpdateStudentProfileController updateStudentProfileController;
     /**
      * The data as observable list of student data from databases
      */
     private ObservableList<Student> studentObservableList = FXCollections.observableArrayList();
-
     @FXML
     private TableView<Student> studentTableView;
-
     @FXML
     private TableColumn<Student, Number> studentID;
-
     @FXML
     private TableColumn<Student, String> firstName;
-
     @FXML
     private TableColumn<Student, String> lastName;
-
     @FXML
     private TableColumn<Student, String> educationSystem;
-
     @FXML
     private JFXRadioButton idFilter;
-
     @FXML
     private JFXRadioButton nameFilter;
-
     @FXML
     private JFXTextField searchField;
-
     @FXML
     private JFXButton searchButton;
-
     @FXML
     private ToggleGroup filter;
-
     @FXML
     private Label lbl_FullName;
-
     @FXML
     private Label lblEmail;
-
     @FXML
     private Label lblPhone;
-
     @FXML
     private Label lblAddress;
-
     @FXML
     private Label lblGender;
-
     @FXML
     private Label lblBirdthday;
-
     @FXML
     private Label lblAddition;
-
     @FXML
     private Label lblMajorClass;
-
     @FXML
     private VBox detailsBox;
-
     @FXML
     private JFXButton btnAdd;
-
     @FXML
     private JFXButton btnRemove;
-
     @FXML
-    private JFXButton btnModify;
-
+    private JFXButton btnUpdate;
     @FXML
     private JFXButton btnRefresh;
+
+    public static void setUpdateStudentProfileController(UpdateStudentProfileController controller) {
+        StudentsController.updateStudentProfileController = controller;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -200,6 +179,7 @@ public class StudentsController implements Initializable {
 
     /**
      * Method help to showing all detail
+     *
      * @param student
      */
     private void showStudentDetail(Student student) {
@@ -240,7 +220,15 @@ public class StudentsController implements Initializable {
 
     @FXML
     void updateStudent(ActionEvent event) {
-// TODO: 18/04/2018 update lul
+        Student updateStudent = studentTableView.getSelectionModel().getSelectedItem();
+        if (updateStudent == null) {
+            AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);
+        } else {
+            if (event.getSource().equals(btnUpdate))
+                loadWindow(ViewConstants.UPDATE_STUDENT_PROFILE_VIEW, "Update Student Profile");
+            updateStudentProfileController.initField(updateStudent);
+        }
+
     }
 
     @FXML

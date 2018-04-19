@@ -75,7 +75,7 @@ public class LoginController implements Initializable{
 
             stage.setTitle(title);
             stage.setScene(new Scene(root));
-            stage.getIcons().add(new Image("img/icons8_Graduation_Cap_32px.png"));
+            stage.getIcons().add(new Image(ViewConstants.APP_ICON));
             stage.initOwner(accountField.getScene().getWindow());
             stage.show();
         } catch (IOException e) {
