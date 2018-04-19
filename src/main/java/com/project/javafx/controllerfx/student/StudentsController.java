@@ -125,7 +125,7 @@ public class StudentsController implements Initializable {
         });
         educationSystem.setCellValueFactory(param -> {
             Student s = param.getValue();
-            return new SimpleStringProperty(s.getEducationString());
+            return new SimpleStringProperty(s.getEducationSystem().toString());
         });
     }
 
@@ -192,7 +192,7 @@ public class StudentsController implements Initializable {
             lblBirdthday.setText(DateUtil.format(student.getBirthday()));
 
             if (student instanceof CreditStudent) {
-                int num = ((CreditStudent) student).getTakenCredits();
+                int num = ((CreditStudent) student).getPassedMajorCredits();
                 String totalCredit = String.valueOf(num);
                 lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getMajorTitle());
                 lblAddition.setText("Credit Taken: " + totalCredit);
@@ -246,7 +246,7 @@ public class StudentsController implements Initializable {
     void removeStudent(ActionEvent event) {
         Student removeStudent = studentTableView.getSelectionModel().getSelectedItem();
         if (removeStudent != null) {
-            boolean confirmation = AlertMaker.getConfirmation("Delete Student", "Are you sure to delete student" + removeStudent.getStudentID() + " ?");
+            boolean confirmation = AlertMaker.getConfirmation("Delete Student", "Are you sure to delete student " + removeStudent.getStudentID() + " ?");
             if (confirmation) {
                 StudentRepository.getInstance().delete(removeStudent);
                 // TODO: 18/04/2018 xoa every where

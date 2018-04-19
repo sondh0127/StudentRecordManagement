@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.project.javafx.ulti;
+package com.project.javafx.ulti.gsonUtil;
 
 import com.google.gson.*;
 import com.google.gson.internal.Streams;

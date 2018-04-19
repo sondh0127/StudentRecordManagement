@@ -6,9 +6,10 @@ import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
-import com.project.javafx.model.CoursesCatalog;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
@@ -49,25 +50,25 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
 
     public void initSomeClass() {
         AnnualClass newClass = new AnnualClass("PHY", "Physic");
-        CoursesCatalog<Course> coursesCatalog = new CoursesCatalog<>();
+        List<Course> coursesCatalog = new ArrayList<>();
 
-        coursesCatalog.addCourse(new Course("PHY130", "Physics I"));
-        coursesCatalog.addCourse(new Course("PHY132", "Physics I Lab"));
-        coursesCatalog.addCourse(new Course("PHY230", "Physics II"));
-        coursesCatalog.addCourse(new Course("PHY232", "Physics II Lab"));
-        coursesCatalog.addCourse(new Course("PHY245", "Physics III"));
-        coursesCatalog.addCourse(new Course("PHY246", "Physics III Lab"));
-        coursesCatalog.addCourse(new Course("CHE133", "College Chemistry I"));
-        coursesCatalog.addCourse(new Course("CHE134", "College Chemistry II"));
-        coursesCatalog.addCourse(new Course("CHE250", "Organic Chemistry I"));
-        coursesCatalog.addCourse(new Course("CHE251", "Organic Chemistry II"));
-        coursesCatalog.addCourse(new Course("BIO150", "Modern Biology I"));
-        coursesCatalog.addCourse(new Course("BIO152", "Modern Biology II"));
-        coursesCatalog.addCourse(new Course("ENG101", "Standard Freshman Composition"));
-        coursesCatalog.addCourse(new Course("ENG102", "Introduction to Literature"));
-        coursesCatalog.addCourse(new Course("ENG121", "Technical Writing"));
+        coursesCatalog.add(new Course("PHY130", "Physics I"));
+        coursesCatalog.add(new Course("PHY132", "Physics I Lab"));
+        coursesCatalog.add(new Course("PHY230", "Physics II"));
+        coursesCatalog.add(new Course("PHY232", "Physics II Lab"));
+        coursesCatalog.add(new Course("PHY245", "Physics III"));
+        coursesCatalog.add(new Course("PHY246", "Physics III Lab"));
+        coursesCatalog.add(new Course("CHE133", "College Chemistry I"));
+        coursesCatalog.add(new Course("CHE134", "College Chemistry II"));
+        coursesCatalog.add(new Course("CHE250", "Organic Chemistry I"));
+        coursesCatalog.add(new Course("CHE251", "Organic Chemistry II"));
+        coursesCatalog.add(new Course("BIO150", "Modern Biology I"));
+        coursesCatalog.add(new Course("BIO152", "Modern Biology II"));
+        coursesCatalog.add(new Course("ENG101", "Standard Freshman Composition"));
+        coursesCatalog.add(new Course("ENG102", "Introduction to Literature"));
+        coursesCatalog.add(new Course("ENG121", "Technical Writing"));
 
-        newClass.setCoursesCatalog(coursesCatalog, AnnualStudent.StudyYear.FIRST_YEAR);
+        newClass.setCoursesCatalog(coursesCatalog, AnnualStudent.YearOfStudy.FIRST_YEAR);
         save(newClass);
     }
     // History courses

@@ -3,48 +3,20 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.project.javafx.model.*;
-import com.project.javafx.repository.AnnualClassRepository;
-import com.project.javafx.repository.CourseRepository;
-import com.project.javafx.repository.CreditMajorRepository;
-import com.project.javafx.repository.StudentRepository;
-import com.project.javafx.ulti.DateUtil;
-import com.project.javafx.ulti.RuntimeTypeAdapterFactory;
-import de.jensd.fx.glyphs.GlyphsStyle;
-import de.jensd.fx.glyphs.control.GlyphCheckBox;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.octicons.OctIcon;
-import de.jensd.fx.glyphs.octicons.OctIconView;
-import org.junit.Assert;
+import com.project.javafx.model.AnnualStudent;
+import com.project.javafx.model.CreditMajor;
+import com.project.javafx.model.CreditStudent;
+import com.project.javafx.model.Student;
+import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class TestStudent {
-
-    @Test
-    public void testRegisterCourse() {
-        CreditMajorRepository.getInstance().initSomeMajor();
-        AnnualClassRepository.getInstance().initSomeClass();
-        CourseRepository.getInstance().initCourses();
-        StudentRepository.getInstance().gSonLoad();
-
-        Student student = StudentRepository.getInstance().findById(String.valueOf(20151228));
-        if (student != null) {
-            if (student instanceof CreditStudent) {
-                ((CreditStudent) student).registerCourse("CSC103");
-                ((CreditStudent) student).updateStudentResult("CSC103", 8.5, 9.0);
-                StudentResult csc103GR = student.getGradeResult("CSC103");
-                Assert.assertTrue(csc103GR.getFinalPoint() == 9.0);
-                System.out.println(csc103GR.getScore());
-            }
-        }
-
-    }
 
     public class TestExclusionStrategies implements ExclusionStrategy {
 

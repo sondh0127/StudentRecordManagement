@@ -1,45 +1,43 @@
 package com.project.javafx.model;
 
-import com.project.javafx.model.AnnualStudent.StudyYear;
+import com.project.javafx.model.AnnualStudent.YearOfStudy;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnnualClass {
 
-    @Override
-    public String toString() {
-        return className;
-    }
-
     private final String classCode;
     private final String className;
-    private CoursesCatalog<Course> coursesCatalog1;
-    private CoursesCatalog<Course> coursesCatalog2;
-    private CoursesCatalog<Course> coursesCatalog3;
-    private CoursesCatalog<Course> coursesCatalog4;
 
-    private List<Long> studentList = new ArrayList<>();
+    private List<List<Course>> courseCatalog = new ArrayList<>(4);
+
+    private List<AnnualStudent> studentList = new ArrayList<>();
 
     public AnnualClass(String classCode, String className) {
         this.classCode = classCode;
         this.className = className;
     }
 
+    @Override
+    public String toString() {
+        return className;
+    }
+
     // main method
-    public void createCatalog(Course course, StudyYear year) {
+    public void createCatalog(Course course, YearOfStudy year) {
         switch (year) {
             case FIRST_YEAR:
-                coursesCatalog1.addCourse(course);
+                courseCatalog.get(0).add(course);
                 break;
             case SECOND_YEAR:
-                coursesCatalog2.addCourse(course);
+                courseCatalog.get(1).add(course);
                 break;
             case THIRD_YEAR:
-                coursesCatalog3.addCourse(course);
+                courseCatalog.get(2).add(course);
                 break;
             case FOURTH_YEAR:
-                coursesCatalog4.addCourse(course);
+                courseCatalog.get(3).add(course);
                 break;
         }
     }
@@ -53,62 +51,41 @@ public class AnnualClass {
         return classCode;
     }
 
-    public CoursesCatalog<Course> getCoursesCatalog(StudyYear year) {
+    public List<Course> getCoursesCatalog(YearOfStudy year) {
         switch (year) {
             case FIRST_YEAR:
-                return coursesCatalog1;
+                return courseCatalog.get(0);
             case SECOND_YEAR:
-                return coursesCatalog2;
+                return courseCatalog.get(1);
             case THIRD_YEAR:
-                return coursesCatalog3;
+                return courseCatalog.get(2);
             case FOURTH_YEAR:
-                return coursesCatalog4;
+                return courseCatalog.get(3);
         }
         return null;
     }
 
-    public void setCoursesCatalog(CoursesCatalog<Course> coursesCatalog, StudyYear year) {
+    public void setCoursesCatalog(List<Course> coursesCatalog, YearOfStudy year) {
         switch (year) {
             case FIRST_YEAR:
-                coursesCatalog = coursesCatalog;
+                courseCatalog.add(0, coursesCatalog);
             case SECOND_YEAR:
-                coursesCatalog = coursesCatalog;
+                courseCatalog.add(1, coursesCatalog);
             case THIRD_YEAR:
-                coursesCatalog = coursesCatalog;
+                courseCatalog.add(2, coursesCatalog);
             case FOURTH_YEAR:
-                coursesCatalog = coursesCatalog;
+                courseCatalog.add(3, coursesCatalog);
         }
     }
 
     /**
      * call when add a class to student.
+     *
      * @param student: AnnualStudent
      */
     public void addStudent(AnnualStudent student) {
-        if (!studentList.contains(student.getStudentID())) {
-            studentList.add(student.getStudentID());
-            StudyYear year = student.getStudyYear();
-            switch (year) {
-                case FIRST_YEAR:
-                    addCourseListForStudent(student, coursesCatalog1);
-                    break;
-                case SECOND_YEAR:
-                    addCourseListForStudent(student, coursesCatalog2);
-                    break;
-                case THIRD_YEAR:
-                    addCourseListForStudent(student, coursesCatalog3);
-                    break;
-                case FOURTH_YEAR:
-                    addCourseListForStudent(student, coursesCatalog4);
-                    break;
-            }
-        }
-    }
-
-    private void addCourseListForStudent(AnnualStudent student, CoursesCatalog<Course> catalog) {
-//        for (Course course : catalog.getCourseDataSet()) {
-//            student.registerCourse(course);
-//        }
+        if (studentList.contains(student)) throw new IllegalArgumentException("Student is exists");
+        else studentList.add(student);
     }
 
 }

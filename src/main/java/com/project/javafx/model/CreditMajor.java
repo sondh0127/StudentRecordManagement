@@ -1,21 +1,23 @@
 package com.project.javafx.model;
 
-public class CreditMajor {
+import java.util.ArrayList;
+import java.util.List;
 
-    private final int DEFAULT_MAJOR_CREDITS = 120;
-    private final int DEFAULT_MINOR_CREDITS = 10;
+public class CreditMajor {
 
     private final String majorCode;
     private final String majorTitle;
     private final int majorCreditsRequired;
     private final int minorCreditsRequired;
 
-    private CoursesCatalog<CreditCourse> majorCatalog;
-    private CoursesCatalog<CreditCourse> minorCatalog;
+    private List<CreditCourse> majorCatalog = new ArrayList<>();
+    private List<CreditCourse> minorCatalog = new ArrayList<>();
 
     public CreditMajor(String majorCode, String majorTitle) {
         this.majorCode = majorCode;
         this.majorTitle = majorTitle;
+        int DEFAULT_MAJOR_CREDITS = 120;
+        int DEFAULT_MINOR_CREDITS = 10;
         this.majorCreditsRequired = DEFAULT_MAJOR_CREDITS;
         this.minorCreditsRequired = DEFAULT_MINOR_CREDITS;
     }
@@ -27,15 +29,7 @@ public class CreditMajor {
         this.minorCreditsRequired = minorCreditsRequired;
     }
 
-    // main method
-    public void createMajorList() {
-
-    }
-
-    // TODO: 13/04/2018  ae add them method nhe
-
-
-    // getter and setter
+    // GETTER AND SETTER
 
     public String getMajorCode() {
         return majorCode;
@@ -53,19 +47,19 @@ public class CreditMajor {
         return minorCreditsRequired;
     }
 
-    public CoursesCatalog<CreditCourse> getMajorCatalog() {
+    public List<CreditCourse> getMajorCatalog() {
         return majorCatalog;
     }
 
-    public void setMajorCatalog(CoursesCatalog<CreditCourse> majorCatalog) {
-        this.majorCatalog = majorCatalog;
-    }
-
-    public CoursesCatalog<CreditCourse> getMinorCatalog() {
+    public List<CreditCourse> getMinorCatalog() {
         return minorCatalog;
     }
 
-    public void setMinorCatalog(CoursesCatalog<CreditCourse> minorCatalog) {
+    public void setMajorCatalog(List<CreditCourse> majorCatalog) {
+        this.majorCatalog = majorCatalog;
+    }
+
+    public void setMinorCatalog(List<CreditCourse> minorCatalog) {
         this.minorCatalog = minorCatalog;
     }
 

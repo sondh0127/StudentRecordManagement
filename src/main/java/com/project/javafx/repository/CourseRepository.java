@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.CreditCourse;
-import com.project.javafx.ulti.RuntimeTypeAdapterFactory;
+import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
 
 import java.lang.reflect.Type;
 import java.util.Set;

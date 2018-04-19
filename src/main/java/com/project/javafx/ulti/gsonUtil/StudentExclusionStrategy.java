@@ -1,4 +1,4 @@
-package com.project.javafx.ulti;
+package com.project.javafx.ulti.gsonUtil;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

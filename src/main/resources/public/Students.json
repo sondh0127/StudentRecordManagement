@@ -1,11 +1,15 @@
 [
   {
     "type": "CreditStudent",
+    "passedCourses": null,
     "creditMajor": {
       "majorCode": "CS01"
     },
-    "takenCredits": 0,
-    "passedCourses": null,
+    "registerCreditsLimit": 0,
+    "passedMajorCredits": 0,
+    "passedMinorCredits": 0,
+    "registerCredits": 0,
+    "CPA": 0.0,
     "GPA": 0.0,
     "studentID": 20151228,
     "firstName": "Hai",
@@ -23,11 +27,15 @@
   },
   {
     "type": "CreditStudent",
+    "passedCourses": null,
     "creditMajor": {
       "majorCode": "CS01"
     },
-    "takenCredits": 0,
-    "passedCourses": null,
+    "registerCreditsLimit": 0,
+    "passedMajorCredits": 0,
+    "passedMinorCredits": 0,
+    "registerCredits": 0,
+    "CPA": 0.0,
     "GPA": 0.0,
     "studentID": 20151703,
     "firstName": "Huy",

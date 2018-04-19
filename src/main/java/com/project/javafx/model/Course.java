@@ -13,60 +13,19 @@ public class Course {
     private int currentEnrollment;
     private double scale;
 
-    private List<Long> studentList;
+    private List<Student> studentRoster = new ArrayList<>();
 
     public Course(String courseCode, String courseName) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.capacity = DEFAULT_CAPACITY;
-        studentList = new ArrayList<>();
     }
 
     public Course(String courseCode, String courseName, int capacity) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.capacity = capacity;
-        studentList = new ArrayList<>();
     }
-
-    // main method
-
-    /**
-     * Nhập điểm
-     */
-//    public boolean updateStudentResult(Long studentID, double midtermPoint, double finalPoint) {
-//        if (midtermPoint > 10 || midtermPoint < 0 || finalPoint > 10 || finalPoint < 0) {
-//            return false;
-//        } else {
-//            Student student = StudentRepository.getInstance().findById(String.valueOf(studentID));
-//            if (studentResult.getCourseCode().equals(studentID)) {
-//                studentResult.updateResult(midtermPoint, finalPoint);
-//            }
-//        }
-//        return false;
-//    }
-
-    public boolean addStudent(Long studentID) {
-        return studentList.add(studentID);
-    }
-
-    public boolean removeStudent(Long studentID) {
-        for (Long id : studentList) {
-            if (studentID.equals(id)) {
-                return studentList.remove(id);
-            }
-        }
-        return false;
-    }
-
-//    public StudentResult getResult(Long studentID) {
-//        for (StudentResult studentResult : studentList) {
-//            if (studentResult.getCourseCode().equals(studentID)) {
-//                return studentResult;
-//            }
-//        }
-//        return null;
-//    }
 
     // getter and setter
     public String getCourseCode() {
@@ -85,8 +44,22 @@ public class Course {
         return scale;
     }
 
-    public List<Long> getStudentList() {
-        return studentList;
+    public List<Student> getStudentRoster() {
+        return studentRoster;
+    }
+
+    @Override
+    public String toString() {
+        return courseCode;
+    }
+
+    // main method
+    public boolean addStudent(Student student) {
+        return studentRoster.add(student);
+    }
+
+    public boolean removeStudent(Student student) {
+        return studentRoster.remove(student);
     }
 
     /**

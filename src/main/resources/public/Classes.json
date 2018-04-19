@@ -2,6 +2,556 @@
   {
     "classCode": "PHY",
     "className": "Physic",
+    "courseCatalog": [
+      [
+        {
+          "courseCode": "PHY130",
+          "courseName": "Physics I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY132",
+          "courseName": "Physics I Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY230",
+          "courseName": "Physics II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY232",
+          "courseName": "Physics II Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY245",
+          "courseName": "Physics III",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY246",
+          "courseName": "Physics III Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE133",
+          "courseName": "College Chemistry I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE134",
+          "courseName": "College Chemistry II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE250",
+          "courseName": "Organic Chemistry I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE251",
+          "courseName": "Organic Chemistry II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "BIO150",
+          "courseName": "Modern Biology I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "BIO152",
+          "courseName": "Modern Biology II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG101",
+          "courseName": "Standard Freshman Composition",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG102",
+          "courseName": "Introduction to Literature",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG121",
+          "courseName": "Technical Writing",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        }
+      ],
+      [
+        {
+          "courseCode": "PHY130",
+          "courseName": "Physics I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY132",
+          "courseName": "Physics I Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY230",
+          "courseName": "Physics II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY232",
+          "courseName": "Physics II Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY245",
+          "courseName": "Physics III",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY246",
+          "courseName": "Physics III Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE133",
+          "courseName": "College Chemistry I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE134",
+          "courseName": "College Chemistry II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE250",
+          "courseName": "Organic Chemistry I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE251",
+          "courseName": "Organic Chemistry II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "BIO150",
+          "courseName": "Modern Biology I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "BIO152",
+          "courseName": "Modern Biology II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG101",
+          "courseName": "Standard Freshman Composition",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG102",
+          "courseName": "Introduction to Literature",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG121",
+          "courseName": "Technical Writing",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        }
+      ],
+      [
+        {
+          "courseCode": "PHY130",
+          "courseName": "Physics I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY132",
+          "courseName": "Physics I Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY230",
+          "courseName": "Physics II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY232",
+          "courseName": "Physics II Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY245",
+          "courseName": "Physics III",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY246",
+          "courseName": "Physics III Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE133",
+          "courseName": "College Chemistry I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE134",
+          "courseName": "College Chemistry II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE250",
+          "courseName": "Organic Chemistry I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE251",
+          "courseName": "Organic Chemistry II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "BIO150",
+          "courseName": "Modern Biology I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "BIO152",
+          "courseName": "Modern Biology II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG101",
+          "courseName": "Standard Freshman Composition",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG102",
+          "courseName": "Introduction to Literature",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG121",
+          "courseName": "Technical Writing",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        }
+      ],
+      [
+        {
+          "courseCode": "PHY130",
+          "courseName": "Physics I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY132",
+          "courseName": "Physics I Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY230",
+          "courseName": "Physics II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY232",
+          "courseName": "Physics II Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY245",
+          "courseName": "Physics III",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "PHY246",
+          "courseName": "Physics III Lab",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE133",
+          "courseName": "College Chemistry I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE134",
+          "courseName": "College Chemistry II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE250",
+          "courseName": "Organic Chemistry I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "CHE251",
+          "courseName": "Organic Chemistry II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "BIO150",
+          "courseName": "Modern Biology I",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "BIO152",
+          "courseName": "Modern Biology II",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG101",
+          "courseName": "Standard Freshman Composition",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG102",
+          "courseName": "Introduction to Literature",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        },
+        {
+          "courseCode": "ENG121",
+          "courseName": "Technical Writing",
+          "DEFAULT_CAPACITY": 45,
+          "capacity": 45,
+          "currentEnrollment": 0,
+          "scale": 0.0,
+          "studentRoster": []
+        }
+      ]
+    ],
     "studentList": []
   }
 ]

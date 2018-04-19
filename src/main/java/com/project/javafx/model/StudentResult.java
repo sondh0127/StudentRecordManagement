@@ -15,9 +15,13 @@ public class StudentResult {
     }
 
     public StudentResult(double midtermPoint, double finalPoint) {
-        this.midtermPoint = midtermPoint;
-        this.finalPoint = finalPoint;
-        this.score = calculateScore();
+        if (midtermPoint > 10 || midtermPoint < 0 || finalPoint > 10 || finalPoint < 0) {
+            throw new IllegalArgumentException("Invalid Score ...");
+        } else {
+            this.midtermPoint = midtermPoint;
+            this.finalPoint = finalPoint;
+            this.score = calculateScore();
+        }
     }
 
     private double calculateScore() {
