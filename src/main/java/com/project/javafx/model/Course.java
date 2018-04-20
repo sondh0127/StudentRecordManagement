@@ -8,9 +8,9 @@ public class Course {
     private final String courseCode;
     private final String courseName;
 
-    private final int DEFAULT_CAPACITY = 45;
-    private int capacity;
-    private int currentEnrollment;
+//    private final int DEFAULT_CAPACITY = 40;
+//    private int capacity;
+//    private int currentEnrollment;
     private double scale;
 
     private List<Student> studentRoster = new ArrayList<>();
@@ -18,13 +18,7 @@ public class Course {
     public Course(String courseCode, String courseName) {
         this.courseCode = courseCode;
         this.courseName = courseName;
-        this.capacity = DEFAULT_CAPACITY;
-    }
-
-    public Course(String courseCode, String courseName, int capacity) {
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.capacity = capacity;
+//        this.capacity = DEFAULT_CAPACITY;
     }
 
     // getter and setter
@@ -34,10 +28,6 @@ public class Course {
 
     public String getCourseName() {
         return courseName;
-    }
-
-    public int getCapacity() {
-        return capacity;
     }
 
     public double getScale() {

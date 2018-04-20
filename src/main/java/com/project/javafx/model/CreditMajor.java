@@ -13,6 +13,8 @@ public class CreditMajor {
     private List<CreditCourse> majorCatalog = new ArrayList<>();
     private List<CreditCourse> minorCatalog = new ArrayList<>();
 
+    private List<String> studentList = new ArrayList<>();
+
     public CreditMajor(String majorCode, String majorTitle) {
         this.majorCode = majorCode;
         this.majorTitle = majorTitle;
@@ -55,16 +57,28 @@ public class CreditMajor {
         return minorCatalog;
     }
 
-    public void setMajorCatalog(List<CreditCourse> majorCatalog) {
+    public void createMajorCatalog(List<CreditCourse> majorCatalog) {
         this.majorCatalog = majorCatalog;
     }
 
-    public void setMinorCatalog(List<CreditCourse> minorCatalog) {
+    public void createMinorCatalog(List<CreditCourse> minorCatalog) {
         this.minorCatalog = minorCatalog;
     }
 
     @Override
     public String toString() {
         return majorTitle;
+    }
+
+    public void addStudent(CreditStudent student) {
+        String studentID = String.valueOf(student.getStudentID());
+        if (studentList.contains(studentID)) throw new IllegalArgumentException("Student is exists");
+        else studentList.add(studentID);
+    }
+
+    public void removeStudent(CreditStudent student) {
+        String studentID = String.valueOf(student.getStudentID());
+        if (!studentList.contains(studentID)) throw new IllegalArgumentException("Student is not exists");
+        else studentList.remove(studentID);
     }
 }

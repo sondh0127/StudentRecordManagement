@@ -32,4 +32,20 @@ public class CreditCourse extends Course {
         prerequisiteCourse.add(courseCode);
         return false;
     }
+
+    @Override
+    public boolean addStudent(Student student) {
+        if (student instanceof AnnualStudent) {
+            return false;
+        }
+        return super.addStudent(student);
+    }
+
+    @Override
+    public boolean removeStudent(Student student) {
+        if (student instanceof AnnualStudent) {
+            return false;
+        }
+        return super.removeStudent(student);
+    }
 }

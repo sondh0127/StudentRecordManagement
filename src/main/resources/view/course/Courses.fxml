@@ -91,7 +91,8 @@
                                  <columns>
                                     <TableColumn fx:id="courseCode" editable="false" prefWidth="173.0" text="Course Code" />
                                     <TableColumn fx:id="courseName" editable="false" minWidth="0.0" prefWidth="320.0" text="Course Name" />
-                                    <TableColumn fx:id="adding" editable="false" prefWidth="173.0" text="Adding" />
+                                    <TableColumn fx:id="adding" editable="false" prefWidth="173.0" text="Course Type" />
+                                    <TableColumn fx:id="adding1" editable="false" prefWidth="173.0" text="Scale" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

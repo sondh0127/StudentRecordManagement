@@ -12,7 +12,7 @@ public class AnnualClass {
 
     private List<List<Course>> courseCatalog = new ArrayList<>(4);
 
-    private List<AnnualStudent> studentList = new ArrayList<>();
+    private List<String> studentList = new ArrayList<>();
 
     public AnnualClass(String classCode, String className) {
         this.classCode = classCode;
@@ -25,7 +25,7 @@ public class AnnualClass {
     }
 
     // main method
-    public void createCatalog(Course course, YearOfStudy year) {
+    public void addAnnualCourseCatalog(Course course, YearOfStudy year) {
         switch (year) {
             case FIRST_YEAR:
                 courseCatalog.get(0).add(course);
@@ -84,8 +84,17 @@ public class AnnualClass {
      * @param student: AnnualStudent
      */
     public void addStudent(AnnualStudent student) {
-        if (studentList.contains(student)) throw new IllegalArgumentException("Student is exists");
-        else studentList.add(student);
+        String studentID = String.valueOf(student.getStudentID());
+        if (studentList.contains(studentID)) throw new IllegalArgumentException("Student is exists");
+        else studentList.add(studentID);
     }
+
+    public void removeStudent(AnnualStudent student) {
+        String studentID = String.valueOf(student.getStudentID());
+        if (!studentList.contains(studentID)) throw new IllegalArgumentException("Student not is exists");
+        else studentList.remove(studentID);
+    }
+
+
 
 }
