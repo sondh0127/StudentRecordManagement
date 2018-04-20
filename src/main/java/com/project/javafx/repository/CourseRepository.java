@@ -6,17 +6,18 @@ import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
+import com.project.javafx.ulti.mongoDBUtil.MongoUtils;
 
 import java.lang.reflect.Type;
 import java.util.Set;
 
-public class CourseRepository extends AbstractRepository<Course> {
+public class CourseRepository extends AbstractRepository<Course, String> {
 
     private static final String path = "src/main/resources/public/Courses.json";
     private static CourseRepository instance = new CourseRepository(path);
 
     private CourseRepository(String filepath) {
-        super(filepath);
+        super(Course.class, filepath,MongoUtils.COURSE_COLL);
     }
 
     public static CourseRepository getInstance() {
@@ -40,7 +41,7 @@ public class CourseRepository extends AbstractRepository<Course> {
     }
 
     @Override
-    protected String converter(Course e) {
+    protected String getID(Course e) {
         return e.getCourseCode();
     }
 

@@ -2,6 +2,8 @@ package com.project.javafx.ulti;
 
 public class ViewConstants {
     public static final String APP_NAME = "Student Manager System";
+    public static final String APP_ICON = "img/Student_Male_96px.png";
+
     public static final String ADMIN_DASHBOARD_VIEW = "/view/mainui/AdminDashboard.fxml";
     public static final String LOGIN_VIEW = "/view/login/Login.fxml";
     public static final String STUDENTS_VIEW = "/view/student/Students.fxml";
@@ -18,7 +20,7 @@ public class ViewConstants {
     public static final String MAJORS_VIEW = "/view/major_class/Majors.fxml";
     public static final String CLASSES_VIEW = "/view/major_class/Classes.fxml";
 
-    public static final String APP_ICON = "img/Student_Male_96px.png";
+
 
 
 }

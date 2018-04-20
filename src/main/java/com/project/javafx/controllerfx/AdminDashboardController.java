@@ -7,8 +7,8 @@ import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.repository.StudentRepository;
-import com.project.javafx.ulti.ViewConstants;
 import com.project.javafx.ulti.AlertMaker;
+import com.project.javafx.ulti.ViewConstants;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -31,59 +31,52 @@ import java.util.ResourceBundle;
 
 public class AdminDashboardController implements Initializable {
 
-    @FXML
-    private JFXButton btnHome;
-
-    @FXML
-    private JFXButton btnStudent;
-
-    @FXML
-    private JFXButton btnCourse;
-
-    @FXML
-    private JFXButton btnAnnual;
-
-    @FXML
-    private JFXButton btnCredit;
-
-    @FXML
-    private JFXButton btnRegister;
-
-    @FXML
-    private JFXButton btnSetting;
-
-    @FXML
-    private JFXButton btnLogOut;
-
-    @FXML
-    private JFXButton btnExit;
-
-    @FXML
-    private JFXButton btn_minimize;
-
-    @FXML
-    private JFXButton btn_maximize;
-
-    @FXML
-    private JFXButton btn_close;
-
-    @FXML
-    private JFXButton btn_option;
-
-    @FXML
-    private StackPane holderPane;
-    private Parent homePane, studentPane, coursePane, registerPane, settingPane, majorPane, classPane;
-
-    private static MainApp mainApp;
-
-    public static void setMainApp(MainApp mainApp) {
-        AdminDashboardController.mainApp = mainApp;
-    }
-
     private static final String registrationDataFile = "src/registration.xml";
     private static final String studentDataFile = "src/students.xml";
     private static final String majorDataFile = "src/majors.xml";
     private static final String classDataFile = "src/classes.xml";
+    private static MainApp mainApp;
+    @FXML
+    private JFXButton btnHome;
+    @FXML
+    private JFXButton btnStudent;
+    @FXML
+    private JFXButton btnCourse;
+    @FXML
+    private JFXButton btnAnnual;
+    @FXML
+    private JFXButton btnCredit;
+    @FXML
+    private JFXButton btnRegister;
+    @FXML
+    private JFXButton btnSetting;
+    @FXML
+    private JFXButton btnLogOut;
+    @FXML
+    private JFXButton btnExit;
+    @FXML
+    private JFXButton btn_minimize;
+    @FXML
+    private JFXButton btn_maximize;
+    @FXML
+    private JFXButton btn_close;
+    @FXML
+    private JFXButton btn_option;
+    @FXML
+    private StackPane holderPane;
+    private Parent homePane, studentPane, coursePane, registerPane, settingPane, majorPane, classPane;
+    private double lastX = 0.0d;
+    private double lastY = 0.0d;
+//    private void openMenus() {
+//        JFXPopup popup = new JFXPopup(overflowContainer);
+//        lblMenu.setOnMouseClicked(event -> {popup.show(lblMenu, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT, -10, 50);});
+//    }
+    private double lastWidth = 0.0d;
+    private double lastHeight = 0.0d;
+
+    public static void setMainApp(MainApp mainApp) {
+        AdminDashboardController.mainApp = mainApp;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -105,10 +98,7 @@ public class AdminDashboardController implements Initializable {
         // loading data from file
 
     }
-//    private void openMenus() {
-//        JFXPopup popup = new JFXPopup(overflowContainer);
-//        lblMenu.setOnMouseClicked(event -> {popup.show(lblMenu, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT, -10, 50);});
-//    }
+
     /**
      * Set selected node to a content holder
      */
@@ -141,7 +131,6 @@ public class AdminDashboardController implements Initializable {
     void openCredit(ActionEvent event) {
         setNode(majorPane);
     }
-
 
     @FXML
     void openHome(ActionEvent event) {
@@ -186,22 +175,22 @@ public class AdminDashboardController implements Initializable {
         // init
         CreditMajorRepository.getInstance().initSomeMajor();
         AnnualClassRepository.getInstance().initSomeClass();
-//        StudentRepository.getInstance().initSomeStudent();
+        StudentRepository.getInstance().initSomeStudent();
         CourseRepository.getInstance().initCourses();
 
         //load from file
 //        CreditMajorRepository.getInstance().gSonLoad();
 //        AnnualClassRepository.getInstance().gSonLoad();
-        StudentRepository.getInstance().gSonLoad();
+//        StudentRepository.getInstance().gSonLoad();
 //        CourseRepository.getInstance().gSonLoad();
     }
 
     private void saveDataOnClose() {
         // TODO: 19/04/2018 save every time change or on close
-        StudentRepository.getInstance().gSonSave();
-        CourseRepository.getInstance().gSonSave();
-        CreditMajorRepository.getInstance().gSonSave();
-        AnnualClassRepository.getInstance().gSonSave();
+//        StudentRepository.getInstance().gSonSave();
+//        CourseRepository.getInstance().gSonSave();
+//        CreditMajorRepository.getInstance().gSonSave();
+//        AnnualClassRepository.getInstance().gSonSave();
     }
 
     @FXML
@@ -212,15 +201,10 @@ public class AdminDashboardController implements Initializable {
         stage.setIconified(true);
     }
 
-    private double lastX = 0.0d;
-    private double lastY = 0.0d;
-    private double lastWidth = 0.0d;
-    private double lastHeight = 0.0d;
-
     @FXML
     public void maximize(MouseEvent evt) {
 
-        Node n = (Node)evt.getSource();
+        Node n = (Node) evt.getSource();
 
         Window w = n.getScene().getWindow();
 
@@ -232,10 +216,10 @@ public class AdminDashboardController implements Initializable {
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
 
-        if( currentX != bounds.getMinX() &&
+        if (currentX != bounds.getMinX() &&
                 currentY != bounds.getMinY() &&
                 currentWidth != bounds.getWidth() &&
-                currentHeight != bounds.getHeight() ) {
+                currentHeight != bounds.getHeight()) {
 
             w.setX(bounds.getMinX());
             w.setY(bounds.getMinY());

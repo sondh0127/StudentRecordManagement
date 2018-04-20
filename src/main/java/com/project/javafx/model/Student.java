@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public abstract class Student {
 
-    private final long studentID;
+    private final long _id;
     private final String firstName;
     private final String lastName;
     private final String gender; // TODO: 19/04/2018 enum this
@@ -17,7 +17,7 @@ public abstract class Student {
     private EduSystem educationSystem;
 
     public Student(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
-        this.studentID = studentID;
+        this._id = studentID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -30,7 +30,7 @@ public abstract class Student {
 
     // GETTER AND SETTER
     public long getStudentID() {
-        return studentID;
+        return _id;
     }
 
     public String getFirstName() {
@@ -68,7 +68,7 @@ public abstract class Student {
     @Override
     public String toString() {
         return "Student{" +
-                studentID +
+                _id +
                 ", " + firstName +
                 " " + lastName +
                 '}';
@@ -92,7 +92,7 @@ public abstract class Student {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(studentID);
+        return Objects.hash(_id);
     }
 
     @Override
@@ -102,7 +102,7 @@ public abstract class Student {
             return false;
         }
         Student student = (Student) obj;
-        return studentID == student.studentID;
+        return _id == student._id;
     }
 
     /**

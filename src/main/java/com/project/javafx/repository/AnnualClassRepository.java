@@ -6,13 +6,14 @@ import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
+import com.project.javafx.ulti.mongoDBUtil.MongoUtils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
+public class AnnualClassRepository extends AbstractRepository<AnnualClass, String> {
 
     private static final String path = "src/main/resources/public/Classes.json";
     //    public static Course cst111 = new CreditCourse("CST111", "Introduction to Computer Science and Information Technology", 2);
@@ -41,7 +42,7 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
     private static AnnualClassRepository instance = new AnnualClassRepository(path);
 
     public AnnualClassRepository(String filepath) {
-        super(filepath);
+        super(AnnualClass.class, filepath, MongoUtils.CLASS_COLL);
     }
 
     public static AnnualClassRepository getInstance() {
@@ -84,7 +85,7 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass> {
 //    public static Course phl105 = new Course("PHL105", "Logic");
 
     @Override
-    public String converter(AnnualClass element) {
+    public String getID(AnnualClass element) {
         return element.getClassName();
     }
 
