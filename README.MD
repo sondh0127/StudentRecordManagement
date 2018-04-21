@@ -96,3 +96,23 @@ public boolean delete(T entity);
 public boolean deleteByID(String id);
 ```
 
+MongoDB install guide for testing
+```
+1. Install mongo
+https://docs.mongodb.com/manual/administration/install-community/
+
+2. Import our dump data;
+cmd/terminal as Admin
+navigate to bin: mongdodb\..\bin folder like
+cd C:\Program Files\MongoDB\Server\3.6\bin
+copy (.json vào folder bin cho dễ)
+
+# import dump file:
+mongoimport -d database_name -c collection_name outfile.json
+
+mongoimport -d AppDev -c Classes -o Classes.json
+mongoimport -d AppDev -c Courses -o Courses.json
+mongoimport -d AppDev -c Majors -o Majors.json
+mongoimport -d AppDev -c Students -o Students.json
+```
+
