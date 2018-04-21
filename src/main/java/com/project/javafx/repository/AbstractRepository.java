@@ -28,13 +28,13 @@ public abstract class AbstractRepository<T, ID> implements GenericRepository<T, 
                 create();
     }
 
-    protected MongoCollection<Document> getCollection() {
+    public MongoCollection<Document> getCollection() {
         return MongoUtils.mongoLoadCollectionTo(DB_NAME, collectionName);
     }
 
     protected abstract ID getID(T e);
 
-    public Set<T> getObjectCollection(Document query, Class<? extends T> aClass) {
+    protected Set<T> getObjectCollection(Document query, Class<? extends T> aClass) {
         Set<T> objects = new HashSet<>();
         FindIterable<Document> cursor = getCollection().find(query);
         for (Document doc : cursor) {

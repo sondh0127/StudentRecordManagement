@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.project.javafx.model.*;
+import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -134,7 +135,7 @@ public class UpdateStudentProfileController implements Initializable {
         String address = txtAddress.getText();
 
         student.updateStudentProfile(phoneText, email, address);
-//        StudentRepository.getInstance().gSonSave();
+        StudentRepository.getInstance().update(student);
         AlertMaker.showNotification("Success", "Student Profile updated successfully !", AlertMaker.image_checked);
 
     }

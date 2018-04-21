@@ -5,6 +5,7 @@ public class ViewConstants {
     public static final String APP_ICON = "img/Student_Male_96px.png";
 
     public static final String ADMIN_DASHBOARD_VIEW = "/view/mainui/AdminDashboard.fxml";
+    public static final String USER_DASHBOARD_VIEW = "/view/mainui/UserDashboard.fxml";
     public static final String LOGIN_VIEW = "/view/login/Login.fxml";
     public static final String STUDENTS_VIEW = "/view/student/Students.fxml";
     public static final String REGISTER_VIEW = "/view/Register.fxml";

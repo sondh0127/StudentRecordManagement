@@ -29,18 +29,18 @@
       </StackPane>
       <AnchorPane prefHeight="400.0" prefWidth="400.0" styleClass="pane" stylesheets="@../../app.css" AnchorPane.leftAnchor="225.0" AnchorPane.topAnchor="100.0">
          <children>
-            <JFXTabPane prefHeight="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <JFXTabPane fx:id="tabPane" prefHeight="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
-                  <Tab text="Student">
+                  <Tab fx:id="tabAdmin" text="Admin">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <JFXTextField fx:id="accountField" labelFloat="true" prefHeight="25.0" prefWidth="220.0" promptText="Username" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="150.0">
+                              <JFXTextField fx:id="txtAdminUser" labelFloat="true" prefHeight="25.0" prefWidth="220.0" promptText="Username" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="150.0">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXPasswordField fx:id="passwordField" promptText="Password" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="220.0">
+                              <JFXPasswordField fx:id="txtAdminPass" promptText="Password" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="220.0">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -50,25 +50,20 @@
                                     <Image url="@../../img/icons8_User_96px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="signInButton" buttonType="RAISED" layoutX="142.0" layoutY="290.0" onAction="#handleButtonLogin" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #1E90FF;" text="Login" AnchorPane.topAnchor="290.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </JFXButton>
                            </children>
                         </AnchorPane>
                     </content>
                   </Tab>
-                  <Tab text="Admin">
+                  <Tab fx:id="tabStudent" text="Student">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <JFXTextField fx:id="accountField1" labelFloat="true" prefHeight="25.0" prefWidth="220.0" promptText="Username" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="150.0">
+                              <JFXTextField fx:id="txtStudentUser" labelFloat="true" prefHeight="25.0" prefWidth="220.0" promptText="Username" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="150.0">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXPasswordField fx:id="passwordField1" promptText="Password" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="220.0">
+                              <JFXPasswordField fx:id="txtStudentPass" promptText="Password" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="220.0">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -78,17 +73,17 @@
                                     <Image url="@../../img/icons8_User_96px.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="signInButton1" buttonType="RAISED" layoutX="142.0" layoutY="290.0" onAction="#handleButtonLogin" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #1E90FF;" text="Login" AnchorPane.topAnchor="290.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </JFXButton>
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
                </tabs>
             </JFXTabPane>
+            <JFXButton fx:id="btnLogin" buttonType="RAISED" layoutX="150.0" layoutY="323.0" onAction="#handleLogin" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #1E90FF;" text="Login" AnchorPane.bottomAnchor="45.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>

@@ -23,6 +23,7 @@ public class MongoUtils {
     public final static String COURSE_COLL = "Courses";
     public final static String MAJOR_COLL = "Majors";
     public final static String CLASS_COLL = "Classes";
+    public final static String USER_COLL = "Users";
 
     public static MongoCollection<Document> mongoLoadCollectionTo(String dbName, String collName) {
         try {

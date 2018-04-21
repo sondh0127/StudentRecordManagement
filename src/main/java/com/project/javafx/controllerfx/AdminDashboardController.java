@@ -15,6 +15,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -59,12 +60,16 @@ public class AdminDashboardController implements Initializable {
     private Parent homePane, studentPane, coursePane, registerPane, settingPane, majorPane, classPane;
     private double lastX = 0.0d;
     private double lastY = 0.0d;
-//    private void openMenus() {
+    //    private void openMenus() {
 //        JFXPopup popup = new JFXPopup(overflowContainer);
 //        lblMenu.setOnMouseClicked(event -> {popup.show(lblMenu, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT, -10, 50);});
 //    }
     private double lastWidth = 0.0d;
     private double lastHeight = 0.0d;
+    private double xOffset = 0.0d;
+    private double yOffset = 0.0d;
+    @FXML
+    private BorderPane topBar;
 
     public static void setMainApp(MainApp mainApp) {
         AdminDashboardController.mainApp = mainApp;
@@ -86,8 +91,24 @@ public class AdminDashboardController implements Initializable {
         }
         //set up default node on page load
         setNode(homePane);
-        // loading data from file
+        initMovable((Stage) resources.getObject("stage"));
+    }
 
+    @FXML
+    // init movable
+    private void initMovable(Stage stage) {
+        // adding movable borderless window
+        //grab your root here
+        topBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        //move around here
+        topBar.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
     }
 
     /**

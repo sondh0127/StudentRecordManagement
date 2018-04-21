@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.AdminDashboardController">
    <left>
       <VBox prefWidth="210.0" style="-fx-background-color: #e1e1e1;" BorderPane.alignment="CENTER">
@@ -155,7 +150,7 @@
       </StackPane>
    </center>
    <top>
-      <BorderPane prefHeight="40.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
+      <BorderPane fx:id="topBar" prefHeight="40.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
          <center>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="STUDENT MANAGEMENT SYSTEM" BorderPane.alignment="CENTER">
                <font>
