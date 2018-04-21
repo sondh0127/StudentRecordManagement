@@ -11,9 +11,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static spark.Spark.get;
-import static spark.Spark.staticFileLocation;
-
 public class MainApp extends Application {
 
     private Stage primaryStage;
@@ -42,8 +39,8 @@ public class MainApp extends Application {
 
 
     public static void main(String[] args) {
-        staticFileLocation("/public");
-        get("/hello", (req, res)->"Hello, world");
+//        staticFileLocation("/public");
+//        get("/hello", (req, res)->"Hello, world");
         launch(args);
     }
 }
