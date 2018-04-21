@@ -1,23 +1,18 @@
 package com.project.javafx.repository;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.CreditCourse;
-import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
 import com.project.javafx.ulti.mongoDBUtil.MongoUtils;
+import org.bson.Document;
 
-import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Set;
 
 public class CourseRepository extends AbstractRepository<Course, String> {
+    private static CourseRepository instance = new CourseRepository();
 
-    private static final String path = "src/main/resources/public/Courses.json";
-    private static CourseRepository instance = new CourseRepository(path);
-
-    private CourseRepository(String filepath) {
-        super(Course.class, filepath,MongoUtils.COURSE_COLL);
+    private CourseRepository() {
+        super(Course.class,MongoUtils.COURSE_COLL);
     }
 
     public static CourseRepository getInstance() {
@@ -41,32 +36,29 @@ public class CourseRepository extends AbstractRepository<Course, String> {
     }
 
     @Override
+    public Set<Course> getObjectCollection() {
+        Set<Course> courses = new HashSet<>();
+        Document query1 = new Document("creditHours", new Document("$eq", null));
+        Document query2 = new Document("creditHours", new Document("$ne", null));
+        Set<Course> courses1 = getInstance().getObjectCollection(query1, Course.class);
+        Set<Course> courses2 = getInstance().getObjectCollection(query2, CreditCourse.class);
+        courses.addAll(courses1);
+        courses.addAll(courses2);
+        return courses;
+    }
+
+    @Override
     protected String getID(Course e) {
         return e.getCourseCode();
     }
 
-    @Override
-    protected Gson gsonCreator() {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapterFactory(setAdapter())
-//                .setExclusionStrategies(new StudentExclusionStrategy())
-                .create();
-        return gson;
-    }
-
-    protected RuntimeTypeAdapterFactory<Course> setAdapter() {
-        RuntimeTypeAdapterFactory<Course> adapter =
-                RuntimeTypeAdapterFactory
-                        .of(Course.class, "type")
-                        .registerSubtype(Course.class, Course.class.getSimpleName())
-                        .registerSubtype(CreditCourse.class, CreditCourse.class.getSimpleName());
-        return adapter;
-    }
-
-    @Override
-    protected Type setToken() {
-        return new TypeToken<Set<Course>>() {
-        }.getType();
-    }
+//    @Override
+//    protected Gson gsonCreator() {
+//        Gson gson = new GsonBuilder()
+//                .setPrettyPrinting()
+//                .registerTypeAdapterFactory(setAdapter())
+////                .setExclusionStrategies(new StudentExclusionStrategy())
+//                .create();
+//        return gson;
+//    }
 }

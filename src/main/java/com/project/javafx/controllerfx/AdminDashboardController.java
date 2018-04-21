@@ -3,10 +3,6 @@ package com.project.javafx.controllerfx;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.MainApp;
-import com.project.javafx.repository.AnnualClassRepository;
-import com.project.javafx.repository.CourseRepository;
-import com.project.javafx.repository.CreditMajorRepository;
-import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.animation.FadeTransition;
@@ -31,10 +27,6 @@ import java.util.ResourceBundle;
 
 public class AdminDashboardController implements Initializable {
 
-    private static final String registrationDataFile = "src/registration.xml";
-    private static final String studentDataFile = "src/students.xml";
-    private static final String majorDataFile = "src/majors.xml";
-    private static final String classDataFile = "src/classes.xml";
     private static MainApp mainApp;
     @FXML
     private JFXButton btnHome;
@@ -80,7 +72,6 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadDataOnStart();
 //        openMenus();
         try {
             homePane = FXMLLoader.load(getClass().getResource(ViewConstants.HOME_VIEW));
@@ -157,7 +148,6 @@ public class AdminDashboardController implements Initializable {
         if (logoffCf) {
             Stage currentStage = (Stage) btnLogOut.getScene().getWindow();
             currentStage.close();
-            saveDataOnClose();
             mainApp.showLoginStage();
         }
     }
@@ -166,31 +156,8 @@ public class AdminDashboardController implements Initializable {
     private void exit(ActionEvent event) {
         boolean exitCf = AlertMaker.getConfirmation("Exit Confirmation", "Are you sure want to exit?");
         if (exitCf) {
-            saveDataOnClose();
             Platform.exit();
         }
-    }
-
-    private void loadDataOnStart() {
-        // init
-        CreditMajorRepository.getInstance().initSomeMajor();
-        AnnualClassRepository.getInstance().initSomeClass();
-        StudentRepository.getInstance().initSomeStudent();
-        CourseRepository.getInstance().initCourses();
-
-        //load from file
-//        CreditMajorRepository.getInstance().gSonLoad();
-//        AnnualClassRepository.getInstance().gSonLoad();
-//        StudentRepository.getInstance().gSonLoad();
-//        CourseRepository.getInstance().gSonLoad();
-    }
-
-    private void saveDataOnClose() {
-        // TODO: 19/04/2018 save every time change or on close
-//        StudentRepository.getInstance().gSonSave();
-//        CourseRepository.getInstance().gSonSave();
-//        CreditMajorRepository.getInstance().gSonSave();
-//        AnnualClassRepository.getInstance().gSonSave();
     }
 
     @FXML

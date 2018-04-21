@@ -1,24 +1,20 @@
 package com.project.javafx.repository;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.*;
 import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
-import com.project.javafx.ulti.gsonUtil.StudentExclusionStrategy;
 import com.project.javafx.ulti.mongoDBUtil.MongoUtils;
+import org.bson.Document;
 
-import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 
 public class StudentRepository extends AbstractRepository<Student, Long> {
-    private static final String path = "src/main/resources/public/Students.json";
-    private static StudentRepository instance = new StudentRepository(path);
 
-    public StudentRepository(String filepath) {
-        super(Student.class, filepath, MongoUtils.ANUAL_STUDENT_COLL);
+    private static StudentRepository instance = new StudentRepository();
+
+    public StudentRepository() {
+        super(Student.class, MongoUtils.STUDENT_COLL);
     }
 
     public static StudentRepository getInstance() {
@@ -32,17 +28,17 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
         AnnualStudent student2 = new AnnualStudent(354634, "Son2", "Do 2Hong", "Male", DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);
         AnnualStudent student4 = new AnnualStudent(35463434, "Son3", "Do 23Hong", "Male", DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);
         CreditStudent student3 = new CreditStudent(2131232, "Son", "Do Hong", "Male", DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", major);
-        AnnualStudentRepository.getInstance().save(student);
-        AnnualStudentRepository.getInstance().save(student2);
-        CreditStudentRepository.getInstance().save(student3);
-        AnnualStudentRepository.getInstance().save(student4);
     }
 
     @Override
-    public Set<Student> findAll() {
+    public Set<Student> getObjectCollection() {
         Set<Student> students = new HashSet<>();
-        students.addAll(CreditStudentRepository.getInstance().findAll());
-        students.addAll(AnnualStudentRepository.getInstance().findAll());
+        Document query1 = new Document("educationSystem", "ANNUAL");
+        Document query2 = new Document("educationSystem", "CREDIT");
+        Set<Student> students1 = getInstance().getObjectCollection(query1, AnnualStudent.class);
+        Set<Student> students2 = getInstance().getObjectCollection(query2, CreditStudent.class);
+        students.addAll(students1);
+        students.addAll(students2);
         return students;
     }
 
@@ -60,22 +56,15 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
         return adapter;
     }
 
-    @Override
-    protected Gson gsonCreator() {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapterFactory(setAdapter())
-                .serializeNulls()
-                .setExclusionStrategies(new StudentExclusionStrategy())
-                .create();
-        return gson;
-    }
-
-    @Override
-    protected Type setToken() {
-        return new TypeToken<Set<Student>>() {
-        }.getType();
-    }
-
+//    @Override
+//    protected Gson gsonCreator() {
+//        Gson gson = new GsonBuilder()
+//                .setPrettyPrinting()
+//                .registerTypeAdapterFactory(setAdapter())
+//                .serializeNulls()
+//                .setExclusionStrategies(new StudentExclusionStrategy())
+//                .create();
+//        return gson;
+//    }
 
 }

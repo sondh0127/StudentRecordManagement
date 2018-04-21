@@ -1,21 +1,16 @@
 package com.project.javafx.repository;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
 import com.project.javafx.ulti.mongoDBUtil.MongoUtils;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class AnnualClassRepository extends AbstractRepository<AnnualClass, String> {
 
-    private static final String path = "src/main/resources/public/Classes.json";
+//    private static final String path = "src/main/resources/public/Classes.json";
     //    public static Course cst111 = new CreditCourse("CST111", "Introduction to Computer Science and Information Technology", 2);
 //    public static Course cst112 = new CreditCourse("CST112", "Introduction to Object-Oriented Programming", 2);
 //    public static Course cst121 = new CreditCourse("CST121", "Computer Organization and Assembly Language Programming", 2);
@@ -39,10 +34,10 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
 //    public static Course mat203 = new CreditCourse("MAT203", "Calculus with Analytic Geometry III", 2);
 //    public static Course mat204 = new CreditCourse("MAT204", "Differential Equations", 2);
 //    public static Course mat205 = new CreditCourse("MAT205", "Discrete Mathematics", 2);
-    private static AnnualClassRepository instance = new AnnualClassRepository(path);
+    private static AnnualClassRepository instance = new AnnualClassRepository();
 
-    public AnnualClassRepository(String filepath) {
-        super(AnnualClass.class, filepath, MongoUtils.CLASS_COLL);
+    public AnnualClassRepository() {
+        super(AnnualClass.class, MongoUtils.CLASS_COLL);
     }
 
     public static AnnualClassRepository getInstance() {
@@ -86,21 +81,7 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
 
     @Override
     public String getID(AnnualClass element) {
-        return element.getClassName();
+        return element.getClassCode();
     }
 
-    @Override
-    protected Gson gsonCreator() {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-//                .setExclusionStrategies(new StudentExclusionStrategy())
-                .create();
-        return gson;
-    }
-
-    @Override
-    protected Type setToken() {
-        return new TypeToken<Set<AnnualClass>>() {
-        }.getType();
-    }
 }
