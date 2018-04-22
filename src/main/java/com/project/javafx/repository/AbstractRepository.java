@@ -4,15 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.project.javafx.ulti.mongoDBUtil.MongoUtils;
+import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.project.javafx.ulti.mongoDBUtil.MongoUtils.DB_NAME;
-
-public abstract class AbstractRepository<T, ID> implements GenericRepository<T, ID> {
+public abstract class AbstractRepository<T, ID> extends MongoDBHandler implements GenericRepository<T, ID> {
 
     private final Class<T> clazz;
     private String collectionName;
@@ -29,7 +27,7 @@ public abstract class AbstractRepository<T, ID> implements GenericRepository<T, 
     }
 
     public MongoCollection<Document> getCollection() {
-        return MongoUtils.mongoLoadCollectionTo(DB_NAME, collectionName);
+        return mongoLoadCollectionTo(DB_NAME, collectionName);
     }
 
     protected abstract ID getID(T e);

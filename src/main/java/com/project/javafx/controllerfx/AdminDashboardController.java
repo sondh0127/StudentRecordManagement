@@ -120,7 +120,7 @@ public class AdminDashboardController implements Initializable {
             holderPane.getChildren().add(node);
         }
 
-        FadeTransition ft = new FadeTransition(Duration.millis(1000));
+        FadeTransition ft = new FadeTransition(Duration.millis(700));
         ft.setNode(node);
         ft.setFromValue(0.1);
         ft.setToValue(1);

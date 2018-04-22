@@ -3,11 +3,11 @@ package com.project.javafx.controllerfx.student;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextField;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.CreditStudent;
 import com.project.javafx.model.Student;
 import com.project.javafx.repository.StudentRepository;
+import com.project.javafx.repository.UserRepository;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.ViewConstants;
@@ -21,10 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -57,7 +54,7 @@ public class StudentsController implements Initializable {
     @FXML
     private JFXRadioButton nameFilter;
     @FXML
-    private JFXTextField txtSearchField;
+    private TextField txtSearchField;
     @FXML
     private JFXButton searchButton;
     @FXML
@@ -247,7 +244,8 @@ public class StudentsController implements Initializable {
             boolean confirmation = AlertMaker.getConfirmation("Delete Student", "Are you sure to delete student " + removeStudent.getStudentID() + " ?");
             if (confirmation) {
                 StudentRepository.getInstance().delete(removeStudent);
-                // TODO: 18/04/2018 xoa every where
+                UserRepository.getInstance().deleteByID(String.valueOf(removeStudent.getStudentID()));
+                // TODO: 22/04/2018 xoa everywhere
                 refreshTable(event);
                 AlertMaker.showNotification("Deleted", "Student info deleted successfully", AlertMaker.image_trash_can);
             }

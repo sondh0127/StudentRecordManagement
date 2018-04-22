@@ -3,7 +3,7 @@ package com.project.javafx.repository;
 import com.project.javafx.model.*;
 import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
-import com.project.javafx.ulti.mongoDBUtil.MongoUtils;
+import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
 import java.util.HashSet;
@@ -14,7 +14,7 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
     private static StudentRepository instance = new StudentRepository();
 
     public StudentRepository() {
-        super(Student.class, MongoUtils.STUDENT_COLL);
+        super(Student.class, MongoDBHandler.STUDENT_COLL);
     }
 
     public static StudentRepository getInstance() {

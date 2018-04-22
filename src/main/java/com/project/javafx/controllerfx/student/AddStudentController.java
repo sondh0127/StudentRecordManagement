@@ -10,6 +10,7 @@ import com.project.javafx.model.*;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.repository.StudentRepository;
+import com.project.javafx.repository.UserRepository;
 import com.project.javafx.ulti.AlertMaker;
 import de.jensd.fx.glyphs.GlyphsBuilder;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -211,6 +212,7 @@ public class AddStudentController implements Initializable {
             }
             if (newStudent != null) {
                 if (StudentRepository.getInstance().save(newStudent)) {
+                    UserRepository.getInstance().save(new User(studentID, studentID));
                     AlertMaker.showNotification("Success", "Student info inserted successfully !", AlertMaker.image_checked);
                 } else {
                     AlertMaker.showErrorMessage("Failed!", "Student ID is exist !");

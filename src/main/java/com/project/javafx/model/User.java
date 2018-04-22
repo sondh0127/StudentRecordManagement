@@ -11,6 +11,11 @@ public class User {
         this.password = password;
     }
 
+    public User(long numberUsername, long numberPassword) {
+        this.username = String.valueOf(numberUsername);
+        this.password = String.valueOf(numberPassword);
+    }
+
     public String getUsername() {
         return username;
     }

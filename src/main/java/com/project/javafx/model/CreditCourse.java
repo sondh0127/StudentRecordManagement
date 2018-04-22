@@ -8,13 +8,13 @@ public class CreditCourse extends Course {
     private List<String> prerequisiteCourse = new ArrayList<>();
     private int creditHours;
 
-    public CreditCourse(String courseCode, String courseName, int creditHours) {
-        super(courseCode, courseName);
+    public CreditCourse(String courseCode, String courseName, int creditHours, double scale) {
+        super(courseCode, courseName, scale);
         this.creditHours = creditHours;
     }
 
-    public CreditCourse(String courseCode, String courseName, int creditHours, List<String> prerequisiteCourse) {
-        super(courseCode, courseName);
+    public CreditCourse(String courseCode, String courseName, int creditHours, List<String> prerequisiteCourse, double scale) {
+        super(courseCode, courseName, scale);
         this.creditHours = creditHours;
         this.prerequisiteCourse = prerequisiteCourse;
     }

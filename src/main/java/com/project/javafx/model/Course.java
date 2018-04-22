@@ -15,10 +15,11 @@ public class Course {
 
     private List<Student> studentRoster = new ArrayList<>();
 
-    public Course(String courseCode, String courseName) {
+    public Course(String courseCode, String courseName, double scale) {
         this.courseCode = courseCode;
         this.courseName = courseName;
 //        this.capacity = DEFAULT_CAPACITY;
+        this.scale = scale;
     }
 
     // getter and setter

@@ -137,6 +137,9 @@
                </VBox.margin>
             </JFXButton>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </left>
    <center>

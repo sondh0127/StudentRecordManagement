@@ -3,7 +3,7 @@ package com.project.javafx.repository;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
-import com.project.javafx.ulti.mongoDBUtil.MongoUtils;
+import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +34,10 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
 //    public static Course mat203 = new CreditCourse("MAT203", "Calculus with Analytic Geometry III", 2);
 //    public static Course mat204 = new CreditCourse("MAT204", "Differential Equations", 2);
 //    public static Course mat205 = new CreditCourse("MAT205", "Discrete Mathematics", 2);
-    private static AnnualClassRepository instance = new AnnualClassRepository();
+    private static final AnnualClassRepository instance = new AnnualClassRepository();
 
     public AnnualClassRepository() {
-        super(AnnualClass.class, MongoUtils.CLASS_COLL);
+        super(AnnualClass.class, MongoDBHandler.CLASS_COLL);
     }
 
     public static AnnualClassRepository getInstance() {
@@ -48,21 +48,21 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
         AnnualClass newClass = new AnnualClass("PHY", "Physic");
         List<Course> coursesCatalog = new ArrayList<>();
 
-        coursesCatalog.add(new Course("PHY130", "Physics I"));
-        coursesCatalog.add(new Course("PHY132", "Physics I Lab"));
-        coursesCatalog.add(new Course("PHY230", "Physics II"));
-        coursesCatalog.add(new Course("PHY232", "Physics II Lab"));
-        coursesCatalog.add(new Course("PHY245", "Physics III"));
-        coursesCatalog.add(new Course("PHY246", "Physics III Lab"));
-        coursesCatalog.add(new Course("CHE133", "College Chemistry I"));
-        coursesCatalog.add(new Course("CHE134", "College Chemistry II"));
-        coursesCatalog.add(new Course("CHE250", "Organic Chemistry I"));
-        coursesCatalog.add(new Course("CHE251", "Organic Chemistry II"));
-        coursesCatalog.add(new Course("BIO150", "Modern Biology I"));
-        coursesCatalog.add(new Course("BIO152", "Modern Biology II"));
-        coursesCatalog.add(new Course("ENG101", "Standard Freshman Composition"));
-        coursesCatalog.add(new Course("ENG102", "Introduction to Literature"));
-        coursesCatalog.add(new Course("ENG121", "Technical Writing"));
+        coursesCatalog.add(new Course("PHY130", "Physics I", 0.3));
+        coursesCatalog.add(new Course("PHY132", "Physics I Lab", 0.3));
+        coursesCatalog.add(new Course("PHY230", "Physics II", 0.3));
+        coursesCatalog.add(new Course("PHY232", "Physics II Lab", 0.3));
+        coursesCatalog.add(new Course("PHY245", "Physics III", 0.3));
+        coursesCatalog.add(new Course("PHY246", "Physics III Lab", 0.3));
+        coursesCatalog.add(new Course("CHE133", "College Chemistry I", 0.3));
+        coursesCatalog.add(new Course("CHE134", "College Chemistry II", 0.3));
+        coursesCatalog.add(new Course("CHE250", "Organic Chemistry I", 0.3));
+        coursesCatalog.add(new Course("CHE251", "Organic Chemistry II", 0.3));
+        coursesCatalog.add(new Course("BIO150", "Modern Biology I", 0.3));
+        coursesCatalog.add(new Course("BIO152", "Modern Biology II", 0.3));
+        coursesCatalog.add(new Course("ENG101", "Standard Freshman Composition", 0.3));
+        coursesCatalog.add(new Course("ENG102", "Introduction to Literature", 0.3));
+        coursesCatalog.add(new Course("ENG121", "Technical Writing", 0.3));
 
         newClass.setCoursesCatalog(coursesCatalog, AnnualStudent.YearOfStudy.FIRST_YEAR);
         save(newClass);

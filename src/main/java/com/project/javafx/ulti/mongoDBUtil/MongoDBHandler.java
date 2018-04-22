@@ -11,7 +11,7 @@ import org.bson.Document;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
-public class MongoUtils {
+public class MongoDBHandler {
 
     public final static String HOST = "localhost";
     public final static String USERNAME = "username";
@@ -27,7 +27,7 @@ public class MongoUtils {
 
     public static MongoCollection<Document> mongoLoadCollectionTo(String dbName, String collName) {
         try {
-            MongoClient mongoClient = MongoUtils.getMongoClient();
+            MongoClient mongoClient = getMongoClient();
             MongoDatabase db = mongoClient.getDatabase(dbName);
             System.out.println("Successfully connected to secure database");
             return db.getCollection(collName);
@@ -45,12 +45,11 @@ public class MongoUtils {
 
    // connect to the DB MongoDB with security.
    private static MongoClient getMongoClient_2() throws UnknownHostException {
-       MongoCredential credential = MongoCredential.createMongoCRCredential(
+       MongoCredential credential = MongoCredential.createCredential(
                USERNAME, DB_NAME, PASSWORD.toCharArray());
 
-       MongoClient mongoClient = new MongoClient(
+       return new MongoClient(
                new ServerAddress(HOST, PORT), Arrays.asList(credential));
-       return mongoClient;
    }
 
    public static MongoClient getMongoClient() throws UnknownHostException {
@@ -106,7 +105,7 @@ public class MongoUtils {
 //    }
 
 //    public void mongoDBSave() {
-//        MongoCollection coll = MongoUtils.mongoLoadCollectionTo(MongoUtils.DB_NAME, "Majors");
+//        MongoCollection coll = MongoDBHandler.mongoLoadCollectionTo(MongoDBHandler.DB_NAME, "Majors");
 //        Gson gson = gsonCreator();
 //        for (T obj : getObjectCollection()) {
 //            String json = gson.toJson(obj);
@@ -116,7 +115,7 @@ public class MongoUtils {
 //    }
 
 //    protected void mongoDBLoad(){
-//        MongoCollection coll = MongoUtils.mongoLoadCollectionTo(MongoUtils.DB_NAME, "Majors");
+//        MongoCollection coll = MongoDBHandler.mongoLoadCollectionTo(MongoDBHandler.DB_NAME, "Majors");
 //        MongoCursor<Document> cursor = coll.find().iterator();
 //        Gson gson = gsonCreator();
 //        try {
