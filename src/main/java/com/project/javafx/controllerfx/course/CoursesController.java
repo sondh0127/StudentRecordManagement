@@ -3,6 +3,7 @@ package com.project.javafx.controllerfx.course;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.*;
+import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import javafx.beans.property.SimpleStringProperty;
@@ -80,7 +81,7 @@ public class CoursesController implements Initializable {
         cbxMajor.getItems().add("[All]");
         cbxMajor.getItems().addAll(CreditMajorRepository.getInstance().findAll());
         cbxClass.getItems().add("[All]");
-        cbxClass.getItems().addAll(CreditMajorRepository.getInstance().findAll());
+        cbxClass.getItems().addAll(AnnualClassRepository.getInstance().findAll());
         initCols();
         filterTableView();
 
