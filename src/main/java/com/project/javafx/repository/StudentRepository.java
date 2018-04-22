@@ -11,13 +11,16 @@ import java.util.Set;
 
 public class StudentRepository extends AbstractRepository<Student, Long> {
 
-    private static StudentRepository instance = new StudentRepository();
+    private static StudentRepository instance = null;
 
-    public StudentRepository() {
+    private StudentRepository() {
         super(Student.class, MongoDBHandler.STUDENT_COLL);
     }
 
     public static StudentRepository getInstance() {
+        if (instance == null) synchronized (AnnualClassRepository.class) {
+            if (instance == null) instance = new StudentRepository();
+        }
         return instance;
     }
 
@@ -35,8 +38,8 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
         Set<Student> students = new HashSet<>();
         Document query1 = new Document("educationSystem", "ANNUAL");
         Document query2 = new Document("educationSystem", "CREDIT");
-        Set<Student> students1 = getInstance().getObjectCollection(query1, AnnualStudent.class);
-        Set<Student> students2 = getInstance().getObjectCollection(query2, CreditStudent.class);
+        Set<Student> students1 = getObjectCollection(query1, AnnualStudent.class);
+        Set<Student> students2 = getObjectCollection(query2, CreditStudent.class);
         students.addAll(students1);
         students.addAll(students2);
         return students;

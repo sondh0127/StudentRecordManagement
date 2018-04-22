@@ -3,7 +3,6 @@ package com.project.javafx.controllerfx.course;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.*;
-import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import javafx.beans.property.SimpleStringProperty;
@@ -19,10 +18,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CoursesController implements Initializable {
-
-    private CourseRepository courseRepository;
-    private CreditMajorRepository creditMajorRepository;
-    private AnnualClassRepository annualClassRepository;
 
     private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
 
@@ -82,13 +77,10 @@ public class CoursesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        courseRepository = CourseRepository.getInstance();
-        creditMajorRepository = CreditMajorRepository.getInstance();
-        annualClassRepository = AnnualClassRepository.getInstance();
         cbxMajor.getItems().add("[All]");
-        cbxMajor.getItems().addAll(creditMajorRepository.findAll());
+        cbxMajor.getItems().addAll(CreditMajorRepository.getInstance().findAll());
         cbxClass.getItems().add("[All]");
-        cbxClass.getItems().addAll(annualClassRepository.findAll());
+        cbxClass.getItems().addAll(CreditMajorRepository.getInstance().findAll());
         initCols();
         filterTableView();
 
@@ -102,7 +94,7 @@ public class CoursesController implements Initializable {
                 courseObservableList.addAll(((CreditMajor) newValue).getMajorCatalog());
                 courseObservableList.addAll(((CreditMajor) newValue).getMinorCatalog());
             } else {
-                courseObservableList.addAll(courseRepository.findAll());
+                courseObservableList.addAll(CourseRepository.getInstance().findAll());
                 System.out.println(newValue);
             }
         });
@@ -115,7 +107,7 @@ public class CoursesController implements Initializable {
                 courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(AnnualStudent.YearOfStudy.THIRD_YEAR));
                 courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(AnnualStudent.YearOfStudy.FOURTH_YEAR));
             } else {
-                courseObservableList.addAll(courseRepository.findAll());
+                courseObservableList.addAll(CourseRepository.getInstance().findAll());
                 System.out.println(newValue);
             }
         });
@@ -145,7 +137,7 @@ public class CoursesController implements Initializable {
 
     private void initCols() {
         courseTableView.setItems(courseObservableList);
-        courseObservableList.addAll(courseRepository.findAll());
+        courseObservableList.addAll(CourseRepository.getInstance().findAll());
 
         courseCode.setCellValueFactory(param -> {
             Course c = param.getValue();

@@ -9,13 +9,16 @@ import java.util.List;
 
 public class CreditMajorRepository extends AbstractRepository<CreditMajor, String> {
 
-    private static final CreditMajorRepository instance = new CreditMajorRepository();
+    private static CreditMajorRepository instance = null;
 
     private CreditMajorRepository() {
         super(CreditMajor.class,MongoDBHandler.MAJOR_COLL);
     }
 
     public static CreditMajorRepository getInstance() {
+        if (instance == null) synchronized (AnnualClassRepository.class) {
+            if (instance == null) instance = new CreditMajorRepository();
+        }
         return instance;
     }
 

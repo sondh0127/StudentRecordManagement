@@ -30,12 +30,12 @@ public class CourseRepository extends AbstractRepository<Course, String> {
         Course course2 = new Course("PHY132", "Physics I Lab", 0.3);
         Course course3 = new Course("PHY230", "Physics II", 0.2);
 
-        CourseRepository.getInstance().save(creditCourse);
-        CourseRepository.getInstance().save(creditCourse2);
-        CourseRepository.getInstance().save(creditCourse3);
-        CourseRepository.getInstance().save(course);
-        CourseRepository.getInstance().save(course2);
-        CourseRepository.getInstance().save(course3);
+        save(creditCourse);
+        save(creditCourse2);
+        save(creditCourse3);
+        save(course);
+        save(course2);
+        save(course3);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class CourseRepository extends AbstractRepository<Course, String> {
         Set<Course> courses = new HashSet<>();
         Document query1 = new Document("creditHours", new Document("$eq", null));
         Document query2 = new Document("creditHours", new Document("$ne", null));
-        Set<Course> courses1 = getInstance().getObjectCollection(query1, Course.class);
-        Set<Course> courses2 = getInstance().getObjectCollection(query2, CreditCourse.class);
+        Set<Course> courses1 = getObjectCollection(query1, Course.class);
+        Set<Course> courses2 = getObjectCollection(query2, CreditCourse.class);
         courses.addAll(courses1);
         courses.addAll(courses2);
         return courses;

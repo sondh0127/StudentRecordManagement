@@ -4,13 +4,16 @@ import com.project.javafx.model.User;
 
 public class UserRepository extends AbstractRepository<User, String> {
 
-    private static UserRepository instance = new UserRepository();
+    private static UserRepository instance = null;
 
-    public UserRepository() {
+    private UserRepository() {
         super(User.class, USER_COLL);
     }
 
     public static UserRepository getInstance() {
+        if (instance == null) synchronized (AnnualClassRepository.class) {
+            if (instance == null) instance = new UserRepository();
+        }
         return instance;
     }
 
