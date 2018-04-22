@@ -26,8 +26,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -59,7 +57,7 @@ public class StudentsController implements Initializable {
     @FXML
     private JFXRadioButton nameFilter;
     @FXML
-    private JFXTextField searchField;
+    private JFXTextField txtSearchField;
     @FXML
     private JFXButton searchButton;
     @FXML
@@ -109,7 +107,7 @@ public class StudentsController implements Initializable {
 
     private void initCols() {
         //Initialize the student table, The cell must know which part of "studentTableView" it needs to display
-        studentObservableList.addAll(StudentRepository.getInstance().findAll());
+//        studentObservableList.addAll(StudentRepository.getInstance().findAll());
 
         studentID.setCellValueFactory(param -> {
             Student s = param.getValue();
@@ -134,28 +132,28 @@ public class StudentsController implements Initializable {
      */
     private void initSearching() {
         // set hotkey for searchButton
-        Parent parent = searchButton.getParent();
-        parent.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                searchButton.fire();
-                event.consume();
-            }
-        });
+//        Parent parent = searchButton.getParent();
+//        parent.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+//            if (event.getCode() == KeyCode.ENTER) {
+//                searchButton.fire();
+//                event.consume();
+//            }
+//        });
 
         // add Listener for toggle search Group
         filter.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals(idFilter)) {
-                searchField.setPromptText("Search by ID");
+                txtSearchField.setPromptText("Search by ID");
             } else if (newValue.equals(nameFilter)) {
-                searchField.setPromptText("Search by Name");
+                txtSearchField.setPromptText("Search by Name");
             }
         });
     }
 
     @FXML
-    private void searchHandle(ActionEvent event) {
+    private void handleSearchAction(ActionEvent event) {
         studentObservableList.clear();
-        String searchText = searchField.getText();
+        String searchText = txtSearchField.getText();
         if (searchText.isEmpty()) {
             studentObservableList.setAll(StudentRepository.getInstance().findAll());             // empty string  => show all students
         } else {

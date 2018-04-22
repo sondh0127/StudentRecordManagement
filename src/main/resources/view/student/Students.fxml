@@ -231,7 +231,7 @@
                            </toggleGroup>
                         </JFXRadioButton>
                         <JFXRadioButton fx:id="nameFilter" text="Name" toggleGroup="$filter" />
-                        <JFXTextField fx:id="searchField" alignment="CENTER" prefWidth="350.0" promptText="Search by ID" unFocusColor="WHITE">
+                        <JFXTextField fx:id="txtSearchField" alignment="CENTER" onAction="#handleSearchAction" prefWidth="350.0" promptText="Search by ID" unFocusColor="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -239,7 +239,7 @@
                               <Insets left="30.0" />
                            </HBox.margin>
                         </JFXTextField>
-                        <JFXButton fx:id="searchButton" alignment="CENTER" onAction="#searchHandle" prefWidth="110.0" stylesheets="@../../app.css" text="Search" textFill="WHITE">
+                        <JFXButton fx:id="searchButton" alignment="CENTER" onAction="#handleSearchAction" prefWidth="110.0" stylesheets="@../../app.css" text="Search" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>

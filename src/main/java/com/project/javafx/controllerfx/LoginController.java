@@ -1,6 +1,5 @@
 package com.project.javafx.controllerfx;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
@@ -20,8 +19,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -46,9 +43,6 @@ public class LoginController implements Initializable {
 
     @FXML
     private JFXPasswordField txtStudentPass;
-
-    @FXML
-    private JFXButton btnLogin;
 
     @FXML
     private JFXTabPane tabPane;
@@ -80,19 +74,9 @@ public class LoginController implements Initializable {
         handleValidation(txtStudentPass);
 
         // create hotkey for login button
-        initLoginButton();
+//        initLoginButton(); // replace by action one password field
         txtAdminUser.setText(fakeID);
         txtAdminPass.setText(fakePass);
-    }
-
-    private void initLoginButton() {
-        Parent parent = btnLogin.getParent();
-        parent.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                btnLogin.fire();
-                event.consume();
-            }
-        });
     }
 
     void loadWindow(String location, String title) {
@@ -130,7 +114,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void handleLogin(ActionEvent actionEvent) {
+    private void handleLoginAction(ActionEvent actionEvent) {
         Tab selectedItem = tabPane.getSelectionModel().getSelectedItem();
         if (selectedItem.equals(tabAdmin)) {
             String username = txtAdminUser.getText();
