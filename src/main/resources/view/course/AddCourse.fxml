@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.student.AddCourseController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="60.0" spacing="10.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/Add_User_48px.png" />
+               </image>
+            </ImageView>
+            <Label text="Add New Course">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+               <children>
+                  <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#clearForm" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #E1E1E1;" text="Clear">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="CLONE" size="20" />
+                     </graphic>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" spacing="20.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#submitDetails" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #64DD17;" text="Submit">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="CHECK" size="20" />
+                     </graphic>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnBack" buttonType="RAISED" onAction="#goBack" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #40C4FF;" text="Back">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_LEFT" size="20" />
+                     </graphic>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets right="30.0" />
+               </padding>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <center>
+      <BorderPane prefHeight="150.0" prefWidth="520.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </BorderPane.margin>
+         <center>
+            <GridPane hgap="10.0" vgap="25.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints prefWidth="100.0" />
+                <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXTextField fx:id="txtCourseCode" focusColor="#0096c9" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="txtCourseName" focusColor="#0096c9" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <Label alignment="CENTER" text="Couse Type: " textFill="#4d4d4d" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="radioCredit" mnemonicParsing="false" onMouseClicked="#handleClickCouseType" text="Credit" textFill="#4d4d4d" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="studentTypeRadioGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="radioAnnual" mnemonicParsing="false" onMouseClicked="#handleClickCouseType" selected="true" text="Annual" textFill="#4d4d4d" toggleGroup="$studentTypeRadioGroup" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </RadioButton>
+                  <Label prefHeight="20.0" prefWidth="100.0" text="Course Code" textFill="#4d4d4d">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="15.0" prefHeight="20.0" prefWidth="100.0" text="Course Name" textFill="#4d4d4d" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="txtFirstName1" focusColor="#0096c9" layoutX="120.0" layoutY="65.0" promptText="Credit Num" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

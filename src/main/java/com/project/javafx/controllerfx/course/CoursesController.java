@@ -6,17 +6,27 @@ import com.project.javafx.model.*;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.CreditMajorRepository;
+import com.project.javafx.ulti.ViewConstants;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class CoursesController implements Initializable {
 
@@ -175,18 +185,45 @@ public class CoursesController implements Initializable {
 
 
     @FXML
-    void handleSearchAction(ActionEvent event) {
-
+    void handleSearchAction(KeyEvent event) {
+        Set<Course> all = CourseRepository.getInstance().findAll();
+        ObservableList<Course> temp = FXCollections.observableArrayList();
+        if (event.getSource().equals(txtCode)) {
+            String courseCode = txtCode.getText();
+            System.out.println(courseCode);
+            if (courseCode.isEmpty()) temp.addAll(all);
+            else {
+                for (Course course : all) {
+                    if (course.getCourseCode().toLowerCase().contains(courseCode)) {
+                        temp.add(course);
+                    }
+                }
+            }
+        } else if (event.getSource().equals(txtName)) {
+            String courseName = txtName.getText().toLowerCase();
+            if (courseName.isEmpty()) temp.addAll(all);
+            else {
+                for (Course course : all) {
+                    if (course.getCourseName().toLowerCase().contains(courseName)) {
+                        temp.add(course);
+                    }
+                }
+            }
+        }
+        courseObservableList.clear();
+        courseObservableList.addAll(temp);
     }
 
     @FXML
     void addCourse(ActionEvent event) {
-
+        loadWindow(ViewConstants.ADD_COURSE_VIEW, "Add Course");
     }
 
     @FXML
     void refreshTable(ActionEvent event) {
-
+        courseTableView.getItems().clear();
+        // TODO: 18/04/2018 improve refresh => to preserve the current stage of table;
+        courseObservableList.setAll(CourseRepository.getInstance().findAll());
     }
 
     @FXML
@@ -195,13 +232,24 @@ public class CoursesController implements Initializable {
     }
 
     @FXML
-    void searchHandle(ActionEvent event) {
+    void updateCourse(ActionEvent event) {
 
     }
 
-    @FXML
-    void updateCourse(ActionEvent event) {
-
+    private void loadWindow(String loc, String title) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource(loc));
+            Stage stage = new Stage(StageStyle.DECORATED); // Default Style
+            stage.setTitle(title);
+            stage.getIcons().add(new Image(ViewConstants.APP_ICON));
+            stage.setScene(new Scene(parent));
+            stage.setResizable(false);
+            stage.initOwner(btnAdd.getScene().getWindow());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
 }
