@@ -95,6 +95,7 @@
               <rowConstraints>
                 <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
@@ -109,12 +110,12 @@
                         <Font size="14.0" />
                      </font>
                   </JFXTextField>
-                  <Label alignment="CENTER" text="Couse Type: " textFill="#4d4d4d" GridPane.rowIndex="2">
+                  <Label alignment="CENTER" text="Couse Type: " textFill="#4d4d4d" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="radioCredit" mnemonicParsing="false" onMouseClicked="#handleClickCouseType" text="Credit" textFill="#4d4d4d" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <RadioButton fx:id="radioCredit" mnemonicParsing="false" onMouseClicked="#handleClickCouseType" text="Credit" textFill="#4d4d4d" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -122,7 +123,7 @@
                         <ToggleGroup fx:id="studentTypeRadioGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="radioAnnual" mnemonicParsing="false" onMouseClicked="#handleClickCouseType" selected="true" text="Annual" textFill="#4d4d4d" toggleGroup="$studentTypeRadioGroup" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <RadioButton fx:id="radioAnnual" mnemonicParsing="false" onMouseClicked="#handleClickCouseType" selected="true" text="Annual" textFill="#4d4d4d" toggleGroup="$studentTypeRadioGroup" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -137,7 +138,17 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="txtFirstName1" focusColor="#0096c9" layoutX="120.0" layoutY="65.0" promptText="Credit Num" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <JFXTextField fx:id="txtCreditNum" focusColor="#0096c9" layoutX="120.0" layoutY="65.0" promptText="Credit Num" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <Label layoutX="10.0" layoutY="70.0" prefHeight="20.0" prefWidth="100.0" text="Scale" textFill="#4d4d4d" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="txtCourseScale" focusColor="#0096c9" layoutX="120.0" layoutY="65.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                      <font>
                         <Font size="14.0" />
                      </font>

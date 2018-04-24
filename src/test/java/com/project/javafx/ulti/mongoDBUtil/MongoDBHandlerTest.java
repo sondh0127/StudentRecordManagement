@@ -12,10 +12,12 @@ import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.repository.UserRepository;
+import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.DateUtil;
 import org.bson.Document;
 import org.junit.Test;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +26,13 @@ import java.util.Set;
 import static com.mongodb.client.model.Filters.eq;
 
 public class MongoDBHandlerTest {
+
+    @Test
+    public void testJPane() {
+//        JOptionPane.showConfirmDialog(null, "hhelo", JComponent.TOOL_TIP_TEXT_KEY,
+//                JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+        AlertMaker.getConfirmation("Hello", "JavaFXAlert");
+    }
 
     public final static String HOST = "localhost";
     public final static int PORT = 27017;

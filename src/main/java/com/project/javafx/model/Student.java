@@ -75,7 +75,7 @@ public abstract class Student {
     }
 
     // MAIN METHOD
-    abstract boolean registerCourse(Course course);
+    abstract boolean registerCourse(Course course); // TODO: 24/04/2018 move to credit Student
 
     abstract public StudentResult getScoreResult(Course course);
 
@@ -108,7 +108,7 @@ public abstract class Student {
     /**
      * Education System
      */
-    public enum EduSystem {
+    public enum EduSystem { // TODO: 24/04/2018 replace by gender
         CREDIT("Academic Credit"),
         ANNUAL("Annual Curriculum");
 

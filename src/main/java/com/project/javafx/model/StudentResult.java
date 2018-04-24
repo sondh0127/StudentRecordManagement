@@ -2,10 +2,11 @@ package com.project.javafx.model;
 
 public class StudentResult {
 
+    private Course course; /// remove map
     private double midtermPoint;
     private double finalPoint;
     private double score;
-    private double scale;
+    private double scale;   // TODO: 24/04/2018 remove
 
     public StudentResult(double scale) {
         this.midtermPoint = -1;
