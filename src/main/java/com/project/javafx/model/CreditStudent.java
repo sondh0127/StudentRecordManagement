@@ -121,16 +121,18 @@ public class CreditStudent extends Student implements Updatable {
     private void updatePassedCourse(Course course) {
         String courseCode = course.getCourseCode();
         if (checkPassedCourse(courseCode)) {
-            // if passed course add to list passedCourse
-            passedCourses.put(courseCode, takenCourses.remove(courseCode));
             // update passedCredits
             List<CreditCourse> majorCatalog = creditMajor.getMajorCatalog();
             List<CreditCourse> minorCatalog = creditMajor.getMinorCatalog();
-            if (majorCatalog.contains(course)) {
-                passedMajorCredits += ((CreditCourse) course).getCreditHours();
-            } else if (minorCatalog.contains(course)) {
-                passedMinorCredits += ((CreditCourse) course).getCreditHours();
+            if (!passedCourses.containsKey(courseCode)) {
+                if (majorCatalog.contains(course)) {
+                    passedMajorCredits += ((CreditCourse) course).getCreditHours();
+                } else if (minorCatalog.contains(course)) {
+                    passedMinorCredits += ((CreditCourse) course).getCreditHours();
+                }
             }
+            // if passed course add to list passedCourse
+            passedCourses.put(courseCode, takenCourses.remove(courseCode));
         }
     }
 

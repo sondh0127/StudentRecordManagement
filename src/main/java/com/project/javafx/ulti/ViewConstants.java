@@ -7,7 +7,7 @@ public class ViewConstants {
     public static final String ADMIN_DASHBOARD_VIEW = "/view/mainui/AdminDashboard.fxml";
     public static final String LOGIN_VIEW = "/view/login/Login.fxml";
     public static final String STUDENTS_VIEW = "/view/student/Students.fxml";
-    public static final String REGISTER_VIEW = "/view/Register.fxml";
+    public static final String REGISTER_VIEW = "/view/register/Register.fxml";
     public static final String COURSES_VIEW = "/view/course/Courses.fxml";
     public static final String SETTINGS_VIEW = "/view/Settings.fxml";
     public static final String HOME_VIEW = "/view/mainui/Home.fxml";

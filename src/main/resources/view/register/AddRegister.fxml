@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.register.AddRegisterController">
+   <children>
+      <VBox layoutX="261.0" layoutY="77.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <JFXToolbar prefHeight="40.0">
+                     <center>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="490.0" spacing="20.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <JFXTextField fx:id="studentIdField" alignment="CENTER" prefHeight="30.0" prefWidth="111.0" promptText="Student ID" styleClass="jfx-text-field" unFocusColor="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                              <JFXTextField fx:id="courseIdField" alignment="CENTER" layoutX="262.0" layoutY="15.0" prefHeight="30.0" prefWidth="80.0" promptText="Course ID" styleClass="jfx-text-field" unFocusColor="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXButton fx:id="btnAdd" alignment="CENTER" onAction="#handleAdd" prefWidth="110.0" stylesheets="@../../app.css" text="Add" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="7.0" left="20.0" right="20.0" top="7.0" />
+                                 </padding>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" text="" wrappingWidth="22.5" />
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </center>
+                     <left>
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="114.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Text fill="#0096c9" strokeType="OUTSIDE" strokeWidth="0.0" text="Register" textAlignment="CENTER" wrappingWidth="87.5390625">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </left>
+                  </JFXToolbar>
+               </children>
+            </HBox>
+            <HBox prefHeight="310.0" prefWidth="600.0">
+               <children>
+                  <TableView fx:id="registerTableView" editable="true" prefHeight="480.0" prefWidth="600.0">
+                     <columns>
+                        <TableColumn fx:id="studentID" prefWidth="120.0" text="Student ID" />
+                        <TableColumn fx:id="courseCode" minWidth="0.0" prefWidth="125.0" text="Course Code" />
+                        <TableColumn fx:id="midtermScore" editable="false" prefWidth="242.0" text="Course Name" />
+                        <TableColumn fx:id="totalScore" editable="false" prefWidth="426.0" text="Credits" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="600.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#clearForm" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #E1E1E1;" text="Clear">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CLONE" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#submitDetails" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #64DD17;" text="Submit">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CHECK" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnBack" buttonType="RAISED" onAction="#goBack" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #40C4FF;" text="Back">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_LEFT" size="20" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets right="30.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
