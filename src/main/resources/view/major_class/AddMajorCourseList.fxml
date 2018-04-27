@@ -8,9 +8,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane prefHeight="700.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.major_class.AddCourseListController">
+<BorderPane prefHeight="660.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.major_class.AddCourseListController">
    <top>
-      <HBox alignment="CENTER" prefHeight="60.0" spacing="10.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="50.0" spacing="10.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
          <children>
             <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
@@ -87,10 +87,10 @@
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </BorderPane.margin>
          <left>
-            <TableView fx:id="tblCreditCourse" prefHeight="482.0" prefWidth="379.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tblCreditCourse" prefWidth="333.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="colCourseCode" prefWidth="127.00003051757812" text="Course Code" />
-                <TableColumn fx:id="colCourseName" prefWidth="250.0" text="Course Name" />
+                <TableColumn fx:id="colCourseCode" prefWidth="110.0" text="Course Code" />
+                <TableColumn fx:id="colCourseName" prefWidth="222.0" text="Course Name" />
               </columns>
             </TableView>
          </left>
@@ -138,7 +138,7 @@
          <center>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnAddMajor" alignment="BASELINE_LEFT" onAction="#handleAddMajorList" prefHeight="40.0" prefWidth="165.0" style="-fx-background-color: #3f63ff;" text="Add to Major List" textFill="WHITE">
+                  <JFXButton fx:id="btnAddMajor" alignment="BASELINE_LEFT" onAction="#handleAddMajorList" prefHeight="40.0" prefWidth="165.0" style="-fx-background-color: #3f63ff;" text="Add to Major" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="ARROW_RIGHT" size="18" wrappingWidth="22.5" />
                      </graphic>
@@ -152,7 +152,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="btnAddMinor" alignment="BASELINE_LEFT" layoutX="41.0" layoutY="116.0" onAction="#handleAddMinorList" prefHeight="40.0" prefWidth="165.0" style="-fx-background-color: #2979FF;" text="Add to Minor List" textFill="WHITE">
+                  <JFXButton fx:id="btnAddMinor" alignment="BASELINE_LEFT" layoutX="41.0" layoutY="116.0" onAction="#handleAddMinorList" prefHeight="40.0" prefWidth="165.0" style="-fx-background-color: #2979FF;" text="Add to Minor" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="ARROW_RIGHT" size="18" wrappingWidth="22.5" />
                      </graphic>
@@ -167,22 +167,24 @@
             </VBox>
          </center>
          <right>
-            <HBox prefHeight="560.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+            <HBox BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tblMajorCourseList" prefWidth="250.0">
+                  <TableView fx:id="tblMajorCourseList" prefWidth="333.0">
                      <columns>
-                        <TableColumn prefWidth="249.0" text="Major Course">
+                        <TableColumn prefWidth="332.0" text="Major Course">
                            <columns>
-                              <TableColumn fx:id="colMajorCN" minWidth="0.0" prefWidth="249.0" text="Course Name" />
+                              <TableColumn fx:id="colMajorCC" minWidth="0.0" prefWidth="110.0" text="Course Code" />
+                              <TableColumn fx:id="colMajorCN" minWidth="0.0" prefWidth="222.0" text="Course Name" />
                            </columns>
                         </TableColumn>
                      </columns>
                   </TableView>
-                  <TableView fx:id="tblMinorCourseList" prefWidth="250.0">
+                  <TableView fx:id="tblMinorCourseList" prefWidth="333.0">
                      <columns>
-                        <TableColumn prefWidth="249.0" text="Minor Course">
+                        <TableColumn prefWidth="332.0" text="Minor Course">
                            <columns>
-                              <TableColumn fx:id="colMinorCN" minWidth="0.0" prefWidth="249.0" text="Course Name" />
+                              <TableColumn fx:id="colMinorCC" minWidth="0.0" prefWidth="110.0" text="Course Code" />
+                              <TableColumn fx:id="colMinorCN" minWidth="0.0" prefWidth="222.0" text="Course Name" />
                            </columns>
                         </TableColumn>
                      </columns>
@@ -192,7 +194,6 @@
                   <Insets right="10.0" />
                </BorderPane.margin>
             </HBox>
-
          </right>
       </BorderPane>
    </center>

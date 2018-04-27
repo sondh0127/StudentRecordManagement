@@ -173,7 +173,7 @@ public class CoursesController implements Initializable {
             BigDecimal _scale = BigDecimal.ONE.subtract(scale);
 
             StringBuilder scaleStr = new StringBuilder();
-            scaleStr.append(scale).append("/").append(_scale);
+            scaleStr.append(_scale).append("/").append(scale);
             return new SimpleStringProperty(scaleStr.toString());
         });
 
@@ -236,8 +236,10 @@ public class CoursesController implements Initializable {
         if (removeCourse != null) {
             boolean confirmation = AlertMaker.getConfirmation("Delete Course", "Are you sure to delete course " + removeCourse.getCourseCode() + " ?");
             if (confirmation) {
-                CourseRepository.getInstance().delete(removeCourse);
                 // TODO: 22/04/2018 xoa everywhere
+                CourseRepository.getInstance().delete(removeCourse);
+                CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
+                AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
                 refreshTable(event);
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
             }

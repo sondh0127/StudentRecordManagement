@@ -11,7 +11,7 @@ public class UserRepository extends AbstractRepository<User, String> {
     }
 
     public static UserRepository getInstance() {
-        if (instance == null) synchronized (AnnualClassRepository.class) {
+        if (instance == null) synchronized (UserRepository.class) {
             if (instance == null) instance = new UserRepository();
         }
         return instance;

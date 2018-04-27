@@ -9,7 +9,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 import com.project.javafx.model.*;
 import com.project.javafx.repository.AnnualClassRepository;
-import com.project.javafx.repository.CourseRepository;
+import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.repository.UserRepository;
 import com.project.javafx.ulti.AlertMaker;
@@ -17,7 +17,6 @@ import com.project.javafx.ulti.DateUtil;
 import org.bson.Document;
 import org.junit.Test;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,10 +47,10 @@ public class MongoDBHandlerTest {
     public static AnnualClass newClass = new AnnualClass("PHY", "Physic");
     public static CreditMajor comMajor = new CreditMajor("CM02", "Communications", 120, 20);
     public static CreditMajor csMajor = new CreditMajor("CS01", "Computer Science", 120, 20);
-    public static AnnualStudent student = new AnnualStudent(20145454, "Son", "Do Hong", "Male", DateUtil.parse("27/10/1998"), "34534543534", "243@gmail.com", "VietNam", newClass);
-    public static AnnualStudent student2 = new AnnualStudent(354634, "Son2", "Do 2Hong", "Male", DateUtil.parse("27/12/1998"), "567567", "245345343@gmail.com", "VietNam2", newClass);
-    public static CreditStudent student3 = new CreditStudent(2131232, "Son", "Do Hong", "Male", DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", csMajor);
-    public static CreditStudent student4 = new CreditStudent(35463434, "Son3", "Do 23Hong", "Male", DateUtil.parse("27/12/1997"), "567567", "245345343@gmail.com", "VietNam2", comMajor);
+    public static AnnualStudent student = new AnnualStudent(20145454, "Son", "Do Hong", Student.Gender.MALE, DateUtil.parse("27/10/1998"), "34534543534", "243@gmail.com", "VietNam", newClass);
+    public static AnnualStudent student2 = new AnnualStudent(354634, "Son2", "Do 2Hong", Student.Gender.MALE, DateUtil.parse("27/12/1998"), "567567", "245345343@gmail.com", "VietNam2", newClass);
+    public static CreditStudent student3 = new CreditStudent(2131232, "Son", "Do Hong", Student.Gender.MALE, DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", csMajor);
+    public static CreditStudent student4 = new CreditStudent(35463434, "Son3", "Do 23Hong", Student.Gender.MALE, DateUtil.parse("27/12/1997"), "567567", "245345343@gmail.com", "VietNam2", comMajor);
     public static List<CreditCourse> csCatalogMajor = new ArrayList<>();
     public static List<CreditCourse> csCatalogMinor = new ArrayList<>();
 
@@ -138,19 +137,19 @@ public class MongoDBHandlerTest {
     //new api
     @Test
     public void createAdmin() {
-        User user = new User("Admin", "adminpass");
+        User user = new User("Admin", "adminpass", UserType.ADMINISTRATOR);
         UserRepository.getInstance().save(user);
         Set<Student> students = StudentRepository.getInstance().getObjectCollection();
 
         for (Student s : students) {
             long id = s.getStudentID();
             String username = String.valueOf(id);
-            UserRepository.getInstance().save(new User(username, username));
+            UserRepository.getInstance().save(new User(username, username, UserType.USER));
         }
     }
     @Test
     public void createCourse() {
-        CourseRepository.getInstance().initCourses();
+        CreditMajorRepository.getInstance().deleteByID("CS01");
     }
 
     public static void main(String args[]) {

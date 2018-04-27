@@ -18,7 +18,7 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
     }
 
     public static StudentRepository getInstance() {
-        if (instance == null) synchronized (AnnualClassRepository.class) {
+        if (instance == null) synchronized (StudentRepository.class) {
             if (instance == null) instance = new StudentRepository();
         }
         return instance;

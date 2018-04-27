@@ -19,11 +19,11 @@ public class ViewConstants {
 
     public static final String ADD_COURSE_VIEW = "/view/course/AddCourse.fxml";
 
-    public static final String MAJORS_VIEW = "/view/major_class/Majors.fxml";
-    public static final String CLASSES_VIEW = "/view/major_class/Classes.fxml";
+    public static final String MAJORS_VIEW = "/view/major_class/CreditMajors.fxml";
+    public static final String CLASSES_VIEW = "/view/major_class/AnnualClasses.fxml";
 
-    public static final String ADD_MAJOR_VIEW = "/view/major_class/AddMajor.fxml";
-    public static final String ADD_COURSE_LIST_MAJOR_VIEW = "/view/major_class/AddCourseList.fxml";
+    public static final String ADD_MAJOR_VIEW = "/view/major_class/AddCreditMajor.fxml";
+    public static final String ADD_COURSE_LIST_MAJOR_VIEW = "/view/major_class/AddMajorCourseList.fxml";
 
 
 

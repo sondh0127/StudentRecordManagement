@@ -57,8 +57,8 @@ public class AddCourseListController implements Initializable {
     @FXML
     private TableView<CreditCourse> tblMajorCourseList;
 
-//    @FXML
-//    private TableColumn<CreditCourse, String> colMajorCC;
+    @FXML
+    private TableColumn<CreditCourse, String> colMajorCC;
 
     @FXML
     private TableColumn<CreditCourse, String> colMajorCN;
@@ -66,8 +66,8 @@ public class AddCourseListController implements Initializable {
     @FXML
     private TableView<CreditCourse> tblMinorCourseList;
 
-//    @FXML
-//    private TableColumn<CreditCourse, String> colMinorCC;
+    @FXML
+    private TableColumn<CreditCourse, String> colMinorCC;
 
     @FXML
     private TableColumn<CreditCourse, String> colMinorCN;
@@ -104,19 +104,19 @@ public class AddCourseListController implements Initializable {
             return new SimpleStringProperty(c.getCourseName());
         });
 
-//        colMajorCC.setCellValueFactory(param -> {
-//            CreditCourse c = param.getValue();
-//            return new SimpleStringProperty(c.getCourseCode());
-//        });
+        colMajorCC.setCellValueFactory(param -> {
+            CreditCourse c = param.getValue();
+            return new SimpleStringProperty(c.getCourseCode());
+        });
         colMajorCN.setCellValueFactory(param -> {
             CreditCourse c = param.getValue();
             return new SimpleStringProperty(c.getCourseName());
         });
 
-//        colMinorCC.setCellValueFactory(param -> {
-//            CreditCourse c = param.getValue();
-//            return new SimpleStringProperty(c.getCourseCode());
-//        });
+        colMinorCC.setCellValueFactory(param -> {
+            CreditCourse c = param.getValue();
+            return new SimpleStringProperty(c.getCourseCode());
+        });
         colMinorCN.setCellValueFactory(param -> {
             CreditCourse c = param.getValue();
             return new SimpleStringProperty(c.getCourseName());
@@ -195,7 +195,7 @@ public class AddCourseListController implements Initializable {
             boolean confirmation = AlertMaker.getConfirmation("Delete Course", "Are you sure to delete course \n" +
                     "\"" + removeCourse1.getCourseName() + "\" ?");
             if (confirmation) {
-                this.creditMajor.getMajorCatalog().remove(removeCourse1);
+                this.creditMajor.getMinorCatalog().remove(removeCourse1);
                 refreshTable();
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
             }

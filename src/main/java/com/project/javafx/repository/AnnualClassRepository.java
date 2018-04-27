@@ -47,6 +47,23 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
         save(newClass);
     }
 
+    public void deleteCourseForAllClass(Course course) {
+        for (AnnualClass annualClass : getObjectCollection()) {
+            List<Course> FIRST_YEAR = annualClass.getCoursesCatalog(AnnualStudent.YearOfStudy.FIRST_YEAR);
+            List<Course> SECOND_YEAR = annualClass.getCoursesCatalog(AnnualStudent.YearOfStudy.SECOND_YEAR);
+            List<Course> THIRD_YEAR = annualClass.getCoursesCatalog(AnnualStudent.YearOfStudy.THIRD_YEAR);
+            List<Course> FOURTH_YEAR = annualClass.getCoursesCatalog(AnnualStudent.YearOfStudy.FOURTH_YEAR);
+
+            if (FIRST_YEAR.remove(course)
+                    || SECOND_YEAR.remove(course)
+                    || THIRD_YEAR.remove(course)
+                    || FOURTH_YEAR.remove(course)) {
+                update(annualClass);
+            }
+
+        }
+    }
+
     @Override
     public String getID(AnnualClass element) {
         return element.getClassCode();

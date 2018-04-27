@@ -180,77 +180,70 @@
          <center>
             <TableView fx:id="studentTableView" BorderPane.alignment="CENTER">
                <columns>
-                  <TableColumn fx:id="studentID" editable="false" prefWidth="-1.0" text="Student ID" />
-                  <TableColumn fx:id="firstName" editable="false" minWidth="0.0" prefWidth="-1.0" text="First Name" />
-                  <TableColumn fx:id="lastName" editable="false" prefWidth="-1.0" text="Last Name" />
-                  <TableColumn fx:id="educationSystem" editable="false" prefWidth="-1.0" text="Edu System" />
+                  <TableColumn fx:id="studentID" editable="false" prefWidth="120.0" resizable="false" text="Student ID" />
+                  <TableColumn fx:id="firstName" editable="false" minWidth="0.0" prefWidth="150.0" resizable="false" text="First Name" />
+                  <TableColumn fx:id="lastName" editable="false" prefWidth="150.0" text="Last Name" />
+                  <TableColumn fx:id="educationSystem" editable="false" text="Edu System" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
                <BorderPane.margin>
-                  <Insets />
+                  <Insets left="10.0" right="10.0" top="10.0" />
                </BorderPane.margin>
             </TableView>
          </center>
          <top>
-            <BorderPane prefHeight="40.0" prefWidth="0.0" BorderPane.alignment="CENTER">
-               <center>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label alignment="CENTER" text="Filter by:" textFill="#333333" wrapText="true">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <JFXRadioButton fx:id="idFilter" selected="true" text="ID">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="filter" />
-                           </toggleGroup>
-                        </JFXRadioButton>
-                        <JFXRadioButton fx:id="nameFilter" text="Name" toggleGroup="$filter" />
-                        <TextField fx:id="txtSearchField" onAction="#handleSearchAction" prefWidth="350.0" promptText="Search by ID">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </TextField>
-                        <JFXButton fx:id="searchButton" alignment="CENTER" onAction="#handleSearchAction" prefWidth="110.0" stylesheets="@../../app.css" text="Search" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" wrappingWidth="22.5" />
-                           </graphic>
-                           <padding>
-                              <Insets bottom="7.0" left="10.0" right="10.0" top="7.0" />
-                           </padding>
-                        </JFXButton>
-                     </children>
-                     <BorderPane.margin>
-                        <Insets bottom="5.0" left="50.0" right="5.0" top="5.0" />
-                     </BorderPane.margin>
-                  </HBox>
-               </center>
+            <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" text="Filter by:" textFill="#333333" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <JFXRadioButton fx:id="idFilter" selected="true" text="ID">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="filter" />
+                     </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="nameFilter" text="Name" toggleGroup="$filter" />
+                  <TextField fx:id="txtSearchField" onAction="#handleSearchAction" prefWidth="350.0" promptText="Search by ID">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <JFXButton fx:id="searchButton" alignment="CENTER" onAction="#handleSearchAction" prefWidth="110.0" stylesheets="@../../app.css" text="Search" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" wrappingWidth="22.5" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="7.0" left="10.0" right="10.0" top="7.0" />
+                     </padding>
+                  </JFXButton>
+               </children>
                <BorderPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="50.0" right="5.0" top="5.0" />
                </BorderPane.margin>
-               <top>
-                  <VBox BorderPane.alignment="CENTER">
-                     <children>
-                        <Text fill="#0096c9" strokeType="OUTSIDE" strokeWidth="0.0" text="STUDENT LIST" textAlignment="CENTER">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="50.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                        </Text>
-                        <Separator VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-               </top>
-            </BorderPane>
+            </HBox>
          </top>
       </BorderPane>
    </center>
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#0096c9" strokeType="OUTSIDE" strokeWidth="0.0" text="STUDENT LIST" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="50.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Text>
+            <Separator VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </top>
 </BorderPane>

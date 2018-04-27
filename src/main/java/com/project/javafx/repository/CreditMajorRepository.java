@@ -16,7 +16,7 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor, Strin
     }
 
     public static CreditMajorRepository getInstance() {
-        if (instance == null) synchronized (AnnualClassRepository.class) {
+        if (instance == null) synchronized (CreditMajorRepository.class) {
             if (instance == null) instance = new CreditMajorRepository();
         }
         return instance;
@@ -60,6 +60,17 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor, Strin
 
         save(csMajor);
         save(comMajor);
+    }
+
+    public void deleteCourseForAllMajor(CreditCourse course) {
+        for (CreditMajor major : getObjectCollection()) {
+            List<CreditCourse> minorCatalog = major.getMinorCatalog();
+            List<CreditCourse> majorCatalog = major.getMajorCatalog();
+            if (minorCatalog.remove(course)
+                    || majorCatalog.remove(course)) {
+                update(major);
+            }
+        }
     }
 
     @Override
