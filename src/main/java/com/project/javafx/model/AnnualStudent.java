@@ -2,15 +2,16 @@ package com.project.javafx.model;
 
 import java.time.LocalDate;
 
-public class AnnualStudent extends Student implements Updatable {
+public class AnnualStudent extends Student {
 
     private AnnualClass annualClass;
     private YearOfStudy studyYear;
     private double avg;
 
-    public AnnualStudent(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, AnnualClass annualClass) {
+    public AnnualStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, AnnualClass annualClass) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
         this.annualClass = annualClass;
+        annualClass.addStudent(this);
         this.studyYear = YearOfStudy.FIRST_YEAR;
     }
 
@@ -36,38 +37,10 @@ public class AnnualStudent extends Student implements Updatable {
     }
 
     // METHOD
-    @Override
-    public boolean registerCourse(Course course) {
-        if (course instanceof CreditCourse) {
-            return false;
-        } else {
-            if (!takenCourses.containsKey(course.getCourseCode())) {
-                takenCourses.put(course.getCourseCode(), new StudentResult(course.getScale()));
-                // call the course to add this Student to the student List ?? // TODO: 19/04/2018
-                course.addStudent(this);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public StudentResult getScoreResult(Course course) {
-        return takenCourses.get(course.getCourseCode());
-    }
 
     @Override
     public boolean ableToGraduate() {
         return studyYear == YearOfStudy.GRADUATED;
-    }
-
-    @Override
-    public boolean updateStudentResult(String courseCode, double midtermPoint, double finalPoint) {
-        if (takenCourses.containsKey(courseCode)) {
-            takenCourses.put(courseCode, new StudentResult(midtermPoint, finalPoint));
-            return true;
-        }
-        return false;
     }
 
     // TODO: 19/04/2018 who call this
@@ -117,10 +90,11 @@ public class AnnualStudent extends Student implements Updatable {
         return Math.round(sum / takenCourses.size() * 10.0) / 10.0;
     }
 
-//    public void regiterClass(AnnualClass annualClass) {
-//        this.annualClass = annualClass;
-//        this.studyYear = YearOfStudy.FIRST_YEAR;
-//    }
+    public void regiterClass(AnnualClass annualClass) {
+        this.annualClass = annualClass;
+        annualClass.addStudent(this);
+        this.studyYear = YearOfStudy.FIRST_YEAR;
+    }
 
     public enum YearOfStudy {
         FIRST_YEAR("First Year"),

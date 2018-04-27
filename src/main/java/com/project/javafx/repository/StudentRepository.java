@@ -27,10 +27,10 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
     public void initSomeStudent() {
         AnnualClass aClass = new AnnualClass("C01", "Class001");
         CreditMajor major = new CreditMajor("Major003", "Major003");
-        AnnualStudent student = new AnnualStudent(20145454, "Son", "Do Hong", "Male", DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", aClass);
-        AnnualStudent student2 = new AnnualStudent(354634, "Son2", "Do 2Hong", "Male", DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);
-        AnnualStudent student4 = new AnnualStudent(35463434, "Son3", "Do 23Hong", "Male", DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);
-        CreditStudent student3 = new CreditStudent(2131232, "Son", "Do Hong", "Male", DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", major);
+        AnnualStudent student = new AnnualStudent(20145454, "Son", "Do Hong", Student.Gender.MALE, DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", aClass);
+        AnnualStudent student2 = new AnnualStudent(354634, "Son2", "Do 2Hong", Student.Gender.MALE, DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);
+        AnnualStudent student4 = new AnnualStudent(35463434, "Son3", "Do 23Hong", Student.Gender.MALE, DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);
+        CreditStudent student3 = new CreditStudent(2131232, "Son", "Do Hong", Student.Gender.MALE, DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", major);
     }
 
     @Override

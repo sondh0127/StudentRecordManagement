@@ -1,24 +1,15 @@
 package com.project.javafx.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Course {
     private final String courseCode;
     private final String courseName;
-
-//    private final int DEFAULT_CAPACITY = 40;
-//    private int capacity;
-//    private int currentEnrollment;
-    private double scale;
-
-    private List<Student> studentRoster = new ArrayList<>();
+    private final double scale;
 
     public Course(String courseCode, String courseName, double scale) {
         this.courseCode = courseCode;
         this.courseName = courseName;
-//        this.capacity = DEFAULT_CAPACITY;
         this.scale = scale;
     }
 
@@ -35,23 +26,12 @@ public class Course {
         return scale;
     }
 
-    public List<Student> getStudentRoster() {
-        return studentRoster;
-    }
-
     @Override
     public String toString() {
         return courseCode;
     }
 
     // main method
-    public boolean addStudent(Student student) {
-        return studentRoster.add(student);
-    }
-
-    public boolean removeStudent(Student student) {
-        return studentRoster.remove(student);
-    }
 
     /**
      * Override equals to provide: a comparison of 2 course

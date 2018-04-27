@@ -4,16 +4,19 @@ public class User {
 
     private final String username;
     private final String password;
+    private final UserType userType;
 
 
-    public User(String username, String password) {
+    public User(String username, String password, UserType userType) {
         this.username = username;
         this.password = password;
+        this.userType = userType;
     }
 
-    public User(long numberUsername, long numberPassword) {
+    public User(long numberUsername, long numberPassword, UserType userType) {
         this.username = String.valueOf(numberUsername);
         this.password = String.valueOf(numberPassword);
+        this.userType = userType;
     }
 
     public String getUsername() {

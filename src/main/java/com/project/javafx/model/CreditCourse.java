@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CreditCourse extends Course {
 
-    private List<String> prerequisiteCourse = new ArrayList<>();
+    private List<CreditCourse> prerequisiteCourse = new ArrayList<>();
     private int creditHours;
 
     public CreditCourse(String courseCode, String courseName, int creditHours, double scale) {
@@ -13,14 +13,16 @@ public class CreditCourse extends Course {
         this.creditHours = creditHours;
     }
 
-    public CreditCourse(String courseCode, String courseName, int creditHours, List<String> prerequisiteCourse, double scale) {
+    public CreditCourse(String courseCode, String courseName, int creditHours, List<CreditCourse> prerequisiteCourse, double scale) {
         super(courseCode, courseName, scale);
         this.creditHours = creditHours;
         this.prerequisiteCourse = prerequisiteCourse;
     }
 
+
+
     // GETTER AND SETTER
-    public List<String> getPrerequisiteCourse() {
+    public List<CreditCourse> getPrerequisiteCourse() {
         return prerequisiteCourse;
     }
 
@@ -28,24 +30,12 @@ public class CreditCourse extends Course {
         return creditHours;
     }
 
-    public boolean addPrequisiteCourse(String courseCode) {
-        prerequisiteCourse.add(courseCode);
+    public boolean addPrequisite(CreditCourse course) {
+        prerequisiteCourse.add(course);
         return false;
     }
 
-    @Override
-    public boolean addStudent(Student student) {
-        if (student instanceof AnnualStudent) {
-            return false;
-        }
-        return super.addStudent(student);
-    }
-
-    @Override
-    public boolean removeStudent(Student student) {
-        if (student instanceof AnnualStudent) {
-            return false;
-        }
-        return super.removeStudent(student);
+    public boolean hasPrerequisites() {
+        return !prerequisiteCourse.isEmpty();
     }
 }

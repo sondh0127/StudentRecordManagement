@@ -6,6 +6,7 @@ import com.project.javafx.model.*;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.CreditMajorRepository;
+import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -25,8 +26,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
-import java.util.*;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 public class CoursesController implements Initializable {
 
@@ -166,8 +169,9 @@ public class CoursesController implements Initializable {
         });
         scale.setCellValueFactory(param -> {
             Course c = param.getValue();
-            double scale = c.getScale();
-            double _scale = 1 - scale;
+            BigDecimal scale = BigDecimal.valueOf(c.getScale());
+            BigDecimal _scale = BigDecimal.ONE.subtract(scale);
+
             StringBuilder scaleStr = new StringBuilder();
             scaleStr.append(scale).append("/").append(_scale);
             return new SimpleStringProperty(scaleStr.toString());
@@ -228,7 +232,18 @@ public class CoursesController implements Initializable {
 
     @FXML
     void removeCourse(ActionEvent event) {
-
+        Course removeCourse = courseTableView.getSelectionModel().getSelectedItem();
+        if (removeCourse != null) {
+            boolean confirmation = AlertMaker.getConfirmation("Delete Course", "Are you sure to delete course " + removeCourse.getCourseCode() + " ?");
+            if (confirmation) {
+                CourseRepository.getInstance().delete(removeCourse);
+                // TODO: 22/04/2018 xoa everywhere
+                refreshTable(event);
+                AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
+            }
+        } else {
+            AlertMaker.showNotification("Error", "No Course Selected", AlertMaker.image_cross);
+        }
     }
 
     @FXML

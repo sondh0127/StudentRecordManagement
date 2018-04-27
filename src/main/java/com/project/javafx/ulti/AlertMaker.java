@@ -48,8 +48,8 @@ public class AlertMaker {
                 .graphic(new ImageView(img))
                 .title(ex.getClass().getName())
                 .text(ex.getMessage())
-                .position(Pos.TOP_CENTER)
-                .hideAfter(Duration.seconds(5));
+                .position(Pos.BOTTOM_RIGHT)
+                .hideAfter(Duration.seconds(2.5));
         notify.show();
     }
 
@@ -60,8 +60,8 @@ public class AlertMaker {
                 .graphic(new ImageView(img))
                 .title(Title)
                 .text(Message + ex.getMessage())
-                .position(Pos.TOP_CENTER)
-                .hideAfter(Duration.seconds(5));
+                .position(Pos.BOTTOM_RIGHT)
+                .hideAfter(Duration.seconds(2.5));
         notify.show();
     }
 
@@ -149,8 +149,8 @@ public class AlertMaker {
                 .graphic(new ImageView(img))
                 .title(Title)
                 .text(Message)
-                .position(Pos.TOP_CENTER)
-                .hideAfter(Duration.seconds(5));
+                .position(Pos.BOTTOM_RIGHT)
+                .hideAfter(Duration.seconds(2.5));
         notify.show();
     }
 

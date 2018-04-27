@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.project.javafx.model.*;
+import com.project.javafx.model.Student.Gender;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.repository.StudentRepository;
@@ -170,7 +171,7 @@ public class AddStudentController implements Initializable {
         long studentID = 0;
         String firstName = null;
         String lastName = null;
-        String genderString = null;
+        Gender gender;
         LocalDate birthdayDate = null;
         String phone = null;
         String email = null;
@@ -185,8 +186,8 @@ public class AddStudentController implements Initializable {
             else firstName = txtFirstName.getText();
             if (txtLastName.getText().trim().isEmpty()) throw new RuntimeException("Enter last name !");
             else lastName = txtLastName.getText();
-            if (radioFemale.isSelected()) genderString = "Female";
-            else genderString = "Male";
+            if (radioFemale.isSelected()) gender = Gender.FEMALE;
+            else gender = Gender.MALE;
             if (dtpBirthday.getValue() == null) throw new RuntimeException("Enter birth day !");
             else birthdayDate = dtpBirthday.getValue();
             if (txtPhone.getText().trim().isEmpty()) throw new RuntimeException("Enter phone number !");
@@ -204,15 +205,15 @@ public class AddStudentController implements Initializable {
             }
             // after checking add student to data
             if (majorValue != null) {
-                newStudent = new CreditStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address, majorValue);
+                newStudent = new CreditStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address, majorValue);
                 // TODO: 13/04/2018  add student to list of major
             } else if (classValue != null) {
-                newStudent = new AnnualStudent(studentID, firstName, lastName, genderString, birthdayDate, phone, email, address, classValue);
+                newStudent = new AnnualStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address, classValue);
                 // TODO: 13/04/2018  add student to list of class
             }
             if (newStudent != null) {
                 if (StudentRepository.getInstance().save(newStudent)) {
-                    UserRepository.getInstance().save(new User(studentID, studentID));
+                    UserRepository.getInstance().save(new User(studentID, studentID, UserType.USER));
                     AlertMaker.showNotification("Success", "Student info inserted successfully !", AlertMaker.image_checked);
                 } else {
                     AlertMaker.showErrorMessage("Failed!", "Student ID is exist !");

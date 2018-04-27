@@ -10,13 +10,18 @@ public class AnnualClass {
     private final String classCode;
     private final String className;
 
+    private final int DEFAULT_CAPACITY = 40;
+    private int capacity;
+//    private int currentEnrollment;
+
     private List<List<Course>> courseCatalog = new ArrayList<>(4);
 
-    private List<String> studentList = new ArrayList<>();
+    private List<Student> studentList = new ArrayList<>();
 
     public AnnualClass(String classCode, String className) {
         this.classCode = classCode;
         this.className = className;
+        this.capacity = DEFAULT_CAPACITY;
     }
 
     @Override
@@ -84,15 +89,13 @@ public class AnnualClass {
      * @param student: AnnualStudent
      */
     public void addStudent(AnnualStudent student) {
-        String studentID = String.valueOf(student.getStudentID());
-        if (studentList.contains(studentID)) throw new IllegalArgumentException("Student is exists");
-        else studentList.add(studentID);
+        if (studentList.contains(student)) throw new IllegalArgumentException("Student is exists");
+        else studentList.add(student);
     }
 
     public void removeStudent(AnnualStudent student) {
-        String studentID = String.valueOf(student.getStudentID());
-        if (!studentList.contains(studentID)) throw new IllegalArgumentException("Student not is exists");
-        else studentList.remove(studentID);
+        if (!studentList.contains(student)) throw new IllegalArgumentException("Student not is exists");
+        else studentList.remove(student);
     }
 
 

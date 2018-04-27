@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-
-<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.student.AddCourseController">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.course.AddCourseController">
    <top>
       <HBox alignment="CENTER" prefHeight="60.0" spacing="10.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
          <children>
@@ -89,7 +81,8 @@
             <GridPane hgap="10.0" vgap="25.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints prefWidth="100.0" />
-                <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints minWidth="10.0" prefWidth="125.0" />
+                  <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
@@ -100,12 +93,12 @@
                   <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="txtCourseCode" focusColor="#0096c9" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                  <JFXTextField fx:id="txtCourseCode" focusColor="#0096c9" GridPane.columnIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtCourseName" focusColor="#0096c9" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtCourseName" focusColor="#0096c9" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -148,11 +141,16 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="txtCourseScale" focusColor="#0096c9" layoutX="120.0" layoutY="65.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                  <JFXTextField fx:id="txtCourseScale" focusColor="#0096c9" layoutX="120.0" layoutY="65.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </JFXTextField>
+                  <Label layoutX="10.0" layoutY="125.0" text="(* Input scale for final score) &quot;ex: 0.7&quot;" textFill="#4d4d4d" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </center>

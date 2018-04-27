@@ -1,23 +1,26 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public abstract class Student {
 
-    private final long _id;
+    private final long studentID;
     private final String firstName;
     private final String lastName;
-    private final String gender; // TODO: 19/04/2018 enum this
+    private final Gender gender;
+    private String phone;
+    private String email;
+    private String address;
     private LocalDate birthday;
-    protected String phone;
-    protected String email;
-    protected String address;
-
     private EduSystem educationSystem;
 
-    public Student(long studentID, String firstName, String lastName, String gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
-        this._id = studentID;
+    Map<Course, StudentResult> takenCourses;
+
+    public Student(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
+        this.studentID = studentID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -26,11 +29,16 @@ public abstract class Student {
         this.email = email;
         this.address = address;
         this.educationSystem = eduSystem;
+        takenCourses = new HashMap<>();
     }
 
     // GETTER AND SETTER
+    public void setTakenCourses(Map<Course, StudentResult> takenCourses) {
+        this.takenCourses = takenCourses;
+    }
+
     public long getStudentID() {
-        return _id;
+        return studentID;
     }
 
     public String getFirstName() {
@@ -41,7 +49,7 @@ public abstract class Student {
         return lastName;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
@@ -68,16 +76,17 @@ public abstract class Student {
     @Override
     public String toString() {
         return "Student{" +
-                _id +
+                studentID +
                 ", " + firstName +
                 " " + lastName +
                 '}';
     }
 
     // MAIN METHOD
-    abstract boolean registerCourse(Course course); // TODO: 24/04/2018 move to credit Student
 
-    abstract public StudentResult getScoreResult(Course course);
+    public StudentResult getScoreResult(Course course) {
+        return takenCourses.get(course);
+    }
 
     abstract public boolean ableToGraduate();
 
@@ -87,12 +96,23 @@ public abstract class Student {
         this.address = address;
     }
 
+    public boolean isTakingCourse(Course course) {
+        return takenCourses.containsKey(course);
+    }
+
+    public boolean updateStudentResult(Course course, double midtermPoint, double finalPoint) {
+        if (takenCourses.keySet().contains(course)) {
+            takenCourses.put(course, new StudentResult());
+            return true;
+        }
+        return false;
+    }
     /**
      * Override equals to provide the comparison of two student
      */
     @Override
     public int hashCode() {
-        return Objects.hash(_id);
+        return Objects.hash(studentID);
     }
 
     @Override
@@ -102,13 +122,13 @@ public abstract class Student {
             return false;
         }
         Student student = (Student) obj;
-        return _id == student._id;
+        return studentID == student.studentID;
     }
 
     /**
      * Education System
      */
-    public enum EduSystem { // TODO: 24/04/2018 replace by gender
+    public enum EduSystem {
         CREDIT("Academic Credit"),
         ANNUAL("Annual Curriculum");
 
@@ -118,6 +138,22 @@ public abstract class Student {
             this.text = text;
         }
 
+
+        @Override
+        public String toString() {
+            return text;
+        }
+    }
+
+    public enum Gender {
+        MALE("Male"),
+        FEMALE("Female");
+
+        private final String text;
+
+        Gender(String text) {
+            this.text = text;
+        }
 
         @Override
         public String toString() {

@@ -2,7 +2,7 @@ package com.project.javafx.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//change the name to department
 public class CreditMajor {
 
     private final String majorCode;
@@ -12,8 +12,6 @@ public class CreditMajor {
 
     private List<CreditCourse> majorCatalog = new ArrayList<>();
     private List<CreditCourse> minorCatalog = new ArrayList<>();
-
-    private List<String> studentList = new ArrayList<>();
 
     public CreditMajor(String majorCode, String majorTitle) {
         this.majorCode = majorCode;
@@ -68,17 +66,5 @@ public class CreditMajor {
     @Override
     public String toString() {
         return majorTitle;
-    }
-
-    public void addStudent(CreditStudent student) {
-        String studentID = String.valueOf(student.getStudentID());
-        if (studentList.contains(studentID)) throw new IllegalArgumentException("Student is exists");
-        else studentList.add(studentID);
-    }
-
-    public void removeStudent(CreditStudent student) {
-        String studentID = String.valueOf(student.getStudentID());
-        if (!studentList.contains(studentID)) throw new IllegalArgumentException("Student is not exists");
-        else studentList.remove(studentID);
     }
 }
