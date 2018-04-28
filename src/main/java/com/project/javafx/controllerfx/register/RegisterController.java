@@ -1,4 +1,4 @@
-package com.project.javafx.controllerfx;
+package com.project.javafx.controllerfx.register;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -26,9 +26,6 @@ public class RegisterController implements Initializable {
 
     @FXML
     private TableView<?> registerTableView;
-
-    @FXML
-    private TableColumn<?, ?> registerID;
 
     @FXML
     private TableColumn<?, ?> studentID;
@@ -76,7 +73,7 @@ public class RegisterController implements Initializable {
     private JFXButton btnRemove;
 
     @FXML
-    private JFXButton btnMark;
+    private JFXButton btnUpdate;
 
     @FXML
     private JFXButton btnRefresh;
@@ -91,10 +88,10 @@ public class RegisterController implements Initializable {
 
     }
 
-    @FXML
-    void markGrade(ActionEvent event) {
+    public void updateRegister(ActionEvent actionEvent) {
 
     }
+
 
     @FXML
     void refreshTable(ActionEvent event) {
