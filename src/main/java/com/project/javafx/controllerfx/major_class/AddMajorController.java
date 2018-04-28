@@ -1,12 +1,12 @@
 package com.project.javafx.controllerfx.major_class;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import com.project.javafx.model.CreditMajor;
 import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class AddMajorController {
@@ -17,10 +17,10 @@ public class AddMajorController {
     private JFXButton btnBack;
 
     @FXML
-    private JFXTextField txtMajorCode;
+    private TextField txtMajorCode;
 
     @FXML
-    private JFXTextField txtMajorTitle;
+    private TextField txtMajorTitle;
 
     @FXML
     void goBack(ActionEvent event) {

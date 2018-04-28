@@ -2,9 +2,6 @@ package com.project.javafx.controllerfx.student;
 
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.project.javafx.model.*;
 import com.project.javafx.model.Student.Gender;
@@ -19,8 +16,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -52,13 +48,13 @@ public class AddStudentController implements Initializable {
     private JFXButton btnClear;
 
     @FXML
-    private JFXTextField txtStudentID;
+    private TextField txtStudentID;
 
     @FXML
-    private JFXTextField txtFirstName;
+    private TextField txtFirstName;
 
     @FXML
-    private JFXTextField txtLastName;
+    private TextField txtLastName;
 
     @FXML
     private RadioButton radioMale;
@@ -70,16 +66,16 @@ public class AddStudentController implements Initializable {
     private RadioButton radioFemale;
 
     @FXML
-    private JFXDatePicker dtpBirthday;
+    private DatePicker dtpBirthday;
 
     @FXML
-    private JFXTextField txtPhone;
+    private TextField txtPhone;
 
     @FXML
-    private JFXTextField txtEmail;
+    private TextField txtEmail;
 
     @FXML
-    private JFXTextField txtAddress;
+    private TextField txtAddress;
 
     @FXML
     private ToggleGroup studentTypeRadioGroup;
@@ -91,10 +87,10 @@ public class AddStudentController implements Initializable {
     private RadioButton radioAnnual;
 
     @FXML
-    private JFXComboBox<AnnualClass> cbxClass;
+    private ComboBox<AnnualClass> cbxClass;
 
     @FXML
-    private JFXComboBox<CreditMajor> cbxMajor;
+    private ComboBox<CreditMajor> cbxMajor;
 
     /**
      * Initializes the controller class.
@@ -102,7 +98,7 @@ public class AddStudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComboBox();
-        initValidation();
+//        initValidation();
     }
 
     private void initValidation() {
@@ -114,7 +110,7 @@ public class AddStudentController implements Initializable {
         initValidationForField(txtEmail);
     }
 
-    private void initValidationForField(JFXTextField node) {
+    private void initValidationForField(TextField node) {
         RequiredFieldValidator validator = new RequiredFieldValidator();
         validator.setMessage("Input Required");
         validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
@@ -122,12 +118,12 @@ public class AddStudentController implements Initializable {
                 .size("1em")
                 .styleClass("error")
                 .build());
-        node.getValidators().add(validator);
-        node.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                node.validate();
-            }
-        });
+//        node.getValidators().add(validator);
+//        node.focusedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue) {
+//                node.validate();
+//            }
+//        });
     }
 
     private void initComboBox() {

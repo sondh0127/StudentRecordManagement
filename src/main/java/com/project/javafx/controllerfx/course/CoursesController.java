@@ -236,10 +236,10 @@ public class CoursesController implements Initializable {
         if (removeCourse != null) {
             boolean confirmation = AlertMaker.getConfirmation("Delete Course", "Are you sure to delete course " + removeCourse.getCourseCode() + " ?");
             if (confirmation) {
-                // TODO: 22/04/2018 xoa everywhere
                 CourseRepository.getInstance().delete(removeCourse);
-                CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
-                AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
+//                // TODO: 22/04/2018 xoa everywhere
+//                CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
+//                AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
                 refreshTable(event);
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
             }

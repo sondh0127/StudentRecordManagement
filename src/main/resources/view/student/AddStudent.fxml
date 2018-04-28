@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,7 +22,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.student.AddStudentController">
    <top>
-      <HBox alignment="CENTER" prefHeight="60.0" spacing="10.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="50.0" spacing="10.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
          <children>
             <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
@@ -85,46 +85,61 @@
       </HBox>
    </bottom>
    <center>
-      <BorderPane prefHeight="480.0" prefWidth="520.0" BorderPane.alignment="CENTER">
+      <BorderPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </BorderPane.margin>
          <center>
-            <GridPane hgap="10.0" vgap="25.0" BorderPane.alignment="CENTER">
+            <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints prefWidth="100.0" />
-                <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints prefWidth="90.0" />
+                <ColumnConstraints minWidth="10.0" prefWidth="80.0" />
+                  <ColumnConstraints minWidth="10.0" prefWidth="120.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="txtStudentID" focusColor="#0096c9" promptText="Student ID" GridPane.columnSpan="2">
+                  <TextField fx:id="txtStudentID" GridPane.columnIndex="1" GridPane.columnSpan="2">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="txtFirstName" focusColor="#0096c9" promptText="First Name" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  </TextField>
+                  <Label layoutX="10.0" layoutY="235.0" prefHeight="20.0" prefWidth="100.0" text="Student ID:  " textFill="#4d4d4d">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="txtLastName" focusColor="#0096c9" promptText="Last Name" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                  </Label>
+                  <TextField fx:id="txtFirstName" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </JFXTextField>
-                  <RadioButton fx:id="radioMale" mnemonicParsing="false" selected="true" text="Male" textFill="#4d4d4d" GridPane.rowIndex="3">
+                  </TextField>
+                  <Label layoutX="10.0" layoutY="15.0" prefHeight="20.0" prefWidth="100.0" text="First Name: " textFill="#4d4d4d" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtLastName" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="10.0" layoutY="70.0" prefHeight="20.0" prefWidth="100.0" text="Last Name: " textFill="#4d4d4d" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="radioMale" mnemonicParsing="false" selected="true" text="Male" textFill="#4d4d4d" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -132,42 +147,58 @@
                         <ToggleGroup fx:id="genderRadioGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="radioFemale" mnemonicParsing="false" text="Female" textFill="#4d4d4d" toggleGroup="$genderRadioGroup" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <RadioButton fx:id="radioFemale" mnemonicParsing="false" text="Female" textFill="#4d4d4d" toggleGroup="$genderRadioGroup" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </RadioButton>
-                  <JFXTextField fx:id="txtPhone" focusColor="#0096c9" promptText="Phone" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                  <Label layoutX="10.0" layoutY="125.0" prefHeight="20.0" prefWidth="100.0" text="Gender: " textFill="#4d4d4d" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="txtEmail" focusColor="#0096c9" promptText="Email" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                  </Label>
+                  <DatePicker fx:id="dtpBirthday" prefHeight="30.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                  <Label prefHeight="20.0" prefWidth="100.0" text="Birthday: " textFill="#4d4d4d" GridPane.rowIndex="4">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="txtAddress" focusColor="#0096c9" promptText="Address" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                  </Label>
+                  <TextField fx:id="txtPhone" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </JFXTextField>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
-                     <children>
-                        <Label prefHeight="20.0" prefWidth="100.0" text="Birthday: " textFill="#4d4d4d">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <JFXDatePicker fx:id="dtpBirthday" defaultColor="#0096c9" showWeekNumbers="true" />
-                     </children>
-                  </HBox>
+                  </TextField>
+                  <Label layoutX="10.0" layoutY="180.0" prefHeight="20.0" prefWidth="100.0" text="Phone: " textFill="#4d4d4d" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="10.0" layoutY="235.0" prefHeight="20.0" prefWidth="100.0" text="Email: " textFill="#4d4d4d" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtAddress" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="10.0" layoutY="345.0" prefHeight="20.0" prefWidth="100.0" text="Address: " textFill="#4d4d4d" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" text="Student Type: " textFill="#4d4d4d" GridPane.rowIndex="8">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="radioCredit" mnemonicParsing="false" text="Credit" textFill="#4d4d4d" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                  <RadioButton fx:id="radioAnnual" mnemonicParsing="false" selected="true" text="Annual" textFill="#4d4d4d" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -175,13 +206,13 @@
                         <ToggleGroup fx:id="studentTypeRadioGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="radioAnnual" mnemonicParsing="false" selected="true" text="Annual" textFill="#4d4d4d" toggleGroup="$studentTypeRadioGroup" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                  <ComboBox fx:id="cbxClass" layoutX="230.0" layoutY="383.0" prefHeight="30.0" prefWidth="150.0" promptText="Choose Class" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <RadioButton fx:id="radioCredit" mnemonicParsing="false" text="Credit" textFill="#4d4d4d" toggleGroup="$studentTypeRadioGroup" GridPane.columnIndex="1" GridPane.rowIndex="9">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </RadioButton>
-                  <JFXComboBox fx:id="cbxClass" focusColor="#0096c9" prefHeight="25.0" promptText="Choose Class" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <JFXComboBox fx:id="cbxMajor" focusColor="#0096c9" prefHeight="25.0" promptText="Choose Major" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                  <ComboBox fx:id="cbxMajor" prefHeight="30.0" prefWidth="150.0" promptText="Choose Major" GridPane.columnIndex="2" GridPane.rowIndex="9" />
                </children>
             </GridPane>
          </center>

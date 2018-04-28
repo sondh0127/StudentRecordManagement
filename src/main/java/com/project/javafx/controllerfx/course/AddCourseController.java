@@ -1,7 +1,6 @@
 package com.project.javafx.controllerfx.course;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.repository.CourseRepository;
@@ -10,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -29,30 +29,37 @@ public class AddCourseController implements Initializable {
     private JFXButton btnBack;
 
     @FXML
-    private JFXTextField txtCourseCode;
+    private TextField txtCourseCode;
 
     @FXML
-    private JFXTextField txtCourseName;
+    private TextField txtCourseName;
 
     @FXML
-    private JFXTextField txtCourseScale;
+    private TextField txtCourseScale;
 
     @FXML
     private RadioButton radioCredit;
 
     @FXML
-    private ToggleGroup studentTypeRadioGroup;
+    private ToggleGroup courseTypeGroup;
 
     @FXML
     private RadioButton radioAnnual;
 
     @FXML
-    private JFXTextField txtCreditNum;
+    private TextField txtCreditNum;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        txtCreditNum.setVisible(false);
+        courseTypeGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(radioCredit)) {
+                txtCreditNum.setVisible(true);
+            } else if (newValue.equals(radioAnnual)) {
+                txtCreditNum.setVisible(false);
+            }
+        });
     }
 
     @FXML
