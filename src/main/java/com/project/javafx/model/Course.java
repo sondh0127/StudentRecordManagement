@@ -8,7 +8,7 @@ public class Course {
     private final double scale;
 
     public Course(String courseCode, String courseName, double scale) {
-        this.courseCode = courseCode;
+        this.courseCode = courseCode.toUpperCase();
         this.courseName = courseName;
         this.scale = scale;
     }

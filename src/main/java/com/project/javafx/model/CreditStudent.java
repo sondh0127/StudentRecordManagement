@@ -1,13 +1,15 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CreditStudent extends Student {
 
-    private Map<Course, StudentResult> passedCourses = new HashMap<>();
+    private List<StudentResult> passedCourses = new ArrayList<>();
     private CreditMajor creditMajor;
     private int registerCreditsLimit;
     private int passedMajorCredits;
@@ -50,9 +52,12 @@ public class CreditStudent extends Student {
 
 
     // Main Method
-    // TODO: 24/04/2018 check throw
-    public boolean registerCourse(CreditCourse course) {
-        if (takenCourses.containsKey(course))
+    public boolean isPassedCourse(Course course) {
+        return passedCourses.stream()
+                .anyMatch(studentResult -> studentResult.getCourse().equals(course));
+    }
+    public boolean registerCourse(CreditCourse course) throws IllegalArgumentException {
+        if (isTakingCourse(course))
             throw new IllegalArgumentException(this.getStudentID() + " already took " + course.getCourseCode() + " course !");
         else {
             int addedCredit = course.getCreditHours();
@@ -60,8 +65,12 @@ public class CreditStudent extends Student {
             if (registerCredits + addedCredit > registerCreditsLimit) {
                 throw new IllegalArgumentException("Exceed the number of register credit: " + registerCredits + "/" + this.registerCreditsLimit);
             }
-            if (prerequisiteList.isEmpty() || passedCourses.keySet().containsAll(prerequisiteList)) {
-                takenCourses.put(course, new StudentResult());
+            //get passCourseList
+            List<Course> listOfCourse = this.passedCourses.stream()
+                    .map(StudentResult::getCourse)
+                    .collect(Collectors.toList());
+            if (prerequisiteList.isEmpty() || listOfCourse.containsAll(prerequisiteList)) {
+                takenCourses.add(new StudentResult(course));
                 registerCredits += addedCredit;
                 return true;
             } else
@@ -70,7 +79,7 @@ public class CreditStudent extends Student {
     }
 
     public void dropCourse(CreditCourse course) {
-        if (takenCourses.containsKey(course)) {
+        if (isTakingCourse(course)) {
             takenCourses.remove(course);
             registerCredits -= course.getCreditHours();
         }
@@ -98,7 +107,15 @@ public class CreditStudent extends Student {
     private void updatePassedCourse(CreditCourse course) {
         if (isPassCourse(course)) {
             // if passed course add to list passedCourse
-            passedCourses.put(course, takenCourses.remove(course));
+            StudentResult myResult = takenCourses.stream()
+                    .filter(studentResult -> studentResult.getCourse().equals(course))
+                    .findFirst()
+                    .orElse(null);
+            if (myResult != null) {
+                takenCourses.remove(myResult);
+                passedCourses.add(myResult);
+            }
+//            passedCourses.put(course, takenCourses.remove(course));
             // update passedCredits
             List<CreditCourse> majorCatalog = creditMajor.getMajorCatalog();
             List<CreditCourse> minorCatalog = creditMajor.getMinorCatalog();
@@ -111,8 +128,14 @@ public class CreditStudent extends Student {
     }
 
     private boolean isPassCourse(CreditCourse course) {
-        StudentResult result = takenCourses.get(course);
-        return result.getScore() > 3.0 && result.getMidtermPoint() > 3.0 && result.getFinalPoint() > 3.0;
+        StudentResult result = takenCourses.stream()
+                .filter(studentResult -> studentResult.getCourse().equals(course))
+                .findFirst()
+                .orElse(null);
+        if (result != null) {
+            return result.getScore() > 3.0 && result.getMidtermPoint() > 3.0 && result.getFinalPoint() > 3.0;
+        }
+        return false;
     }
 
     private double calculateGPA() {
@@ -126,9 +149,12 @@ public class CreditStudent extends Student {
         return sum / (passedMinorCredits + passedMajorCredits);
     }
 
-    private double getSum(Map<Course, StudentResult> courseMap) {
+    private double getSum(List<StudentResult> courseMap) {
         double sum = 0;
-        for (Course course : courseMap.keySet()) {
+        List<Course> collect = courseMap.stream()
+                .map(StudentResult::getCourse)
+                .collect(Collectors.toList());
+        for (Course course : collect) {
             double grade = getScoreResult(course).getScore();
             int credits = ((CreditCourse) course).getCreditHours();
             sum += grade * credits;

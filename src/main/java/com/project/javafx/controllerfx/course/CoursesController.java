@@ -193,12 +193,12 @@ public class CoursesController implements Initializable {
         Set<Course> all = CourseRepository.getInstance().findAll();
         ObservableList<Course> temp = FXCollections.observableArrayList();
         if (event.getSource().equals(txtCode)) {
-            String courseCode = txtCode.getText();
+            String courseCode = txtCode.getText().toUpperCase();
             System.out.println(courseCode);
             if (courseCode.isEmpty()) temp.addAll(all);
             else {
                 for (Course course : all) {
-                    if (course.getCourseCode().toLowerCase().contains(courseCode)) {
+                    if (course.getCourseCode().contains(courseCode)) {
                         temp.add(course);
                     }
                 }

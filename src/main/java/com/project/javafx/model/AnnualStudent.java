@@ -74,7 +74,7 @@ public class AnnualStudent extends Student {
     }
 
     private boolean passedAllCourseInYear() {
-        for (StudentResult result : takenCourses.values()) {
+        for (StudentResult result : takenCourses) {
             if (result.getScore() < 4) {
                 return false;
             }
@@ -84,7 +84,7 @@ public class AnnualStudent extends Student {
 
     private double calculateAVG() {
         double sum = 0;
-        for (StudentResult result : takenCourses.values()) {
+        for (StudentResult result : takenCourses) {
             sum += result.getScore();
         }
         return Math.round(sum / takenCourses.size() * 10.0) / 10.0;

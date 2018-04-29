@@ -1,9 +1,7 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Student {
 
@@ -17,7 +15,7 @@ public abstract class Student {
     private LocalDate birthday;
     private EduSystem educationSystem;
 
-    Map<Course, StudentResult> takenCourses;
+    List<StudentResult> takenCourses; // can not do that omg
 
     public Student(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
         this.studentID = studentID;
@@ -29,11 +27,15 @@ public abstract class Student {
         this.email = email;
         this.address = address;
         this.educationSystem = eduSystem;
-        takenCourses = new HashMap<>();
+        takenCourses = new ArrayList<>();
     }
 
     // GETTER AND SETTER
-    public void setTakenCourses(Map<Course, StudentResult> takenCourses) {
+    public List<StudentResult> getTakenResult() {
+        return takenCourses;
+    }
+
+    public void setTakenCourses(List<StudentResult> takenCourses) {
         this.takenCourses = takenCourses;
     }
 
@@ -85,7 +87,11 @@ public abstract class Student {
     // MAIN METHOD
 
     public StudentResult getScoreResult(Course course) {
-        return takenCourses.get(course);
+//        return takenCourses.get(course);
+        return takenCourses.stream()
+                .filter(studentResult -> studentResult.getCourse().equals(course))
+                .findFirst()
+                .orElse(null);
     }
 
     abstract public boolean ableToGraduate();
@@ -97,16 +103,22 @@ public abstract class Student {
     }
 
     public boolean isTakingCourse(Course course) {
-        return takenCourses.containsKey(course);
+//        return takenCourses.containsKey(course);
+        return takenCourses.stream()
+                .anyMatch(studentResult -> studentResult.getCourse().equals(course));
     }
 
     public boolean updateStudentResult(Course course, double midtermPoint, double finalPoint) {
-        if (takenCourses.keySet().contains(course)) {
-            takenCourses.put(course, new StudentResult());
+        if (isTakingCourse(course)) {
+            takenCourses.stream()
+                    .filter(studentResult -> studentResult.getCourse().equals(course))
+                    .findFirst()
+                    .ifPresent(result -> result.setPoint(midtermPoint, finalPoint));
             return true;
         }
         return false;
     }
+
     /**
      * Override equals to provide the comparison of two student
      */

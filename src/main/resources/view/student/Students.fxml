@@ -189,7 +189,7 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <TableView fx:id="studentTableView" styleClass="table-cell" stylesheets="@../../tableView.css" BorderPane.alignment="CENTER">
+            <TableView fx:id="studentTableView" editable="true" styleClass="table-cell" stylesheets="@../../tableView.css" BorderPane.alignment="CENTER">
                <columns>
                   <TableColumn fx:id="studentID" editable="false" prefWidth="151.33331298828125" resizable="false" text="Student ID" />
                   <TableColumn fx:id="firstName" editable="false" minWidth="0.0" prefWidth="203.33331298828125" resizable="false" text="First Name" />

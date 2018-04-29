@@ -78,7 +78,7 @@ public class CreditMajor {
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
-        if (!(obj instanceof Course)) {
+        if (!(obj instanceof CreditMajor)) {
             return false;
         }
         CreditMajor major = (CreditMajor) obj;

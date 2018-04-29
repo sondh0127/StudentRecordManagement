@@ -1,5 +1,7 @@
 package com.project.javafx.repository;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.project.javafx.model.*;
 import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
@@ -45,29 +47,41 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
         return students;
     }
 
+    public Set<CreditStudent> getCreditStudent() {
+        Set<CreditStudent> students = new HashSet<>();
+        Document query2 = new Document("educationSystem", "CREDIT");
+        Set<Student> students2 = getObjectCollection(query2, CreditStudent.class);
+        for (Student student : students2) {
+            if (student instanceof CreditStudent) {
+                students.add((CreditStudent) student);
+            }
+        }
+        return students;
+    }
+
     @Override
     public Long getID(Student element) {
         return element.getStudentID();
     }
 
-    private RuntimeTypeAdapterFactory<Student> setAdapter() {
-        RuntimeTypeAdapterFactory<Student> adapter =
+    private RuntimeTypeAdapterFactory<Course> setAdapter() {
+        RuntimeTypeAdapterFactory<Course> adapter =
                 RuntimeTypeAdapterFactory
-                        .of(Student.class, "type")
-                        .registerSubtype(CreditStudent.class, CreditStudent.class.getSimpleName())
-                        .registerSubtype(AnnualStudent.class, AnnualStudent.class.getSimpleName());
+                        .of(Course.class, "type")
+                        .registerSubtype(Course.class, Course.class.getSimpleName())
+                        .registerSubtype(CreditCourse.class, CreditCourse.class.getSimpleName());
         return adapter;
     }
 
-//    @Override
-//    protected Gson gsonCreator() {
-//        Gson gson = new GsonBuilder()
-//                .setPrettyPrinting()
-//                .registerTypeAdapterFactory(setAdapter())
+    @Override
+    protected Gson gsonCreator() {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapterFactory(setAdapter())
 //                .serializeNulls()
 //                .setExclusionStrategies(new StudentExclusionStrategy())
-//                .create();
-//        return gson;
-//    }
+                .create();
+        return gson;
+    }
 
 }
