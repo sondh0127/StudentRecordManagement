@@ -1,4 +1,4 @@
-package com.project.javafx.controllerfx.major_class;
+package com.project.javafx.controllerfx.major;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
@@ -82,7 +82,7 @@ public class MajorsController implements Initializable {
     private JFXButton btnViewCourseList;
 
     @FXML
-    private JFXButton btnRefresh1;
+    private JFXButton btnRefresh;
 
     @FXML
     private JFXButton btnModifyList;

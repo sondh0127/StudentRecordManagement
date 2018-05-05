@@ -1,4 +1,4 @@
-package com.project.javafx.controllerfx.major_class;
+package com.project.javafx.controllerfx.major;
 
 import com.project.javafx.ulti.ViewConstants;
 import javafx.application.Application;

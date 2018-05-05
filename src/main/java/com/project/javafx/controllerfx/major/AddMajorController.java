@@ -1,4 +1,4 @@
-package com.project.javafx.controllerfx.major_class;
+package com.project.javafx.controllerfx.major;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.CreditMajor;
@@ -33,9 +33,9 @@ public class AddMajorController {
         String majorTitle = null;
         CreditMajor newMajor = null;
         try {
-            if (txtMajorCode.getText().trim().isEmpty()) throw new IllegalArgumentException("Enter first name !");
-            else majorCode = txtMajorCode.getText();
-            if (txtMajorTitle.getText().trim().isEmpty()) throw new IllegalArgumentException("Enter last name !");
+            if (txtMajorCode.getText().trim().isEmpty()) throw new IllegalArgumentException("Enter Major Code !");
+            else majorCode = txtMajorCode.getText().toUpperCase();
+            if (txtMajorTitle.getText().trim().isEmpty()) throw new IllegalArgumentException("Enter Major Title !");
             else majorTitle = txtMajorTitle.getText();
             newMajor = new CreditMajor(majorCode, majorTitle);
             if (CreditMajorRepository.getInstance().save(newMajor)) {

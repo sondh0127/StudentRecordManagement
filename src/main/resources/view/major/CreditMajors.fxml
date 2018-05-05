@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane prefHeight="680.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.major_class.AnnualClassesController">
+<BorderPane prefHeight="680.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.major.MajorsController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <right>
@@ -89,8 +89,8 @@
          <left>
             <TableView fx:id="tblMajor" prefHeight="560.0" prefWidth="360.0" BorderPane.alignment="CENTER">
                <columns>
-                  <TableColumn fx:id="colMajorCode" editable="false" minWidth="-1.0" prefWidth="-1.0" text="Class Code" />
-                  <TableColumn fx:id="colMajorTitle" editable="false" minWidth="-1.0" prefWidth="-1.0" text="Class Name" />
+                  <TableColumn fx:id="colMajorCode" editable="false" minWidth="-1.0" prefWidth="-1.0" text="Major Code" />
+                  <TableColumn fx:id="colMajorTitle" editable="false" minWidth="-1.0" prefWidth="-1.0" text="Major Title" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -110,7 +110,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <JFXButton fx:id="btnRefresh1" alignment="CENTER" layoutX="649.0" layoutY="20.0" onAction="#refreshTable" prefWidth="120.0" style="-fx-background-color: #00C853;" text="Refresh" textFill="WHITE">
+                  <JFXButton fx:id="btnRefresh" alignment="CENTER" layoutX="649.0" layoutY="20.0" onAction="#refreshTable" prefWidth="120.0" style="-fx-background-color: #00C853;" text="Refresh" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -160,7 +160,7 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#0096c9" strokeType="OUTSIDE" strokeWidth="0.0" text="Annual Classes" textAlignment="CENTER">
+            <Text fill="#0096c9" strokeType="OUTSIDE" strokeWidth="0.0" text="CREDIT MAJORS" textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>

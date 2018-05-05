@@ -85,7 +85,7 @@ public class AdminDashboardController implements Initializable {
             registerPane = FXMLLoader.load(getClass().getResource(ViewConstants.REGISTER_VIEW));
             settingPane = FXMLLoader.load(getClass().getResource(ViewConstants.SETTINGS_VIEW));
             majorPane = FXMLLoader.load(getClass().getResource(ViewConstants.MAJORS_VIEW));
-            classPane = FXMLLoader.load(getClass().getResource(ViewConstants.CLASSES_VIEW));
+            classPane = FXMLLoader.load(getClass().getResource(ViewConstants.ANNUAL_VIEW));
         } catch (IOException e) {
 //            AlertMaker.showErrorMessage(e);
             e.printStackTrace();

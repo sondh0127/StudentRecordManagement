@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<BorderPane prefHeight="660.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.major_class.AddClassCourseListController">
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="660.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.annual.AddYearCourseListController">
    <top>
       <HBox alignment="CENTER" prefHeight="50.0" spacing="10.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
          <children>
@@ -87,7 +97,7 @@
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </BorderPane.margin>
          <left>
-            <TableView fx:id="tblCreditCourse" prefWidth="333.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tblCourse" prefWidth="333.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="colCourseCode" prefWidth="110.0" text="Course Code" />
                 <TableColumn fx:id="colCourseName" prefWidth="222.0" text="Course Name" />
@@ -136,9 +146,10 @@
             </HBox>
          </top>
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnAddMajor" alignment="BASELINE_LEFT" onAction="#handleAddMajorList" prefHeight="40.0" prefWidth="165.0" style="-fx-background-color: #3f63ff;" text="Add to Major" textFill="WHITE">
+                  <ComboBox fx:id="cbxYear" prefHeight="30.0" prefWidth="165.0" />
+                  <JFXButton fx:id="btnViewCourseList" alignment="BASELINE_LEFT" onAction="#handleAddCourse" prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: #3f63ff;" text="Add To List" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="ARROW_RIGHT" size="18" wrappingWidth="22.5" />
                      </graphic>
@@ -146,54 +157,34 @@
                         <Font size="14.0" />
                      </font>
                      <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="btnAddMinor" alignment="BASELINE_LEFT" layoutX="41.0" layoutY="116.0" onAction="#handleAddMinorList" prefHeight="40.0" prefWidth="165.0" style="-fx-background-color: #2979FF;" text="Add to Minor" textFill="WHITE">
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="ARROW_RIGHT" size="18" wrappingWidth="22.5" />
-                     </graphic>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                        <Insets bottom="7.0" left="10.0" right="10.0" top="7.0" />
                      </padding>
                   </JFXButton>
                </children>
+               <BorderPane.margin>
+                  <Insets left="20.0" />
+               </BorderPane.margin>
             </VBox>
          </center>
          <right>
-            <HBox BorderPane.alignment="CENTER">
-               <children>
-                  <TableView fx:id="tblMajorCourseList" prefWidth="333.0">
-                     <columns>
-                        <TableColumn prefWidth="332.0" text="Major Course">
-                           <columns>
-                              <TableColumn fx:id="colMajorCC" minWidth="0.0" prefWidth="110.0" text="Course Code" />
-                              <TableColumn fx:id="colMajorCN" minWidth="0.0" prefWidth="222.0" text="Course Name" />
-                           </columns>
-                        </TableColumn>
-                     </columns>
-                  </TableView>
-                  <TableView fx:id="tblMinorCourseList" prefWidth="333.0">
-                     <columns>
-                        <TableColumn prefWidth="332.0" text="Minor Course">
-                           <columns>
-                              <TableColumn fx:id="colMinorCC" minWidth="0.0" prefWidth="110.0" text="Course Code" />
-                              <TableColumn fx:id="colMinorCN" minWidth="0.0" prefWidth="222.0" text="Course Name" />
-                           </columns>
-                        </TableColumn>
-                     </columns>
-                  </TableView>
-               </children>
+            <VBox alignment="CENTER" spacing="5.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets right="10.0" />
                </BorderPane.margin>
-            </HBox>
+               <children>
+                  <Label fx:id="lblYear" text="FIRST YEAR">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tblYearCourseList" prefWidth="333.0" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="colCourseCC" minWidth="0.0" prefWidth="110.0" text="Course Code" />
+                        <TableColumn fx:id="colCourseCN" minWidth="0.0" prefWidth="222.0" text="Course Name" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
          </right>
       </BorderPane>
    </center>

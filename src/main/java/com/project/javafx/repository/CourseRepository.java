@@ -12,7 +12,7 @@ public class CourseRepository extends AbstractRepository<Course, String> {
     private static CourseRepository instance = null;
 
     private CourseRepository() {
-        super(Course.class,MongoDBHandler.COURSE_COLL);
+        super(Course.class, MongoDBHandler.COURSE_COLL);
     }
 
     public static CourseRepository getInstance() {
@@ -60,6 +60,11 @@ public class CourseRepository extends AbstractRepository<Course, String> {
             }
         }
         return creditCourses;
+    }
+
+    public Set<Course> findAllNormalCourse() {
+        Document query = new Document("creditHours", new Document("$eq", null));
+        return getObjectCollection(query, Course.class);
     }
 
     @Override

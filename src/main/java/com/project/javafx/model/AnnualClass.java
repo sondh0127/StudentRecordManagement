@@ -1,6 +1,5 @@
 package com.project.javafx.model;
 
-import com.project.javafx.model.AnnualStudent.YearOfStudy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +13,19 @@ public class AnnualClass {
     private int capacity;
 //    private int currentEnrollment;
 
-    private List<List<Course>> courseCatalog = new ArrayList<>(4);
-
-    private List<Student> studentList = new ArrayList<>();
+    private List<List<Course>> courseCatalog;
+    private List<Student> studentList;
 
     public AnnualClass(String classCode, String className) {
         this.classCode = classCode;
         this.className = className;
         this.capacity = DEFAULT_CAPACITY;
+        courseCatalog = new ArrayList<>(4);
+        for (int i = 0; i < 4; i++) {
+            courseCatalog.add(new ArrayList<>());
+        }
+
+        studentList = new ArrayList<>();
     }
 
     @Override
@@ -97,7 +101,6 @@ public class AnnualClass {
         if (!studentList.contains(student)) throw new IllegalArgumentException("Student not is exists");
         else studentList.remove(student);
     }
-
 
 
 }

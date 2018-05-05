@@ -1,4 +1,4 @@
-package com.project.javafx.controllerfx.major_class;
+package com.project.javafx.controllerfx.major;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.CreditCourse;

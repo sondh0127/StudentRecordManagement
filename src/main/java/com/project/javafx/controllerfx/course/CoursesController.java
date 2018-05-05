@@ -116,10 +116,10 @@ public class CoursesController implements Initializable {
             courseObservableList.clear();
             if (newValue instanceof AnnualClass) {
                 System.out.println(((AnnualClass) newValue).getClassCode());
-                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(AnnualStudent.YearOfStudy.FIRST_YEAR));
-                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(AnnualStudent.YearOfStudy.SECOND_YEAR));
-                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(AnnualStudent.YearOfStudy.THIRD_YEAR));
-                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(AnnualStudent.YearOfStudy.FOURTH_YEAR));
+                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(YearOfStudy.FIRST_YEAR));
+                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(YearOfStudy.SECOND_YEAR));
+                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(YearOfStudy.THIRD_YEAR));
+                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(YearOfStudy.FOURTH_YEAR));
             } else {
                 courseObservableList.addAll(CourseRepository.getInstance().findAll());
                 System.out.println(newValue);

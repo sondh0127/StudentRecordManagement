@@ -3,6 +3,7 @@ package com.project.javafx.repository;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
+import com.project.javafx.model.YearOfStudy;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 
 import java.util.ArrayList;
@@ -43,16 +44,16 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
         coursesCatalog.add(new Course("ENG102", "Introduction to Literature", 0.3));
         coursesCatalog.add(new Course("ENG121", "Technical Writing", 0.3));
 
-        newClass.setCoursesCatalog(coursesCatalog, AnnualStudent.YearOfStudy.FIRST_YEAR);
+        newClass.setCoursesCatalog(coursesCatalog, YearOfStudy.FIRST_YEAR);
         save(newClass);
     }
 
     public void deleteCourseForAllClass(Course course) {
         for (AnnualClass annualClass : getObjectCollection()) {
-            List<Course> FIRST_YEAR = annualClass.getCoursesCatalog(AnnualStudent.YearOfStudy.FIRST_YEAR);
-            List<Course> SECOND_YEAR = annualClass.getCoursesCatalog(AnnualStudent.YearOfStudy.SECOND_YEAR);
-            List<Course> THIRD_YEAR = annualClass.getCoursesCatalog(AnnualStudent.YearOfStudy.THIRD_YEAR);
-            List<Course> FOURTH_YEAR = annualClass.getCoursesCatalog(AnnualStudent.YearOfStudy.FOURTH_YEAR);
+            List<Course> FIRST_YEAR = annualClass.getCoursesCatalog(YearOfStudy.FIRST_YEAR);
+            List<Course> SECOND_YEAR = annualClass.getCoursesCatalog(YearOfStudy.SECOND_YEAR);
+            List<Course> THIRD_YEAR = annualClass.getCoursesCatalog(YearOfStudy.THIRD_YEAR);
+            List<Course> FOURTH_YEAR = annualClass.getCoursesCatalog(YearOfStudy.FOURTH_YEAR);
 
             if (FIRST_YEAR.remove(course)
                     || SECOND_YEAR.remove(course)

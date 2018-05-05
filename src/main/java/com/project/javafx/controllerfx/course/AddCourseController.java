@@ -84,7 +84,7 @@ public class AddCourseController implements Initializable {
 
     @FXML
     void submitDetails(ActionEvent event) {
-        String courseCode = txtCourseCode.getText().trim();
+        String courseCode = txtCourseCode.getText().trim().toUpperCase();
         String courseName = txtCourseName.getText().trim();
         String scaleStr = txtCourseScale.getText().trim();
         String creditNumStr = txtCreditNum.getText().trim();
