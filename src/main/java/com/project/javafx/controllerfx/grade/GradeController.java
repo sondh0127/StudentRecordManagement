@@ -5,6 +5,7 @@ import com.project.javafx.model.Course;
 import com.project.javafx.model.Student;
 import com.project.javafx.model.StudentResult;
 import com.project.javafx.repository.StudentRepository;
+import com.project.javafx.ulti.AlertMaker;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -69,12 +70,17 @@ public class GradeController implements Initializable {
 
     @FXML
     void updateMark(ActionEvent event) {
-        for (GradeModel gradeModel : gradeObservableList) {
-            Long studentID = gradeModel.getStudentID();
-            Student student = StudentRepository.getInstance().findById(studentID);
-            student.updateStudentResult(gradeModel.getCourse(), gradeModel.getMidTermPoint(), gradeModel.getFinalPoint());
-            StudentRepository.getInstance().update(student);
+        try {
+            for (GradeModel gradeModel : gradeObservableList) {
+                Long studentID = gradeModel.getStudentID();
+                Student student = StudentRepository.getInstance().findById(studentID);
+                student.updateStudentResult(gradeModel.getCourse(), gradeModel.getMidTermPoint(), gradeModel.getFinalPoint());
+                StudentRepository.getInstance().update(student);
+            }
+        } catch (Exception e) {
+            AlertMaker.showErrorMessage("Mark error", e.getMessage());
         }
+
     }
 
     @Override
@@ -126,14 +132,35 @@ public class GradeController implements Initializable {
         colMidterm.setOnEditCommit(event -> {
             int row = event.getTablePosition().getRow();
             GradeModel gradeModel = event.getTableView().getItems().get(row);
-            gradeModel.setMidTermPoint(event.getNewValue().doubleValue());
-        });
 
+            double midtermPoint = event.getNewValue().doubleValue();
+            try {
+                if (midtermPoint > 10 || midtermPoint < 0)
+                    throw new IllegalArgumentException("Invalid Score. Must be in range (0-10)");
+                else {
+                    gradeModel.setMidTermPoint(midtermPoint);
+                }
+            } catch (IllegalArgumentException e) {
+                AlertMaker.showErrorMessage("Error Grade", e.getMessage());
+                handleSearchAction(event);
+            }
+        });
         colFinal.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         colFinal.setOnEditCommit(event -> {
             int row = event.getTablePosition().getRow();
             GradeModel gradeModel = event.getTableView().getItems().get(row);
-            gradeModel.setFinalPoint(event.getNewValue().doubleValue());
+            double finalPoint = event.getNewValue().doubleValue();
+            try {
+                if (finalPoint > 10 || finalPoint < 0) {
+                    throw new IllegalArgumentException("Invalid Score. Must be in range (0-10)");
+                }
+                else {
+                    gradeModel.setFinalPoint(finalPoint);
+                }
+            } catch (IllegalArgumentException e) {
+                AlertMaker.showErrorMessage("Error Grade", e.getMessage());
+                handleSearchAction(event);
+            }
         });
     }
 
@@ -182,8 +209,16 @@ public class GradeController implements Initializable {
             return midTermPoint;
         }
 
+        public void setMidTermPoint(Double midTermPoint) {
+            this.midTermPoint = midTermPoint;
+        }
+
         public Double getFinalPoint() {
             return finalPoint;
+        }
+
+        public void setFinalPoint(Double finalPoint) {
+            this.finalPoint = finalPoint;
         }
 
         public Double getTotalPoint() {
@@ -192,14 +227,6 @@ public class GradeController implements Initializable {
 
         public Course getCourse() {
             return course;
-        }
-
-        public void setMidTermPoint(Double midTermPoint) {
-            this.midTermPoint = midTermPoint;
-        }
-
-        public void setFinalPoint(Double finalPoint) {
-            this.finalPoint = finalPoint;
         }
     }
 

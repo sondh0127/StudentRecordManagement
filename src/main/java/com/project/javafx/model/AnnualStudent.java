@@ -11,8 +11,8 @@ public class AnnualStudent extends Student {
     public AnnualStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, AnnualClass annualClass) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
         this.annualClass = annualClass;
-//        annualClass.addStudent(this); //remove cause error circular reference
         this.studyYear = YearOfStudy.FIRST_YEAR;
+        registerYearList();
     }
 
     // GETTER AND SETTER
@@ -44,33 +44,39 @@ public class AnnualStudent extends Student {
     }
 
     // TODO: 19/04/2018 who call this
+    // TODO: 05/05/2018 check this
     public void updateStudyYear() {
         switch (studyYear) {
             case FIRST_YEAR:
                 avg = calculateAVG();
                 if (passedAllCourseInYear() || avg > 5.0)
                     studyYear = YearOfStudy.SECOND_YEAR;
-                takenCourses.clear();
+                registerYearList();
                 break;
             case SECOND_YEAR:
                 avg = calculateAVG();
                 if (passedAllCourseInYear() || avg > 5.0)
                     studyYear = YearOfStudy.THIRD_YEAR;
-                takenCourses.clear();
+                registerYearList();
                 break;
             case THIRD_YEAR:
                 if (passedAllCourseInYear() || avg > 5.0)
                     studyYear = YearOfStudy.FOURTH_YEAR;
-                takenCourses.clear();
+                registerYearList();
                 break;
             case FOURTH_YEAR:
                 if (passedAllCourseInYear() || avg > 5.0)
                     studyYear = YearOfStudy.GRADUATED;
-                takenCourses.clear();
                 break;
             default:
                 break;
         }
+    }
+
+    public void registerYearList() {
+        takenCourses.clear();
+        annualClass.getCoursesCatalog(this.studyYear)
+                .forEach(course -> takenCourses.add(new StudentResult(course)));
     }
 
     private boolean passedAllCourseInYear() {

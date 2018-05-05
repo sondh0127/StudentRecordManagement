@@ -19,14 +19,10 @@ public class StudentResult {
     }
 
     // Step 2:
-    public void setPoint(double midtermPoint, double finalPoint) throws IllegalArgumentException {
-        if (midtermPoint > 10 || midtermPoint < 0 || finalPoint > 10 || finalPoint < 0) {
-            throw new IllegalArgumentException("Invalid Score ..."); // remove this to the controller
-        } else {
-            this.midtermPoint = midtermPoint;
-            this.finalPoint = finalPoint;
-            this.score = calculateScore(course.getScale());
-        }
+    public void setPoint(double midtermPoint, double finalPoint) {
+        this.midtermPoint = midtermPoint;
+        this.finalPoint = finalPoint;
+        this.score = calculateScore(course.getScale());
     }
 
     // Step 3
