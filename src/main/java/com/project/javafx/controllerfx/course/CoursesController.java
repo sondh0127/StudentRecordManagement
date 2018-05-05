@@ -91,11 +91,8 @@ public class CoursesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cbxMajor.getItems().add("[All]");
-        cbxMajor.getItems().addAll(CreditMajorRepository.getInstance().findAll());
-        cbxClass.getItems().add("[All]");
-        cbxClass.getItems().addAll(AnnualClassRepository.getInstance().findAll());
         initCols();
+        refreshTable();
         filterTableView();
 
     }
@@ -224,8 +221,12 @@ public class CoursesController implements Initializable {
     }
 
     @FXML
-    void refreshTable(ActionEvent event) {
+    void refreshTable() {
         courseTableView.getItems().clear();
+        cbxMajor.getItems().add("[All]");
+        cbxMajor.getItems().addAll(CreditMajorRepository.getInstance().findAll());
+        cbxClass.getItems().add("[All]");
+        cbxClass.getItems().addAll(AnnualClassRepository.getInstance().findAll());
         // TODO: 18/04/2018 improve refresh => to preserve the current stage of table;
         courseObservableList.setAll(CourseRepository.getInstance().findAll());
     }
@@ -240,7 +241,7 @@ public class CoursesController implements Initializable {
 //                // TODO: 22/04/2018 xoa everywhere
 //                CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
 //                AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
-                refreshTable(event);
+                refreshTable();
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
             }
         } else {

@@ -95,7 +95,7 @@
                   <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="btnSetting" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="223.0" maxWidth="1.7976931348623157E308" onAction="#openSetting" text="Settings">
+            <JFXButton fx:id="btnGrade" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="223.0" maxWidth="1.7976931348623157E308" onAction="#openGrade" text="Grade">
                <graphic>
                   <FontAwesomeIconView glyphName="GEARS" size="20" textOrigin="CENTER" />
                </graphic>

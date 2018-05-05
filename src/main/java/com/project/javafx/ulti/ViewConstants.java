@@ -7,7 +7,7 @@ public class ViewConstants {
     public static final String ADMIN_DASHBOARD_VIEW = "/view/mainui/AdminDashboard.fxml";
     public static final String HOME_VIEW = "/view/mainui/Home.fxml";
     public static final String USER_DASHBOARD_VIEW = "/view/mainui/UserDashboard.fxml";
-    public static final String SETTINGS_VIEW = "/view/Settings.fxml";
+//    public static final String SETTINGS_VIEW = "/view/Settings.fxml";
 
     public static final String LOGIN_VIEW = "/view/login/Login.fxml";
 
@@ -29,7 +29,6 @@ public class ViewConstants {
     public static final String ADD_MAJOR_VIEW = "/view/major/AddCreditMajor.fxml";
     public static final String ADD_COURSE_LIST_MAJOR_VIEW = "/view/major/AddMajorCourseList.fxml";
 
-
-
+    public static final String GRADE_VIEW = "/view/grade/Grade.fxml";
 
 }

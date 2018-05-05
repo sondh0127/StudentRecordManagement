@@ -42,7 +42,7 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private JFXButton btnRegister;
     @FXML
-    private JFXButton btnSetting;
+    private JFXButton btnGrade;
     @FXML
     private JFXButton btnLogOut;
     @FXML
@@ -57,7 +57,7 @@ public class AdminDashboardController implements Initializable {
     private JFXButton btn_option;
     @FXML
     private StackPane holderPane;
-    private Parent homePane, studentPane, coursePane, registerPane, settingPane, majorPane, classPane;
+    private Parent homePane, studentPane, coursePane, registerPane, gradePane, majorPane, classPane;
     private double lastX = 0.0d;
     private double lastY = 0.0d;
     //    private void openMenus() {
@@ -83,7 +83,7 @@ public class AdminDashboardController implements Initializable {
             studentPane = FXMLLoader.load(getClass().getResource(ViewConstants.STUDENTS_VIEW));
             coursePane = FXMLLoader.load(getClass().getResource(ViewConstants.COURSES_VIEW));
             registerPane = FXMLLoader.load(getClass().getResource(ViewConstants.REGISTER_VIEW));
-            settingPane = FXMLLoader.load(getClass().getResource(ViewConstants.SETTINGS_VIEW));
+            gradePane = FXMLLoader.load(getClass().getResource(ViewConstants.GRADE_VIEW));
             majorPane = FXMLLoader.load(getClass().getResource(ViewConstants.MAJORS_VIEW));
             classPane = FXMLLoader.load(getClass().getResource(ViewConstants.ANNUAL_VIEW));
         } catch (IOException e) {
@@ -156,8 +156,8 @@ public class AdminDashboardController implements Initializable {
     }
 
     @FXML
-    void openSetting(ActionEvent event) {
-        setNode(settingPane);
+    void openGrade(ActionEvent event) {
+        setNode(gradePane);
     }
 
     @FXML

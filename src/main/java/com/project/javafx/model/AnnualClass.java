@@ -11,10 +11,8 @@ public class AnnualClass {
 
     private final int DEFAULT_CAPACITY = 40;
     private int capacity;
-//    private int currentEnrollment;
 
     private List<List<Course>> courseCatalog;
-    private List<Student> studentList;
 
     public AnnualClass(String classCode, String className) {
         this.classCode = classCode;
@@ -25,7 +23,7 @@ public class AnnualClass {
             courseCatalog.add(new ArrayList<>());
         }
 
-        studentList = new ArrayList<>();
+//        studentList = new ArrayList<>();
     }
 
     @Override
@@ -85,21 +83,6 @@ public class AnnualClass {
             case FOURTH_YEAR:
                 courseCatalog.add(3, coursesCatalog);
         }
-    }
-
-    /**
-     * call when add a class to student.
-     *
-     * @param student: AnnualStudent
-     */
-    public void addStudent(AnnualStudent student) {
-        if (studentList.contains(student)) throw new IllegalArgumentException("Student is exists");
-        else studentList.add(student);
-    }
-
-    public void removeStudent(AnnualStudent student) {
-        if (!studentList.contains(student)) throw new IllegalArgumentException("Student not is exists");
-        else studentList.remove(student);
     }
 
 

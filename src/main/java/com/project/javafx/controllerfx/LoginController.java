@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
     private Tab tabStudent;
 
 
-    private String fakeID = "Admin";
+    private String fakeID = "admin";
     private String fakePass = "adminpass";
     private String fakeStudentID = "20143798";
 

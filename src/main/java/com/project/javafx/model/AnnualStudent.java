@@ -11,7 +11,7 @@ public class AnnualStudent extends Student {
     public AnnualStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, AnnualClass annualClass) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
         this.annualClass = annualClass;
-        annualClass.addStudent(this);
+//        annualClass.addStudent(this); //remove cause error circular reference
         this.studyYear = YearOfStudy.FIRST_YEAR;
     }
 
@@ -88,12 +88,6 @@ public class AnnualStudent extends Student {
             sum += result.getScore();
         }
         return Math.round(sum / takenCourses.size() * 10.0) / 10.0;
-    }
-
-    public void regiterClass(AnnualClass annualClass) {
-        this.annualClass = annualClass;
-        annualClass.addStudent(this);
-        this.studyYear = YearOfStudy.FIRST_YEAR;
     }
 
 }
