@@ -88,8 +88,30 @@ public class StudentsController implements Initializable {
     @FXML
     private JFXButton btnRefresh;
 
+    @FXML
+    private JFXButton btnGraduate;
+
     public static void setUpdateStudentProfileController(UpdateStudentProfileController controller) {
         StudentsController.updateStudentProfileController = controller;
+    }
+
+    @FXML
+    void handleGraduate(ActionEvent event) {
+        Student checkStudent = studentTableView.getSelectionModel().getSelectedItem();
+        if (checkStudent != null) {
+            if (checkStudent.ableToGraduate()) {
+                // TODO: 07/05/2018 fix this
+                AlertMaker.showNotification("Graduation", "Student " +
+                        checkStudent.getStudentID() +
+                        " able to graduated", AlertMaker.image_checked);
+            } else {
+                AlertMaker.showNotification("Graduation", "Student " +
+                        checkStudent.getStudentID() +
+                        " not able to graduated", AlertMaker.image_warning);
+            }
+        } else {
+            AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);
+        }
     }
 
     @Override
@@ -229,7 +251,7 @@ public class StudentsController implements Initializable {
     }
 
     @FXML
-    void refreshTable(ActionEvent event) {
+    public void refreshTable(ActionEvent event) {
         studentTableView.getItems().clear();
         // TODO: 18/04/2018 improve refresh => to preserve the current stage of table;
 //        List<Long> studentIDList = new ArrayList<>();

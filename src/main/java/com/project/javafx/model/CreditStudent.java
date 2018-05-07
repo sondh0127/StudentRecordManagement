@@ -2,9 +2,7 @@ package com.project.javafx.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CreditStudent extends Student {
@@ -56,6 +54,7 @@ public class CreditStudent extends Student {
         return passedCourses.stream()
                 .anyMatch(studentResult -> studentResult.getCourse().equals(course));
     }
+
     public boolean registerCourse(CreditCourse course) throws IllegalArgumentException {
         if (isTakingCourse(course))
             throw new IllegalArgumentException(this.getStudentID() + " already took " + course.getCourseCode() + " course !");
@@ -79,14 +78,14 @@ public class CreditStudent extends Student {
     }
 
     public void dropCourse(CreditCourse course) {
-        if (isTakingCourse(course)) {
-            takenCourses.remove(course);
-            registerCredits -= course.getCreditHours();
-        }
+        takenCourses.stream()
+                .filter(result -> result.getCourse().equals(course))
+                .findFirst()
+                .ifPresent(takenCourses::remove);
+        registerCredits -= course.getCreditHours();
     }
 
     @Override
-    // TODO: 14/04/2018 minor add pls
     public boolean ableToGraduate() {
         int majorCreditsRequired = creditMajor.getMajorCreditsRequired();
         int minorCreditsRequired = creditMajor.getMinorCreditsRequired();
@@ -97,45 +96,30 @@ public class CreditStudent extends Student {
 
 
     public void updatePassedCourseAll() {
-//        for (String courseCode : takenCourses.keySet()) {
-//            Course course = CourseRepository.getInstance().findById(courseCode);
-//            updatePassedCourse(course);
-//
-//        }
-    }
-
-    private void updatePassedCourse(CreditCourse course) {
-        if (isPassCourse(course)) {
-            // if passed course add to list passedCourse
-            StudentResult myResult = takenCourses.stream()
-                    .filter(studentResult -> studentResult.getCourse().equals(course))
-                    .findFirst()
-                    .orElse(null);
-            if (myResult != null) {
-                takenCourses.remove(myResult);
-                passedCourses.add(myResult);
-            }
-//            passedCourses.put(course, takenCourses.remove(course));
-            // update passedCredits
-            List<CreditCourse> majorCatalog = creditMajor.getMajorCatalog();
-            List<CreditCourse> minorCatalog = creditMajor.getMinorCatalog();
-            if (majorCatalog.contains(course)) {
-                passedMajorCredits += course.getCreditHours();
-            } else if (minorCatalog.contains(course)) {
-                passedMinorCredits += course.getCreditHours();
+        if (takenCourses.isEmpty()) {
+            return;
+        }
+        for (StudentResult result : takenCourses) {
+            if (isPassResult(result)) {
+                passedCourses.add(result);
+                // update passedCredits
+                List<CreditCourse> majorCatalog = creditMajor.getMajorCatalog();
+                List<CreditCourse> minorCatalog = creditMajor.getMinorCatalog();
+                Course course = result.getCourse();
+                if (course instanceof CreditCourse) {
+                    if (majorCatalog.contains(course)) {
+                        passedMajorCredits += ((CreditCourse) course).getCreditHours();
+                    } else if (minorCatalog.contains(course)) {
+                        passedMinorCredits += ((CreditCourse) course).getCreditHours();
+                    }
+                }
             }
         }
+        takenCourses.clear();
     }
 
-    private boolean isPassCourse(CreditCourse course) {
-        StudentResult result = takenCourses.stream()
-                .filter(studentResult -> studentResult.getCourse().equals(course))
-                .findFirst()
-                .orElse(null);
-        if (result != null) {
-            return result.getScore() > 3.0 && result.getMidtermPoint() > 3.0 && result.getFinalPoint() > 3.0;
-        }
-        return false;
+    private boolean isPassResult(StudentResult result) {
+        return result.getScore() >= 3.0 && result.getMidtermPoint() >= 3.0 && result.getFinalPoint() >= 3.0;
     }
 
     private double calculateGPA() {
@@ -155,7 +139,7 @@ public class CreditStudent extends Student {
                 .map(StudentResult::getCourse)
                 .collect(Collectors.toList());
         for (Course course : collect) {
-            double grade = getScoreResult(course).getScore();
+            double grade = getStudentResultFromCourse(course).getScore();
             int credits = ((CreditCourse) course).getCreditHours();
             sum += grade * credits;
         }

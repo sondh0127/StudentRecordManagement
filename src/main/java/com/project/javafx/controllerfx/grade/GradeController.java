@@ -62,7 +62,7 @@ public class GradeController implements Initializable {
     private JFXButton btnRefresh;
 
     @FXML
-    void refreshTable() {
+    public void refreshTable() {
         tblGrade.getItems().clear();
         initData();
         System.out.println(gradeModels.size());

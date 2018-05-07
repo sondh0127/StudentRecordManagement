@@ -1,7 +1,9 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public abstract class Student {
 
@@ -9,13 +11,12 @@ public abstract class Student {
     private final String firstName;
     private final String lastName;
     private final Gender gender;
+    List<StudentResult> takenCourses; // can not do that omg
     private String phone;
     private String email;
     private String address;
     private LocalDate birthday;
     private EduSystem educationSystem;
-
-    List<StudentResult> takenCourses; // can not do that omg
 
     public Student(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
         this.studentID = studentID;
@@ -86,8 +87,7 @@ public abstract class Student {
 
     // MAIN METHOD
 
-    public StudentResult getScoreResult(Course course) {
-//        return takenCourses.get(course);
+    public StudentResult getStudentResultFromCourse(Course course) {
         return takenCourses.stream()
                 .filter(studentResult -> studentResult.getCourse().equals(course))
                 .findFirst()
@@ -103,7 +103,6 @@ public abstract class Student {
     }
 
     public boolean isTakingCourse(Course course) {
-//        return takenCourses.containsKey(course);
         return takenCourses.stream()
                 .anyMatch(studentResult -> studentResult.getCourse().equals(course));
     }

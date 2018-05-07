@@ -221,7 +221,7 @@ public class CoursesController implements Initializable {
     }
 
     @FXML
-    void refreshTable() {
+    public void refreshTable() {
         courseTableView.getItems().clear();
         cbxMajor.getItems().add("[All]");
         cbxMajor.getItems().addAll(CreditMajorRepository.getInstance().findAll());

@@ -43,8 +43,6 @@ public class AnnualStudent extends Student {
         return studyYear == YearOfStudy.GRADUATED;
     }
 
-    // TODO: 19/04/2018 who call this
-    // TODO: 05/05/2018 check this
     public void updateStudyYear() {
         switch (studyYear) {
             case FIRST_YEAR:
@@ -67,6 +65,7 @@ public class AnnualStudent extends Student {
             case FOURTH_YEAR:
                 if (passedAllCourseInYear() || avg > 5.0)
                     studyYear = YearOfStudy.GRADUATED;
+                takenCourses.clear();
                 break;
             default:
                 break;

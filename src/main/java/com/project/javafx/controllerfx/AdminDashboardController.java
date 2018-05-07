@@ -3,6 +3,12 @@ package com.project.javafx.controllerfx;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.MainApp;
+import com.project.javafx.controllerfx.annual.AnnualController;
+import com.project.javafx.controllerfx.course.CoursesController;
+import com.project.javafx.controllerfx.grade.GradeController;
+import com.project.javafx.controllerfx.major.MajorsController;
+import com.project.javafx.controllerfx.register.RegisterController;
+import com.project.javafx.controllerfx.student.StudentsController;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.animation.FadeTransition;
@@ -57,7 +63,7 @@ public class AdminDashboardController implements Initializable {
     private JFXButton btn_option;
     @FXML
     private StackPane holderPane;
-    private Parent homePane, studentPane, coursePane, registerPane, gradePane, majorPane, classPane;
+    private Parent homePane, studentPane, coursePane, registerPane, gradePane, majorPane, annualPane;
     private double lastX = 0.0d;
     private double lastY = 0.0d;
     //    private void openMenus() {
@@ -75,17 +81,47 @@ public class AdminDashboardController implements Initializable {
         AdminDashboardController.mainApp = mainApp;
     }
 
+    HomeController homeController;
+    StudentsController studentsController;
+    CoursesController coursesController;
+    AnnualController annualController;
+    MajorsController majorsController;
+    RegisterController registerController;
+    GradeController gradeController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        openMenus();
+        FXMLLoader loader = null;
         try {
-            homePane = FXMLLoader.load(getClass().getResource(ViewConstants.HOME_VIEW));
-            studentPane = FXMLLoader.load(getClass().getResource(ViewConstants.STUDENTS_VIEW));
-            coursePane = FXMLLoader.load(getClass().getResource(ViewConstants.COURSES_VIEW));
-            registerPane = FXMLLoader.load(getClass().getResource(ViewConstants.REGISTER_VIEW));
-            gradePane = FXMLLoader.load(getClass().getResource(ViewConstants.GRADE_VIEW));
-            majorPane = FXMLLoader.load(getClass().getResource(ViewConstants.MAJORS_VIEW));
-            classPane = FXMLLoader.load(getClass().getResource(ViewConstants.ANNUAL_VIEW));
+            loader = new FXMLLoader(getClass().getResource(ViewConstants.HOME_VIEW));
+            homePane = loader.load();
+            homeController = loader.getController();
+
+            loader = new FXMLLoader(getClass().getResource(ViewConstants.STUDENTS_VIEW));
+            studentPane = loader.load();
+            studentsController = loader.getController();
+
+            loader = new FXMLLoader(getClass().getResource(ViewConstants.COURSES_VIEW));
+            coursePane = loader.load();
+            coursesController = loader.getController();
+
+            loader = new FXMLLoader(getClass().getResource(ViewConstants.REGISTER_VIEW));
+            registerPane = loader.load();
+            registerController = loader.getController();
+
+            loader = new FXMLLoader(getClass().getResource(ViewConstants.GRADE_VIEW));
+            gradePane = loader.load();
+            gradeController = loader.getController();
+
+            loader = new FXMLLoader(getClass().getResource(ViewConstants.MAJORS_VIEW));
+            majorPane = loader.load();
+            majorsController = loader.getController();
+
+            loader = new FXMLLoader(getClass().getResource(ViewConstants.ANNUAL_VIEW));
+            annualPane = loader.load();
+            annualController = loader.getController();
+
         } catch (IOException e) {
 //            AlertMaker.showErrorMessage(e);
             e.printStackTrace();
@@ -133,16 +169,19 @@ public class AdminDashboardController implements Initializable {
     @FXML
     void openCourse(ActionEvent event) {
         setNode(coursePane);
+        coursesController.refreshTable();
     }
 
     @FXML
     void openAnnual(ActionEvent event) {
-        setNode(classPane);
+        setNode(annualPane);
+        annualController.refreshTable();
     }
 
     @FXML
     void openCredit(ActionEvent event) {
         setNode(majorPane);
+        majorsController.refreshTable(event);
     }
 
     @FXML
@@ -153,16 +192,19 @@ public class AdminDashboardController implements Initializable {
     @FXML
     void openRegister(ActionEvent event) {
         setNode(registerPane);
+        registerController.refreshTable();
     }
 
     @FXML
     void openGrade(ActionEvent event) {
         setNode(gradePane);
+        gradeController.refreshTable();
     }
 
     @FXML
     void openStudent(ActionEvent event) {
         setNode(studentPane);
+        studentsController.refreshTable(event);
     }
 
     public void logOff(ActionEvent event) throws IOException {

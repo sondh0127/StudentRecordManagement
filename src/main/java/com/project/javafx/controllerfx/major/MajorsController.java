@@ -175,7 +175,7 @@ public class MajorsController implements Initializable {
     }
 
     @FXML
-    void refreshTable(ActionEvent event) {
+    public void refreshTable(ActionEvent event) {
         tblMajor.getItems().clear();
         tblMajorCourseList.getItems().clear();
         tblMinorCourseList.getItems().clear();

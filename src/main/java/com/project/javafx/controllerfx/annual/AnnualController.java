@@ -1,7 +1,9 @@
 package com.project.javafx.controllerfx.annual;
 
 import com.jfoenix.controls.JFXButton;
-import com.project.javafx.model.*;
+import com.project.javafx.model.AnnualClass;
+import com.project.javafx.model.Course;
+import com.project.javafx.model.YearOfStudy;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
@@ -155,7 +157,7 @@ public class AnnualController implements Initializable {
     }
 
     @FXML
-    void refreshTable() {
+    public void refreshTable() {
         tblClass.getItems().clear();
         annualClassObservableList.setAll(AnnualClassRepository.getInstance().findAll());
     }

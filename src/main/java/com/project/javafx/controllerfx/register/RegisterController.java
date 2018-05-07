@@ -90,7 +90,7 @@ public class RegisterController implements Initializable {
     }
 
     @FXML
-    void refreshTable() {
+    public void refreshTable() {
         tblRegister.getItems().clear();
         initData();
         registerObservableList.setAll(registerModels);
