@@ -186,7 +186,6 @@ public class StudentsController implements Initializable {
                         break;
                     }
                 } else {
-                    // TODO: 18/04/2018 improve search engine
                     String studentName = s.getLastName() + " " + s.getFirstName();
                     if (studentName.toLowerCase().contains(searchText.toLowerCase())) {
                         studentObservableList.add(s);
@@ -254,6 +253,7 @@ public class StudentsController implements Initializable {
     public void refreshTable(ActionEvent event) {
         studentTableView.getItems().clear();
         // TODO: 18/04/2018 improve refresh => to preserve the current stage of table;
+        // TODO: 07/05/2018 still cannot
 //        List<Long> studentIDList = new ArrayList<>();
 //        for (Student student : studentObservableList) {
 //            studentIDList.add(student.getStudentID());
@@ -269,7 +269,6 @@ public class StudentsController implements Initializable {
             if (confirmation) {
                 StudentRepository.getInstance().delete(removeStudent);
                 UserRepository.getInstance().deleteByID(String.valueOf(removeStudent.getStudentID()));
-                // TODO: 22/04/2018 xoa everywhere
                 refreshTable(event);
                 AlertMaker.showNotification("Deleted", "Student info deleted successfully", AlertMaker.image_trash_can);
             }

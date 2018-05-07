@@ -1,4 +1,4 @@
-package com.project.javafx.controllerfx.course;
+package com.project.javafx;
 
 
 
@@ -36,7 +36,7 @@ public class RegisterCourseController implements Initializable {
         ((Stage) btnBack.getScene().getWindow()).close();
     }
 
-    // TODO: 28/03/2018 make this right 
+    // TODO: use some auto completion here for other view
     @FXML
     void submitEnroll(ActionEvent event) {
 //        Student student = StudentOperations.getInstance().getData(studentField.getText());
@@ -47,11 +47,6 @@ public class RegisterCourseController implements Initializable {
 //            course = ((CreditStudent) student).getMajor().getMajorCatalog().getCourse(courseCode);
 //        } else if (student instanceof FixedStudent) {
 //            course = ((FixedStudent) student).getFixedClass().getCoursesCatalog().getCourse(courseCode);
-//        }
-//        if (course != null) {
-//            // FIXME: 28/03/2018 exception
-//            newRegistration = new Registration(Registration.numOfReg,student,course);
-//            RegistrationOperations.getInstance().addData(newRegistration);
 //        }
 
 

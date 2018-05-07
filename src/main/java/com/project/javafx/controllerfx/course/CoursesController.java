@@ -223,11 +223,13 @@ public class CoursesController implements Initializable {
     @FXML
     public void refreshTable() {
         courseTableView.getItems().clear();
+        cbxMajor.getItems().clear();
+        cbxClass.getItems().clear();
         cbxMajor.getItems().add("[All]");
         cbxMajor.getItems().addAll(CreditMajorRepository.getInstance().findAll());
         cbxClass.getItems().add("[All]");
         cbxClass.getItems().addAll(AnnualClassRepository.getInstance().findAll());
-        // TODO: 18/04/2018 improve refresh => to preserve the current stage of table;
+        // TODO: 18/04/2018 improve refresh => to preserve the current stage of table; => maybe cannot
         courseObservableList.setAll(CourseRepository.getInstance().findAll());
     }
 
@@ -238,9 +240,9 @@ public class CoursesController implements Initializable {
             boolean confirmation = AlertMaker.getConfirmation("Delete Course", "Are you sure to delete course " + removeCourse.getCourseCode() + " ?");
             if (confirmation) {
                 CourseRepository.getInstance().delete(removeCourse);
-//                // TODO: 22/04/2018 xoa everywhere
-//                CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
-//                AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
+                // TODO: 22/04/2018 xoa everywhere
+                CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
+                AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
                 refreshTable();
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
             }

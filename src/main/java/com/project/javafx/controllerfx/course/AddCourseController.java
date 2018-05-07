@@ -97,7 +97,7 @@ public class AddCourseController implements Initializable {
             if (courseName.isEmpty()) throw new IllegalArgumentException("Enter course Name !");
             if (scaleStr.isEmpty()) throw new IllegalArgumentException("Enter course scale !");
             else {
-                if (scaleStr.matches("[0-9 .]+")) { // TODO: 24/04/2018 should remove for simple
+                if (scaleStr.matches("[0-9 .]+")) {
                     scale = Double.parseDouble(scaleStr);
                 } else throw new IllegalArgumentException("Scale must be number !");
                 if (scale <= 0 || scale >= 1.0) throw new IllegalArgumentException("Scale must be in range (0 - 1.0)");

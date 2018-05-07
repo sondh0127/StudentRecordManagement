@@ -19,7 +19,6 @@ import java.io.StringWriter;
 import java.util.Optional;
 
 public class AlertMaker {
-    // TODO: 24/03/2018 Change image maker
     public static final Image image_checked = new Image("img/checked.png");
     public static final Image image_trash_can = new Image("img/TrashCan.png");
     public static final Image image_cross = new Image("img/cross.png");

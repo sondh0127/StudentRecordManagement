@@ -163,15 +163,14 @@ public class AddStudentController implements Initializable {
 
     @FXML
     private void submitDetails() {
-        // TODO: 18/04/2018 make it simple LUL
-        long studentID = 0;
-        String firstName = null;
-        String lastName = null;
+        long studentID;
+        String firstName;
+        String lastName;
         Gender gender;
-        LocalDate birthdayDate = null;
-        String phone = null;
-        String email = null;
-        String address = null;
+        LocalDate birthdayDate;
+        String phone;
+        String email;
+        String address;
         CreditMajor majorValue = null;
         AnnualClass classValue = null;
         Student newStudent = null;
@@ -202,10 +201,8 @@ public class AddStudentController implements Initializable {
             // after checking add student to data
             if (majorValue != null) {
                 newStudent = new CreditStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address, majorValue);
-                // TODO: 13/04/2018  add student to list of major
             } else if (classValue != null) {
                 newStudent = new AnnualStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address, classValue);
-                // TODO: 13/04/2018  add student to list of class
             }
             if (newStudent != null) {
                 if (StudentRepository.getInstance().save(newStudent)) {

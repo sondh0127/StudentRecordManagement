@@ -1,7 +1,9 @@
 package com.project.javafx.controllerfx.annual;
 
 import com.jfoenix.controls.JFXButton;
-import com.project.javafx.model.*;
+import com.project.javafx.model.AnnualClass;
+import com.project.javafx.model.Course;
+import com.project.javafx.model.YearOfStudy;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.ulti.AlertMaker;
@@ -148,9 +150,10 @@ public class AddYearCourseListController implements Initializable {
     @FXML
     void handleAddCourse(ActionEvent event) {
         Course selectedItem = tblCourse.getSelectionModel().getSelectedItem();
-        // TODO: 29/04/2018 alert for exist (for add major too)
         if (notExist(selectedItem) && selectedItem != null) {
             this.annualClass.addAnnualCourseCatalog(selectedItem, cbxYear.getValue());
+        } else {
+            AlertMaker.showErrorMessage("Duplicate", "Existing course");
         }
         refreshTable();
     }

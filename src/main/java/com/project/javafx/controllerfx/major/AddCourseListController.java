@@ -133,6 +133,8 @@ public class AddCourseListController implements Initializable {
         CreditCourse selectedItem = tblCreditCourse.getSelectionModel().getSelectedItem();
         if (notExist(selectedItem) && selectedItem != null) {
             this.creditMajor.getMajorCatalog().add(selectedItem);
+        } else {
+            AlertMaker.showErrorMessage("Duplicate", "Existing course !");
         }
         refreshTable();
     }
@@ -152,6 +154,8 @@ public class AddCourseListController implements Initializable {
         CreditCourse selectedItem = tblCreditCourse.getSelectionModel().getSelectedItem();
         if (notExist(selectedItem) && selectedItem != null) {
             this.creditMajor.getMinorCatalog().add(selectedItem);
+        } else {
+            AlertMaker.showErrorMessage("Duplicate", "Existing course !");
         }
         refreshTable();
     }
