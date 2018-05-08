@@ -42,11 +42,10 @@ public class MainApp extends Application {
     public static void main(String[] args) {
 //        staticFileLocation("/public");
 //        get("/hello", (req, res)->"Hello, world");
+        CreditMajorRepository.getInstance().getObjectCollection();
         StudentRepository.getInstance().getObjectCollection();
         AnnualClassRepository.getInstance().getObjectCollection();
         CourseRepository.getInstance().getObjectCollection();
-        CreditMajorRepository.getInstance().getObjectCollection();
-
         UserRepository.getInstance().getObjectCollection();
         new Thread(new Runnable() {
             @Override

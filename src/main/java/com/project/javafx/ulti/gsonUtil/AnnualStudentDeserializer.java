@@ -1,4 +1,4 @@
-package com.project.javafx.repository;
+package com.project.javafx.ulti.gsonUtil;
 
 import com.google.gson.*;
 import com.project.javafx.model.AnnualStudent;
@@ -9,12 +9,7 @@ import java.util.Map;
 
 public class AnnualStudentDeserializer implements JsonDeserializer {
 
-    private static final ThreadLocal<Map<Long, AnnualStudent>> cache = new ThreadLocal<Map<Long, AnnualStudent>>() {
-        @Override
-        protected Map<Long, AnnualStudent> initialValue() {
-            return new HashMap<>();
-        }
-    };
+    private static final ThreadLocal<Map<Long, AnnualStudent>> cache = ThreadLocal.withInitial(HashMap::new);
 
     @Override
     public AnnualStudent deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
@@ -22,7 +17,6 @@ public class AnnualStudentDeserializer implements JsonDeserializer {
         if (json.isJsonPrimitive()) {
             final JsonPrimitive primitive = json.getAsJsonPrimitive();
             AnnualStudent student = cache.get().get(primitive.getAsLong());
-            int size = cache.get().size();
             return student;
 
         }

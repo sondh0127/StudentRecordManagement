@@ -1,7 +1,10 @@
 package com.project.javafx.repository;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.model.CreditMajor;
+import com.project.javafx.ulti.gsonUtil.CreditMajorDeserializer;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
@@ -82,5 +85,14 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor, Strin
     @Override
     protected Document findOldQuery(String s) {
         return new Document("majorCode", s);
+    }
+
+    @Override
+    protected Gson gsonCreator() {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(CreditMajor.class, new CreditMajorDeserializer())
+                .create();
+        return gson;
     }
 }

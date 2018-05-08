@@ -10,14 +10,15 @@ public class CreditClass {
 
     private final int DEFAULT_CAPACITY = 40;
     private int capacity;
-    private List<Student> studentList = new ArrayList<>();
+    private Course course;
+    private List<CreditStudent> studentList = new ArrayList<>();
 
-    public CreditClass(String classCode, String className) {
+    public CreditClass(String classCode, String className, Course course) {
         this.classCode = classCode;
         this.className = className;
+        this.course = course;
         this.capacity = DEFAULT_CAPACITY;
     }
-
     private List<CreditClass> classes = new ArrayList<>(); // add new class, drop class:
     // flow student register course (from course repo) if course inside the this of major => give a class of this course => add student in too the list class of this course.
 
@@ -29,13 +30,5 @@ public class CreditClass {
     public void removeStudent(CreditStudent student) {
         if (!studentList.contains(student)) throw new IllegalArgumentException("Student is not exists");
         else studentList.remove(student);
-    }
-
-    public boolean enrollStudent(Student student) {
-        // TODO: 25/04/2018 check student is exist or not
-        // TODO: 25/04/2018 use this or not fuck
-        boolean add = studentList.add(student);
-        
-        return false;
     }
 }

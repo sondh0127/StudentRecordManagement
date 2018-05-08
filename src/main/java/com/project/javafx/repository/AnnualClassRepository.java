@@ -9,6 +9,7 @@ import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.YearOfStudy;
+import com.project.javafx.ulti.gsonUtil.AnnualStudentDeserializer;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
@@ -100,12 +101,6 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
             }
             return jsonStudents;
         };
-
-//        JsonDeserializer<AnnualStudent> deserializer = (json, typeOfT, context) -> {
-//            long aLong = json.getAsLong();
-//            AnnualStudent student = cache.get().get(aLong);
-//            return student;
-//        };
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapter(studentListType, serializer)

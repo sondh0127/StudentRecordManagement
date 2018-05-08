@@ -14,14 +14,6 @@ public class AnnualStudent extends Student {
     }
 
     // GETTER AND SETTER
-//    public AnnualClass getAnnualClass() {
-//        return annualClass;
-//    }
-
-//    public void setAnnualClass(AnnualClass annualClass) {
-//        this.annualClass = annualClass;
-//
-//    }
 
     public YearOfStudy getStudyYear() {
         return studyYear;
