@@ -30,6 +30,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 public class StudentsController implements Initializable {
@@ -121,14 +122,16 @@ public class StudentsController implements Initializable {
 
         // adding listener for Student Information Tab
         showStudentDetail(null);
-        studentTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showStudentDetail(newValue));
+        studentTableView.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> showStudentDetail(newValue));
 
         initSearching();
     }
 
     private void initCols() {
         //Initialize the student table, The cell must know which part of "studentTableView" it needs to display
-//        studentObservableList.addAll(StudentRepository.getInstance().findAll());
+        studentObservableList.addAll(StudentRepository.getInstance().findAll());
 
         studentID.setCellValueFactory(param -> {
             Student s = param.getValue();
@@ -208,6 +211,7 @@ public class StudentsController implements Initializable {
             lblAddress.setText(student.getAddress());
             lblGender.setText(student.getGender().toString());
             lblBirdthday.setText(DateUtil.format(student.getBirthday()));
+            btnGraduate.setVisible(true);
 
             if (student instanceof CreditStudent) {
                 int num = ((CreditStudent) student).getPassedMajorCredits();
@@ -228,12 +232,13 @@ public class StudentsController implements Initializable {
             lblBirdthday.setText("");
             lblAddition.setText("");
             lblMajorClass.setText("");
+            btnGraduate.setVisible(false);
         }
     }
 
     @FXML
     void addStudent(ActionEvent event) {
-        loadWindow(ViewConstants.ADD_STUDENT_VIEW, "Add Student");
+        loadWindow(ViewConstants.ADD_STUDENT_VIEW, "Add Student", null);
     }
 
     @FXML
@@ -243,8 +248,20 @@ public class StudentsController implements Initializable {
             AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);
         } else {
             if (event.getSource().equals(btnUpdate))
-                loadWindow(ViewConstants.UPDATE_STUDENT_PROFILE_VIEW, "Update Student Profile");
-            updateStudentProfileController.initField(updateStudent);
+                loadWindow(ViewConstants.UPDATE_STUDENT_PROFILE_VIEW, "Update Student Profile", new ResourceBundle() {
+                    @Override
+                    protected Object handleGetObject(String key) {
+                        if (key.equals("updateStudent")) {
+                            return updateStudent;
+                        }
+                        return null;
+                    }
+                    @Override
+                    public Enumeration<String> getKeys() {
+                        return null;
+                    }
+                });
+//            updateStudentProfileController.initField(updateStudent);
         }
 
     }
@@ -277,9 +294,9 @@ public class StudentsController implements Initializable {
         }
     }
 
-    private void loadWindow(String loc, String title) {
+    private void loadWindow(String loc, String title, ResourceBundle bundle) {
         try {
-            Parent parent = FXMLLoader.load(getClass().getResource(loc));
+            Parent parent = FXMLLoader.load(getClass().getResource(loc), bundle);
             Stage stage = new Stage(StageStyle.DECORATED); // Default Style
             stage.setTitle(title);
             stage.getIcons().add(new Image(ViewConstants.APP_ICON));

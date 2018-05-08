@@ -3,6 +3,7 @@ package com.project.javafx.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AnnualClass {
 
@@ -85,5 +86,22 @@ public class AnnualClass {
         }
     }
 
+    /**
+     * Override equals to provide the comparison of two student
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(classCode);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof AnnualClass)) {
+            return false;
+        }
+        AnnualClass annualClass = (AnnualClass) obj;
+        return classCode.equals(annualClass.classCode);
+    }
 
 }

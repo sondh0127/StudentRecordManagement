@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.project.javafx.model.*;
+import com.project.javafx.model.Student.Gender;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.event.ActionEvent;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class UpdateStudentProfileController implements Initializable {
 
-    private Student student;
+//    private Student student;
 
     @FXML
     private JFXButton btnUpdate;
@@ -78,22 +79,24 @@ public class UpdateStudentProfileController implements Initializable {
 
     @FXML
     private ImageView viewAvatar;
+    private Student student;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        StudentsController.setUpdateStudentProfileController(this);
+//        StudentsController.setUpdateStudentProfileController(this);
+        student = (Student) resources.getObject("updateStudent");
+        initField();
     }
 
-    public void initField(Student student) {
-        this.student = student;
+    public void initField() {
         txtStudentID.setText(String.valueOf(student.getStudentID()));
         txtFirstName.setText(student.getFirstName());
         txtLastName.setText(student.getLastName());
-        if ("Female".equals(student.getGender())) {
+        if (Gender.FEMALE.equals(student.getGender())) {
             radioFemale.setSelected(true);
             radioMale.setSelected(false);
             radioMale.setDisable(true);
-        } else if ("Male".equals(student.getGender())) {
+        } else if (Gender.MALE.equals(student.getGender())) {
             radioMale.setSelected(true);
             radioFemale.setSelected(false);
             radioFemale.setDisable(true);
@@ -137,7 +140,6 @@ public class UpdateStudentProfileController implements Initializable {
         student.updateStudentProfile(phoneText, email, address);
         StudentRepository.getInstance().update(student);
         AlertMaker.showNotification("Success", "Student Profile updated successfully !", AlertMaker.image_checked);
-
     }
 
 

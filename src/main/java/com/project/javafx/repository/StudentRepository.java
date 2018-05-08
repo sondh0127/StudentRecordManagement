@@ -84,4 +84,16 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
         return gson;
     }
 
+    public void updateAnnualForEachStudent(AnnualClass annualClass) {
+        for (Student student : findAll()) {
+            if (student instanceof AnnualStudent) {
+                boolean equals = ((AnnualStudent) student).getAnnualClass().equals(annualClass);
+                if (equals) {
+                    ((AnnualStudent) student).setAnnualClass(annualClass);
+                    update(student);
+                }
+            }
+        }
+    }
+
 }

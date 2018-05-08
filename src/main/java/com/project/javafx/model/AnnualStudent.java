@@ -22,6 +22,7 @@ public class AnnualStudent extends Student {
 
     public void setAnnualClass(AnnualClass annualClass) {
         this.annualClass = annualClass;
+
     }
 
     public YearOfStudy getStudyYear() {
