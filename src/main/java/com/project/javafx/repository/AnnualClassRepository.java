@@ -1,11 +1,18 @@
 package com.project.javafx.repository;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.YearOfStudy;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
+import org.bson.Document;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +56,7 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
     }
 
     public void deleteCourseForAllClass(Course course) {
-        for (AnnualClass annualClass : getObjectCollection()) {
+        for (AnnualClass annualClass : objects) {
             List<Course> FIRST_YEAR = annualClass.getCoursesCatalog(YearOfStudy.FIRST_YEAR);
             List<Course> SECOND_YEAR = annualClass.getCoursesCatalog(YearOfStudy.SECOND_YEAR);
             List<Course> THIRD_YEAR = annualClass.getCoursesCatalog(YearOfStudy.THIRD_YEAR);
@@ -65,9 +72,45 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
         }
     }
 
+    public AnnualClass getAnnualClassOf(AnnualStudent student) {
+        return findAll().stream()
+                .filter(annualClass -> annualClass.haveStudent(student))
+                .findFirst()
+                .orElse(null);
+    }
+
     @Override
     public String getID(AnnualClass element) {
         return element.getClassCode();
     }
 
+    @Override
+    protected Document findOldQuery(String s) {
+        return new Document("classCode", s);
+    }
+
+    @Override
+    protected Gson gsonCreator() {
+        Type studentListType = new TypeToken<List<AnnualStudent>>() {
+        }.getType();
+        JsonSerializer<List<AnnualStudent>> serializer = (src, typeOfSrc, context) -> {
+            JsonArray jsonStudents = new JsonArray();
+            for (AnnualStudent annualStudent : src) {
+                jsonStudents.add(annualStudent.getStudentID());
+            }
+            return jsonStudents;
+        };
+
+//        JsonDeserializer<AnnualStudent> deserializer = (json, typeOfT, context) -> {
+//            long aLong = json.getAsLong();
+//            AnnualStudent student = cache.get().get(aLong);
+//            return student;
+//        };
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(studentListType, serializer)
+                .registerTypeAdapter(AnnualStudent.class, new AnnualStudentDeserializer())
+                .create();
+        return gson;
+    }
 }

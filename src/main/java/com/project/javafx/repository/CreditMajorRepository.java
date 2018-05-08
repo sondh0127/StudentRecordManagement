@@ -3,6 +3,7 @@ package com.project.javafx.repository;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.model.CreditMajor;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
+import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor, Strin
     }
 
     public void deleteCourseForAllMajor(CreditCourse course) {
-        for (CreditMajor major : getObjectCollection()) {
+        for (CreditMajor major : objects) {
             List<CreditCourse> minorCatalog = major.getMinorCatalog();
             List<CreditCourse> majorCatalog = major.getMajorCatalog();
             if (minorCatalog.remove(course)
@@ -76,5 +77,10 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor, Strin
     @Override
     public String getID(CreditMajor element) {
         return element.getMajorCode();
+    }
+
+    @Override
+    protected Document findOldQuery(String s) {
+        return new Document("majorCode", s);
     }
 }

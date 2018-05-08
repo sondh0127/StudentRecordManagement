@@ -6,7 +6,6 @@ import com.project.javafx.model.Course;
 import com.project.javafx.model.YearOfStudy;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
-import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -175,7 +174,6 @@ public class AddYearCourseListController implements Initializable {
     void submitDetails(ActionEvent event) {
         if (annualClass != null) {
             if (AnnualClassRepository.getInstance().update(annualClass)) {
-                StudentRepository.getInstance().updateAnnualForEachStudent(annualClass);
                 AlertMaker.showNotification("Success", "Annual Class update successfully !", AlertMaker.image_checked);
             } else {
                 AlertMaker.showErrorMessage("Failed!", "Something wrong, try again!");

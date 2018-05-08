@@ -202,7 +202,9 @@ public class AddStudentController implements Initializable {
             if (majorValue != null) {
                 newStudent = new CreditStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address, majorValue);
             } else if (classValue != null) {
-                newStudent = new AnnualStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address, classValue);
+                newStudent = new AnnualStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address);
+                classValue.addStudentToClass((AnnualStudent) newStudent);
+                AnnualClassRepository.getInstance().update(classValue);
             }
             if (newStudent != null) {
                 if (StudentRepository.getInstance().save(newStudent)) {

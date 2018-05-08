@@ -5,6 +5,7 @@ import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.YearOfStudy;
 import com.project.javafx.repository.AnnualClassRepository;
+import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.beans.property.SimpleStringProperty;
@@ -82,6 +83,16 @@ public class AnnualController implements Initializable {
         annualClassObservableList.setAll(AnnualClassRepository.getInstance().findAll());
 
         initComboBox();
+        tblClass.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    long studentID = newValue.getStudents().get(0).getStudentID();
+                    boolean equals = newValue.getStudents().get(0)
+                            .equals(StudentRepository.getInstance().findById(studentID));
+                    System.out.println(newValue.getStudents().get(0));
+                    System.out.println(equals);
+                });
+
     }
 
     private void initComboBox() {

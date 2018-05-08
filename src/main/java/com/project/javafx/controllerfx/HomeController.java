@@ -1,10 +1,8 @@
 package com.project.javafx.controllerfx;
 
 import com.jfoenix.controls.JFXButton;
-import com.project.javafx.model.AnnualStudent;
-import com.project.javafx.model.CreditStudent;
-import com.project.javafx.model.Student;
-import com.project.javafx.repository.StudentRepository;
+import com.project.javafx.model.AnnualClass;
+import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
@@ -56,14 +54,9 @@ public class HomeController implements Initializable{
     public void updateStudy(ActionEvent event) {
         boolean confirmation = AlertMaker.getConfirmation("Closing year of study", "Are you sure to update this Year of Study");
         if (confirmation) {
-            Set<Student> all = StudentRepository.getInstance().findAll();
-            for (Student student : all) {
-                if (student instanceof CreditStudent) {
-                    ((CreditStudent) student).updatePassedCourseAll();
-                } else if (student instanceof AnnualStudent) {
-                    ((AnnualStudent) student).updateStudyYear();
-                }
-                StudentRepository.getInstance().update(student);
+            Set<AnnualClass> all = AnnualClassRepository.getInstance().findAll();
+            for (AnnualClass annualClass : all) {
+                annualClass.updateStudyYear();
             }
         }
     }

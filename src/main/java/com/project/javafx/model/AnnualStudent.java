@@ -1,29 +1,27 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class AnnualStudent extends Student {
 
-    private AnnualClass annualClass;
     private YearOfStudy studyYear;
     private double avg;
 
-    public AnnualStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, AnnualClass annualClass) {
+    public AnnualStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
-        this.annualClass = annualClass;
         this.studyYear = YearOfStudy.FIRST_YEAR;
-        registerYearList();
     }
 
     // GETTER AND SETTER
-    public AnnualClass getAnnualClass() {
-        return annualClass;
-    }
+//    public AnnualClass getAnnualClass() {
+//        return annualClass;
+//    }
 
-    public void setAnnualClass(AnnualClass annualClass) {
-        this.annualClass = annualClass;
-
-    }
+//    public void setAnnualClass(AnnualClass annualClass) {
+//        this.annualClass = annualClass;
+//
+//    }
 
     public YearOfStudy getStudyYear() {
         return studyYear;
@@ -44,42 +42,12 @@ public class AnnualStudent extends Student {
         return studyYear == YearOfStudy.GRADUATED;
     }
 
-    public void updateStudyYear() {
-        switch (studyYear) {
-            case FIRST_YEAR:
-                avg = calculateAVG();
-                if (passedAllCourseInYear() || avg > 5.0)
-                    studyYear = YearOfStudy.SECOND_YEAR;
-                registerYearList();
-                break;
-            case SECOND_YEAR:
-                avg = calculateAVG();
-                if (passedAllCourseInYear() || avg > 5.0)
-                    studyYear = YearOfStudy.THIRD_YEAR;
-                registerYearList();
-                break;
-            case THIRD_YEAR:
-                if (passedAllCourseInYear() || avg > 5.0)
-                    studyYear = YearOfStudy.FOURTH_YEAR;
-                registerYearList();
-                break;
-            case FOURTH_YEAR:
-                if (passedAllCourseInYear() || avg > 5.0)
-                    studyYear = YearOfStudy.GRADUATED;
-                takenCourses.clear();
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void registerYearList() {
+    public void registerYearList(List<Course> courses) {
         takenCourses.clear();
-        annualClass.getCoursesCatalog(this.studyYear)
-                .forEach(course -> takenCourses.add(new StudentResult(course)));
+        courses.forEach(course -> takenCourses.add(new StudentResult(course)));
     }
 
-    private boolean passedAllCourseInYear() {
+    public boolean passedAllCourseInYear() {
         for (StudentResult result : takenCourses) {
             if (result.getScore() < 4) {
                 return false;
@@ -88,12 +56,16 @@ public class AnnualStudent extends Student {
         return true;
     }
 
-    private double calculateAVG() {
+    public double calculateAVG() {
         double sum = 0;
         for (StudentResult result : takenCourses) {
             sum += result.getScore();
         }
-        return Math.round(sum / takenCourses.size() * 10.0) / 10.0;
+        avg =  Math.round(sum / takenCourses.size() * 10.0) / 10.0;
+        return avg;
     }
 
+    public void setStudyYear(YearOfStudy studyYear) {
+        this.studyYear = studyYear;
+    }
 }

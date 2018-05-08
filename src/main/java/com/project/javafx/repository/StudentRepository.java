@@ -3,7 +3,6 @@ package com.project.javafx.repository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.project.javafx.model.*;
-import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
@@ -27,31 +26,26 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
     }
 
     public void initSomeStudent() {
-        AnnualClass aClass = new AnnualClass("C01", "Class001");
-        CreditMajor major = new CreditMajor("Major003", "Major003");
-        AnnualStudent student = new AnnualStudent(20145454, "Son", "Do Hong", Student.Gender.MALE, DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", aClass);
-        AnnualStudent student2 = new AnnualStudent(354634, "Son2", "Do 2Hong", Student.Gender.MALE, DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);
-        AnnualStudent student4 = new AnnualStudent(35463434, "Son3", "Do 23Hong", Student.Gender.MALE, DateUtil.parse("27/12/1996"), "567567", "245345343@gmail.com", "VietNam2", aClass);
-        CreditStudent student3 = new CreditStudent(2131232, "Son", "Do Hong", Student.Gender.MALE, DateUtil.parse("27/10/1996"), "34534543534", "243@gmail.com", "VietNam", major);
+
     }
 
     @Override
-    public Set<Student> getObjectCollection() {
-        Set<Student> students = new HashSet<>();
+    public void getObjectCollection() {
+        objects.clear();
         Document query1 = new Document("educationSystem", "ANNUAL");
         Document query2 = new Document("educationSystem", "CREDIT");
-        Set<Student> students1 = getObjectCollection(query1, AnnualStudent.class);
-        Set<Student> students2 = getObjectCollection(query2, CreditStudent.class);
-        students.addAll(students1);
-        students.addAll(students2);
-        return students;
+        getObjectCollection(query1, AnnualStudent.class);
+        getObjectCollection(query2, CreditStudent.class);
+    }
+
+    @Override
+    protected Document findOldQuery(Long aLong) {
+        return new Document("studentID", aLong);
     }
 
     public Set<CreditStudent> getCreditStudent() {
         Set<CreditStudent> students = new HashSet<>();
-        Document query2 = new Document("educationSystem", "CREDIT");
-        Set<Student> students2 = getObjectCollection(query2, CreditStudent.class);
-        for (Student student : students2) {
+        for (Student student : objects) {
             if (student instanceof CreditStudent) {
                 students.add((CreditStudent) student);
             }
@@ -78,22 +72,11 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapterFactory(setAdapter())
+                .registerTypeAdapter(AnnualStudent.class, new AnnualStudentDeserializer())
 //                .serializeNulls()
 //                .setExclusionStrategies(new StudentExclusionStrategy())
                 .create();
         return gson;
-    }
-
-    public void updateAnnualForEachStudent(AnnualClass annualClass) {
-        for (Student student : findAll()) {
-            if (student instanceof AnnualStudent) {
-                boolean equals = ((AnnualStudent) student).getAnnualClass().equals(annualClass);
-                if (equals) {
-                    ((AnnualStudent) student).setAnnualClass(annualClass);
-                    update(student);
-                }
-            }
-        }
     }
 
 }

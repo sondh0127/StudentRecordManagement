@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.project.javafx.model.*;
 import com.project.javafx.model.Student.Gender;
+import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.event.ActionEvent;
@@ -121,7 +122,7 @@ public class UpdateStudentProfileController implements Initializable {
             radioCredit.setSelected(false);
             radioCredit.setDisable(true);
             cbxClass.setVisible(true);
-            cbxClass.getItems().add(((AnnualStudent) student).getAnnualClass());
+            cbxClass.getItems().add(AnnualClassRepository.getInstance().getAnnualClassOf((AnnualStudent) student));
             cbxClass.getSelectionModel().selectFirst();
         }
     }

@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.CreditStudent;
 import com.project.javafx.model.Student;
+import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.repository.UserRepository;
 import com.project.javafx.ulti.AlertMaker;
@@ -220,7 +221,8 @@ public class StudentsController implements Initializable {
                 lblAddition.setText("Credit Taken: " + totalCredit);
             } else if (student instanceof AnnualStudent) {
                 String years = ((AnnualStudent) student).getStudyYearStr();
-                lblMajorClass.setText("Class: " + ((AnnualStudent) student).getAnnualClass().getClassName());
+                String className = AnnualClassRepository.getInstance().getAnnualClassOf((AnnualStudent) student).getClassName();
+                lblMajorClass.setText("Class: " + className);
                 lblAddition.setText("Year: " + years);
             }
         } else {

@@ -1,6 +1,7 @@
 package com.project.javafx;
 
 import com.project.javafx.controllerfx.AdminDashboardController;
+import com.project.javafx.repository.*;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -41,6 +42,19 @@ public class MainApp extends Application {
     public static void main(String[] args) {
 //        staticFileLocation("/public");
 //        get("/hello", (req, res)->"Hello, world");
+        StudentRepository.getInstance().getObjectCollection();
+        AnnualClassRepository.getInstance().getObjectCollection();
+        CourseRepository.getInstance().getObjectCollection();
+        CreditMajorRepository.getInstance().getObjectCollection();
+
+        UserRepository.getInstance().getObjectCollection();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).start();
+
         launch(args);
     }
 }

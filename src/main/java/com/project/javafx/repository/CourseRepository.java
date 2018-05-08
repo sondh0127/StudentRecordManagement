@@ -7,6 +7,7 @@ import org.bson.Document;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CourseRepository extends AbstractRepository<Course, String> {
     private static CourseRepository instance = null;
@@ -39,32 +40,30 @@ public class CourseRepository extends AbstractRepository<Course, String> {
     }
 
     @Override
-    public Set<Course> getObjectCollection() {
+    public void getObjectCollection() {
         Set<Course> courses = new HashSet<>();
         Document query1 = new Document("creditHours", new Document("$eq", null));
         Document query2 = new Document("creditHours", new Document("$ne", null));
-        Set<Course> courses1 = getObjectCollection(query1, Course.class);
-        Set<Course> courses2 = getObjectCollection(query2, CreditCourse.class);
-        courses.addAll(courses1);
-        courses.addAll(courses2);
-        return courses;
+        getObjectCollection(query1, Course.class);
+        getObjectCollection(query2, CreditCourse.class);
+    }
+
+    @Override
+    protected Document findOldQuery(String s) {
+        return new Document("courseCode", s);
     }
 
     public Set<CreditCourse> findAllCreditCourse() {
-        Set<CreditCourse> creditCourses = new HashSet<>();
-        Document query = new Document("creditHours", new Document("$ne", null));
-        Set<Course> courses = getObjectCollection(query, CreditCourse.class);
-        for (Course cours : courses) {
-            if (cours instanceof CreditCourse) {
-                creditCourses.add((CreditCourse) cours);
-            }
-        }
-        return creditCourses;
+        return objects.stream()
+                .filter(cours -> cours instanceof CreditCourse)
+                .map(cours -> (CreditCourse) cours)
+                .collect(Collectors.toSet());
     }
 
     public Set<Course> findAllNormalCourse() {
-        Document query = new Document("creditHours", new Document("$eq", null));
-        return getObjectCollection(query, Course.class);
+        return objects.stream()
+                .filter(course -> !(course instanceof CreditCourse))
+                .collect(Collectors.toSet());
     }
 
     @Override

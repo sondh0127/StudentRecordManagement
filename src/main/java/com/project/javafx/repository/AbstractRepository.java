@@ -14,6 +14,7 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
 
     private final Class<T> clazz;
     private String collectionName;
+    Set<T> objects = new HashSet<>();
 
     public AbstractRepository(Class<T> clazz, String collectionName) {
         this.clazz = clazz;
@@ -32,24 +33,24 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
 
     protected abstract ID getID(T e);
 
-    protected Set<T> getObjectCollection(Document query, Class<? extends T> aClass) {
-        Set<T> objects = new HashSet<>();
+    protected void getObjectCollection(Document query, Class<? extends T> aClass) {
         FindIterable<Document> cursor = getCollection().find(query);
         for (Document doc : cursor) {
             T o = gsonCreator().fromJson(doc.toJson(), aClass);
             objects.add(o);
         }
-        return objects;
     }
 
-    protected Set<T> getObjectCollection() {
+    // đồng bộ = database với object
+    public void getObjectCollection() {
+        objects.clear();
         Document query = new Document();
-        return getObjectCollection(query, clazz);
+        getObjectCollection(query, clazz);
     }
 
     @Override
     public T findById(ID id) {
-        for (T obj : getObjectCollection()) {
+        for (T obj : objects) {
             ID objID = getID(obj);
             if (objID.equals(id)) return obj;
         }
@@ -58,38 +59,47 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
 
     @Override
     public Set<T> findAll() {
-        return getObjectCollection();
+        return objects;
     }
 
     @Override
     public boolean existsById(ID id) {
-        for (T obj : getObjectCollection()) {
+        for (T obj : objects) {
             ID objID = getID(obj);
             if (objID.equals(id)) return true;
         }
         return false;
     }
 
-    private void updateObject(T obj, T newObj) {
+    private void updateObject(T newObj, Document queryFindOld) {
         Gson gson = gsonCreator();
-        String json = gson.toJson(obj);
-        Document doc = gson.fromJson(json, Document.class);
+        Document first = getCollection().find(queryFindOld).first();
 
         String json2 = gson.toJson(newObj);
         Document doc2 = gson.fromJson(json2, Document.class);
-
-        getCollection().replaceOne(doc, doc2);
+        getCollection().replaceOne(first, doc2);
     }
 
+    protected abstract Document findOldQuery(ID id);
+
+//    @Override
+//    public boolean update(T old, T entity) {
+//        ID id = getID(entity);
+//        for (T obj : objects) {
+//            ID objID = getID(obj);
+//            if (objID.equals(id)) {
+//                updateObject(obj, entity);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
     @Override
     public boolean update(T entity) {
         ID id = getID(entity);
-        for (T obj : getObjectCollection()) {
-            ID objID = getID(obj);
-            if (objID.equals(id)) {
-                updateObject(obj, entity);
-                return true;
-            }
+        if (objects.contains(entity)) {
+            updateObject(entity, findOldQuery(id));
+            return true;
         }
         return false;
     }
@@ -103,15 +113,16 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
 
     @Override
     public boolean save(T entity) {
-        boolean isExist = false;
-        ID id = getID(entity);
-        for (T obj : getObjectCollection()) {
-            ID objID = getID(obj);
-            if (objID.equals(id)) {
-                isExist = true;
-            }
-        }
-        if (!isExist) {
+//        boolean isExist = false;
+//        ID id = getID(entity);
+//        for (T obj : objects) {
+//            ID objID = getID(obj);
+//            if (objID.equals(id)) {
+//                isExist = true;
+//            }
+//        }
+        if (!existsById(getID(entity))) {
+            objects.add(entity);
             insertObject(entity);
             System.out.println("Saved successfully");
             return true;
@@ -130,7 +141,8 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
 
     @Override
     public boolean delete(T entity) {
-        if (existsById(getID(entity))) {
+        if (objects.contains(entity)) {
+            objects.remove(entity);
             deleteObject(entity);
             System.out.println("Delete successfully");
             return true;
@@ -141,7 +153,7 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
 
     @Override
     public boolean deleteByID(ID id) {
-        for (T obj : getObjectCollection()) {
+        for (T obj : objects) {
             ID objID = getID(obj);
             if (objID.equals(id)) {
                 return delete(obj);

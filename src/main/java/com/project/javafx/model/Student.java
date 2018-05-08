@@ -3,7 +3,6 @@ package com.project.javafx.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public abstract class Student {
 
@@ -11,7 +10,7 @@ public abstract class Student {
     private final String firstName;
     private final String lastName;
     private final Gender gender;
-    List<StudentResult> takenCourses; // can not do that omg
+    List<StudentResult> takenCourses;
     private String phone;
     private String email;
     private String address;
@@ -118,23 +117,23 @@ public abstract class Student {
         return false;
     }
 
-    /**
-     * Override equals to provide the comparison of two student
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(studentID);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof Student)) {
-            return false;
-        }
-        Student student = (Student) obj;
-        return studentID == student.studentID;
-    }
+//    /**
+//     * Override equals to provide the comparison of two student
+//     */
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(studentID);
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj == this) return true;
+//        if (!(obj instanceof Student)) {
+//            return false;
+//        }
+//        Student student = (Student) obj;
+//        return studentID == student.studentID;
+//    }
 
     /**
      * Education System

@@ -3,7 +3,6 @@ package com.project.javafx.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class AnnualClass {
 
@@ -12,6 +11,8 @@ public class AnnualClass {
 
     private final int DEFAULT_CAPACITY = 40;
     private int capacity;
+
+    private List<AnnualStudent> students = new ArrayList<>();
 
     private List<List<Course>> courseCatalog;
 
@@ -86,22 +87,46 @@ public class AnnualClass {
         }
     }
 
-    /**
-     * Override equals to provide the comparison of two student
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(classCode);
+    public void addStudentToClass(AnnualStudent student) {
+        students.add(student);
+        student.registerYearList(courseCatalog.get(0));
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof AnnualClass)) {
-            return false;
+    public List<AnnualStudent> getStudents() {
+        return students;
+    }
+
+    public boolean haveStudent(AnnualStudent student) {
+        return students.contains(student);
+    }
+
+    public void updateStudyYear() {
+        for (AnnualStudent student : students) {
+            switch (student.getStudyYear()) {
+                case FIRST_YEAR:
+                    if (student.passedAllCourseInYear() && student.calculateAVG() > 5.0)
+                        student.setStudyYear(YearOfStudy.SECOND_YEAR);
+                    student.registerYearList(courseCatalog.get(1));
+                    break;
+                case SECOND_YEAR:
+                    if (student.passedAllCourseInYear() && student.calculateAVG() > 5.0)
+                        student.setStudyYear(YearOfStudy.THIRD_YEAR);
+                    student.registerYearList(courseCatalog.get(2));
+                    break;
+                case THIRD_YEAR:
+                    if (student.passedAllCourseInYear() && student.calculateAVG() > 5.0)
+                        student.setStudyYear(YearOfStudy.FOURTH_YEAR);
+                    student.registerYearList(courseCatalog.get(3));
+                    break;
+                case FOURTH_YEAR:
+                    if (student.passedAllCourseInYear() && student.calculateAVG() > 5.0)
+                        student.setStudyYear(YearOfStudy.GRADUATED);
+                    student.takenCourses.clear();
+                    break;
+                default:
+                    break;
+            }
         }
-        AnnualClass annualClass = (AnnualClass) obj;
-        return classCode.equals(annualClass.classCode);
     }
 
 }
