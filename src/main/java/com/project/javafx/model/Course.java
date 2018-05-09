@@ -1,7 +1,5 @@
 package com.project.javafx.model;
 
-import java.util.Objects;
-
 public class Course {
     private final String courseCode;
     private final String courseName;
@@ -29,26 +27,6 @@ public class Course {
     @Override
     public String toString() {
         return courseCode;
-    }
-
-    // main method
-
-    /**
-     * Override equals to provide: a comparison of 2 course
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(courseCode);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof Course)) {
-            return false;
-        }
-        Course course = (Course) obj;
-        return courseCode.equals(course.courseCode);
     }
 
 }

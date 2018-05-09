@@ -78,7 +78,6 @@ public class CourseRepository extends AbstractRepository<Course, String> {
     @Override
     protected Gson gsonCreator() {
         Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
                 .registerTypeAdapter(CreditCourse.class, new CreditCourseDeserializer())
                 .registerTypeAdapter(Course.class, new CourseDeserializer())
                 .create();

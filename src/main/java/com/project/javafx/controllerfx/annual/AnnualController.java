@@ -82,16 +82,6 @@ public class AnnualController implements Initializable {
         annualClassObservableList.setAll(AnnualClassRepository.getInstance().findAll());
 
         initComboBox();
-//        tblClass.getSelectionModel()
-//                .selectedItemProperty()
-//                .addListener((observable, oldValue, newValue) -> {
-//                    long studentID = newValue.getStudents().get(0).getStudentID();
-//                    boolean equals = newValue.getStudents().get(0)
-//                            .equals(StudentRepository.getInstance().findById(studentID));
-//                    System.out.println(newValue.getStudents().get(0));
-//                    System.out.println(equals);
-//                });
-
     }
 
     private void initComboBox() {
@@ -169,6 +159,7 @@ public class AnnualController implements Initializable {
     @FXML
     public void refreshTable() {
         tblClass.getItems().clear();
+        tblCourseList.getItems().clear();
         annualClassObservableList.setAll(AnnualClassRepository.getInstance().findAll());
     }
 

@@ -1,28 +1,21 @@
 package com.project.javafx.controllerfx.student;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
-import com.project.javafx.model.*;
+import com.project.javafx.model.Student;
 import com.project.javafx.model.Student.Gender;
-import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class UpdateStudentProfileController implements Initializable {
-
-//    private Student student;
 
     @FXML
     private JFXButton btnUpdate;
@@ -31,60 +24,39 @@ public class UpdateStudentProfileController implements Initializable {
     private JFXButton btnBack;
 
     @FXML
-    private JFXTextField txtStudentID;
-
-    @FXML
-    private JFXTextField txtFirstName;
-
-    @FXML
-    private JFXTextField txtLastName;
-
-    @FXML
     private RadioButton radioMale;
 
     @FXML
-    private ToggleGroup genderRadioGroup;
+    private ToggleGroup genderRadioGroup1;
 
     @FXML
     private RadioButton radioFemale;
 
     @FXML
-    private JFXTextField txtPhone;
+    private DatePicker dtpBirthday;
 
     @FXML
-    private JFXTextField txtEmail;
+    private TextField txtPhone;
 
     @FXML
-    private JFXTextField txtAddress;
+    private TextField txtEmail;
 
     @FXML
-    private RadioButton radioCredit;
+    private TextField txtAddress;
 
     @FXML
-    private ToggleGroup studentTypeRadioGroup;
+    private Label txtStudentID;
 
     @FXML
-    private RadioButton radioAnnual;
+    private TextField txtLastName;
 
     @FXML
-    private JFXComboBox<AnnualClass> cbxClass;
+    private TextField txtFirstName;
 
-    @FXML
-    private JFXComboBox<CreditMajor> cbxMajor;
-
-    @FXML
-    private JFXDatePicker dtpBirthday;
-
-    @FXML
-    private JFXButton btnGetImg;
-
-    @FXML
-    private ImageView viewAvatar;
     private Student student;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        StudentsController.setUpdateStudentProfileController(this);
         student = (Student) resources.getObject("updateStudent");
         initField();
     }
@@ -93,38 +65,19 @@ public class UpdateStudentProfileController implements Initializable {
         txtStudentID.setText(String.valueOf(student.getStudentID()));
         txtFirstName.setText(student.getFirstName());
         txtLastName.setText(student.getLastName());
-        if (Gender.FEMALE.equals(student.getGender())) {
+        if (student.getGender().equals(Gender.FEMALE)) {
             radioFemale.setSelected(true);
-            radioMale.setSelected(false);
-            radioMale.setDisable(true);
-        } else if (Gender.MALE.equals(student.getGender())) {
+//            radioMale.setSelected(false);
+//            radioMale.setDisable(true);
+        } else if (student.getGender().equals(Gender.MALE)) {
             radioMale.setSelected(true);
-            radioFemale.setSelected(false);
-            radioFemale.setDisable(true);
+//            radioFemale.setSelected(false);
+//            radioFemale.setDisable(true);
         }
-        dtpBirthday.setValue(student.getBirthday());        // TODO: 19/04/2018 bug exception :((
+        dtpBirthday.setValue(student.getBirthday());
         txtPhone.setText(student.getPhone());
         txtEmail.setText(student.getEmail());
         txtAddress.setText(student.getAddress());
-
-        // TODO: 19/04/2018 fix complicated
-        cbxClass.setVisible(false);
-        cbxMajor.setVisible(false);
-        if (student instanceof CreditStudent) {
-            radioCredit.setSelected(true);
-            radioAnnual.setSelected(false);
-            radioAnnual.setDisable(true);
-            cbxMajor.setVisible(true);
-            cbxMajor.getItems().add(((CreditStudent) student).getCreditMajor());
-            cbxMajor.getSelectionModel().selectFirst();
-        } else if (student instanceof AnnualStudent) {
-            radioAnnual.setSelected(true);
-            radioCredit.setSelected(false);
-            radioCredit.setDisable(true);
-            cbxClass.setVisible(true);
-            cbxClass.getItems().add(AnnualClassRepository.getInstance().getAnnualClassOf((AnnualStudent) student));
-            cbxClass.getSelectionModel().selectFirst();
-        }
     }
 
     @FXML
@@ -134,13 +87,34 @@ public class UpdateStudentProfileController implements Initializable {
 
     @FXML
     void updateDetails(ActionEvent event) {
-        String phoneText = txtPhone.getText();
-        String email = txtEmail.getText();
-        String address = txtAddress.getText();
-
-        student.updateStudentProfile(phoneText, email, address);
-        StudentRepository.getInstance().update(student);
-        AlertMaker.showNotification("Success", "Student Profile updated successfully !", AlertMaker.image_checked);
+        String firstName;
+        String lastName;
+        Gender gender;
+        LocalDate birthdayDate;
+        String phone;
+        String email;
+        String address;
+        try {
+            if (txtFirstName.getText().trim().isEmpty()) throw new IllegalArgumentException("First name is empty !");
+            else firstName = txtFirstName.getText();
+            if (txtLastName.getText().trim().isEmpty()) throw new IllegalArgumentException("Last name is empty!");
+            else lastName = txtLastName.getText();
+            if (radioFemale.isSelected()) gender = Gender.FEMALE;
+            else gender = Gender.MALE;
+            if (dtpBirthday.getValue() == null) throw new IllegalArgumentException("Birth day is empty!");
+            else birthdayDate = dtpBirthday.getValue();
+            if (txtPhone.getText().trim().isEmpty()) throw new IllegalArgumentException("Phone number is empty!");
+            else phone = txtPhone.getText();
+            if (txtEmail.getText().trim().isEmpty()) throw new IllegalArgumentException("Email is empty!");
+            else email = txtEmail.getText();
+            if (txtAddress.getText().trim().isEmpty()) throw new IllegalArgumentException("Address is empty!");
+            else address = txtAddress.getText();
+            student.updateStudentProfile(firstName, lastName, gender, birthdayDate,phone, email, address);
+            StudentRepository.getInstance().update(student);
+            AlertMaker.showNotification("Success", "Student Profile updated successfully !", AlertMaker.image_checked);
+        } catch (IllegalArgumentException e) {
+            AlertMaker.showErrorMessage("Adding Error", e.getMessage());
+        }
     }
 
 

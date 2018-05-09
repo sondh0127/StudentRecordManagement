@@ -2,10 +2,12 @@ package com.project.javafx.controllerfx.annual;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.AnnualClass;
+import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.YearOfStudy;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
+import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -18,13 +20,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class AddYearCourseListController implements Initializable {
 
-    private ObservableList<Course> repoCourseObservableList = FXCollections.observableArrayList();
+    private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
     private ObservableList<Course> yearCourseObservableList = FXCollections.observableArrayList();
 
     @FXML
@@ -71,16 +74,14 @@ public class AddYearCourseListController implements Initializable {
 
     private AnnualClass annualClass;
 
+    private List<AnnualStudent> toUpdateStudents = new ArrayList<>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.annualClass = (AnnualClass) resources.getObject("annual");
 //        System.out.println(annualClass.getClassName());
-
-        tblCourse.setItems(repoCourseObservableList);
-        tblYearCourseList.setItems(yearCourseObservableList);
         initCols();
-
-        repoCourseObservableList.setAll(CourseRepository.getInstance().findAllNormalCourse());
+        courseObservableList.setAll(CourseRepository.getInstance().findAllNormalCourse());
         initComboBox();
         refreshTable();
 
@@ -97,6 +98,7 @@ public class AddYearCourseListController implements Initializable {
     }
 
     private void initCols() {
+        tblCourse.setItems(courseObservableList);
         colCourseCode.setCellValueFactory(param -> {
             Course c = param.getValue();
             return new SimpleStringProperty(c.getCourseCode());
@@ -105,7 +107,7 @@ public class AddYearCourseListController implements Initializable {
             Course c = param.getValue();
             return new SimpleStringProperty(c.getCourseName());
         });
-
+        tblYearCourseList.setItems(yearCourseObservableList);
         colCourseCC.setCellValueFactory(param -> {
             Course c = param.getValue();
             return new SimpleStringProperty(c.getCourseCode());
@@ -133,7 +135,15 @@ public class AddYearCourseListController implements Initializable {
             boolean confirmation = AlertMaker.getConfirmation("Delete Course", "Are you sure to delete course \n" +
                     "\"" + removeCourse.getCourseName() + "\" ?");
             if (confirmation) {
-                this.annualClass.getCoursesCatalog(cbxYear.getValue()).remove(removeCourse);
+                YearOfStudy yearValue = cbxYear.getValue();
+                this.annualClass.getCoursesCatalog(yearValue).remove(removeCourse);
+                List<AnnualStudent> students = annualClass.getStudents();
+                for (AnnualStudent student : students) {
+                    if (student.getStudyYear().equals(yearValue)) {
+                        student.removeYearCourse(removeCourse);
+                        toUpdateStudents.add(student);
+                    }
+                }
                 refreshTable();
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
             }
@@ -144,22 +154,57 @@ public class AddYearCourseListController implements Initializable {
 
     @FXML
     void handleSearchAction(KeyEvent event) {
-
+        Set<Course> all = CourseRepository.getInstance().findAllNormalCourse();
+        ObservableList<Course> temp = FXCollections.observableArrayList();
+        if (event.getSource().equals(txtCode)) {
+            String courseCode = txtCode.getText().toUpperCase();
+            if (courseCode.isEmpty()) temp.addAll(all);
+            else {
+                for (Course course : all) {
+                    if (course.getCourseCode().contains(courseCode)) {
+                        temp.add(course);
+                    }
+                }
+            }
+        } else if (event.getSource().equals(txtName)) {
+            String courseName = txtName.getText().toUpperCase();
+            if (courseName.isEmpty()) temp.addAll(all);
+            else {
+                for (Course course : all) {
+                    if (course.getCourseName().contains(courseName)) {
+                        temp.add(course);
+                    }
+                }
+            }
+        }
+        courseObservableList.setAll(temp);
     }
 
     @FXML
     void handleAddCourse(ActionEvent event) {
-        Course selectedItem = tblCourse.getSelectionModel().getSelectedItem();
-        if (notExist(selectedItem) && selectedItem != null) {
-            this.annualClass.addAnnualCourseCatalog(selectedItem, cbxYear.getValue());
+        Course selectCourse = tblCourse.getSelectionModel().getSelectedItem();
+        if (notExist(selectCourse)) {
+            if (selectCourse != null) {
+                YearOfStudy yearValue = cbxYear.getValue();
+                annualClass.addAnnualCourseCatalog(selectCourse, yearValue);
+                List<AnnualStudent> students = annualClass.getStudents();
+                for (AnnualStudent student : students) {
+                    if (student.getStudyYear().equals(yearValue)) {
+                        student.addYearCourse(selectCourse);
+                        toUpdateStudents.add(student);
+                    }
+                }
+            } else {
+                AlertMaker.showErrorMessage("Error", "No course selected !");
+            }
         } else {
-            AlertMaker.showErrorMessage("Duplicate", "Existing course");
+            AlertMaker.showErrorMessage("Duplicate", "Existing course !");
         }
         refreshTable();
     }
 
     private boolean notExist(Course selectedItem) {
-        List<YearOfStudy> yearOfStudies = Arrays.asList(YearOfStudy.values());
+        YearOfStudy[] yearOfStudies = YearOfStudy.values();
         for (YearOfStudy yearOfStudy : yearOfStudies) {
             if (!yearOfStudy.equals(YearOfStudy.GRADUATED)) {
                 if (this.annualClass.getCoursesCatalog(yearOfStudy).contains(selectedItem)) {
@@ -174,6 +219,9 @@ public class AddYearCourseListController implements Initializable {
     void submitDetails(ActionEvent event) {
         if (annualClass != null) {
             if (AnnualClassRepository.getInstance().update(annualClass)) {
+                for (AnnualStudent student : toUpdateStudents) {
+                    StudentRepository.getInstance().update(student);
+                }
                 AlertMaker.showNotification("Success", "Annual Class update successfully !", AlertMaker.image_checked);
             } else {
                 AlertMaker.showErrorMessage("Failed!", "Something wrong, try again!");

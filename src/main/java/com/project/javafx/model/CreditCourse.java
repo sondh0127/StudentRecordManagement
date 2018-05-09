@@ -19,8 +19,6 @@ public class CreditCourse extends Course {
         this.prerequisiteCourse = prerequisiteCourse;
     }
 
-
-
     // GETTER AND SETTER
     public List<CreditCourse> getPrerequisiteCourse() {
         return prerequisiteCourse;

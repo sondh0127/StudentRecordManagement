@@ -111,7 +111,7 @@ public class AddRegisterController implements Initializable {
                     CreditClassRepository.getInstance().update(selectClass);
                     AlertMaker.showNotification("Success", "Register update successfully !", AlertMaker.image_checked);
                 } else {
-                    AlertMaker.showErrorMessage("Error!", "Error");
+                    AlertMaker.showErrorMessage("Error!", student.getStudentID() + " already took course" + creditCourse.getCourseCode() + " !");
                 }
             }
         } catch (IllegalArgumentException e) {

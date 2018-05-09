@@ -19,7 +19,6 @@ public class CreditStudent extends Student {
     public CreditStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, CreditMajor creditMajor) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.CREDIT);
         this.creditMajor = creditMajor;
-//        creditMajor.addStudent(this);
         int DEFAULT_CURRENT_CREDITS_LIMIT = 24;
         this.registerCreditsLimit = DEFAULT_CURRENT_CREDITS_LIMIT;
         this.registerCredits = 0;
@@ -47,7 +46,6 @@ public class CreditStudent extends Student {
     public double getCPA() {
         return CPA;
     }
-
 
     // Main Method
     public boolean isPassedCourse(Course course) {
@@ -91,7 +89,7 @@ public class CreditStudent extends Student {
         int minorCreditsRequired = creditMajor.getMinorCreditsRequired();
         return passedMajorCredits >= majorCreditsRequired
                 && passedMinorCredits >= minorCreditsRequired
-                && calculateCPA() >= 2.0;
+                && getCPA() >= 2.0;
     }
 
 
@@ -99,10 +97,10 @@ public class CreditStudent extends Student {
         if (takenCourses.isEmpty()) {
             return;
         }
+        // update passedCredits
         for (StudentResult result : takenCourses) {
-            if (isPassResult(result)) {
+            if (result.isPassResult()) {
                 passedCourses.add(result);
-                // update passedCredits
                 List<CreditCourse> majorCatalog = creditMajor.getMajorCatalog();
                 List<CreditCourse> minorCatalog = creditMajor.getMinorCatalog();
                 Course course = result.getCourse();
@@ -115,43 +113,34 @@ public class CreditStudent extends Student {
                 }
             }
         }
+        calculateGPA();
+        calculateCPA();
         takenCourses.clear();
     }
 
-    private boolean isPassResult(StudentResult result) {
-        return result.getScore() >= 3.0 && result.getMidtermPoint() >= 3.0 && result.getFinalPoint() >= 3.0;
-    }
-
-    private double calculateGPA() {
+    private void calculateGPA() {
         double sum = getSum(takenCourses);
-        return sum / registerCredits;
+        GPA =  sum / registerCredits;
     }
 
-    public double calculateCPA() {
-        updatePassedCourseAll();
+    private void calculateCPA() {
         double sum = getSum(passedCourses);
-        return sum / (passedMinorCredits + passedMajorCredits);
+        CPA = sum / (passedMinorCredits + passedMajorCredits);
     }
 
     private double getSum(List<StudentResult> courseMap) {
+        if (courseMap.isEmpty()) {
+            return 0;
+        }
         double sum = 0;
         List<Course> collect = courseMap.stream()
                 .map(StudentResult::getCourse)
                 .collect(Collectors.toList());
         for (Course course : collect) {
-            double grade = getStudentResultFromCourse(course).getScore();
+            double grade = getStudentResult(course).getScore();
             int credits = ((CreditCourse) course).getCreditHours();
             sum += grade * credits;
         }
         return sum;
-    }
-
-    public void registerMajor(CreditMajor creditMajor) {
-        if (this.creditMajor == null) {
-            this.creditMajor = creditMajor;
-//            creditMajor.addStudent(this);
-            this.passedMajorCredits = 0;
-            this.passedMinorCredits = 0;
-        }
     }
 }

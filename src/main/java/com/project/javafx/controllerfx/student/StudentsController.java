@@ -7,6 +7,7 @@ import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.CreditStudent;
 import com.project.javafx.model.Student;
 import com.project.javafx.repository.AnnualClassRepository;
+import com.project.javafx.repository.CreditClassRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.repository.UserRepository;
 import com.project.javafx.ulti.AlertMaker;
@@ -52,8 +53,6 @@ public class StudentsController implements Initializable {
     @FXML
     private TableColumn<Student, String> educationSystem;
     @FXML
-    private TableColumn colAction;
-    @FXML
     private JFXRadioButton idFilter;
     @FXML
     private JFXRadioButton nameFilter;
@@ -78,6 +77,8 @@ public class StudentsController implements Initializable {
     @FXML
     private Label lblAddition;
     @FXML
+    private Label lblAvgCpa;
+    @FXML
     private Label lblMajorClass;
     @FXML
     private VBox detailsBox;
@@ -93,23 +94,15 @@ public class StudentsController implements Initializable {
     @FXML
     private JFXButton btnGraduate;
 
-    public static void setUpdateStudentProfileController(UpdateStudentProfileController controller) {
-        StudentsController.updateStudentProfileController = controller;
-    }
-
     @FXML
     void handleGraduate(ActionEvent event) {
         Student checkStudent = studentTableView.getSelectionModel().getSelectedItem();
         if (checkStudent != null) {
             if (checkStudent.ableToGraduate()) {
-                // TODO: 07/05/2018 fix this
-                AlertMaker.showNotification("Graduation", "Student " +
-                        checkStudent.getStudentID() +
-                        " able to graduated", AlertMaker.image_checked);
+                // TODO: 10/05/2018 more info
+                AlertMaker.showSimpleAlert("Graduation", "Student " + checkStudent.getStudentID() + " able to graduated");
             } else {
-                AlertMaker.showNotification("Graduation", "Student " +
-                        checkStudent.getStudentID() +
-                        " not able to graduated", AlertMaker.image_warning);
+                AlertMaker.showSimpleAlert("Graduation", "Student " + checkStudent.getStudentID() + " not able to graduated");
             }
         } else {
             AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);
@@ -156,16 +149,6 @@ public class StudentsController implements Initializable {
      * Create some user interface feature for search method
      */
     private void initSearching() {
-        // set hotkey for searchButton
-//        Parent parent = searchButton.getParent();
-//        parent.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-//            if (event.getCode() == KeyCode.ENTER) {
-//                searchButton.fire();
-//                event.consume();
-//            }
-//        });
-
-        // add Listener for toggle search Group
         filter.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals(idFilter)) {
                 txtSearchField.setPromptText("Search by ID");
@@ -180,7 +163,7 @@ public class StudentsController implements Initializable {
         studentObservableList.clear();
         String searchText = txtSearchField.getText();
         if (searchText.isEmpty()) {
-            studentObservableList.setAll(StudentRepository.getInstance().findAll());             // empty string  => show all students
+            studentObservableList.setAll(StudentRepository.getInstance().findAll());
         } else {
             for (Student s : StudentRepository.getInstance().findAll()) {
                 if (filter.getSelectedToggle().equals(idFilter)) {
@@ -206,7 +189,6 @@ public class StudentsController implements Initializable {
      */
     private void showStudentDetail(Student student) {
         if (student != null) {
-            System.out.println(student.getTakenResult().get(0).getScore());
             lbl_FullName.setText(student.getLastName() + " " + student.getFirstName());
             lblEmail.setText(student.getEmail());
             lblPhone.setText(student.getPhone());
@@ -220,11 +202,13 @@ public class StudentsController implements Initializable {
                 String totalCredit = String.valueOf(num);
                 lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getMajorTitle());
                 lblAddition.setText("Credit Taken: " + totalCredit);
+                lblAvgCpa.setText("CPA: " + ((CreditStudent) student).getCPA());
             } else if (student instanceof AnnualStudent) {
-                String years = ((AnnualStudent) student).getStudyYearStr();
+                String years = ((AnnualStudent) student).getStudyYear().toString();
                 String className = AnnualClassRepository.getInstance().getAnnualClassOf((AnnualStudent) student).getClassName();
                 lblMajorClass.setText("Class: " + className);
                 lblAddition.setText("Year: " + years);
+                lblAvgCpa.setText("AVG: " + ((AnnualStudent) student).getAvg());
             }
         } else {
             lbl_FullName.setText("");
@@ -235,6 +219,7 @@ public class StudentsController implements Initializable {
             lblBirdthday.setText("");
             lblAddition.setText("");
             lblMajorClass.setText("");
+            lblAvgCpa.setText("");
             btnGraduate.setVisible(false);
         }
     }
@@ -264,20 +249,12 @@ public class StudentsController implements Initializable {
                         return null;
                     }
                 });
-//            updateStudentProfileController.initField(updateStudent);
         }
-
     }
 
     @FXML
     public void refreshTable(ActionEvent event) {
         studentTableView.getItems().clear();
-        // TODO: 18/04/2018 improve refresh => to preserve the current stage of table;
-        // TODO: 07/05/2018 still cannot
-//        List<Long> studentIDList = new ArrayList<>();
-//        for (Student student : studentObservableList) {
-//            studentIDList.add(student.getStudentID());
-//        }
         studentObservableList.setAll(StudentRepository.getInstance().findAll());
     }
 
@@ -287,8 +264,15 @@ public class StudentsController implements Initializable {
         if (removeStudent != null) {
             boolean confirmation = AlertMaker.getConfirmation("Delete Student", "Are you sure to delete student " + removeStudent.getStudentID() + " ?");
             if (confirmation) {
+                if (removeStudent instanceof AnnualStudent) {
+                    AnnualClassRepository.getInstance().removeAStudentFromClass((AnnualStudent) removeStudent);
+                }
+                if (removeStudent instanceof CreditStudent) {
+                    CreditClassRepository.getInstance().removeAStudentFromClass((CreditStudent) removeStudent);
+                }
                 StudentRepository.getInstance().delete(removeStudent);
                 UserRepository.getInstance().deleteByID(String.valueOf(removeStudent.getStudentID()));
+
                 refreshTable(event);
                 AlertMaker.showNotification("Deleted", "Student info deleted successfully", AlertMaker.image_trash_can);
             }

@@ -1,7 +1,6 @@
 package com.project.javafx.controllerfx.major;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.model.CreditMajor;
 import com.project.javafx.repository.CreditMajorRepository;
@@ -16,10 +15,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -33,23 +32,7 @@ import java.util.ResourceBundle;
 public class MajorsController implements Initializable {
 
     private ObservableList<CreditMajor> majorObservableList = FXCollections.observableArrayList();
-    private ObservableList<CreditCourse> majorCourseObservableList = FXCollections.observableArrayList();
-    private ObservableList<CreditCourse> minorCourseObservableList = FXCollections.observableArrayList();
-
-    @FXML
-    private JFXRadioButton idFilter;
-
-    @FXML
-    private ToggleGroup filter;
-
-    @FXML
-    private JFXRadioButton nameFilter;
-
-    @FXML
-    private TextField txtSearchField;
-
-    @FXML
-    private JFXButton searchButton;
+    private ObservableList<CreditCourse> courseObservableList = FXCollections.observableArrayList();
 
     @FXML
     private TableView<CreditMajor> tblMajor;
@@ -61,22 +44,13 @@ public class MajorsController implements Initializable {
     private TableColumn<CreditMajor, String> colMajorTitle;
 
     @FXML
-    private TableView<CreditCourse> tblMajorCourseList;
+    private TableView<CreditCourse> tblCourseList;
 
     @FXML
-    private TableView<CreditCourse> tblMinorCourseList;
+    private TableColumn<CreditCourse, String> colCourseCC;
 
     @FXML
-    private TableColumn<CreditCourse, String> colMajorCC;
-
-    @FXML
-    private TableColumn<CreditCourse, String> colMajorCN;
-
-    @FXML
-    private TableColumn<CreditCourse, String> colMinorCC;
-
-    @FXML
-    private TableColumn<CreditCourse, String> colMinorCN;
+    private TableColumn<CreditCourse, String> colCourseCN;
 
     @FXML
     private JFXButton btnViewCourseList;
@@ -93,39 +67,47 @@ public class MajorsController implements Initializable {
     @FXML
     private JFXButton btnRemove;
 
+    @FXML
+    private Label lblMajorMinor;
+
+    @FXML
+    private ComboBox<String> cbxMajorMinor;
+
+    private String majorList = "Major List";
+    private String minorList = "Minor List";
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tblMajor.setItems(majorObservableList);
-        tblMajorCourseList.setItems(majorCourseObservableList);
-        tblMinorCourseList.setItems(minorCourseObservableList);
         initCols();
         majorObservableList.setAll(CreditMajorRepository.getInstance().findAll());
+
+        initComboBox();
+    }
+
+    private void initComboBox() {
+        cbxMajorMinor.getItems().add(majorList);
+        cbxMajorMinor.getItems().add(minorList);
+        cbxMajorMinor.getSelectionModel().selectFirst();
+        cbxMajorMinor.valueProperty().addListener((observable, oldValue, newValue) ->
+                lblMajorMinor.setText(newValue.toUpperCase()));
     }
 
     private void initCols() {
+        tblMajor.setItems(majorObservableList);
         colMajorCode.setCellValueFactory(param -> {
             CreditMajor c = param.getValue();
             return new SimpleStringProperty(c.getMajorCode());
         });
         colMajorTitle.setCellValueFactory(param -> {
-            CreditMajor c= param.getValue();
+            CreditMajor c = param.getValue();
             return new SimpleStringProperty(c.getMajorTitle());
         });
-
-        colMajorCC.setCellValueFactory(param -> {
+        tblCourseList.setItems(courseObservableList);
+        colCourseCC.setCellValueFactory(param -> {
             CreditCourse c = param.getValue();
             return new SimpleStringProperty(c.getCourseCode());
         });
-        colMajorCN.setCellValueFactory(param -> {
-            CreditCourse c = param.getValue();
-            return new SimpleStringProperty(c.getCourseName());
-        });
-
-        colMinorCC.setCellValueFactory(param -> {
-            CreditCourse c = param.getValue();
-            return new SimpleStringProperty(c.getCourseCode());
-        });
-        colMinorCN.setCellValueFactory(param -> {
+        colCourseCN.setCellValueFactory(param -> {
             CreditCourse c = param.getValue();
             return new SimpleStringProperty(c.getCourseName());
         });
@@ -136,8 +118,13 @@ public class MajorsController implements Initializable {
         if (event.getSource().equals(btnViewCourseList)) {
             CreditMajor selectedItem = tblMajor.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                majorCourseObservableList.setAll(selectedItem.getMajorCatalog());
-                minorCourseObservableList.setAll(selectedItem.getMinorCatalog());
+                String value = cbxMajorMinor.getValue();
+                if (value.equals(majorList)) {
+                    courseObservableList.setAll(selectedItem.getMajorCatalog());
+                }
+                if (value.equals(minorList)) {
+                    courseObservableList.setAll(selectedItem.getMinorCatalog());
+                }
             }
         }
     }
@@ -149,36 +136,33 @@ public class MajorsController implements Initializable {
 
     @FXML
     void modifyCourseList(ActionEvent event) {
-        CreditMajor selectedItem = tblMajor.getSelectionModel().getSelectedItem();
-        ResourceBundle bundle = new ResourceBundle() {
-            @Override
-            protected Object handleGetObject(String key) {
-                if (key.equals("major")) {
-                    return selectedItem;
+        try {
+            CreditMajor selectedItem = tblMajor.getSelectionModel().getSelectedItem();
+            if (selectedItem == null) throw new IllegalArgumentException("No Annual Class Selected !");
+            ResourceBundle bundle = new ResourceBundle() {
+                @Override
+                protected Object handleGetObject(String key) {
+                    if (key.equals("major")) {
+                        return selectedItem;
+                    }
+                    return null;
                 }
-                return null;
-            }
 
-            @Override
-            public Enumeration<String> getKeys() {
-                return null;
-            }
-        };
-        loadWindow(ViewConstants.ADD_COURSE_LIST_MAJOR_VIEW, "Add Major", bundle);
-    }
-
-
-
-    @FXML
-    void handleSearchAction(ActionEvent event) {
-
+                @Override
+                public Enumeration<String> getKeys() {
+                    return null;
+                }
+            };
+            loadWindow(ViewConstants.ADD_COURSE_LIST_MAJOR_VIEW, "Add Major", bundle);
+        } catch (IllegalArgumentException e) {
+            AlertMaker.showErrorMessage("Error.", e.getMessage());
+        }
     }
 
     @FXML
     public void refreshTable(ActionEvent event) {
         tblMajor.getItems().clear();
-        tblMajorCourseList.getItems().clear();
-        tblMinorCourseList.getItems().clear();
+        tblCourseList.getItems().clear();
         majorObservableList.setAll(CreditMajorRepository.getInstance().findAll());
     }
 

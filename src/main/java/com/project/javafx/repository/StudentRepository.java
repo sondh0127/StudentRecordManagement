@@ -77,7 +77,6 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
             return jsonElement;
         };
         Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
                 .registerTypeAdapterFactory(setAdapter())
                 .registerTypeAdapter(CreditMajor.class, serializer)
                 .registerTypeAdapter(CreditMajor.class, new CreditMajorDeserializer())

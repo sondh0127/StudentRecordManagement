@@ -12,26 +12,26 @@
          <right>
             <HBox BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tblCreditClassList" prefWidth="666.0">
+                  <TableView fx:id="tblCreditClassList" prefHeight="522.0" prefWidth="593.0">
                      <columns>
-                        <TableColumn fx:id="colClassCode" minWidth="0.0" prefWidth="160.0" text="Class Code" />
-                        <TableColumn fx:id="colCourse" minWidth="0.0" prefWidth="280.0" text="Course Code" />
-                        <TableColumn fx:id="colEnrolled" minWidth="0.0" prefWidth="225.0" text="Enrolled" />
+                        <TableColumn fx:id="colClassCode" minWidth="0.0" prefWidth="116.0" text="Class Code" />
+                        <TableColumn fx:id="colCourse" minWidth="0.0" prefWidth="353.0" text="Course Code" />
+                        <TableColumn fx:id="colEnrolled" minWidth="0.0" prefWidth="120.0" text="Enrolled" />
                      </columns>
                      <HBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </TableView>
                </children>
                <BorderPane.margin>
-                  <Insets right="10.0" />
+                  <Insets right="40.0" />
                </BorderPane.margin>
             </HBox>
          </right>
          <top>
             <HBox alignment="CENTER" prefHeight="35.0" prefWidth="667.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets bottom="5.0" left="13.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" left="40.0" right="5.0" top="5.0" />
                </BorderPane.margin>
                <children>
                   <HBox alignment="CENTER" prefHeight="35.0" prefWidth="367.0" spacing="10.0">
@@ -101,7 +101,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
                <BorderPane.margin>
-                  <Insets left="10.0" />
+                  <Insets left="40.0" />
                </BorderPane.margin>
             </TableView>
          </left>

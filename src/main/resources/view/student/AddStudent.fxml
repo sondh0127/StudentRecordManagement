@@ -2,25 +2,13 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.student.AddStudentController">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane prefHeight="580.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.student.AddStudentController">
    <top>
       <HBox alignment="CENTER" prefHeight="50.0" spacing="10.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
          <children>
@@ -29,7 +17,7 @@
                   <Image url="@../../img/Add_User_48px.png" />
                </image>
             </ImageView>
-            <Label text="Add Student Details">
+            <Label text="Add Student">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -214,33 +202,11 @@
                   </RadioButton>
                   <ComboBox fx:id="cbxMajor" prefHeight="30.0" prefWidth="150.0" promptText="Choose Major" GridPane.columnIndex="2" GridPane.rowIndex="9" />
                </children>
+               <BorderPane.margin>
+                  <Insets left="20.0" />
+               </BorderPane.margin>
             </GridPane>
          </center>
-         <right>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXButton fx:id="btnGetImg" buttonType="RAISED" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ff1744;" text="Get Image" textFill="WHITE">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="ANGELLIST" size="20" />
-                     </graphic>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <ImageView fx:id="viewAvatar" fitHeight="240.0" fitWidth="180.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../img/icons8_User_96px.png" />
-                     </image>
-                     <viewport>
-                        <Rectangle2D minX="180.0" minY="240.0" />
-                     </viewport>
-                  </ImageView>
-               </children>
-               <padding>
-                  <Insets top="30.0" />
-               </padding>
-            </VBox>
-         </right>
       </BorderPane>
    </center>
 </BorderPane>

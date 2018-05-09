@@ -11,55 +11,74 @@
 <?import javafx.scene.text.*?>
 <BorderPane prefHeight="680.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.student.StudentsController">
    <bottom>
-      <HBox alignment="CENTER" spacing="60.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <JFXButton fx:id="btnAdd" alignment="CENTER" onAction="#addStudent" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #2979FF;" text="Add" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" text="" wrappingWidth="22.5" />
-               </graphic>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton fx:id="btnRemove" alignment="CENTER" layoutX="491.0" layoutY="20.0" onAction="#removeStudent" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #f44336;" stylesheets="@../../app.css" text="Remove" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="18" wrappingWidth="22.5" />
-               </graphic>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton fx:id="btnUpdate" alignment="CENTER" layoutX="570.0" layoutY="20.0" onAction="#updateStudent" prefWidth="120.0" style="-fx-background-color: #0096c9;" text="Update" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="18" wrappingWidth="22.5" />
-               </graphic>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton fx:id="btnRefresh" alignment="CENTER" layoutX="649.0" layoutY="20.0" onAction="#refreshTable" prefWidth="120.0" style="-fx-background-color: #00C853;" text="Refresh" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="16" text="" wrappingWidth="22.5" />
-               </graphic>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-            </JFXButton>
+            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="779.0" spacing="60.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <JFXButton fx:id="btnAdd" alignment="CENTER" onAction="#addStudent" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #2979FF;" text="Add" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" text="" wrappingWidth="22.5" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </JFXButton>
+                  <JFXButton fx:id="btnRemove" alignment="CENTER" onAction="#removeStudent" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #f44336;" stylesheets="@../../app.css" text="Remove" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="REMOVE" size="18" wrappingWidth="22.5" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </JFXButton>
+                  <JFXButton fx:id="btnUpdate" alignment="CENTER" onAction="#updateStudent" prefWidth="120.0" style="-fx-background-color: #0096c9;" text="Update" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="18" wrappingWidth="22.5" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </JFXButton>
+                  <JFXButton fx:id="btnRefresh" alignment="CENTER" onAction="#refreshTable" prefWidth="120.0" style="-fx-background-color: #00C853;" text="Refresh" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="16" text="" wrappingWidth="22.5" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="249.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <JFXButton fx:id="btnGraduate" alignment="CENTER" buttonType="RAISED" onAction="#handleGraduate" prefWidth="210.0" style="-fx-background-color: #9D9C9C;" text="Check Graduation">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                     <graphic>
+                        <MaterialDesignIconView glyphName="SCHOOL" size="24" wrappingWidth="30.0" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
          </children>
       </HBox>
    </bottom>
@@ -163,20 +182,17 @@
                               <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                            </padding>
                         </Label>
-                        <JFXButton fx:id="btnGraduate" alignment="CENTER" buttonType="RAISED" onAction="#handleGraduate" prefWidth="210.0" style="-fx-background-color: #9D9C9C;" text="Check Graduation">
+                        <Label fx:id="lblAvgCpa" layoutX="20.0" layoutY="306.0" text="cpa/avg" textFill="#333333">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Roboto Regular" size="14.0" />
                            </font>
-                           <padding>
-                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets left="20.0" right="20.0" top="25.0" />
-                           </VBox.margin>
                            <graphic>
-                              <MaterialDesignIconView glyphName="SCHOOL" size="24" wrappingWidth="30.0" />
+                              <FontAwesomeIconView glyphName="HASHTAG" size="16.0" wrappingWidth="28.0" />
                            </graphic>
-                        </JFXButton>
+                           <padding>
+                              <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

@@ -2,7 +2,12 @@ package com.project.javafx.controllerfx;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.AnnualClass;
+import com.project.javafx.model.CreditClass;
+import com.project.javafx.model.CreditStudent;
+import com.project.javafx.model.Student;
 import com.project.javafx.repository.AnnualClassRepository;
+import com.project.javafx.repository.CreditClassRepository;
+import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
@@ -58,6 +63,20 @@ public class HomeController implements Initializable{
             for (AnnualClass annualClass : all) {
                 annualClass.updateStudyYear();
             }
+            Set<CreditClass> all1 = CreditClassRepository.getInstance().findAll();
+            for (CreditClass creditClass : all1) {
+                creditClass.clearClassEnrollment();
+                CreditClassRepository.getInstance().update(creditClass);
+            }
+
+            for (Student student : StudentRepository.getInstance().findAll()) {
+                if (student instanceof CreditStudent) {
+                    ((CreditStudent) student).updatePassedCourseAll();
+                    StudentRepository.getInstance().update(student);
+                }
+            }
+
+            AlertMaker.showNotification("Success", "Update successfully !", AlertMaker.image_checked);
         }
     }
 }

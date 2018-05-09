@@ -14,15 +14,6 @@ public class CreditMajor {
     private List<CreditCourse> majorCatalog = new ArrayList<>();
     private List<CreditCourse> minorCatalog = new ArrayList<>();
 
-    public CreditMajor(String majorCode, String majorTitle) {
-        this.majorCode = majorCode;
-        this.majorTitle = majorTitle;
-        int DEFAULT_MAJOR_CREDITS = 120;
-        int DEFAULT_MINOR_CREDITS = 10;
-        this.majorCreditsRequired = DEFAULT_MAJOR_CREDITS;
-        this.minorCreditsRequired = DEFAULT_MINOR_CREDITS;
-    }
-
     public CreditMajor(String majorCode, String majorTitle, int majorCreditsRequired, int minorCreditsRequired) {
         this.majorCode = majorCode;
         this.majorTitle = majorTitle;
@@ -31,7 +22,6 @@ public class CreditMajor {
     }
 
     // GETTER AND SETTER
-
     public String getMajorCode() {
         return majorCode;
     }

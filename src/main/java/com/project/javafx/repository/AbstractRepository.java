@@ -23,7 +23,6 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
 
     protected Gson gsonCreator() {
         return new GsonBuilder().
-                setPrettyPrinting().
                 create();
     }
 

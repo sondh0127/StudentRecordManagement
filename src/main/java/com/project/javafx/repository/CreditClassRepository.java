@@ -14,6 +14,7 @@ import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,17 @@ public class CreditClassRepository extends AbstractRepository<CreditClass, Strin
                 .filter(creditClass -> creditClass.getCourse().equals(course))
                 .collect(Collectors.toSet());
     }
+
+    public void removeAStudentFromClass(CreditStudent removeStudent) {
+        for (CreditClass creditClass : objects) {
+            List<CreditStudent> studentList = creditClass.getStudentList();
+            if (studentList.contains(removeStudent)) {
+                studentList.remove(removeStudent);
+                update(creditClass);
+            }
+        }
+    }
+
 
     @Override
     public String getID(CreditClass element) {
@@ -63,7 +75,6 @@ public class CreditClassRepository extends AbstractRepository<CreditClass, Strin
             return jsonElement;
         };
         Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
                 .registerTypeAdapter(creditCourseList, serializer)
                 .registerTypeAdapter(creditStudentList, serializer2)
                 .registerTypeAdapter(CreditCourse.class, new CreditCourseDeserializer())

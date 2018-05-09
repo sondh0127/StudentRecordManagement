@@ -19,10 +19,6 @@ public class AnnualStudent extends Student {
         return studyYear;
     }
 
-    public String getStudyYearStr() {
-        return studyYear.toString();
-    }
-
     public double getAvg() {
         return avg;
     }
@@ -34,9 +30,16 @@ public class AnnualStudent extends Student {
         return studyYear == YearOfStudy.GRADUATED;
     }
 
-    public void registerYearList(List<Course> courses) {
+    public void addYearCourseList(List<Course> courses) {
         takenCourses.clear();
         courses.forEach(course -> takenCourses.add(new StudentResult(course)));
+    }
+    public void addYearCourse(Course courses) {
+        takenCourses.add(new StudentResult(courses));
+    }
+    public void removeYearCourse(Course courses) {
+        StudentResult result = getStudentResult(courses);
+        takenCourses.remove(result);
     }
 
     public boolean passedAllCourseInYear() {

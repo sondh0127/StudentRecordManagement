@@ -98,7 +98,6 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor, Strin
         };
 
         Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
                 .registerTypeAdapter(CreditCourse.class, serializer)
                 .registerTypeAdapter(CreditCourse.class, new CreditCourseDeserializer())
                 .registerTypeAdapter(CreditMajor.class, new CreditMajorDeserializer())

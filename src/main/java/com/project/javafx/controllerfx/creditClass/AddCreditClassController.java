@@ -54,7 +54,7 @@ public class AddCreditClassController implements Initializable {
         try {
             if (txtClassCode.getText().trim().isEmpty()) throw new IllegalArgumentException("Enter Class Code !");
             else classCode = txtClassCode.getText().toUpperCase();
-            if (txtCapacity.getText().trim().isEmpty()) throw new IllegalArgumentException("Enter Capacity Title !");
+            if (txtCapacity.getText().trim().isEmpty()) throw new IllegalArgumentException("Enter Capacity !");
             else capacity = Integer.parseInt(txtCapacity.getText());
             creditClass = new CreditClass(classCode, creditCourse, capacity);
             if (CreditClassRepository.getInstance().save(creditClass)) {
@@ -63,7 +63,7 @@ public class AddCreditClassController implements Initializable {
                 AlertMaker.showErrorMessage("Failed!", "Class Code is exist !");
             }
         } catch (NumberFormatException e) {
-            AlertMaker.showErrorMessage("Input Error", "Capacity must be number only !");
+            AlertMaker.showErrorMessage("Input Error", "Capacity must be number !");
         } catch (IllegalArgumentException e) {
             AlertMaker.showErrorMessage("Input Error", e.getMessage());
         }

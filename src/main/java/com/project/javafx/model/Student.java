@@ -7,15 +7,17 @@ import java.util.List;
 public abstract class Student {
 
     private final long studentID;
-    private final String firstName;
-    private final String lastName;
-    private final Gender gender;
-    List<StudentResult> takenCourses;
+    private String firstName;
+    private String lastName;
+    private Gender gender;
+
     private String phone;
     private String email;
     private String address;
     private LocalDate birthday;
-    private EduSystem educationSystem;
+    private final EduSystem educationSystem;
+
+    List<StudentResult> takenCourses;
 
     public Student(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
         this.studentID = studentID;
@@ -86,7 +88,7 @@ public abstract class Student {
 
     // MAIN METHOD
 
-    public StudentResult getStudentResultFromCourse(Course course) {
+    public StudentResult getStudentResult(Course course) {
         return takenCourses.stream()
                 .filter(studentResult -> studentResult.getCourse().equals(course))
                 .findFirst()
@@ -95,7 +97,11 @@ public abstract class Student {
 
     abstract public boolean ableToGraduate();
 
-    public void updateStudentProfile(String phone, String email, String address) {
+    public void updateStudentProfile(String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.birthday = birthday;
         this.phone = phone;
         this.email = email;
         this.address = address;

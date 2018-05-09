@@ -2,7 +2,6 @@ package com.project.javafx.controllerfx.student;
 
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.validation.RequiredFieldValidator;
 import com.project.javafx.model.*;
 import com.project.javafx.model.Student.Gender;
 import com.project.javafx.repository.AnnualClassRepository;
@@ -10,33 +9,18 @@ import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.repository.UserRepository;
 import com.project.javafx.ulti.AlertMaker;
-import de.jensd.fx.glyphs.GlyphsBuilder;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 
 public class AddStudentController implements Initializable {
-
-    private File file;
-
-    @FXML
-    private ImageView viewAvatar;
-
-    @FXML
-    private JFXButton btnGetImg;
 
     @FXML
     private JFXButton btnSubmit;
@@ -98,32 +82,6 @@ public class AddStudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initComboBox();
-//        initValidation();
-    }
-
-    private void initValidation() {
-        initValidationForField(txtStudentID);
-        initValidationForField(txtFirstName);
-        initValidationForField(txtLastName);
-        initValidationForField(txtPhone);
-        initValidationForField(txtAddress);
-        initValidationForField(txtEmail);
-    }
-
-    private void initValidationForField(TextField node) {
-        RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage("Input Required");
-        validator.setIcon(GlyphsBuilder.create(FontAwesomeIconView.class)
-                .glyph(FontAwesomeIcon.WARNING)
-                .size("1em")
-                .styleClass("error")
-                .build());
-//        node.getValidators().add(validator);
-//        node.focusedProperty().addListener((observable, oldValue, newValue) -> {
-//            if (!newValue) {
-//                node.validate();
-//            }
-//        });
     }
 
     private void initComboBox() {
@@ -203,7 +161,8 @@ public class AddStudentController implements Initializable {
                 newStudent = new CreditStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address, majorValue);
             } else if (classValue != null) {
                 newStudent = new AnnualStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address);
-                classValue.addStudentToClass((AnnualStudent) newStudent);
+                if (!classValue.addStudentToClass((AnnualStudent) newStudent))
+                    throw new RuntimeException("Class is full !");
                 AnnualClassRepository.getInstance().update(classValue);
             }
             if (newStudent != null) {
@@ -217,35 +176,11 @@ public class AddStudentController implements Initializable {
                 AlertMaker.showErrorMessage("Failed!", "Can't add student!");
             }
         } catch (NumberFormatException e) {
-            AlertMaker.showErrorMessage("Input Error", "Student ID must be number only !");
+            AlertMaker.showErrorMessage("Adding Error", "Student ID must be number only !");
         } catch (NullPointerException e1) {
-            AlertMaker.showErrorMessage("Input Error", e1.getMessage());
+            AlertMaker.showErrorMessage("Adding Error", e1.getMessage());
         } catch (RuntimeException e2) {
-            AlertMaker.showErrorMessage("Input Error", e2.getMessage());
-        }
-    }
-
-    @FXML
-    void getAvatar(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilterJPG =
-                new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterjpg =
-                new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
-        FileChooser.ExtensionFilter extFilterPNG =
-                new FileChooser.ExtensionFilter("PNG files (*.PNG)", "*.PNG");
-        FileChooser.ExtensionFilter extFilterpng =
-                new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
-        fileChooser.getExtensionFilters()
-                .addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
-        try {
-            file = fileChooser.showOpenDialog(txtStudentID.getScene().getWindow());
-            Image image = new Image(file.toURI().toString());
-            viewAvatar.setImage(image);
-        } catch (Exception ex) {
-//            AlertMaker.showErrorMessage(ex);
+            AlertMaker.showErrorMessage("Adding Error", e2.getMessage());
         }
     }
 

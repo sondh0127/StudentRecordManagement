@@ -1,7 +1,6 @@
 package com.project.javafx.model;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class StudentResult {
 
@@ -62,18 +61,7 @@ public class StudentResult {
         else return 1.9; // < 2.0 means false;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(course);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof StudentResult)) {
-            return false;
-        }
-        StudentResult result = (StudentResult) obj;
-        return course.equals(result.getCourse());
+    public boolean isPassResult() {
+        return getScore() >= 3.0 && getMidtermPoint() >= 3.0 && getFinalPoint() >= 3.0;
     }
 }
