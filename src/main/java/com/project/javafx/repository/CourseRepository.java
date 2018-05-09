@@ -1,7 +1,11 @@
 package com.project.javafx.repository;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.CreditCourse;
+import com.project.javafx.ulti.gsonUtil.CourseDeserializer;
+import com.project.javafx.ulti.gsonUtil.CreditCourseDeserializer;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
@@ -71,13 +75,13 @@ public class CourseRepository extends AbstractRepository<Course, String> {
         return e.getCourseCode();
     }
 
-//    @Override
-//    protected Gson gsonCreator() {
-//        Gson gson = new GsonBuilder()
-//                .setPrettyPrinting()
-//                .registerTypeAdapterFactory(setAdapter())
-////                .setExclusionStrategies(new StudentExclusionStrategy())
-//                .create();
-//        return gson;
-//    }
+    @Override
+    protected Gson gsonCreator() {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(CreditCourse.class, new CreditCourseDeserializer())
+                .registerTypeAdapter(Course.class, new CourseDeserializer())
+                .create();
+        return gson;
+    }
 }

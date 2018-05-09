@@ -2,6 +2,7 @@ package com.project.javafx.ulti.gsonUtil;
 
 import com.google.gson.*;
 import com.project.javafx.model.AnnualStudent;
+import com.project.javafx.model.Course;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -23,7 +24,10 @@ public class AnnualStudentDeserializer implements JsonDeserializer {
         // The whole object is available
         if (json.isJsonObject()) {
             JsonObject jsonObject = json.getAsJsonObject();
-            AnnualStudent student = new Gson().fromJson(jsonObject , AnnualStudent.class);
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Course.class, new CourseDeserializer())
+                    .create();
+            AnnualStudent student = gson.fromJson(jsonObject , AnnualStudent.class);
             cache.get().put(student.getStudentID(), student);
             return student;
         }

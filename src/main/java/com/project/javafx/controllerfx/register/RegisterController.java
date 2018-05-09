@@ -106,6 +106,7 @@ public class RegisterController implements Initializable {
     private void initData() {
         registerModels.clear();
         for (CreditStudent creditStudent : StudentRepository.getInstance().getCreditStudent()) {
+            System.out.println(creditStudent.getTakenResult().get(0).getCourse());
             long studentID = creditStudent.getStudentID();
             String fullName = creditStudent.getLastName() + " " + creditStudent.getFirstName();
             for (Course course : creditStudent.getTakenResult().stream()

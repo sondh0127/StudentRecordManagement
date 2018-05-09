@@ -1,42 +1,36 @@
 package com.project.javafx.controllerfx.register;
 
 import com.jfoenix.controls.JFXButton;
-import com.project.javafx.model.Course;
-import com.project.javafx.model.CreditCourse;
-import com.project.javafx.model.CreditStudent;
-import com.project.javafx.model.Student;
+import com.project.javafx.model.*;
 import com.project.javafx.repository.CourseRepository;
-import com.project.javafx.repository.CreditMajorRepository;
+import com.project.javafx.repository.CreditClassRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 public class AddRegisterController implements Initializable {
 
-    private ObservableList<CreditCourse> courseObservableList = FXCollections.observableArrayList();
-
-    @FXML
-    private JFXButton btnSubmit;
+    private ObservableList<CreditClass> classObservableList = FXCollections.observableArrayList();
 
     @FXML
     private JFXButton btnBack;
 
     @FXML
-    private TextField txtStudentId;
+    private TextField txtStudentID;
 
     @FXML
     private TextField txtCourseCode;
@@ -45,29 +39,53 @@ public class AddRegisterController implements Initializable {
     private JFXButton btnRegister;
 
     @FXML
-    private TableView<CreditCourse> tblCreditCourse;
+    private TableView<CreditClass> tblCreditClass;
 
     @FXML
-    private TableColumn<CreditCourse, String> colCourseCode;
+    private TableColumn<CreditClass, String> colClassCode;
 
     @FXML
-    private TableColumn<CreditCourse, String> colCourseName;
+    private TableColumn<CreditClass, String> colCourseCode;
+
+    @FXML
+    private TableColumn<CreditClass, Number> colEnrolled;
+
+    @FXML
+    private Label lblName;
+
+    @FXML
+    private Label lblID;
+
+    @FXML
+    private Label lblMajor;
+
+    private CreditStudent student;
+    private CreditCourse creditCourse;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initCols();
-        tblCreditCourse.setItems(courseObservableList);
     }
 
     private void initCols() {
+        tblCreditClass.setItems(classObservableList);
+        colClassCode.setCellValueFactory(param -> {
+            CreditClass c = param.getValue();
+            return new SimpleStringProperty(c.getClassCode());
+        });
+
         colCourseCode.setCellValueFactory(param -> {
-            CreditCourse c = param.getValue();
-            return new SimpleStringProperty(c.getCourseCode());
+            CreditClass c = param.getValue();
+            return new SimpleStringProperty(c.getCourse().getCourseCode());
         });
-        colCourseName.setCellValueFactory(param -> {
-            CreditCourse c = param.getValue();
-            return new SimpleStringProperty(c.getCourseName());
+
+        colEnrolled.setCellValueFactory(param -> {
+            CreditClass c = param.getValue();
+            return new SimpleIntegerProperty(c.getEnrolled());
         });
+        lblID.setText("");
+        lblName.setText("");
+        lblMajor.setText("");
     }
 
     @FXML
@@ -77,20 +95,24 @@ public class AddRegisterController implements Initializable {
 
     @FXML
     void handleRegister(ActionEvent event) {
-        Student student = null;
+        handleSearchStudent(new ActionEvent());
+        handleSearchClass(new ActionEvent());
+        System.out.println(this.creditCourse);
+        System.out.println(this.student);
+        CreditClass selectClass = tblCreditClass.getSelectionModel().getSelectedItem();
+        System.out.println(selectClass);
         try {
-            String studentID = txtStudentId.getText();
-            String courseCode = txtCourseCode.getText().toUpperCase();
-            student = StudentRepository.getInstance().findById(Long.valueOf(studentID));
-            Course course = CourseRepository.getInstance().findById(courseCode);
             if (student == null) throw new IllegalArgumentException("Could not found student !");
-            if (course == null) throw new IllegalArgumentException("Could not found course !");
-            if (student instanceof CreditStudent
-                    && course instanceof CreditCourse) {
-                    ((CreditStudent) student).registerCourse((CreditCourse) course);
-            }
-            if (StudentRepository.getInstance().update(student)) {
-                AlertMaker.showNotification("Success", "Register update successfully !", AlertMaker.image_checked);
+            if (creditCourse == null) throw new IllegalArgumentException("Could not found course !");
+            if (selectClass == null) throw new IllegalArgumentException("No Class Selected");
+            if (selectClass.addStudent(student)) {
+                if (student.registerCourse(creditCourse)) {
+                    StudentRepository.getInstance().update(student);
+                    CreditClassRepository.getInstance().update(selectClass);
+                    AlertMaker.showNotification("Success", "Register update successfully !", AlertMaker.image_checked);
+                } else {
+                    AlertMaker.showErrorMessage("Error!", "Error");
+                }
             }
         } catch (IllegalArgumentException e) {
             AlertMaker.showErrorMessage("Error!", e.getMessage());
@@ -98,25 +120,39 @@ public class AddRegisterController implements Initializable {
     }
 
     @FXML
-    void handleSearchAction(KeyEvent event) {
-        Set<CreditCourse> all = CourseRepository.getInstance().findAllCreditCourse();
-        ObservableList<CreditCourse> temp = FXCollections.observableArrayList();
-        if (event.getSource().equals(txtCourseCode)) {
-            String courseCode = txtCourseCode.getText().toUpperCase();
-            if (courseCode.isEmpty()) temp.addAll(all);
-            else {
-                for (CreditCourse course : all) {
-                    if (course.getCourseCode().contains(courseCode)) {
-                        temp.add(course);
-                    }
-                }
+    void handleSearchStudent(ActionEvent event) {
+        Long studentID = Long.valueOf(txtStudentID.getText());
+        Student student = StudentRepository.getInstance().findById(studentID);
+        if (student == null) {
+            lblID.setText("");
+            lblName.setText("");
+            lblMajor.setText("");
+            AlertMaker.showNotification("Error", "Student Not Found", AlertMaker.image_cross);
+        } else {
+            if (student instanceof CreditStudent) {
+                lblID.setText(String.valueOf(student.getStudentID()));
+                lblName.setText(student.getLastName() + " " + student.getLastName());
+                lblMajor.setText(((CreditStudent) student).getCreditMajor().getMajorTitle());
+                this.student = (CreditStudent) student;
+            } else {
+                AlertMaker.showNotification("Error", "Annual Student cannot register", AlertMaker.image_cross);
             }
         }
-        courseObservableList.clear();
-        courseObservableList.addAll(temp);
     }
 
     @FXML
-    void submitDetails(ActionEvent event) {
+    void handleSearchClass(ActionEvent event) {
+        String courseCode = txtCourseCode.getText().toUpperCase();
+        Course creditCourse = CourseRepository.getInstance().findById(courseCode);
+        if (creditCourse == null) {
+            AlertMaker.showNotification("Error", "Course Not Found", AlertMaker.image_cross);
+        } else {
+            if (creditCourse instanceof CreditCourse) {
+                classObservableList.setAll(CreditClassRepository.getInstance().getCreditClassOf((CreditCourse) creditCourse));
+                this.creditCourse = (CreditCourse) creditCourse;
+            } else {
+                AlertMaker.showNotification("Error", "Cannot register annual course", AlertMaker.image_cross);
+            }
+        }
     }
 }

@@ -1,15 +1,13 @@
 package com.project.javafx.repository;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.YearOfStudy;
 import com.project.javafx.ulti.gsonUtil.AnnualStudentDeserializer;
+import com.project.javafx.ulti.gsonUtil.CourseDeserializer;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
@@ -101,10 +99,16 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
             }
             return jsonStudents;
         };
+        JsonSerializer<Course> serializer2 = (src, typeOfSrc, context) -> {
+            JsonPrimitive jsonElement = new JsonPrimitive(src.getCourseCode());
+            return jsonElement;
+        };
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapter(studentListType, serializer)
+                .registerTypeAdapter(Course.class, serializer2)
                 .registerTypeAdapter(AnnualStudent.class, new AnnualStudentDeserializer())
+                .registerTypeAdapter(Course.class, new CourseDeserializer())
                 .create();
         return gson;
     }

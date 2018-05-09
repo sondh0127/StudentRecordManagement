@@ -1,6 +1,7 @@
 package com.project.javafx.ulti.gsonUtil;
 
 import com.google.gson.*;
+import com.project.javafx.model.CreditCourse;
 import com.project.javafx.model.CreditMajor;
 
 import java.lang.reflect.Type;
@@ -16,14 +17,16 @@ public class CreditMajorDeserializer implements JsonDeserializer {
             throws JsonParseException {
         if (json.isJsonPrimitive()) {
             final JsonPrimitive primitive = json.getAsJsonPrimitive();
-            CreditMajor student = cache.get().get(primitive.getAsString());
-            return student;
-
+            CreditMajor major = cache.get().get(primitive.getAsString());
+            return major;
         }
         // The whole object is available
         if (json.isJsonObject()) {
             JsonObject jsonObject = json.getAsJsonObject();
-            CreditMajor major = new Gson().fromJson(jsonObject , CreditMajor.class);
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(CreditCourse.class, new CreditCourseDeserializer())
+                    .create();
+            CreditMajor major = gson.fromJson(jsonObject , CreditMajor.class);
             cache.get().put(major.getMajorCode(), major);
             return major;
         }

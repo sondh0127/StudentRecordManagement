@@ -4,17 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
-import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.*;
-import com.project.javafx.ulti.gsonUtil.AnnualStudentDeserializer;
-import com.project.javafx.ulti.gsonUtil.CreditMajorDeserializer;
-import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
+import com.project.javafx.ulti.gsonUtil.*;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
-import java.lang.reflect.Type;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class StudentRepository extends AbstractRepository<Student, Long> {
 
@@ -29,10 +25,6 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
             if (instance == null) instance = new StudentRepository();
         }
         return instance;
-    }
-
-    public void initSomeStudent() {
-
     }
 
     @Override
@@ -50,13 +42,10 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
     }
 
     public Set<CreditStudent> getCreditStudent() {
-        Set<CreditStudent> students = new HashSet<>();
-        for (Student student : objects) {
-            if (student instanceof CreditStudent) {
-                students.add((CreditStudent) student);
-            }
-        }
-        return students;
+        return objects.stream()
+                .filter(student -> student instanceof CreditStudent)
+                .map(student -> (CreditStudent) student)
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -75,17 +64,29 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
 
     @Override
     protected Gson gsonCreator() {
-        Type majorType = new TypeToken<CreditMajor>() {}.getType();
         JsonSerializer<CreditMajor> serializer = (src, typeOfSrc, context) -> {
             JsonPrimitive jsonElement = new JsonPrimitive(src.getMajorCode());
+            return jsonElement;
+        };
+        JsonSerializer<Course> serializerCourse = (src, typeOfSrc, context) -> {
+            JsonPrimitive jsonElement = new JsonPrimitive(src.getCourseCode());
+            return jsonElement;
+        };
+        JsonSerializer<CreditCourse> serializerCreditCourse = (src, typeOfSrc, context) -> {
+            JsonPrimitive jsonElement = new JsonPrimitive(src.getCourseCode());
             return jsonElement;
         };
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapterFactory(setAdapter())
-                .registerTypeAdapter(majorType, serializer)
-                .registerTypeAdapter(AnnualStudent.class, new AnnualStudentDeserializer())
+                .registerTypeAdapter(CreditMajor.class, serializer)
                 .registerTypeAdapter(CreditMajor.class, new CreditMajorDeserializer())
+                .registerTypeAdapter(Course.class, serializerCourse)
+                .registerTypeAdapter(Course.class, new CourseDeserializer())
+                .registerTypeAdapter(CreditCourse.class, serializerCreditCourse)
+                .registerTypeAdapter(CreditCourse.class, new CreditCourseDeserializer())
+                .registerTypeAdapter(AnnualStudent.class, new AnnualStudentDeserializer())
+                .registerTypeAdapter(CreditStudent.class, new CreditStudentDeserializer())
                 .create();
         return gson;
     }

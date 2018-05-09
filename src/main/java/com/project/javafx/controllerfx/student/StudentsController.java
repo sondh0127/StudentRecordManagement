@@ -206,6 +206,7 @@ public class StudentsController implements Initializable {
      */
     private void showStudentDetail(Student student) {
         if (student != null) {
+            System.out.println(student.getTakenResult().get(0).getScore());
             lbl_FullName.setText(student.getLastName() + " " + student.getFirstName());
             lblEmail.setText(student.getEmail());
             lblPhone.setText(student.getPhone());

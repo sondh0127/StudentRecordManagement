@@ -201,11 +201,11 @@ public class CoursesController implements Initializable {
                 }
             }
         } else if (event.getSource().equals(txtName)) {
-            String courseName = txtName.getText().toLowerCase();
+            String courseName = txtName.getText().toUpperCase();
             if (courseName.isEmpty()) temp.addAll(all);
             else {
                 for (Course course : all) {
-                    if (course.getCourseName().toLowerCase().contains(courseName)) {
+                    if (course.getCourseName().contains(courseName)) {
                         temp.add(course);
                     }
                 }

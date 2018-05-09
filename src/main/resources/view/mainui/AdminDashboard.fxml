@@ -4,7 +4,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.AdminDashboardController">
@@ -25,6 +25,7 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </JFXButton>
+            <Separator layoutX="10.0" layoutY="397.0" prefWidth="200.0" />
             <JFXButton fx:id="btnStudent" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="287.0" maxWidth="1.7976931348623157E308" onAction="#openStudent" text="Students">
                <graphic>
                   <FontAwesomeIconView glyphName="USERS" size="20" textOrigin="CENTER" />
@@ -41,7 +42,7 @@
             </JFXButton>
             <JFXButton fx:id="btnCourse" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="296.0" maxWidth="1.7976931348623157E308" onAction="#openCourse" text="Courses">
                <graphic>
-                  <FontAwesomeIconView glyphName="BOOK" size="20" textOrigin="CENTER" />
+                  <FontAwesomeIconView glyphName="LIST" size="20" textOrigin="CENTER" />
                </graphic>
                <font>
                   <Font size="14.0" />
@@ -53,9 +54,10 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton fx:id="btnAnnual" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="157.0" maxWidth="1.7976931348623157E308" onAction="#openAnnual" text="Annual">
+            <Separator prefWidth="200.0" />
+            <JFXButton fx:id="btnAnnual" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="157.0" maxWidth="1.7976931348623157E308" onAction="#openAnnual" text="Annual Class">
                <graphic>
-                  <FontAwesomeIconView glyphName="GROUP" size="20" textOrigin="CENTER" />
+                  <FontAwesomeIconView glyphName="CALENDAR_CHECK_ALT" size="20" textOrigin="CENTER" />
                </graphic>
                <font>
                   <Font size="14.0" />
@@ -67,7 +69,8 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton fx:id="btnCredit" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="208.0" maxWidth="1.7976931348623157E308" onAction="#openCredit" text="Credit">
+            <Separator layoutX="10.0" layoutY="208.0" prefWidth="200.0" />
+            <JFXButton fx:id="btnCredit" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="208.0" maxWidth="1.7976931348623157E308" onAction="#openCredit" text="Major">
                <graphic>
                   <FontAwesomeIconView glyphName="MORTAR_BOARD" size="20" textOrigin="CENTER" />
                </graphic>
@@ -81,9 +84,21 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </JFXButton>
+            <JFXButton fx:id="btnCreditClass" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="289.0" maxWidth="1.7976931348623157E308" onAction="#openCreditClass" text="Credit Class">
+               <graphic>
+                  <FontAwesomeIconView glyphName="BUILDING_ALT" size="20" textOrigin="CENTER" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+               </padding>
+            </JFXButton>
+            <Separator layoutX="10.0" layoutY="277.0" prefWidth="200.0" />
             <JFXButton fx:id="btnRegister" alignment="TOP_LEFT" graphicTextGap="40.0" maxWidth="1.7976931348623157E308" onAction="#openRegister" text="Register">
                <graphic>
-                  <FontAwesomeIconView glyphName="LIST" size="20" text="" textOrigin="CENTER" />
+                  <FontAwesomeIconView glyphName="BOOK" size="20" textOrigin="CENTER" />
                </graphic>
                <font>
                   <Font size="14.0" />
@@ -97,7 +112,7 @@
             </JFXButton>
             <JFXButton fx:id="btnGrade" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="223.0" maxWidth="1.7976931348623157E308" onAction="#openGrade" text="Grade">
                <graphic>
-                  <FontAwesomeIconView glyphName="GEARS" size="20" textOrigin="CENTER" />
+                  <FontAwesomeIconView glyphName="PENCIL_SQUARE_ALT" size="20" textOrigin="CENTER" />
                </graphic>
                <font>
                   <Font size="14.0" />
@@ -109,6 +124,7 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </JFXButton>
+            <Separator layoutX="10.0" layoutY="397.0" prefWidth="200.0" />
             <JFXButton fx:id="btnLogOut" alignment="TOP_LEFT" graphicTextGap="40.0" layoutX="10.0" layoutY="337.0" maxWidth="1.7976931348623157E308" onAction="#logOff" text="Logout">
                <graphic>
                   <FontAwesomeIconView glyphName="SIGN_OUT" size="20" textOrigin="CENTER" />

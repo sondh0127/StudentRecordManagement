@@ -40,19 +40,13 @@ public class MainApp extends Application {
 
 
     public static void main(String[] args) {
-//        staticFileLocation("/public");
-//        get("/hello", (req, res)->"Hello, world");
+        // fix thứ tự
+        CourseRepository.getInstance().getObjectCollection();
         CreditMajorRepository.getInstance().getObjectCollection();
         StudentRepository.getInstance().getObjectCollection();
         AnnualClassRepository.getInstance().getObjectCollection();
-        CourseRepository.getInstance().getObjectCollection();
+        CreditClassRepository.getInstance().getObjectCollection();
         UserRepository.getInstance().getObjectCollection();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).start();
 
         launch(args);
     }

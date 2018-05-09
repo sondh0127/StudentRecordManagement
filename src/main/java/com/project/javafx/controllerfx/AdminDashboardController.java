@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import com.project.javafx.MainApp;
 import com.project.javafx.controllerfx.annual.AnnualController;
 import com.project.javafx.controllerfx.course.CoursesController;
+import com.project.javafx.controllerfx.creditClass.CreditClassesController;
 import com.project.javafx.controllerfx.grade.GradeController;
 import com.project.javafx.controllerfx.major.MajorsController;
 import com.project.javafx.controllerfx.register.RegisterController;
@@ -63,7 +64,7 @@ public class AdminDashboardController implements Initializable {
     private JFXButton btn_option;
     @FXML
     private StackPane holderPane;
-    private Parent homePane, studentPane, coursePane, registerPane, gradePane, majorPane, annualPane;
+    private Parent homePane, studentPane, coursePane, registerPane, gradePane, majorPane, annualPane, creditClassPane;
     private double lastX = 0.0d;
     private double lastY = 0.0d;
     //    private void openMenus() {
@@ -88,6 +89,7 @@ public class AdminDashboardController implements Initializable {
     MajorsController majorsController;
     RegisterController registerController;
     GradeController gradeController;
+    CreditClassesController creditClassesController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -121,6 +123,10 @@ public class AdminDashboardController implements Initializable {
             loader = new FXMLLoader(getClass().getResource(ViewConstants.ANNUAL_VIEW));
             annualPane = loader.load();
             annualController = loader.getController();
+
+            loader = new FXMLLoader(getClass().getResource(ViewConstants.CREDIT_CLASS));
+            creditClassPane = loader.load();
+            creditClassesController = loader.getController();
 
         } catch (IOException e) {
 //            AlertMaker.showErrorMessage(e);
@@ -182,6 +188,12 @@ public class AdminDashboardController implements Initializable {
     void openCredit(ActionEvent event) {
         setNode(majorPane);
         majorsController.refreshTable(event);
+    }
+
+    @FXML
+    void openCreditClass(ActionEvent event) {
+        setNode(creditClassPane);
+        creditClassesController.refreshTable(event);
     }
 
     @FXML

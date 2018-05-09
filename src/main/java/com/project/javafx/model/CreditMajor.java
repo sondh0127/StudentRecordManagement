@@ -2,7 +2,6 @@ package com.project.javafx.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 //change the name to department
 public class CreditMajor {
@@ -68,21 +67,6 @@ public class CreditMajor {
     @Override
     public String toString() {
         return majorTitle;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(majorCode);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof CreditMajor)) {
-            return false;
-        }
-        CreditMajor major = (CreditMajor) obj;
-        return majorCode.equals(major.majorCode);
     }
 
 }

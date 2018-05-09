@@ -30,5 +30,7 @@ public class ViewConstants {
     public static final String ADD_COURSE_LIST_MAJOR_VIEW = "/view/major/AddMajorCourseList.fxml";
 
     public static final String GRADE_VIEW = "/view/grade/Grade.fxml";
+    public static final String CREDIT_CLASS = "/view/creditClass/CreditClasses.fxml";
+    public static final String ADD_CREDIT_CLASS = "/view/creditClass/AddCreditClass.fxml";
 
 }

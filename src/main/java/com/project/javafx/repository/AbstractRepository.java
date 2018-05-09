@@ -82,18 +82,6 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
 
     protected abstract Document findOldQuery(ID id);
 
-//    @Override
-//    public boolean update(T old, T entity) {
-//        ID id = getID(entity);
-//        for (T obj : objects) {
-//            ID objID = getID(obj);
-//            if (objID.equals(id)) {
-//                updateObject(obj, entity);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
     @Override
     public boolean update(T entity) {
         ID id = getID(entity);
@@ -113,14 +101,6 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
 
     @Override
     public boolean save(T entity) {
-//        boolean isExist = false;
-//        ID id = getID(entity);
-//        for (T obj : objects) {
-//            ID objID = getID(obj);
-//            if (objID.equals(id)) {
-//                isExist = true;
-//            }
-//        }
         if (!existsById(getID(entity))) {
             objects.add(entity);
             insertObject(entity);
