@@ -28,6 +28,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Enumeration;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -42,7 +43,7 @@ public class CoursesController implements Initializable {
     private JFXButton btnRemove;
 
     @FXML
-    private JFXButton btnUpdate;
+    private JFXButton btnAddPrerequisite;
 
     @FXML
     private JFXButton btnRefresh;
@@ -217,7 +218,7 @@ public class CoursesController implements Initializable {
 
     @FXML
     void addCourse(ActionEvent event) {
-        loadWindow(ViewConstants.ADD_COURSE_VIEW, "Add Course");
+        loadWindow(ViewConstants.ADD_COURSE_VIEW, "Add Course", null);
     }
 
     @FXML
@@ -229,7 +230,6 @@ public class CoursesController implements Initializable {
         cbxMajor.getItems().addAll(CreditMajorRepository.getInstance().findAll());
         cbxClass.getItems().add("[All]");
         cbxClass.getItems().addAll(AnnualClassRepository.getInstance().findAll());
-        // TODO: 18/04/2018 improve refresh => to preserve the current stage of table; => maybe cannot
         courseObservableList.setAll(CourseRepository.getInstance().findAll());
     }
 
@@ -252,13 +252,34 @@ public class CoursesController implements Initializable {
     }
 
     @FXML
-    void updateCourse(ActionEvent event) {
+    void handleAddPrerequisite(ActionEvent event) {
+        Course selectedItem = courseTableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            if (selectedItem instanceof CreditCourse) {
+                loadWindow(ViewConstants.ADD_PREREQUISITE_COURSE, "Add PrerequisiteCourse", new ResourceBundle() {
+                    @Override
+                    protected Object handleGetObject(String key) {
+                        if (key.equals("course"))
+                            return selectedItem;
+                        return null;
+                    }
 
+                    @Override
+                    public Enumeration<String> getKeys() {
+                        return null;
+                    }
+                });
+            } else {
+                AlertMaker.showErrorMessage("Error!", "Cannot add prerequisite for Normal Course !");
+            }
+        } else {
+            AlertMaker.showErrorMessage("Error!", "No Course Selected !");
+        }
     }
 
-    private void loadWindow(String loc, String title) {
+    private void loadWindow(String loc, String title, ResourceBundle bundle) {
         try {
-            Parent parent = FXMLLoader.load(getClass().getResource(loc));
+            Parent parent = FXMLLoader.load(getClass().getResource(loc), bundle);
             Stage stage = new Stage(StageStyle.DECORATED); // Default Style
             stage.setTitle(title);
             stage.getIcons().add(new Image(ViewConstants.APP_ICON));
@@ -268,8 +289,9 @@ public class CoursesController implements Initializable {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
     }
+
 
 }

@@ -1,9 +1,17 @@
 package com.project.javafx.model;
 
-public class Course {
-    private final String courseCode;
-    private final String courseName;
-    private final double scale;
+import java.io.Serializable;
+
+public class Course implements Serializable {
+    private String courseCode;
+    private String courseName;
+    private double scale;
+
+    public Course() {
+        courseCode = "";
+        courseName = "";
+        scale = 0;
+    }
 
     public Course(String courseCode, String courseName, double scale) {
         this.courseCode = courseCode;
@@ -22,6 +30,18 @@ public class Course {
 
     public double getScale() {
         return scale;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void setScale(double scale) {
+        this.scale = scale;
     }
 
     @Override

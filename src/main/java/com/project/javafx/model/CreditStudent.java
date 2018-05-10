@@ -39,6 +39,10 @@ public class CreditStudent extends Student {
         return passedMajorCredits;
     }
 
+    public int getPassedMinorCredits() {
+        return passedMinorCredits;
+    }
+
     public double getGPA() {
         return GPA;
     }
@@ -100,15 +104,30 @@ public class CreditStudent extends Student {
         // update passedCredits
         for (StudentResult result : takenCourses) {
             if (result.isPassResult()) {
-                passedCourses.add(result);
-                List<CreditCourse> majorCatalog = creditMajor.getMajorCatalog();
-                List<CreditCourse> minorCatalog = creditMajor.getMinorCatalog();
                 Course course = result.getCourse();
-                if (course instanceof CreditCourse) {
-                    if (majorCatalog.contains(course)) {
-                        passedMajorCredits += ((CreditCourse) course).getCreditHours();
-                    } else if (minorCatalog.contains(course)) {
-                        passedMinorCredits += ((CreditCourse) course).getCreditHours();
+                if (isPassedCourse(course)) {
+                    // check is better result and replace
+                    StudentResult studentResult = passedCourses.stream()
+                            .filter(passedResult -> passedResult.getCourse().equals(course))
+                            .findFirst()
+                            .orElse(null);
+                    if (studentResult != null) {
+                        if (result.getScore() > studentResult.getScore()) {
+                            passedCourses.remove(studentResult);
+                            passedCourses.add(result);
+                            // credit number not change
+                        }
+                    }
+                } else {
+                    passedCourses.add(result);
+                    List<CreditCourse> majorCatalog = creditMajor.getMajorCatalog();
+                    List<CreditCourse> minorCatalog = creditMajor.getMinorCatalog();
+                    if (course instanceof CreditCourse) {
+                        if (majorCatalog.contains(course)) {
+                            passedMajorCredits += ((CreditCourse) course).getCreditHours();
+                        } else if (minorCatalog.contains(course)) {
+                            passedMinorCredits += ((CreditCourse) course).getCreditHours();
+                        }
                     }
                 }
             }

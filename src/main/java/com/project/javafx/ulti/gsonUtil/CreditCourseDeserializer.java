@@ -4,7 +4,9 @@ import com.google.gson.*;
 import com.project.javafx.model.CreditCourse;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CreditCourseDeserializer implements JsonDeserializer {
@@ -16,16 +18,37 @@ public class CreditCourseDeserializer implements JsonDeserializer {
             throws JsonParseException {
         if (json.isJsonPrimitive()) {
             final JsonPrimitive primitive = json.getAsJsonPrimitive();
-            CreditCourse creditCourse = cache.get().get(primitive.getAsString());
-            return creditCourse;
+            return getOrCreate(primitive.getAsString());
         }
         // The whole object is available
         if (json.isJsonObject()) {
             JsonObject jsonObject = json.getAsJsonObject();
-            CreditCourse creditCourse = new Gson().fromJson(jsonObject , CreditCourse.class);
-            cache.get().put(creditCourse.getCourseCode(), creditCourse);
+
+            final CreditCourse creditCourse = getOrCreate(jsonObject.get("courseCode").getAsString());
+            creditCourse.setCourseName(jsonObject.get("courseName").getAsString());
+            creditCourse.setScale(jsonObject.get("scale").getAsInt());
+            creditCourse.setCreditHours(jsonObject.get("creditHours").getAsInt());
+
+            List<CreditCourse> courses = new ArrayList<>();
+            JsonArray prerequisiteCourse = jsonObject.get("prerequisiteCourse").getAsJsonArray();
+            for (JsonElement jsonElement : prerequisiteCourse) {
+                CreditCourse course = context.deserialize(jsonElement, CreditCourse.class);
+                courses.add(course);
+            }
+            creditCourse.setPrerequisiteCourse(courses);
+
             return creditCourse;
         }
         throw new JsonParseException("Unexpected JSON type: " + json.getClass().getSimpleName());
+    }
+
+    private CreditCourse getOrCreate(final String id) {
+        CreditCourse course = cache.get().get(id);
+        if (course == null) {
+            course = new CreditCourse();
+            course.setCourseCode(id);
+            cache.get().put(id, course);
+        }
+        return course;
     }
 }

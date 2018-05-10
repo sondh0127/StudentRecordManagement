@@ -19,6 +19,7 @@ public class ViewConstants {
     public static final String ADD_REGISTER_VIEW = "/view/register/AddRegister.fxml";
     public static final String COURSES_VIEW = "/view/course/Courses.fxml";
     public static final String ADD_COURSE_VIEW = "/view/course/AddCourse.fxml";
+    public static final String ADD_PREREQUISITE_COURSE = "/view/course/AddPrerequisiteCourse.fxml";
 
     public static final String ANNUAL_VIEW = "/view/annual/AnnualClasses.fxml";
     public static final String ADD_ANNUAL_VIEW = "/view/annual/AddAnnual.fxml";

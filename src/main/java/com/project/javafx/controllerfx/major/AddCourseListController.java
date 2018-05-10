@@ -80,8 +80,6 @@ public class AddCourseListController implements Initializable {
     }
 
     private void initComboBox() {
-        tblCreditCourse.setItems(creditCourseObservableList);
-        tblMajorCourseList.setItems(majorCourseObservableList);
         cbxMajorMinor.getItems().add(majorList);
         cbxMajorMinor.getItems().add(minorList);
         cbxMajorMinor.getSelectionModel().selectFirst();
@@ -92,6 +90,7 @@ public class AddCourseListController implements Initializable {
     }
 
     private void initCols() {
+        tblCreditCourse.setItems(creditCourseObservableList);
         colCourseCode.setCellValueFactory(param -> {
             CreditCourse c = param.getValue();
             return new SimpleStringProperty(c.getCourseCode());
@@ -100,7 +99,7 @@ public class AddCourseListController implements Initializable {
             CreditCourse c = param.getValue();
             return new SimpleStringProperty(c.getCourseName());
         });
-
+        tblMajorCourseList.setItems(majorCourseObservableList);
         colCourseCC.setCellValueFactory(param -> {
             CreditCourse c = param.getValue();
             return new SimpleStringProperty(c.getCourseCode());

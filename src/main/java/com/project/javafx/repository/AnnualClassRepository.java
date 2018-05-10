@@ -6,6 +6,7 @@ import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.YearOfStudy;
+import com.project.javafx.ulti.gsonUtil.AnnualClassDeserializer;
 import com.project.javafx.ulti.gsonUtil.AnnualStudentDeserializer;
 import com.project.javafx.ulti.gsonUtil.CourseDeserializer;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
@@ -46,17 +47,17 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
         }
     }
 
-    public AnnualClass getAnnualClassOf(AnnualStudent student) {
-        return findAll().stream()
-                .filter(annualClass -> annualClass.haveStudent(student))
-                .findFirst()
-                .orElse(null);
-    }
+//    public AnnualClass getAnnualClassOf(AnnualStudent student) {
+//        return findAll().stream()
+//                .filter(annualClass -> annualClass.haveStudent(student))
+//                .findFirst()
+//                .orElse(null);
+//    }
 
     public void removeAStudentFromClass(AnnualStudent removeStudent) {
-        AnnualClass annualClassOf = getAnnualClassOf(removeStudent);
-        annualClassOf.removeStudent(removeStudent);
-        update(annualClassOf);
+        AnnualClass annualClass = removeStudent.getAnnualClass();
+        annualClass.removeStudent(removeStudent);
+        update(annualClass);
     }
 
     @Override
@@ -89,7 +90,9 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
                 .registerTypeAdapter(Course.class, serializer2)
                 .registerTypeAdapter(AnnualStudent.class, new AnnualStudentDeserializer())
                 .registerTypeAdapter(Course.class, new CourseDeserializer())
+                .registerTypeAdapter(AnnualClass.class, new AnnualClassDeserializer())
                 .create();
+
         return gson;
     }
 }

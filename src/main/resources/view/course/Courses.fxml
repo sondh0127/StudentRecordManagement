@@ -35,7 +35,7 @@
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="btnUpdate" alignment="CENTER" layoutX="570.0" layoutY="20.0" onAction="#updateCourse" prefWidth="120.0" style="-fx-background-color: #0096c9;" text="Update" textFill="WHITE">
+            <JFXButton fx:id="btnAddPrerequisite" alignment="CENTER" layoutX="570.0" layoutY="20.0" onAction="#handleAddPrerequisite" prefWidth="170.0" style="-fx-background-color: #0096c9;" text="Add Prerequisite" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>

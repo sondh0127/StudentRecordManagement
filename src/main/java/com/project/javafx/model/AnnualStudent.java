@@ -7,6 +7,7 @@ public class AnnualStudent extends Student {
 
     private YearOfStudy studyYear;
     private double avg;
+    private transient AnnualClass annualClass;
 
     public AnnualStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
@@ -62,5 +63,13 @@ public class AnnualStudent extends Student {
 
     public void setStudyYear(YearOfStudy studyYear) {
         this.studyYear = studyYear;
+    }
+
+    public AnnualClass getAnnualClass() {
+        return annualClass;
+    }
+
+    public void setAnnualClass(AnnualClass annualClass) {
+        this.annualClass = annualClass;
     }
 }

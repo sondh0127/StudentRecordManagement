@@ -90,6 +90,7 @@ public class AnnualClass {
     public boolean addStudentToClass(AnnualStudent student) {
         if (students.size() < capacity) {
             students.add(student);
+            student.setAnnualClass(this);
             student.addYearCourseList(courseCatalog.get(0));
             return true;
         }

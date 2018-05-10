@@ -198,14 +198,15 @@ public class StudentsController implements Initializable {
             btnGraduate.setVisible(true);
 
             if (student instanceof CreditStudent) {
-                int num = ((CreditStudent) student).getPassedMajorCredits();
+                int num = ((CreditStudent) student).getPassedMajorCredits() + ((CreditStudent) student).getPassedMinorCredits();
                 String totalCredit = String.valueOf(num);
                 lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getMajorTitle());
                 lblAddition.setText("Credit Taken: " + totalCredit);
                 lblAvgCpa.setText("CPA: " + ((CreditStudent) student).getCPA());
             } else if (student instanceof AnnualStudent) {
                 String years = ((AnnualStudent) student).getStudyYear().toString();
-                String className = AnnualClassRepository.getInstance().getAnnualClassOf((AnnualStudent) student).getClassName();
+                String className = ((AnnualStudent) student).getAnnualClass().getClassName();
+//                String className = AnnualClassRepository.getInstance().getAnnualClassOf((AnnualStudent) student).getClassName();
                 lblMajorClass.setText("Class: " + className);
                 lblAddition.setText("Year: " + years);
                 lblAvgCpa.setText("AVG: " + ((AnnualStudent) student).getAvg());

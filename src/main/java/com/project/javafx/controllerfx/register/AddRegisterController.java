@@ -97,15 +97,15 @@ public class AddRegisterController implements Initializable {
     void handleRegister(ActionEvent event) {
         handleSearchStudent(new ActionEvent());
         handleSearchClass(new ActionEvent());
-        System.out.println(this.creditCourse);
-        System.out.println(this.student);
+//        System.out.println(this.creditCourse);
+//        System.out.println(this.student);
         CreditClass selectClass = tblCreditClass.getSelectionModel().getSelectedItem();
         System.out.println(selectClass);
         try {
             if (student == null) throw new IllegalArgumentException("Could not found student !");
             if (creditCourse == null) throw new IllegalArgumentException("Could not found course !");
             if (selectClass == null) throw new IllegalArgumentException("No Class Selected");
-            if (selectClass.addStudent(student)) {
+            if (selectClass.addStudent(student) ) {
                 if (student.registerCourse(creditCourse)) {
                     StudentRepository.getInstance().update(student);
                     CreditClassRepository.getInstance().update(selectClass);
