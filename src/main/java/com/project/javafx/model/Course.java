@@ -8,9 +8,6 @@ public class Course implements Serializable {
     private double scale;
 
     public Course() {
-        courseCode = "";
-        courseName = "";
-        scale = 0;
     }
 
     public Course(String courseCode, String courseName, double scale) {

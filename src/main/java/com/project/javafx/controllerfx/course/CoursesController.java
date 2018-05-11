@@ -241,8 +241,9 @@ public class CoursesController implements Initializable {
             if (confirmation) {
                 CourseRepository.getInstance().delete(removeCourse);
                 // TODO: 22/04/2018 xoa everywhere
-                CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
-                AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
+                if (removeCourse instanceof CreditCourse)
+                    CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
+                else AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
                 refreshTable();
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
             }

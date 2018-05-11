@@ -1,10 +1,7 @@
 package com.project.javafx.controllerfx;
 
 import com.jfoenix.controls.JFXButton;
-import com.project.javafx.model.AnnualClass;
-import com.project.javafx.model.CreditClass;
-import com.project.javafx.model.CreditStudent;
-import com.project.javafx.model.Student;
+import com.project.javafx.model.*;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CreditClassRepository;
 import com.project.javafx.repository.StudentRepository;
@@ -18,8 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class HomeController implements Initializable{
 
@@ -56,27 +53,47 @@ public class HomeController implements Initializable{
         rotategears();
     }
 
+    Set<Student> noResult;
+
     public void updateStudy(ActionEvent event) {
         boolean confirmation = AlertMaker.getConfirmation("Closing year of study", "Are you sure to update this Year of Study");
         if (confirmation) {
-            Set<AnnualClass> all = AnnualClassRepository.getInstance().findAll();
-            for (AnnualClass annualClass : all) {
-                annualClass.updateStudyYear();
-            }
-            Set<CreditClass> all1 = CreditClassRepository.getInstance().findAll();
-            for (CreditClass creditClass : all1) {
-                creditClass.clearClassEnrollment();
-                CreditClassRepository.getInstance().update(creditClass);
-            }
-
-            for (Student student : StudentRepository.getInstance().findAll()) {
-                if (student instanceof CreditStudent) {
-                    ((CreditStudent) student).updatePassedCourseAll();
-                    StudentRepository.getInstance().update(student);
+            if (ableToUpdate()) {
+                Set<AnnualClass> all = AnnualClassRepository.getInstance().findAll();
+                for (AnnualClass annualClass : all) {
+                    annualClass.updateStudyYear();
                 }
-            }
+                Set<CreditClass> all1 = CreditClassRepository.getInstance().findAll();
+                for (CreditClass creditClass : all1) {
+                    creditClass.clearClassEnrollment();
+                    CreditClassRepository.getInstance().update(creditClass);
+                }
 
-            AlertMaker.showNotification("Success", "Update successfully !", AlertMaker.image_checked);
+                for (Student student : StudentRepository.getInstance().findAll()) {
+                    if (student instanceof CreditStudent) {
+                        ((CreditStudent) student).updatePassedCourseAll();
+                        StudentRepository.getInstance().update(student);
+                    }
+                }
+                AlertMaker.showNotification("Success", "Update successfully !", AlertMaker.image_checked);
+            } else {
+                ArrayList<String> stdID = noResult.stream()
+                        .map(student -> String.valueOf(student.getStudentID()))
+                        .collect(Collectors.toCollection(ArrayList::new));
+                AlertMaker.showErrorMessage("Not able to update education info!", "Existence students do not have mark !\n" + stdID.toString());
+            }
         }
+    }
+
+    private boolean ableToUpdate() {
+        noResult = new HashSet<>();
+        Set<Student> students = StudentRepository.getInstance().findAll();
+        for (Student student : students) {
+            List<StudentResult> takenResult = student.getTakenResult();
+            takenResult.stream()
+                    .filter(result -> result.getScore() < 0)
+                    .forEach(result -> noResult.add(student));
+        }
+        return noResult.isEmpty();
     }
 }

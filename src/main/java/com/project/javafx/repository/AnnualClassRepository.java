@@ -14,12 +14,11 @@ import org.bson.Document;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Set;
 
 public class AnnualClassRepository extends AbstractRepository<AnnualClass, String> {
 
     private static AnnualClassRepository instance = null;
-    private static final String path = "src/main/resources/AnnualClasses.json";
+    private static final String path = "AnnualClasses.json";
 
     private AnnualClassRepository() {
         super(AnnualClass.class, MongoDBHandler.CLASS_COLL,path);
@@ -65,11 +64,6 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
     @Override
     public String getID(AnnualClass element) {
         return element.getClassCode();
-    }
-
-    @Override
-    protected Type setListType() {
-        return new TypeToken<Set<AnnualClass>>() {}.getType();
     }
 
     @Override

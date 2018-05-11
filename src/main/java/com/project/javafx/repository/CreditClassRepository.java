@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class CreditClassRepository extends AbstractRepository<CreditClass, String> {
 
     private static CreditClassRepository instance = null;
-    private static final String path = "src/main/resources/CreditClasses.json";
+    private static final String path = "CreditClasses.json";
 
 
     private CreditClassRepository() {
@@ -55,11 +55,6 @@ public class CreditClassRepository extends AbstractRepository<CreditClass, Strin
     @Override
     public String getID(CreditClass element) {
         return element.getClassCode();
-    }
-
-    @Override
-    protected Type setListType() {
-        return new TypeToken<Set<CreditClass>>() {}.getType();
     }
 
     @Override

@@ -4,10 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.Course;
 import com.project.javafx.model.CreditClass;
 import com.project.javafx.model.CreditCourse;
-import com.project.javafx.model.Student;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.CreditClassRepository;
-import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -160,13 +158,6 @@ public class CreditClassesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initCols();
         refreshTable(new ActionEvent());
-
-        tblCreditClassList.getSelectionModel()
-                .selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    Student byId = StudentRepository.getInstance().findById(112L);
-                    System.out.println(newValue.getStudentList().get(0).equals(byId));
-                });
     }
 
     private void initCols() {

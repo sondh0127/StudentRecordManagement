@@ -43,13 +43,16 @@ public class MainApp extends Application {
         // fix thứ tự
 //        CourseRepository.getInstance().getObjectCollection();
         CourseRepository.getInstance().getObjectFromFile();
-        CreditMajorRepository.getInstance().getObjectCollection();
-        StudentRepository.getInstance().getObjectCollection();
+//        CreditMajorRepository.getInstance().getObjectCollection();
+        CreditMajorRepository.getInstance().getObjectFromFile();
 //        StudentRepository.getInstance().getObjectCollection();
-
-        AnnualClassRepository.getInstance().getObjectCollection();
-        CreditClassRepository.getInstance().getObjectCollection();
-        UserRepository.getInstance().getObjectCollection();
+        StudentRepository.getInstance().getObjectFromFile();
+//        AnnualClassRepository.getInstance().getObjectCollection();
+        AnnualClassRepository.getInstance().getObjectFromFile();
+//        CreditClassRepository.getInstance().getObjectCollection();
+        CreditClassRepository.getInstance().getObjectFromFile();
+//        UserRepository.getInstance().getObjectCollection();
+        UserRepository.getInstance().getObjectFromFile();
 
         launch(args);
     }

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class CourseRepository extends AbstractRepository<Course, String> {
     private static CourseRepository instance = null;
-    private static final String path = "src/main/resources/Courses.json";
+    private static final String path = "Courses.json";
 
     private CourseRepository() {
         super(Course.class, MongoDBHandler.COURSE_COLL, path);
@@ -35,16 +35,19 @@ public class CourseRepository extends AbstractRepository<Course, String> {
 
     @Override
     public void getObjectCollection() {
-        Document query1 = new Document("creditHours", new Document("$eq", null));
-        Document query2 = new Document("creditHours", new Document("$ne", null));
+        Document query1 = new Document("type", "Course");
+        Document query2 = new Document("type", "CreditCourse");
         getObjectCollection(query1, Course.class);
         getObjectCollection(query2, CreditCourse.class);
     }
 
+
     @Override
-    protected Type setListType() {
-        return new TypeToken<Set<Course>>() {
-        }.getType();
+    public void getObjectFromFile() {
+        Document query1 = new Document("type", "Course");
+        Document query2 = new Document("type", "CreditCourse");
+        getObjectFromFile(query1, Course.class);
+        getObjectFromFile(query2, CreditCourse.class);
     }
 
     private RuntimeTypeAdapterFactory<Course> setAdapter() {

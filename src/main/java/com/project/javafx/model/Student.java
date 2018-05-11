@@ -15,11 +15,10 @@ public abstract class Student {
     private String email;
     private String address;
     private LocalDate birthday;
-    private final EduSystem educationSystem;
 
     List<StudentResult> takenCourses;
 
-    public Student(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, EduSystem eduSystem) {
+    public Student(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {
         this.studentID = studentID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,7 +27,6 @@ public abstract class Student {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.educationSystem = eduSystem;
         takenCourses = new ArrayList<>();
     }
 
@@ -71,10 +69,6 @@ public abstract class Student {
 
     public String getAddress() {
         return address;
-    }
-
-    public EduSystem getEducationSystem() {
-        return educationSystem;
     }
 
     @Override
@@ -123,25 +117,25 @@ public abstract class Student {
         return false;
     }
 
-    /**
-     * Education System
-     */
-    public enum EduSystem {
-        CREDIT("Academic Credit"),
-        ANNUAL("Annual Curriculum");
-
-        private final String text;
-
-        EduSystem(String text) {
-            this.text = text;
-        }
-
-
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
+//    /**
+//     * Education System
+//     */
+//    public enum EduSystem {
+//        CREDIT("Academic Credit"),
+//        ANNUAL("Annual Curriculum");
+//
+//        private final String text;
+//
+//        EduSystem(String text) {
+//            this.text = text;
+//        }
+//
+//
+//        @Override
+//        public String toString() {
+//            return text;
+//        }
+//    }
 
     public enum Gender {
         MALE("Male"),

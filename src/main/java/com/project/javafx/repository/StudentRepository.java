@@ -4,20 +4,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
-import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.*;
 import com.project.javafx.ulti.gsonUtil.*;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
-import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StudentRepository extends AbstractRepository<Student, Long> {
 
+    private static final String path = "Students.json";
     private static StudentRepository instance = null;
-    private static final String path = "src/main/resources/Students.json";
 
     private StudentRepository() {
         super(Student.class, MongoDBHandler.STUDENT_COLL, path);
@@ -33,15 +31,19 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
     @Override
     public void getObjectCollection() {
         objects.clear();
-        Document query1 = new Document("educationSystem", "ANNUAL");
-        Document query2 = new Document("educationSystem", "CREDIT");
+        Document query1 = new Document("type", "AnnualStudent");
+        Document query2 = new Document("type", "CreditStudent");
         getObjectCollection(query1, AnnualStudent.class);
         getObjectCollection(query2, CreditStudent.class);
     }
 
     @Override
-    protected Type setListType() {
-        return new TypeToken<Set<Student>>() {}.getType();
+    public void getObjectFromFile() {
+        objects.clear();
+        Document query1 = new Document("type", "AnnualStudent");
+        Document query2 = new Document("type", "CreditStudent");
+        getObjectFromFile(query1, AnnualStudent.class);
+        getObjectFromFile(query2, CreditStudent.class);
     }
 
     @Override
@@ -69,6 +71,7 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
                         .registerSubtype(CreditCourse.class, CreditCourse.class.getSimpleName());
         return adapter;
     }
+
     private RuntimeTypeAdapterFactory<Student> set2Adapter() {
         RuntimeTypeAdapterFactory<Student> adapter =
                 RuntimeTypeAdapterFactory

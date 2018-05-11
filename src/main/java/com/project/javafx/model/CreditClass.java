@@ -18,7 +18,7 @@ public class CreditClass {
     // flow student register course (from course repo) if course inside the this of major => give a class of this course => add student in too the list class of this course.
 
     public boolean addStudent(CreditStudent student) {
-        if (!studentList.contains(student) && capacity > studentList.size()) {
+        if (capacity > studentList.size()) {
             studentList.add(student);
             return true;
         }
@@ -38,8 +38,16 @@ public class CreditClass {
         return studentList.size();
     }
 
-    public Course getCourse() {
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public CreditCourse getCourse() {
         return course;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public void setCourse(CreditCourse course) {

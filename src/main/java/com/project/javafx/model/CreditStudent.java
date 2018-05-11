@@ -17,13 +17,15 @@ public class CreditStudent extends Student {
     private double GPA;
 
     public CreditStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address, CreditMajor creditMajor) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.CREDIT);
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
         this.creditMajor = creditMajor;
         int DEFAULT_CURRENT_CREDITS_LIMIT = 24;
         this.registerCreditsLimit = DEFAULT_CURRENT_CREDITS_LIMIT;
         this.registerCredits = 0;
         this.passedMajorCredits = 0;
         this.passedMinorCredits = 0;
+        CPA = 0;
+        GPA = 0;
     }
 
     // GETTER AND SETTER
@@ -58,8 +60,8 @@ public class CreditStudent extends Student {
     }
 
     public boolean registerCourse(CreditCourse course) throws IllegalArgumentException {
-        if (isTakingCourse(course))
-            throw new IllegalArgumentException(this.getStudentID() + " already took " + course.getCourseCode() + " course !");
+        if (!isMajorCourse(course))
+            throw new IllegalArgumentException(course.getCourseCode() + " course isn't in Major Catalog!");
         else {
             int addedCredit = course.getCreditHours();
             List<CreditCourse> prerequisiteList = course.getPrerequisiteCourse();
@@ -77,6 +79,11 @@ public class CreditStudent extends Student {
             } else
                 throw new IllegalArgumentException(course.getCourseCode() + " needs Prerequisite Course " + prerequisiteList.toString());
         }
+    }
+
+    private boolean isMajorCourse(CreditCourse course) {
+        return creditMajor.getMajorCatalog().contains(course)
+                || creditMajor.getMinorCatalog().contains(course);
     }
 
     public void dropCourse(CreditCourse course) {
@@ -97,13 +104,17 @@ public class CreditStudent extends Student {
     }
 
 
+    public boolean isPassResult(StudentResult result) {
+        return result.getScoreTransfer() > 1.0;
+    }
+
     public void updatePassedCourseAll() {
         if (takenCourses.isEmpty()) {
             return;
         }
         // update passedCredits
         for (StudentResult result : takenCourses) {
-            if (result.isPassResult()) {
+            if (isPassResult(result)) {
                 Course course = result.getCourse();
                 if (isPassedCourse(course)) {
                     // check is better result and replace
@@ -156,7 +167,7 @@ public class CreditStudent extends Student {
                 .map(StudentResult::getCourse)
                 .collect(Collectors.toList());
         for (Course course : collect) {
-            double grade = getStudentResult(course).getScore();
+            double grade = getStudentResult(course).getScoreTransfer();
             int credits = ((CreditCourse) course).getCreditHours();
             sum += grade * credits;
         }

@@ -22,7 +22,7 @@ public class MongoDBHandler {
     public final static String STUDENT_COLL = "Students";
     public final static String COURSE_COLL = "Courses";
     public final static String MAJOR_COLL = "Majors";
-    public final static String CLASS_COLL = "Classes";
+    public final static String CLASS_COLL = "AnnualClasses";
     public final static String CREDIT_CLASS_COLL = "CreditClasses";
     public final static String USER_COLL = "Users";
 

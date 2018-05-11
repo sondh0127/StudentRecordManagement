@@ -29,7 +29,7 @@ public class StudentResult {
         BigDecimal scaleBD = BigDecimal.valueOf(scale);
         double _scale = BigDecimal.ONE.subtract(scaleBD).doubleValue();
         if (midtermPoint != -1 && finalPoint != -1) {
-            double result = midtermPoint * scale + finalPoint * _scale; // subtraction problem here btw ; fixed(doesnt test)
+            double result = midtermPoint * scale + finalPoint * _scale;
             return Math.round(result * 10.0) / 10.0;
         }
         return -1;
@@ -49,19 +49,17 @@ public class StudentResult {
     }
 
     public double getScore() {
-//        calculateScore();
         return score;
     }
 
-    public double getScoreTranfer() { // subtraction probtw
-        if (5.5 < score && score <= 7.0) return (score + 0.5) / 3.0;
-        else if (7.0 < score && score <= 8.0) return (score - 3.45) / 1.42;
-        else if (8.0 < score && score <= 9.0) return (score / 2.5);
-        else if (9.0 < score && score <= 10.0) return (score / 2.5);
-        else return 1.9; // < 2.0 means false;
-    }
-
-    public boolean isPassResult() {
-        return getScore() >= 3.0 && getMidtermPoint() >= 3.0 && getFinalPoint() >= 3.0;
+    public double getScoreTransfer() {
+        if (score < 4.0) return 0;
+        else if (score < 5.0) return 1.0D;
+        else if (score < 5.5) return 1.5D;
+        else if (score < 6.5) return 2.0D;
+        else if (score < 7.0) return 2.5D;
+        else if (score < 8.0) return 3.0D;
+        else if (score < 8.5) return 3.5D;
+        else return 4.0D;
     }
 }

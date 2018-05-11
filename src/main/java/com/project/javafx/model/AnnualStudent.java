@@ -10,7 +10,7 @@ public class AnnualStudent extends Student {
     private transient AnnualClass annualClass;
 
     public AnnualStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {
-        super(studentID, firstName, lastName, gender, birthday, phone, email, address, EduSystem.ANNUAL);
+        super(studentID, firstName, lastName, gender, birthday, phone, email, address);
         this.studyYear = YearOfStudy.FIRST_YEAR;
     }
 

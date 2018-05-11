@@ -4,12 +4,10 @@ package com.project.javafx.controllerfx.student;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.project.javafx.model.AnnualStudent;
+import com.project.javafx.model.CreditMajor;
 import com.project.javafx.model.CreditStudent;
 import com.project.javafx.model.Student;
-import com.project.javafx.repository.AnnualClassRepository;
-import com.project.javafx.repository.CreditClassRepository;
-import com.project.javafx.repository.StudentRepository;
-import com.project.javafx.repository.UserRepository;
+import com.project.javafx.repository.*;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.ViewConstants;
@@ -141,7 +139,12 @@ public class StudentsController implements Initializable {
         });
         educationSystem.setCellValueFactory(param -> {
             Student s = param.getValue();
-            return new SimpleStringProperty(s.getEducationSystem().toString());
+            String eduSys = "";
+            if (s instanceof CreditStudent)
+                eduSys = "Academic Credit";
+            if (s instanceof AnnualStudent)
+                eduSys = "Annual Curriculum";
+            return new SimpleStringProperty(eduSys);
         });
     }
 
@@ -198,6 +201,10 @@ public class StudentsController implements Initializable {
             btnGraduate.setVisible(true);
 
             if (student instanceof CreditStudent) {
+                CreditMajor creditMajor = ((CreditStudent) student).getCreditMajor();
+                System.out.println(creditMajor.equals(CreditMajorRepository.getInstance().findById(creditMajor.getMajorCode())));
+
+
                 int num = ((CreditStudent) student).getPassedMajorCredits() + ((CreditStudent) student).getPassedMinorCredits();
                 String totalCredit = String.valueOf(num);
                 lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getMajorTitle());

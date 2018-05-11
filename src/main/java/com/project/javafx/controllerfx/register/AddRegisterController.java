@@ -95,24 +95,21 @@ public class AddRegisterController implements Initializable {
 
     @FXML
     void handleRegister(ActionEvent event) {
-        handleSearchStudent(new ActionEvent());
-        handleSearchClass(new ActionEvent());
-//        System.out.println(this.creditCourse);
-//        System.out.println(this.student);
-        CreditClass selectClass = tblCreditClass.getSelectionModel().getSelectedItem();
-        System.out.println(selectClass);
         try {
+            handleSearchStudent(new ActionEvent());
+            handleSearchClass(new ActionEvent());
+            CreditClass selectClass = tblCreditClass.getSelectionModel().getSelectedItem();
+
             if (student == null) throw new IllegalArgumentException("Could not found student !");
             if (creditCourse == null) throw new IllegalArgumentException("Could not found course !");
             if (selectClass == null) throw new IllegalArgumentException("No Class Selected");
-            if (selectClass.addStudent(student) ) {
-                if (student.registerCourse(creditCourse)) {
-                    StudentRepository.getInstance().update(student);
-                    CreditClassRepository.getInstance().update(selectClass);
-                    AlertMaker.showNotification("Success", "Register update successfully !", AlertMaker.image_checked);
-                } else {
-                    AlertMaker.showErrorMessage("Error!", student.getStudentID() + " already took course" + creditCourse.getCourseCode() + " !");
-                }
+            if (student.isTakingCourse(creditCourse))
+                throw new IllegalArgumentException(student.getStudentID() + " already took course " + creditCourse.getCourseCode() + " !");
+            else if (!selectClass.addStudent(student)) throw new IllegalArgumentException("Class is full");
+            else if (student.registerCourse(creditCourse)) {
+                StudentRepository.getInstance().update(student);
+                CreditClassRepository.getInstance().update(selectClass);
+                AlertMaker.showNotification("Success", "Register update successfully !", AlertMaker.image_checked);
             }
         } catch (IllegalArgumentException e) {
             AlertMaker.showErrorMessage("Error!", e.getMessage());
@@ -120,24 +117,31 @@ public class AddRegisterController implements Initializable {
     }
 
     @FXML
-    void handleSearchStudent(ActionEvent event) {
-        Long studentID = Long.valueOf(txtStudentID.getText());
-        Student student = StudentRepository.getInstance().findById(studentID);
-        if (student == null) {
-            lblID.setText("");
-            lblName.setText("");
-            lblMajor.setText("");
-            AlertMaker.showNotification("Error", "Student Not Found", AlertMaker.image_cross);
-        } else {
-            if (student instanceof CreditStudent) {
-                lblID.setText(String.valueOf(student.getStudentID()));
-                lblName.setText(student.getLastName() + " " + student.getLastName());
-                lblMajor.setText(((CreditStudent) student).getCreditMajor().getMajorTitle());
-                this.student = (CreditStudent) student;
+    void handleSearchStudent(ActionEvent event){
+        String text = txtStudentID.getText();
+        if (text.trim().isEmpty()) throw new IllegalArgumentException("No input on Student ID!");
+        try {
+            Long studentID = Long.valueOf(text);
+            Student student = StudentRepository.getInstance().findById(studentID);
+            if (student == null) {
+                lblID.setText("");
+                lblName.setText("");
+                lblMajor.setText("");
+                AlertMaker.showNotification("Error", "Student Not Found", AlertMaker.image_cross);
             } else {
-                AlertMaker.showNotification("Error", "Annual Student cannot register", AlertMaker.image_cross);
+                if (student instanceof CreditStudent) {
+                    lblID.setText(String.valueOf(student.getStudentID()));
+                    lblName.setText(student.getLastName() + " " + student.getLastName());
+                    lblMajor.setText(((CreditStudent) student).getCreditMajor().getMajorTitle());
+                    this.student = (CreditStudent) student;
+                } else {
+                    AlertMaker.showNotification("Error", "Annual Student cannot register", AlertMaker.image_cross);
+                }
             }
+        } catch (NumberFormatException e1) {
+            AlertMaker.showErrorMessage("Error", "StudentID only contains number !");
         }
+
     }
 
     @FXML

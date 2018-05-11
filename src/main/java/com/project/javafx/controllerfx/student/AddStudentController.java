@@ -7,7 +7,6 @@ import com.project.javafx.model.Student.Gender;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.repository.StudentRepository;
-import com.project.javafx.repository.UserRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -167,7 +166,8 @@ public class AddStudentController implements Initializable {
             }
             if (newStudent != null) {
                 if (StudentRepository.getInstance().save(newStudent)) {
-                    UserRepository.getInstance().save(new User(studentID, studentID, UserType.USER));
+                    // TODO: 11/05/2018 find here for auto create user
+//                    UserRepository.getInstance().save(new User(studentID, studentID, UserType.USER));
                     AlertMaker.showNotification("Success", "Student info inserted successfully !", AlertMaker.image_checked);
                 } else {
                     AlertMaker.showErrorMessage("Failed!", "Student ID is exist !");
