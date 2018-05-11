@@ -8,6 +8,7 @@ public class UserRepositoryTest {
 
     @Test
     public void init() {
+        UserRepository.getInstance().save(new User("admin", "adminpass", UserType.ADMINISTRATOR));
         UserRepository.getInstance().save(new User("Admin", "adminpass", UserType.ADMINISTRATOR));
     }
 
