@@ -2,28 +2,37 @@ package com.project.javafx.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
+import java.io.*;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public abstract class AbstractRepository<T, ID> extends MongoDBHandler implements GenericRepository<T, ID> {
 
     private final Class<T> clazz;
     private String collectionName;
+    private String filePath;
     Set<T> objects = new HashSet<>();
 
-    public AbstractRepository(Class<T> clazz, String collectionName) {
+    public AbstractRepository(Class<T> clazz, String collectionName, String filePath) {
         this.clazz = clazz;
         this.collectionName = collectionName;
+        this.filePath = filePath;
     }
 
     protected Gson gsonCreator() {
-        return new GsonBuilder().
-                create();
+        return new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
     }
 
     public MongoCollection<Document> getCollection() {
@@ -45,6 +54,37 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
         objects.clear();
         Document query = new Document();
         getObjectCollection(query, clazz);
+    }
+
+    protected void getObjectFromFile(Class<? extends T> aClass) {
+        // read JSON file data as String
+
+    }
+
+    public void getObjectFromFile() {
+        objects.clear();
+        String fileData;
+        try {
+            fileData = new String(Files.readAllBytes(Paths.get(filePath)));
+            // parse json string to object
+            objects.addAll(gsonCreator().fromJson(fileData, setListType()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected abstract Type setListType();
+
+    public void saveObjectToFile() {
+        // create JSON String from Object
+        try {
+            OutputStream stream = new FileOutputStream(new File(filePath));
+            String json = gsonCreator().toJson(objects);
+            stream.write(json.getBytes());
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

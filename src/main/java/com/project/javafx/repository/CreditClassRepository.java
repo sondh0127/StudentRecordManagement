@@ -21,9 +21,11 @@ import java.util.stream.Collectors;
 public class CreditClassRepository extends AbstractRepository<CreditClass, String> {
 
     private static CreditClassRepository instance = null;
+    private static final String path = "src/main/resources/CreditClasses.json";
+
 
     private CreditClassRepository() {
-        super(CreditClass.class, MongoDBHandler.CREDIT_CLASS_COLL);
+        super(CreditClass.class, MongoDBHandler.CREDIT_CLASS_COLL,path);
     }
 
     public static CreditClassRepository getInstance() {
@@ -56,6 +58,11 @@ public class CreditClassRepository extends AbstractRepository<CreditClass, Strin
     }
 
     @Override
+    protected Type setListType() {
+        return new TypeToken<Set<CreditClass>>() {}.getType();
+    }
+
+    @Override
     protected Document findOldQuery(String s) {
         return new Document("classCode", s);
     }
@@ -75,6 +82,7 @@ public class CreditClassRepository extends AbstractRepository<CreditClass, Strin
             return jsonElement;
         };
         Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
                 .registerTypeAdapter(creditCourseList, serializer)
                 .registerTypeAdapter(creditStudentList, serializer2)
                 .registerTypeAdapter(CreditCourse.class, new CreditCourseDeserializer())

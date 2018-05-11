@@ -14,13 +14,15 @@ import org.bson.Document;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Set;
 
 public class AnnualClassRepository extends AbstractRepository<AnnualClass, String> {
 
     private static AnnualClassRepository instance = null;
+    private static final String path = "src/main/resources/AnnualClasses.json";
 
     private AnnualClassRepository() {
-        super(AnnualClass.class, MongoDBHandler.CLASS_COLL);
+        super(AnnualClass.class, MongoDBHandler.CLASS_COLL,path);
     }
 
     public static AnnualClassRepository getInstance() {
@@ -66,6 +68,11 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
     }
 
     @Override
+    protected Type setListType() {
+        return new TypeToken<Set<AnnualClass>>() {}.getType();
+    }
+
+    @Override
     protected Document findOldQuery(String s) {
         return new Document("classCode", s);
     }
@@ -86,6 +93,7 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
             return jsonElement;
         };
         Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
                 .registerTypeAdapter(studentListType, serializer)
                 .registerTypeAdapter(Course.class, serializer2)
                 .registerTypeAdapter(AnnualStudent.class, new AnnualStudentDeserializer())

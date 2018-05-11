@@ -9,6 +9,7 @@ import com.project.javafx.model.Course;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.ulti.gsonUtil.CourseDeserializer;
 import com.project.javafx.ulti.gsonUtil.CreditCourseDeserializer;
+import com.project.javafx.ulti.gsonUtil.RuntimeTypeAdapterFactory;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
@@ -19,9 +20,10 @@ import java.util.stream.Collectors;
 
 public class CourseRepository extends AbstractRepository<Course, String> {
     private static CourseRepository instance = null;
+    private static final String path = "src/main/resources/Courses.json";
 
     private CourseRepository() {
-        super(Course.class, MongoDBHandler.COURSE_COLL);
+        super(Course.class, MongoDBHandler.COURSE_COLL, path);
     }
 
     public static CourseRepository getInstance() {
@@ -37,6 +39,22 @@ public class CourseRepository extends AbstractRepository<Course, String> {
         Document query2 = new Document("creditHours", new Document("$ne", null));
         getObjectCollection(query1, Course.class);
         getObjectCollection(query2, CreditCourse.class);
+    }
+
+    @Override
+    protected Type setListType() {
+        return new TypeToken<Set<Course>>() {
+        }.getType();
+    }
+
+    private RuntimeTypeAdapterFactory<Course> setAdapter() {
+        RuntimeTypeAdapterFactory<Course> adapter =
+                RuntimeTypeAdapterFactory
+                        .of(Course.class, "type")
+                        .registerSubtype(Course.class, Course.class.getSimpleName())
+                        .registerSubtype(CreditCourse.class, CreditCourse.class.getSimpleName());
+
+        return adapter;
     }
 
     @Override
@@ -74,6 +92,8 @@ public class CourseRepository extends AbstractRepository<Course, String> {
             return jsons;
         };
         Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapterFactory(setAdapter())
                 .registerTypeAdapter(courseType, serializer)
                 .registerTypeAdapter(CreditCourse.class, new CreditCourseDeserializer())
                 .registerTypeAdapter(Course.class, new CourseDeserializer())

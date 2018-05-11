@@ -16,15 +16,21 @@
 
 package com.project.javafx.ulti.gsonUtil;
 
-import com.google.gson.*;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.TypeAdapter;
+import com.google.gson.TypeAdapterFactory;
 import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Adapts values whose runtime type may differ from their declaration type. This
@@ -91,7 +97,7 @@ import java.util.Map;
  * Create a {@code RuntimeTypeAdapterFactory} by passing the base type and type field
  * name to the {@link #of} factory method. If you don't supply an explicit type
  * field name, {@code "type"} will be used. <pre>   {@code
- *   RuntimeTypeAdapterFactory<Shape> shapeAdapterFactory
+ *   RuntimeTypeAdapterFactory<Shape> shapeAdapter
  *       = RuntimeTypeAdapterFactory.of(Shape.class, "type");
  * }</pre>
  * Next register all of your subtypes. Every subtype must be explicitly
@@ -102,14 +108,14 @@ import java.util.Map;
  *   shapeAdapter.registerSubtype(Circle.class, "Circle");
  *   shapeAdapter.registerSubtype(Diamond.class, "Diamond");
  * }</pre>
- * Finally, register the type adapter factory in your application's GSON builder:
+ * Finally, register the type adapter in your application's GSON builder:
  * <pre>   {@code
  *   Gson gson = new GsonBuilder()
- *       .registerTypeAdapterFactory(shapeAdapterFactory)
+ *       .registerTypeAdapter(Shape.class, shapeAdapter)
  *       .create();
  * }</pre>
  * Like {@code GsonBuilder}, this API supports chaining: <pre>   {@code
- *   RuntimeTypeAdapterFactory<Shape> shapeAdapterFactory = RuntimeTypeAdapterFactory.of(Shape.class)
+ *   RuntimeTypeAdapterFactory<Shape> shapeAdapter = RuntimeTypeAdapterFactory.of(Shape.class)
  *       .registerSubtype(Rectangle.class)
  *       .registerSubtype(Circle.class)
  *       .registerSubtype(Diamond.class);
@@ -176,7 +182,7 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
   }
 
   public <R> TypeAdapter<R> create(Gson gson, TypeToken<R> type) {
-    if (type.getRawType() != baseType) {
+    if (null == type || !baseType.isAssignableFrom(type.getRawType())) {
       return null;
     }
 

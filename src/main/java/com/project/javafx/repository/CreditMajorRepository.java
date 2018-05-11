@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.model.CreditMajor;
 import com.project.javafx.ulti.gsonUtil.CreditCourseDeserializer;
@@ -11,15 +12,18 @@ import com.project.javafx.ulti.gsonUtil.CreditMajorDeserializer;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class CreditMajorRepository extends AbstractRepository<CreditMajor, String> {
 
     private static CreditMajorRepository instance = null;
+    private static final String path = "src/main/resources/CreditMajors.json";
 
     private CreditMajorRepository() {
-        super(CreditMajor.class,MongoDBHandler.MAJOR_COLL);
+        super(CreditMajor.class,MongoDBHandler.MAJOR_COLL,path);
     }
 
     public static CreditMajorRepository getInstance() {
@@ -86,6 +90,11 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor, Strin
     }
 
     @Override
+    protected Type setListType() {
+        return new TypeToken<Set<CreditMajor>>() {}.getType();
+    }
+
+    @Override
     protected Document findOldQuery(String s) {
         return new Document("majorCode", s);
     }
@@ -98,6 +107,7 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor, Strin
         };
 
         Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
                 .registerTypeAdapter(CreditCourse.class, serializer)
                 .registerTypeAdapter(CreditCourse.class, new CreditCourseDeserializer())
                 .registerTypeAdapter(CreditMajor.class, new CreditMajorDeserializer())

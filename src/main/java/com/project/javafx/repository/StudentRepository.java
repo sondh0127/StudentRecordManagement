@@ -4,20 +4,23 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.*;
 import com.project.javafx.ulti.gsonUtil.*;
 import com.project.javafx.ulti.mongoDBUtil.MongoDBHandler;
 import org.bson.Document;
 
+import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StudentRepository extends AbstractRepository<Student, Long> {
 
     private static StudentRepository instance = null;
+    private static final String path = "src/main/resources/Students.json";
 
     private StudentRepository() {
-        super(Student.class, MongoDBHandler.STUDENT_COLL);
+        super(Student.class, MongoDBHandler.STUDENT_COLL, path);
     }
 
     public static StudentRepository getInstance() {
@@ -34,6 +37,11 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
         Document query2 = new Document("educationSystem", "CREDIT");
         getObjectCollection(query1, AnnualStudent.class);
         getObjectCollection(query2, CreditStudent.class);
+    }
+
+    @Override
+    protected Type setListType() {
+        return new TypeToken<Set<Student>>() {}.getType();
     }
 
     @Override
@@ -61,6 +69,14 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
                         .registerSubtype(CreditCourse.class, CreditCourse.class.getSimpleName());
         return adapter;
     }
+    private RuntimeTypeAdapterFactory<Student> set2Adapter() {
+        RuntimeTypeAdapterFactory<Student> adapter =
+                RuntimeTypeAdapterFactory
+                        .of(Student.class, "type")
+                        .registerSubtype(CreditStudent.class, CreditStudent.class.getSimpleName())
+                        .registerSubtype(AnnualStudent.class, AnnualStudent.class.getSimpleName());
+        return adapter;
+    }
 
     @Override
     protected Gson gsonCreator() {
@@ -77,7 +93,9 @@ public class StudentRepository extends AbstractRepository<Student, Long> {
             return jsonElement;
         };
         Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
                 .registerTypeAdapterFactory(setAdapter())
+                .registerTypeAdapterFactory(set2Adapter())
                 .registerTypeAdapter(CreditMajor.class, serializer)
                 .registerTypeAdapter(CreditMajor.class, new CreditMajorDeserializer())
                 .registerTypeAdapter(Course.class, serializerCourse)

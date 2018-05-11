@@ -10,6 +10,8 @@ import com.project.javafx.controllerfx.grade.GradeController;
 import com.project.javafx.controllerfx.major.MajorsController;
 import com.project.javafx.controllerfx.register.RegisterController;
 import com.project.javafx.controllerfx.student.StudentsController;
+import com.project.javafx.repository.CourseRepository;
+import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.animation.FadeTransition;
@@ -232,6 +234,8 @@ public class AdminDashboardController implements Initializable {
     private void exit(ActionEvent event) {
         boolean exitCf = AlertMaker.getConfirmation("Exit Confirmation", "Are you sure want to exit?");
         if (exitCf) {
+            CourseRepository.getInstance().saveObjectToFile();
+            StudentRepository.getInstance().saveObjectToFile();
             Platform.exit();
         }
     }

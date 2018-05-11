@@ -41,9 +41,12 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         // fix thứ tự
-        CourseRepository.getInstance().getObjectCollection();
+//        CourseRepository.getInstance().getObjectCollection();
+        CourseRepository.getInstance().getObjectFromFile();
         CreditMajorRepository.getInstance().getObjectCollection();
         StudentRepository.getInstance().getObjectCollection();
+//        StudentRepository.getInstance().getObjectCollection();
+
         AnnualClassRepository.getInstance().getObjectCollection();
         CreditClassRepository.getInstance().getObjectCollection();
         UserRepository.getInstance().getObjectCollection();
