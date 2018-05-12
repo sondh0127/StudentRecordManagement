@@ -106,7 +106,6 @@ public class GradeController implements Initializable {
         } catch (Exception e) {
             AlertMaker.showErrorMessage("Mark error", e.getMessage());
         }
-
     }
 
     @Override

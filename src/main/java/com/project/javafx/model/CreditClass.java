@@ -8,21 +8,26 @@ public class CreditClass {
     private final String classCode;
     private int capacity;
     private CreditCourse course;
-    private List<CreditStudent> studentList = new ArrayList<>();
+    private List<CreditStudent> studentList;
 
     public CreditClass(String classCode, CreditCourse course, int capacity) {
         this.classCode = classCode;
         this.course = course;
         this.capacity = capacity;
+        studentList = new ArrayList<>(capacity);
     }
     // flow student register course (from course repo) if course inside the this of major => give a class of this course => add student in too the list class of this course.
 
     public boolean addStudent(CreditStudent student) {
-        if (capacity > studentList.size()) {
-            studentList.add(student);
-            return true;
+        if (isFull()) {
+            return false;
         }
-        return false;
+        studentList.add(student);
+        return true;
+    }
+
+    public boolean isFull() {
+        return capacity == studentList.size();
     }
 
     public boolean removeStudent(CreditStudent student) {

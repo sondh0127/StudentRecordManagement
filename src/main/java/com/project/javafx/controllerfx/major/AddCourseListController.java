@@ -203,6 +203,7 @@ public class AddCourseListController implements Initializable {
                     "\"" + removeCourse.getCourseName() + "\" ?");
             if (confirmation) {
                 this.creditMajor.getMajorCatalog().remove(removeCourse);
+                this.creditMajor.getMinorCatalog().remove(removeCourse);
                 refreshTable();
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
             }

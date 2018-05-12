@@ -17,6 +17,7 @@ public abstract class Student {
     private LocalDate birthday;
 
     List<StudentResult> takenCourses;
+    List<StudentResult> passedCourses;
 
     public Student(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {
         this.studentID = studentID;
@@ -28,6 +29,7 @@ public abstract class Student {
         this.email = email;
         this.address = address;
         takenCourses = new ArrayList<>();
+        passedCourses = new ArrayList<>();
     }
 
     // GETTER AND SETTER
@@ -81,8 +83,8 @@ public abstract class Student {
     }
 
     // MAIN METHOD
-
-    public StudentResult getStudentResult(Course course) {
+    // thís method is taken result  remove this
+    public StudentResult getTakenResult(Course course) {
         return takenCourses.stream()
                 .filter(studentResult -> studentResult.getCourse().equals(course))
                 .findFirst()

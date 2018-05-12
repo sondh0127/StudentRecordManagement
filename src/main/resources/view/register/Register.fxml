@@ -2,21 +2,10 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <BorderPane prefHeight="680.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.register.RegisterController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -44,7 +33,7 @@
                         <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="txtStudentID" onKeyReleased="#handleSearchAction" GridPane.rowIndex="1">
+                        <TextField fx:id="txtStudentID" onAction="#handleSearchAction" GridPane.rowIndex="1">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -59,7 +48,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtCourseCode" layoutX="10.0" layoutY="40.0" onKeyReleased="#handleSearchAction" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="txtCourseCode" layoutX="10.0" layoutY="40.0" onAction="#handleSearchAction" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -73,12 +62,11 @@
          <center>
             <TableView fx:id="tblRegister" prefHeight="560.0" prefWidth="360.0" BorderPane.alignment="CENTER">
                <columns>
-                  <TableColumn fx:id="colStudentID" editable="false" minWidth="-1.0" prefWidth="135.0" text="Student ID" />
-                  <TableColumn fx:id="colFullName" editable="false" minWidth="-1.0" prefWidth="223.0" text="Full Name" />
-                  <TableColumn fx:id="colCourseCode" minWidth="0.0" prefWidth="110.0" text="Course Code" />
-                  <TableColumn fx:id="colCourseName" minWidth="0.0" prefWidth="222.0" text="Course Name" />
-                  <TableColumn fx:id="colCredit" minWidth="0.0" prefWidth="222.0" text="Credit" />
-                  <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="222.0" text="Status ?" />
+                  <TableColumn fx:id="colStudentID" editable="false" minWidth="-1.0" prefWidth="120.0" resizable="false" text="Student ID" />
+                  <TableColumn fx:id="colFullName" editable="false" minWidth="-1.0" prefWidth="230.0" resizable="false" text="Full Name" />
+                  <TableColumn fx:id="colCourseCode" minWidth="0.0" prefWidth="148.0" resizable="false" text="Course Code" />
+                  <TableColumn fx:id="colCourseName" minWidth="0.0" prefWidth="222.0" resizable="false" text="Course Name" />
+                  <TableColumn fx:id="colClass" minWidth="0.0" prefWidth="158.0" resizable="false" text="Class" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

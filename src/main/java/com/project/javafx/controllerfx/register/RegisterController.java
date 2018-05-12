@@ -1,13 +1,12 @@
 package com.project.javafx.controllerfx.register;
 
 import com.jfoenix.controls.JFXButton;
-import com.project.javafx.model.Course;
-import com.project.javafx.model.CreditCourse;
-import com.project.javafx.model.CreditStudent;
-import com.project.javafx.model.StudentResult;
+import com.project.javafx.model.*;
+import com.project.javafx.repository.CourseRepository;
+import com.project.javafx.repository.CreditClassRepository;
 import com.project.javafx.repository.StudentRepository;
+import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -22,7 +21,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -30,6 +28,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -60,7 +59,7 @@ public class RegisterController implements Initializable {
     private TableColumn<RegisterModel, String> colCourseName;
 
     @FXML
-    private TableColumn<RegisterModel, Number> colCredit;
+    private TableColumn<RegisterModel, String> colClass;
 
     @FXML
     private TableColumn<RegisterModel, String> colStatus;
@@ -81,12 +80,67 @@ public class RegisterController implements Initializable {
 
     @FXML
     void handleRemove(ActionEvent event) {
-
+        RegisterModel removeReg = tblRegister.getSelectionModel().getSelectedItem();
+        if (removeReg != null) {
+            boolean confirmation = AlertMaker.getConfirmation("Delete Register", "Are you sure to delete select register ?\n"
+                    + "StudentID: " + removeReg.getStudentID()
+                    + ", Course: " + removeReg.getCourseName());
+            if (confirmation) {
+                Long studentID = removeReg.getStudentID();
+                Student student = StudentRepository.getInstance().findById(studentID);
+                try {
+                    if (student instanceof AnnualStudent) {
+                        throw new IllegalArgumentException("Annual Student can not remove register course !");
+                    } else if (student instanceof CreditStudent){
+                        CreditClass creditClass = CreditClassRepository.getInstance().findById(removeReg.getRegisterClass());
+                        Course course = CourseRepository.getInstance().findById(removeReg.getCourseCode());
+                        if (creditClass.removeStudent((CreditStudent) student)) {
+                            ((CreditStudent) student).dropCourse((CreditCourse) course);
+                            registerModels.remove(removeReg);
+                            StudentRepository.getInstance().update(student);
+                            CreditClassRepository.getInstance().update(creditClass);
+                            AlertMaker.showNotification("Deleted", "Register deleted successfully", AlertMaker.image_trash_can);
+                        }
+                        refreshTable();
+                    }
+                } catch (IllegalArgumentException e) {
+                    AlertMaker.showErrorMessage("Delete error", e.getMessage());
+                }
+            }
+        } else {
+            AlertMaker.showNotification("Error", "No Register Selected", AlertMaker.image_cross);
+        }
     }
 
     @FXML
-    void handleSearchAction(KeyEvent event) {
-
+    void handleSearchAction(ActionEvent event) {
+        ObservableList<RegisterModel> temp = FXCollections.observableArrayList();
+        try {
+            if (event.getSource().equals(txtStudentID)) {
+                long studentID = Long.parseLong(txtStudentID.getText());
+                if (txtStudentID.getText().isEmpty()) temp.addAll(registerModels);
+                else {
+                    for (RegisterModel registerModel : registerModels) {
+                        if (registerModel.getStudentID().equals(studentID)) {
+                            temp.add(registerModel);
+                        }
+                    }
+                }
+            } else if (event.getSource().equals(txtCourseCode)) {
+                String courseName = txtCourseCode.getText().toUpperCase();
+                if (courseName.isEmpty()) temp.addAll(registerModels);
+                else {
+                    for (RegisterModel registerModel : registerModels) {
+                        if (registerModel.getCourseCode().equals(courseName)) {
+                            temp.add(registerModel);
+                        }
+                    }
+                }
+            }
+            registerObservableList.setAll(temp);
+        } catch (NumberFormatException e) {
+            AlertMaker.showErrorMessage("Invalid", "Student ID must be number !");
+        }
     }
 
     @FXML
@@ -105,18 +159,33 @@ public class RegisterController implements Initializable {
 
     private void initData() {
         registerModels.clear();
-        for (CreditStudent creditStudent : StudentRepository.getInstance().getCreditStudent()) {
-//            System.out.println(creditStudent.getTakenResult().get(0).getCourse());
-            long studentID = creditStudent.getStudentID();
-            String fullName = creditStudent.getLastName() + " " + creditStudent.getFirstName();
-            for (Course course : creditStudent.getTakenResult().stream()
-                    .map(StudentResult::getCourse)
-                    .collect(Collectors.toList())) {
-                if (course instanceof CreditCourse) {
-                    String courseCode = course.getCourseCode();
-                    String courseName = course.getCourseName();
-                    int creditHours = ((CreditCourse) course).getCreditHours();
-                    registerModels.add(new RegisterModel(studentID, fullName, courseCode, courseName, creditHours));
+        Long studentID;
+        String studentName;
+        String courseCode;
+        String courseName;
+        String registerClass;
+        for (CreditClass creditClass : CreditClassRepository.getInstance().findAll()) {
+            List<CreditStudent> studentList = creditClass.getStudentList();
+            for (CreditStudent creditStudent : studentList) {
+                studentID = creditStudent.getStudentID();
+                studentName = creditStudent.getLastName() + " " + creditStudent.getFirstName();
+                courseCode = creditClass.getCourse().getCourseCode();
+                courseName = creditClass.getCourse().getCourseName();
+                registerClass = creditClass.getClassCode();
+                registerModels.add(new RegisterModel(studentID, studentName, courseCode, courseName, registerClass));
+            }
+        }
+        for (Student student : StudentRepository.getInstance().findAll()) {
+            if (student instanceof AnnualStudent) {
+                studentID = student.getStudentID();
+                studentName = student.getLastName() + " " + student.getFirstName();
+                String className = ((AnnualStudent) student).getAnnualClass().getClassName();
+                for (Course course : student.getTakenResult().stream()
+                        .map(StudentResult::getCourse)
+                        .collect(Collectors.toList())) {
+                    courseCode = course.getCourseCode();
+                    courseName = course.getCourseName();
+                    registerModels.add(new RegisterModel(studentID, studentName, courseCode, courseName, className));
                 }
             }
         }
@@ -139,9 +208,9 @@ public class RegisterController implements Initializable {
             RegisterModel s = param.getValue();
             return new SimpleStringProperty(s.getCourseName());
         });
-        colCredit.setCellValueFactory(param -> {
+        colClass.setCellValueFactory(param -> {
             RegisterModel s = param.getValue();
-            return new SimpleIntegerProperty(s.getCreditNum());
+            return new SimpleStringProperty(s.getRegisterClass());
         });
     }
 
@@ -167,14 +236,14 @@ public class RegisterController implements Initializable {
         private final String studentName;
         private final String courseCode;
         private final String courseName;
-        private final Integer creditNum;
+        private final String registerClass;
 
-        private RegisterModel(Long studentID, String studentName, String courseCode, String courseName, Integer creditNum) {
+        private RegisterModel(Long studentID, String studentName, String courseCode, String courseName, String registerClass) {
             this.studentID = studentID;
             this.studentName = studentName;
             this.courseCode = courseCode;
             this.courseName = courseName;
-            this.creditNum = creditNum;
+            this.registerClass = registerClass;
         }
 
         public Long getStudentID() {
@@ -193,8 +262,8 @@ public class RegisterController implements Initializable {
             return courseName;
         }
 
-        public Integer getCreditNum() {
-            return creditNum;
+        public String getRegisterClass() {
+            return registerClass;
         }
     }
 }

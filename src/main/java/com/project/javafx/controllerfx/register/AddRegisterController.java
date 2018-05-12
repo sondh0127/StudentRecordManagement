@@ -105,8 +105,9 @@ public class AddRegisterController implements Initializable {
             if (selectClass == null) throw new IllegalArgumentException("No Class Selected");
             if (student.isTakingCourse(creditCourse))
                 throw new IllegalArgumentException(student.getStudentID() + " already took course " + creditCourse.getCourseCode() + " !");
-            else if (!selectClass.addStudent(student)) throw new IllegalArgumentException("Class is full");
+            else if (selectClass.isFull()) throw new IllegalArgumentException("Class is full");
             else if (student.registerCourse(creditCourse)) {
+                selectClass.addStudent(student);
                 StudentRepository.getInstance().update(student);
                 CreditClassRepository.getInstance().update(selectClass);
                 AlertMaker.showNotification("Success", "Register update successfully !", AlertMaker.image_checked);

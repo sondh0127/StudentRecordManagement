@@ -1,13 +1,11 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CreditStudent extends Student {
 
-    private List<StudentResult> passedCourses = new ArrayList<>();
     private CreditMajor creditMajor;
     private int registerCreditsLimit;
     private int passedMajorCredits;
@@ -146,30 +144,25 @@ public class CreditStudent extends Student {
         calculateGPA();
         calculateCPA();
         takenCourses.clear();
+        registerCredits = 0;
     }
 
     private void calculateGPA() {
         double sum = getSum(takenCourses);
-        GPA =  sum / registerCredits;
+        GPA = Math.round(sum / registerCredits * 10.0) / 10.0;
     }
 
     private void calculateCPA() {
         double sum = getSum(passedCourses);
-        CPA = sum / (passedMinorCredits + passedMajorCredits);
+        CPA = Math.round(sum / (passedMinorCredits + passedMajorCredits) * 10.0) / 10.0;
     }
 
     private double getSum(List<StudentResult> courseMap) {
-        if (courseMap.isEmpty()) {
-            return 0;
-        }
         double sum = 0;
-        List<Course> collect = courseMap.stream()
-                .map(StudentResult::getCourse)
-                .collect(Collectors.toList());
-        for (Course course : collect) {
-            double grade = getStudentResult(course).getScoreTransfer();
-            int credits = ((CreditCourse) course).getCreditHours();
-            sum += grade * credits;
+        for (StudentResult result : courseMap) {
+            double scoreTransfer = result.getScoreTransfer();
+            int creditHours = ((CreditCourse) result.getCourse()).getCreditHours();
+            sum += scoreTransfer * creditHours;
         }
         return sum;
     }

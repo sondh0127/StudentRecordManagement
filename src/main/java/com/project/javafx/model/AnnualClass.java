@@ -1,8 +1,6 @@
 package com.project.javafx.model;
 
 
-import com.project.javafx.repository.StudentRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +69,7 @@ public class AnnualClass {
             case FOURTH_YEAR:
                 return courseCatalog.get(3);
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public void setCoursesCatalog(List<Course> coursesCatalog, YearOfStudy year) {
@@ -107,37 +105,6 @@ public class AnnualClass {
 
     public boolean haveStudent(AnnualStudent student) {
         return students.contains(student);
-    }
-
-    public void updateStudyYear() {
-        for (AnnualStudent student : students) {
-            switch (student.getStudyYear()) {
-                case FIRST_YEAR:
-                    if (student.passedAllCourseInYear() && student.calculateAVG() > 5.0)
-                        student.setStudyYear(YearOfStudy.SECOND_YEAR);
-                    student.addYearCourseList(courseCatalog.get(1));
-                    break;
-                case SECOND_YEAR:
-                    if (student.passedAllCourseInYear() && student.calculateAVG() > 5.0)
-                        student.setStudyYear(YearOfStudy.THIRD_YEAR);
-                    student.addYearCourseList(courseCatalog.get(2));
-                    break;
-                case THIRD_YEAR:
-                    if (student.passedAllCourseInYear() && student.calculateAVG() > 5.0)
-                        student.setStudyYear(YearOfStudy.FOURTH_YEAR);
-                    student.addYearCourseList(courseCatalog.get(3));
-                    break;
-                case FOURTH_YEAR:
-                    if (student.passedAllCourseInYear() && student.calculateAVG() > 5.0)
-                        student.setStudyYear(YearOfStudy.GRADUATED);
-                    student.takenCourses.clear();
-                    students.remove(student);
-                    break;
-                default:
-                    break;
-            }
-            StudentRepository.getInstance().update(student);
-        }
     }
 
 }

@@ -2,7 +2,6 @@ package com.project.javafx.controllerfx;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.*;
-import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CreditClassRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
@@ -59,21 +58,20 @@ public class HomeController implements Initializable{
         boolean confirmation = AlertMaker.getConfirmation("Closing year of study", "Are you sure to update this Year of Study");
         if (confirmation) {
             if (ableToUpdate()) {
-                Set<AnnualClass> all = AnnualClassRepository.getInstance().findAll();
-                for (AnnualClass annualClass : all) {
-                    annualClass.updateStudyYear();
-                }
-                Set<CreditClass> all1 = CreditClassRepository.getInstance().findAll();
-                for (CreditClass creditClass : all1) {
-                    creditClass.clearClassEnrollment();
-                    CreditClassRepository.getInstance().update(creditClass);
-                }
-
                 for (Student student : StudentRepository.getInstance().findAll()) {
                     if (student instanceof CreditStudent) {
                         ((CreditStudent) student).updatePassedCourseAll();
                         StudentRepository.getInstance().update(student);
                     }
+                    if (student instanceof AnnualStudent) {
+                        ((AnnualStudent) student).updateStudyYear();
+                        StudentRepository.getInstance().update(student);
+                    }
+                }
+                Set<CreditClass> all1 = CreditClassRepository.getInstance().findAll();
+                for (CreditClass creditClass : all1) {
+                    creditClass.clearClassEnrollment();
+                    CreditClassRepository.getInstance().update(creditClass);
                 }
                 AlertMaker.showNotification("Success", "Update successfully !", AlertMaker.image_checked);
             } else {
