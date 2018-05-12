@@ -162,10 +162,7 @@ public class AlertMaker {
         alert.setHeaderText(null);       // set default title
         alert.setContentText(content);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
+        return result.get() == ButtonType.OK;
     }
 }
 

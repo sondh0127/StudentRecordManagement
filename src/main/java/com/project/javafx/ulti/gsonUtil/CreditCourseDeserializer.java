@@ -27,7 +27,7 @@ public class CreditCourseDeserializer implements JsonDeserializer {
             final CreditCourse creditCourse = getOrCreate(jsonObject.get("courseCode").getAsString());
             creditCourse.setCourseName(jsonObject.get("courseName").getAsString());
             creditCourse.setScale(jsonObject.get("scale").getAsDouble());
-            creditCourse.setCreditHours(jsonObject.get("creditHours").getAsInt());
+            creditCourse.setCredit(jsonObject.get("credit").getAsInt());
 
             List<CreditCourse> courses = new ArrayList<>();
             JsonArray prerequisiteCourse = jsonObject.get("prerequisiteCourse").getAsJsonArray();

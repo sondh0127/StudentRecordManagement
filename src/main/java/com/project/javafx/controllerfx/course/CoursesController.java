@@ -169,7 +169,6 @@ public class CoursesController implements Initializable {
             Course c = param.getValue();
             BigDecimal scale = BigDecimal.valueOf(c.getScale());
             BigDecimal _scale = BigDecimal.ONE.subtract(scale);
-
             StringBuilder scaleStr = new StringBuilder();
             scaleStr.append(_scale).append("/").append(scale);
             return new SimpleStringProperty(scaleStr.toString());
@@ -177,11 +176,9 @@ public class CoursesController implements Initializable {
 
         creditNum.setCellValueFactory(param -> {
             Course c = param.getValue();
-            if (c instanceof CreditCourse) {
-                int creditHours = ((CreditCourse) c).getCreditHours();
-                String creditStr = String.valueOf(creditHours);
-                return new SimpleStringProperty(creditStr);
-            } else return new SimpleStringProperty("");
+            int creditHours = c.getCredit();
+            String creditStr = String.valueOf(creditHours);
+            return new SimpleStringProperty(creditStr);
         });
     }
 

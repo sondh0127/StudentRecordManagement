@@ -76,28 +76,24 @@ public class AddPrerequisiteCourseController implements Initializable {
     @FXML
     void handleAddCourse(ActionEvent event) {
         CreditCourse selectedItem = tblCreditCourse.getSelectionModel().getSelectedItem();
-        if (notExist(selectedItem)) {
-            if (selectedItem != null) {
-                creditCourse.addPrequisite(selectedItem);
-            } else {
-                AlertMaker.showErrorMessage("Error", "No course selected !");
+        if (selectedItem != null) {
+            try {
+                if (!creditCourse.addPrerequisite(selectedItem))
+                    AlertMaker.showErrorMessage("Duplicated", "Existing course !");
+            } catch (IllegalArgumentException e) {
+                AlertMaker.showErrorMessage("Error", e.getMessage());
             }
         } else {
-            AlertMaker.showErrorMessage("Duplicated", "Existing course !");
+            AlertMaker.showErrorMessage("Input Error", "No course selected !");
         }
+
+
         refreshTable();
     }
 
     private void refreshTable() {
         tblPrerequisiteCourses.getItems().clear();
         prerequisiteCourseObservableList.setAll(creditCourse.getPrerequisiteCourse());
-    }
-
-    private boolean notExist(CreditCourse selectedItem) {
-        if (creditCourse.getPrerequisiteCourse().contains(selectedItem)) {
-            return false;
-        }
-        return true;
     }
 
     @FXML

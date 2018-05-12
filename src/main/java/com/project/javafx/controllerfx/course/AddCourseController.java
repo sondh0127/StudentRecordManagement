@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -52,14 +51,6 @@ public class AddCourseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        txtCreditNum.setVisible(false);
-        courseTypeGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals(radioCredit)) {
-                txtCreditNum.setVisible(true);
-            } else if (newValue.equals(radioAnnual)) {
-                txtCreditNum.setVisible(false);
-            }
-        });
     }
 
     @FXML
@@ -78,12 +69,7 @@ public class AddCourseController implements Initializable {
     }
 
     @FXML
-    void handleClickCouseType(MouseEvent event) {
-
-    }
-
-    @FXML
-    void submitDetails(ActionEvent event) {
+    void submitDetails(ActionEvent event) throws IllegalArgumentException {
         String courseCode = txtCourseCode.getText().trim().toUpperCase();
         String courseName = txtCourseName.getText().trim();
         String scaleStr = txtCourseScale.getText().trim();
@@ -93,27 +79,21 @@ public class AddCourseController implements Initializable {
         Course course = null;
         try {
             if (courseCode.isEmpty()) throw new IllegalArgumentException("Enter course Code !");
-            if (courseCode.contains(" ")) throw new IllegalArgumentException("Course code should not have space !");
             if (courseName.isEmpty()) throw new IllegalArgumentException("Enter course Name !");
             if (scaleStr.isEmpty()) throw new IllegalArgumentException("Enter course scale !");
-            else {
-                if (scaleStr.matches("[0-9 .]+")) {
-                    scale = Double.parseDouble(scaleStr);
-                } else throw new IllegalArgumentException("Scale must be number !");
-                if (scale <= 0 || scale >= 1.0) throw new IllegalArgumentException("Scale must be in range (0 - 1.0)");
-            }
+            if (creditNumStr.isEmpty()) throw new IllegalArgumentException("Enter credit number !");
+            if (scaleStr.matches("[0-9 .]+")) {
+                scale = Double.parseDouble(scaleStr);
+            } else throw new IllegalArgumentException("Scale must be number !");
+            if (scale <= 0 || scale >= 1.0) throw new IllegalArgumentException("Scale must be in range (0 - 1.0)");
+            if (creditNumStr.matches("[0-9]+"))
+                credit = Integer.parseInt(creditNumStr);
+            else throw new IllegalArgumentException("Credit must be natural number!");
+            if (credit <= 0 || credit >= 100) throw new IllegalArgumentException("Invalid credit number - too large");
             if (radioCredit.isSelected()) {
-                if (creditNumStr.isEmpty())
-                    throw new IllegalArgumentException("Enter the Credit number");
-                else {
-                    if (creditNumStr.matches("[0-9]+"))
-                        credit = Integer.parseInt(creditNumStr);
-                    else throw new IllegalArgumentException("Credit must be natural number !");
-                    if (credit <= 0 || credit >= 100) throw new IllegalArgumentException("Invalid credit number - too large");
-                    course = new CreditCourse(courseCode, courseName, credit, scale);
-                }
+                course = new CreditCourse(courseCode, courseName, credit, scale);
             } else if (radioAnnual.isSelected()) {
-                course = new Course(courseCode, courseName, scale);
+                course = new Course(courseCode, courseName, credit, scale);
             }
             if (course != null) {
                 if (CourseRepository.getInstance().save(course)) {
@@ -122,22 +102,9 @@ public class AddCourseController implements Initializable {
                     AlertMaker.showErrorMessage("Failed!", "Course Code is exist !");
                 }
             }
-
-//        } catch (NumberFormatException e) {
-//
-//            AlertMaker.showErrorMessage("Input Error", e.getMessage() +  "must be number !");
-//            AlertMaker.showErrorMessage("Input Error", "Student ID must be number only !");
         } catch (IllegalArgumentException e) {
             AlertMaker.showErrorMessage("Input Error", e.getMessage());
         }
-
-        if (radioCredit.isSelected()) {
-            CreditCourse creditCourse = new CreditCourse(courseCode, courseName, credit, scale);
-        } else if (radioAnnual.isSelected()) {
-
-        }
-
     }
-
 
 }

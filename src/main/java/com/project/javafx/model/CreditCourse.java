@@ -1,25 +1,21 @@
 package com.project.javafx.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreditCourse extends Course  implements Serializable {
+public class CreditCourse extends Course{
 
     private List<CreditCourse> prerequisiteCourse = new ArrayList<>();
-    private int creditHours;
 
     public CreditCourse() {
     }
 
-    public CreditCourse(String courseCode, String courseName, int creditHours, double scale) {
-        super(courseCode, courseName, scale);
-        this.creditHours = creditHours;
+    public CreditCourse(String courseCode, String courseName, int credit, double scale) {
+        super(courseCode, courseName, credit, scale);
     }
 
-    public CreditCourse(String courseCode, String courseName, int creditHours, List<CreditCourse> prerequisiteCourse, double scale) {
-        super(courseCode, courseName, scale);
-        this.creditHours = creditHours;
+    public CreditCourse(String courseCode, String courseName, int credit, double scale, List<CreditCourse> prerequisiteCourse) {
+        super(courseCode, courseName, credit, scale);
         this.prerequisiteCourse = prerequisiteCourse;
     }
 
@@ -32,25 +28,14 @@ public class CreditCourse extends Course  implements Serializable {
         this.prerequisiteCourse = prerequisiteCourse;
     }
 
-    public void setCreditHours(int creditHours) {
-        this.creditHours = creditHours;
-    }
-
-    public int getCreditHours() {
-        return creditHours;
-    }
-
-    public boolean addPrequisite(CreditCourse course) {
-        if (course != this) {
+    public boolean addPrerequisite(CreditCourse course) {
+        List<CreditCourse> preOfPre = course.getPrerequisiteCourse();
+        if (preOfPre.contains(this) || course.equals(this)) throw new IllegalArgumentException("Circular Prerequisite !");
+        if (!prerequisiteCourse.contains(course)) {
             prerequisiteCourse.add(course);
-            // TODO: 10/05/2018 alert
-            return false;
+            return true;
         }
-        List<CreditCourse> prerequisiteCourse = course.getPrerequisiteCourse();
-        if (prerequisiteCourse.contains(this)) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     public boolean hasPrerequisites() {

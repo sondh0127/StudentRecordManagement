@@ -61,7 +61,7 @@ public class CreditStudent extends Student {
         if (!isMajorCourse(course))
             throw new IllegalArgumentException(course.getCourseCode() + " course isn't in Major Catalog!");
         else {
-            int addedCredit = course.getCreditHours();
+            int addedCredit = course.getCredit();
             List<CreditCourse> prerequisiteList = course.getPrerequisiteCourse();
             if (registerCredits + addedCredit > registerCreditsLimit) {
                 throw new IllegalArgumentException("Exceed the number of register credit: " + registerCredits + "/" + this.registerCreditsLimit);
@@ -89,7 +89,7 @@ public class CreditStudent extends Student {
                 .filter(result -> result.getCourse().equals(course))
                 .findFirst()
                 .ifPresent(takenCourses::remove);
-        registerCredits -= course.getCreditHours();
+        registerCredits -= course.getCredit();
     }
 
     @Override
@@ -133,9 +133,9 @@ public class CreditStudent extends Student {
                     List<CreditCourse> minorCatalog = creditMajor.getMinorCatalog();
                     if (course instanceof CreditCourse) {
                         if (majorCatalog.contains(course)) {
-                            passedMajorCredits += ((CreditCourse) course).getCreditHours();
+                            passedMajorCredits += course.getCredit();
                         } else if (minorCatalog.contains(course)) {
-                            passedMinorCredits += ((CreditCourse) course).getCreditHours();
+                            passedMinorCredits += course.getCredit();
                         }
                     }
                 }
@@ -161,7 +161,7 @@ public class CreditStudent extends Student {
         double sum = 0;
         for (StudentResult result : courseMap) {
             double scoreTransfer = result.getScoreTransfer();
-            int creditHours = ((CreditCourse) result.getCourse()).getCreditHours();
+            int creditHours = result.getCourse().getCredit();
             sum += scoreTransfer * creditHours;
         }
         return sum;

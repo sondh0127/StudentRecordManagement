@@ -1,18 +1,18 @@
 package com.project.javafx.model;
 
-import java.io.Serializable;
-
-public class Course implements Serializable {
+public class Course {
     private String courseCode;
     private String courseName;
+    private int credit;
     private double scale;
 
     public Course() {
     }
 
-    public Course(String courseCode, String courseName, double scale) {
+    public Course(String courseCode, String courseName, int credit, double scale) {
         this.courseCode = courseCode;
         this.courseName = courseName;
+        this.credit = credit;
         this.scale = scale;
     }
 
@@ -25,8 +25,12 @@ public class Course implements Serializable {
         return courseName;
     }
 
-    public double getScale() {
-        return scale;
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
     }
 
     public void setCourseCode(String courseCode) {
@@ -37,13 +41,20 @@ public class Course implements Serializable {
         this.courseName = courseName;
     }
 
+    public double getScale() {
+        return scale;
+    }
+
     public void setScale(double scale) {
         this.scale = scale;
     }
 
     @Override
     public String toString() {
-        return courseCode;
+        return "Course{" +
+                "courseCode='" + courseCode + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", credit=" + credit +
+                '}';
     }
-
 }

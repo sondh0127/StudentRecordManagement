@@ -28,11 +28,8 @@ public class StudentResult {
     private double calculateScore(double scale) {
         BigDecimal scaleBD = BigDecimal.valueOf(scale);
         double _scale = BigDecimal.ONE.subtract(scaleBD).doubleValue();
-        if (midtermPoint != -1 && finalPoint != -1) {
-            double result = midtermPoint * scale + finalPoint * _scale;
-            return Math.round(result * 10.0) / 10.0;
-        }
-        return -1;
+        double result = midtermPoint * scale + finalPoint * _scale;
+        return Math.round(result * 10.0) / 10.0;
     }
 
     // getter and setter
