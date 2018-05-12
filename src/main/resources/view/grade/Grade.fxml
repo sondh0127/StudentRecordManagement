@@ -19,7 +19,7 @@
          <top>
             <HBox spacing="20.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets />
+                  <Insets bottom="10.0" />
                </BorderPane.margin>
                <children>
                   <HBox alignment="CENTER_LEFT">
@@ -116,11 +116,11 @@
          <center>
             <TableView fx:id="tblGrade" editable="true" prefHeight="560.0" prefWidth="360.0" BorderPane.alignment="CENTER">
                <columns>
-                  <TableColumn fx:id="colStudentID" minWidth="-1.0" prefWidth="160.0" text="Student ID" />
-                  <TableColumn fx:id="colFullName" minWidth="-1.0" prefWidth="285.0" text="Full Name" />
-                  <TableColumn fx:id="colMidterm" minWidth="0.0" prefWidth="221.0" text="Midterm" />
-                  <TableColumn fx:id="colFinal" minWidth="0.0" prefWidth="175.0" text="Final" />
-                  <TableColumn fx:id="colScore" minWidth="0.0" prefWidth="208.0" text="Total Score" />
+                  <TableColumn fx:id="colStudentID" minWidth="-1.0" prefWidth="155.0" text="Student ID" />
+                  <TableColumn fx:id="colFullName" minWidth="-1.0" prefWidth="250.0" text="Full Name" />
+                  <TableColumn fx:id="colMidterm" minWidth="0.0" prefWidth="200.0" text="Midterm" />
+                  <TableColumn fx:id="colFinal" minWidth="0.0" prefWidth="200.0" text="Final" />
+                  <TableColumn fx:id="colScore" minWidth="0.0" prefWidth="200.0" text="Total Score" />
                </columns>
                <BorderPane.margin>
                   <Insets left="10.0" />

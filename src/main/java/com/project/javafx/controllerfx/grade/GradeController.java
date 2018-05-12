@@ -17,13 +17,12 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.NumberStringConverter;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import org.controlsfx.control.table.TableRowExpanderColumn;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -132,6 +131,11 @@ public class GradeController implements Initializable {
     }
 
     private void initCols() {
+
+        TableRowExpanderColumn<GradeModel> expander = new TableRowExpanderColumn<>(this::createEditor);
+
+        tblGrade.getColumns().addAll(expander);
+
         tblGrade.setItems(gradeObservableList);
         colStudentID.setCellValueFactory(param -> {
             GradeModel s = param.getValue();
@@ -154,7 +158,7 @@ public class GradeController implements Initializable {
             GradeModel s = param.getValue();
             return new SimpleDoubleProperty(s.getTotalPoint());
         });
-        colMidterm.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+//        colMidterm.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         colMidterm.setOnEditCommit(event -> {
             int row = event.getTablePosition().getRow();
             GradeModel gradeModel = event.getTableView().getItems().get(row);
@@ -171,7 +175,7 @@ public class GradeController implements Initializable {
                 handleSearchAction(event);
             }
         });
-        colFinal.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+//        colFinal.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         colFinal.setOnEditCommit(event -> {
             int row = event.getTablePosition().getRow();
             GradeModel gradeModel = event.getTableView().getItems().get(row);
@@ -187,6 +191,48 @@ public class GradeController implements Initializable {
                 handleSearchAction(event);
             }
         });
+    }
+
+    private GridPane createEditor(TableRowExpanderColumn.TableRowDataFeatures<GradeModel> param) {
+        GridPane editor = new GridPane();
+        editor.setPadding(new Insets(10));
+        editor.setHgap(10);
+        editor.setVgap(5);
+
+        GradeModel gradeModel = param.getValue();
+
+        TextField txtMidPoint = new TextField(gradeModel.getMidTermPoint().toString());
+        TextField txtFinalPoint = new TextField(gradeModel.getFinalPoint().toString());
+
+        editor.addRow(0, new Label("Midterm"), txtMidPoint);
+        editor.addRow(1, new Label("Final"), txtFinalPoint);
+
+        Button save = new Button("Save");
+        save.setOnAction(event -> {
+            try {
+                double midtermPoint = Double.parseDouble(txtMidPoint.getText());
+                double finalPoint = Double.parseDouble(txtFinalPoint.getText());
+                if (midtermPoint > 10 || midtermPoint < 0 || finalPoint > 10 || finalPoint < 0)
+                    throw new IllegalArgumentException("Score must be in range (0-10) !");
+                else {
+                    gradeModel.setMidTermPoint(midtermPoint);
+                    gradeModel.setFinalPoint(finalPoint);
+                    gradeModel.calculateScore();
+                }
+            } catch (NumberFormatException e) {
+                AlertMaker.showErrorMessage("Invalid Number", "Mark is not a number! ");
+            } catch (IllegalArgumentException e) {
+                AlertMaker.showErrorMessage("Invalid Score", e.getMessage());
+            }
+            param.toggleExpanded();
+        });
+
+        Button cancel = new Button("Cancel");
+        cancel.setOnAction(e1 -> param.toggleExpanded());
+
+        editor.addRow(2, save,cancel);
+        return editor;
+
     }
 
     @FXML
@@ -302,6 +348,16 @@ public class GradeController implements Initializable {
 
         public Course getCourse() {
             return course;
+        }
+
+        private void calculateScore() {
+            double scale = course.getScale();
+            BigDecimal scaleBD = BigDecimal.valueOf(scale);
+            double _scale = BigDecimal.ONE.subtract(scaleBD).doubleValue();
+            if (midTermPoint != -1 && finalPoint != -1) {
+                double result = midTermPoint * scale + finalPoint * _scale;
+                totalPoint =  Math.round(result * 10.0) / 10.0;
+            }
         }
     }
 
