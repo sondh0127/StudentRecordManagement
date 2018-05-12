@@ -17,44 +17,99 @@
             </HBox>
          </right>
          <top>
-            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1065.0" BorderPane.alignment="CENTER">
+            <HBox spacing="20.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets bottom="10.0" left="50.0" right="5.0" top="5.0" />
+                  <Insets />
                </BorderPane.margin>
                <children>
-                  <GridPane hgap="20.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="-Infinity" prefHeight="0.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="-Infinity" prefHeight="0.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
+                  <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label alignment="CENTER" layoutX="10.0" layoutY="15.0" text="Find by Course Code" textFill="#4d4d4d" wrapText="true">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtCourseCode" layoutX="10.0" layoutY="40.0" onAction="#handleSearchAction" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </GridPane>
-                  <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="780.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label fx:id="labelCourse" text="Course: ">
+                        <GridPane hgap="20.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="30.0" />
+                              <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="15.0" text="Find by Course" textFill="#4d4d4d" wrapText="true">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtCourseCode" layoutX="10.0" layoutY="40.0" onAction="#handleSearchAction" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                              <Label alignment="CENTER" text="Find by Credit Class" textFill="#4d4d4d" wrapText="true" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtClassCode" onAction="#handleSearchAction" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                           </children>
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets left="50.0" />
                            </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children></HBox>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                  <Separator orientation="VERTICAL" />
+                  <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                     <children>
+                        <GridPane hgap="20.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints maxWidth="-Infinity" minWidth="10.0" prefWidth="250.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label fx:id="lblClass" text="Class Code" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Course:" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblClassCode" layoutX="192.0" layoutY="10.0" text="Code" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblCourseName" layoutX="192.0" layoutY="35.0" text="Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="192.0" layoutY="35.0" text="Course Code:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblCourseCode" layoutX="192.0" layoutY="64.0" text="Code" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
          </top>

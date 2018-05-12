@@ -2,8 +2,10 @@ package com.project.javafx.controllerfx.grade;
 
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.Course;
+import com.project.javafx.model.CreditClass;
 import com.project.javafx.model.Student;
 import com.project.javafx.model.StudentResult;
+import com.project.javafx.repository.CreditClassRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -35,7 +37,19 @@ public class GradeController implements Initializable {
     private TextField txtCourseCode;
 
     @FXML
-    private Label labelCourse;
+    private TextField txtClassCode;
+
+    @FXML
+    private Label lblClass;
+
+    @FXML
+    private Label lblClassCode;
+
+    @FXML
+    private Label lblCourseName;
+
+    @FXML
+    private Label lblCourseCode;
 
     @FXML
     private TableView<GradeModel> tblGrade;
@@ -64,6 +78,12 @@ public class GradeController implements Initializable {
     @FXML
     public void refreshTable() {
         tblGrade.getItems().clear();
+        lblClassCode.setText("");
+        lblClass.setVisible(false);
+        lblClassCode.setVisible(false);
+
+        lblCourseName.setText("");
+        lblCourseCode.setText("");
         initData();
         System.out.println(gradeModels.size());
     }
@@ -77,6 +97,13 @@ public class GradeController implements Initializable {
                 student.updateStudentResult(gradeModel.getCourse(), gradeModel.getMidTermPoint(), gradeModel.getFinalPoint());
                 StudentRepository.getInstance().update(student);
             }
+            AlertMaker.showNotification("Done", "Update mark successfully !", AlertMaker.image_checked);
+            initData();
+            if (txtClassCode.getText().isEmpty()) {
+                handleSearchByCourse(event);
+            } else if (txtCourseCode.getText().isEmpty()) {
+                handleSearchByClass(event);
+            }
         } catch (Exception e) {
             AlertMaker.showErrorMessage("Mark error", e.getMessage());
         }
@@ -86,9 +113,7 @@ public class GradeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initCols();
-        tblGrade.setItems(gradeObservableList);
         refreshTable();
-
     }
 
     private void initData() {
@@ -107,6 +132,7 @@ public class GradeController implements Initializable {
     }
 
     private void initCols() {
+        tblGrade.setItems(gradeObservableList);
         colStudentID.setCellValueFactory(param -> {
             GradeModel s = param.getValue();
             return new SimpleLongProperty(s.getStudentID());
@@ -153,8 +179,7 @@ public class GradeController implements Initializable {
             try {
                 if (finalPoint > 10 || finalPoint < 0) {
                     throw new IllegalArgumentException("Invalid Score. Must be in range (0-10)");
-                }
-                else {
+                } else {
                     gradeModel.setFinalPoint(finalPoint);
                 }
             } catch (IllegalArgumentException e) {
@@ -166,16 +191,66 @@ public class GradeController implements Initializable {
 
     @FXML
     void handleSearchAction(Event event) {
+        try {
+            if (event.getSource().equals(txtCourseCode)) {
+                txtClassCode.setText("");
+                lblClass.setVisible(false);
+                lblClassCode.setVisible(false);
+                handleSearchByCourse(event);
+            } else if (event.getSource().equals(txtClassCode)) {
+                txtCourseCode.setText("");
+                lblClass.setVisible(true);
+                lblClassCode.setVisible(true);
+                handleSearchByClass(event);
+            }
+        } catch (IllegalArgumentException e) {
+            AlertMaker.showErrorMessage("Error!", e.getMessage());
+        }
+    }
+
+    private void handleSearchByCourse(Event event) {
         ObservableList<GradeModel> temp = FXCollections.observableArrayList();
         String courseCode = txtCourseCode.getText().toUpperCase();
         System.out.println(courseCode);
+        boolean found = false;
+        String courseName = "";
         for (GradeModel gradeModel : gradeModels) {
             if (gradeModel.getCourse().getCourseCode().equals(courseCode)) {
                 temp.add(gradeModel);
+                courseName = gradeModel.getCourse().getCourseName();
+                found = true;
             }
         }
-        gradeObservableList.clear();
-        gradeObservableList.addAll(temp);
+        if (!found) throw new IllegalArgumentException("Could not found course or " +
+                courseCode + " has no register");
+        else {
+            lblCourseName.setText(courseName);
+            lblCourseCode.setText(courseCode);
+            gradeObservableList.clear();
+            gradeObservableList.addAll(temp);
+        }
+    }
+
+    private void handleSearchByClass(Event event) {
+        ObservableList<GradeModel> temp = FXCollections.observableArrayList();
+        String classCode = txtClassCode.getText().toUpperCase();
+        CreditClass creditClass = CreditClassRepository.getInstance().findById(classCode);
+        System.out.println(creditClass);
+
+        if (creditClass == null) {
+            throw new IllegalArgumentException("Could not found class !");
+        } else {
+            lblClassCode.setText(creditClass.getClassCode());
+            lblCourseName.setText(creditClass.getCourse().getCourseName());
+            lblCourseCode.setText(creditClass.getCourse().getCourseCode());
+            for (GradeModel gradeModel : gradeModels) {
+                if (gradeModel.getCourse().equals(creditClass.getCourse())) {
+                    temp.add(gradeModel);
+                }
+            }
+            gradeObservableList.clear();
+            gradeObservableList.addAll(temp);
+        }
     }
 
 
