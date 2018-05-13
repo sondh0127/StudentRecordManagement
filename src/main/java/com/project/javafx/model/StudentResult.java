@@ -59,4 +59,16 @@ public class StudentResult {
         else if (score < 8.5) return 3.5D;
         else return 4.0D;
     }
+
+    public String getLetterScore() {
+        if (score < 4.0) return "F";
+        else if (score < 5.0) return "D";
+        else if (score < 5.5) return "D+";
+        else if (score < 6.5) return "C";
+        else if (score < 7.0) return "C+";
+        else if (score < 8.0) return "B";
+        else if (score < 8.5) return "B+";
+        else if (score < 10.0) return "A";
+        else return "A+";
+    }
 }

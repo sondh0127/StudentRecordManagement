@@ -41,6 +41,10 @@ public abstract class Student {
         this.takenCourses = takenCourses;
     }
 
+    public List<StudentResult> getPassedCourses() {
+        return passedCourses;
+    }
+
     public long getStudentID() {
         return studentID;
     }

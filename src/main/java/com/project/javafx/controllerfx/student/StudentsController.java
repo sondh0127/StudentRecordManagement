@@ -236,6 +236,29 @@ public class StudentsController implements Initializable {
     }
 
     @FXML
+    void viewMark(ActionEvent event) {
+        Student updateStudent = studentTableView.getSelectionModel().getSelectedItem();
+        if (updateStudent == null) {
+            AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);
+        } else {
+            loadWindow(ViewConstants.STUDENT_GRADE, "View Student Grade", new ResourceBundle() {
+                @Override
+                protected Object handleGetObject(String key) {
+                    if (key.equals("student")) {
+                        return updateStudent;
+                    }
+                    return null;
+                }
+
+                @Override
+                public Enumeration<String> getKeys() {
+                    return null;
+                }
+            });
+        }
+    }
+
+    @FXML
     void updateStudent(ActionEvent event) {
         Student updateStudent = studentTableView.getSelectionModel().getSelectedItem();
         if (updateStudent == null) {

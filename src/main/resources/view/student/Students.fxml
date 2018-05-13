@@ -40,23 +40,23 @@
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnUpdate" alignment="CENTER" onAction="#updateStudent" prefWidth="120.0" style="-fx-background-color: #0096c9;" text="Update" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="18" wrappingWidth="22.5" />
-                     </graphic>
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                     </padding>
-                  </JFXButton>
                   <JFXButton fx:id="btnRefresh" alignment="CENTER" onAction="#refreshTable" prefWidth="120.0" style="-fx-background-color: #00C853;" text="Refresh" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="16" text="" wrappingWidth="22.5" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </JFXButton>
+                  <JFXButton fx:id="btnViewMark" alignment="CENTER" onAction="#viewMark" prefWidth="140.0" style="-fx-background-color: #E0C400;" text="Check Mark" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="18" wrappingWidth="22.5" />
                      </graphic>
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
@@ -92,11 +92,22 @@
                         <Image url="@../../img/material-design-background.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="lbl_FullName" alignment="CENTER" layoutX="40.0" layoutY="100.0" text="NAME" textAlignment="CENTER">
+                  <Label fx:id="lbl_FullName" alignment="CENTER" layoutX="14.0" layoutY="100.0" text="NAME" textAlignment="CENTER">
                      <font>
-                        <Font name="System Bold Italic" size="18.0" />
+                        <Font name="System Bold Italic" size="16.0" />
                      </font>
                   </Label>
+                  <JFXButton fx:id="btnUpdate" alignment="CENTER" buttonType="RAISED" layoutX="221.0" layoutY="106.0" onAction="#updateStudent" prefHeight="46.0" style="-fx-background-color: #238795; -fx-background-radius: 46;" text=" " textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" size="18" wrappingWidth="22.5" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="10.0" left="15.0" top="10.0" />
+                     </padding>
+                  </JFXButton>
                </children>
             </AnchorPane>
             <AnchorPane VBox.vgrow="ALWAYS">
