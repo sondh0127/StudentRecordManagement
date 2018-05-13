@@ -25,7 +25,9 @@ import org.controlsfx.control.table.TableRowExpanderColumn;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class GradeController implements Initializable {
 
@@ -279,15 +281,19 @@ public class GradeController implements Initializable {
         ObservableList<GradeModel> temp = FXCollections.observableArrayList();
         String classCode = txtClassCode.getText().toUpperCase();
         CreditClass creditClass = CreditClassRepository.getInstance().findById(classCode);
-
+        List<Long> ids = creditClass.getStudentList().stream()
+                .map(Student::getStudentID)
+                .collect(Collectors.toList());
         if (creditClass == null) {
             throw new IllegalArgumentException("Could not found class !");
         } else {
             lblClassCode.setText(creditClass.getClassCode());
             lblCourseName.setText(creditClass.getCourse().getCourseName());
             lblCourseCode.setText(creditClass.getCourse().getCourseCode());
+
             for (GradeModel gradeModel : gradeModels) {
-                if (gradeModel.getCourse().equals(creditClass.getCourse())) {
+                if (gradeModel.getCourse().equals(creditClass.getCourse())
+                        && ids.contains(gradeModel.getStudentID())) {
                     temp.add(gradeModel);
                 }
             }

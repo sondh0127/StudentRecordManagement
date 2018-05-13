@@ -112,10 +112,10 @@ public class CreditClassesController implements Initializable {
                         .forEach(temp::add);
             }
         } else if (event.getSource().equals(txtName)) {
-            String courseName = txtName.getText().toUpperCase();
+            String courseName = txtName.getText().toLowerCase();
             if (courseName.isEmpty()) temp.addAll(all);
             else {
-                all.stream().filter(course -> course.getCourseName().contains(courseName))
+                all.stream().filter(course -> course.getCourseName().toLowerCase().contains(courseName))
                         .forEach(temp::add);
             }
         }

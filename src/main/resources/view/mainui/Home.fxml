@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
@@ -13,35 +12,45 @@
    <center>
       <AnchorPane prefHeight="680.0" prefWidth="1070.0">
          <children>
-            <Label text="Welcome to  MANAGER SYSTEM ADMIN" textFill="#0096c9" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="40.0">
+            <Label text="Welcome to Student Managerment System" textFill="#0096c9" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="40.0">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
             <Pane prefHeight="253.0" prefWidth="546.0" style="-fx-background-color: white; -fx-border-color: #0096c9; -fx-background-radius: 5; -fx-border-width: 0 0 0 5,0 0; -fx-border-radius: 5;" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="130.0">
                <children>
-                  <Label layoutX="14.0" layoutY="6.0" text="TIPS" textFill="RED">
+                  <Label layoutX="14.0" layoutY="6.0" text="GUIDE" textFill="RED">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
                   <Separator layoutX="14.0" layoutY="35.0" prefWidth="500.0" />
-                  <Label layoutX="14.0" layoutY="47.0" prefHeight="32.0" prefWidth="469.0" text="Use the Student TAB to register the Student and its details" textFill="#2c2828" wrapText="true">
+                  <Label layoutX="15.0" layoutY="146.0" prefHeight="32.0" prefWidth="469.0" text="Use the Student TAB to manager Student and check student details" textFill="#2c2828" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="79.0" prefHeight="32.0" prefWidth="469.0" text="Courses are Registered using the Courses TAB" textFill="#2c2828" wrapText="true">
+                  <Label layoutX="15.0" layoutY="44.0" prefHeight="32.0" prefWidth="469.0" text="Courses are added and removed using the Courses TAB" textFill="#2c2828" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="119.0" prefHeight="51.0" prefWidth="478.0" text="Guide" textFill="#2c2828" wrapText="true">
+                  <Label layoutX="15.0" layoutY="78.0" prefHeight="32.0" prefWidth="478.0" text="Create and specify Credit Major on Major TAB." textFill="#2c2828" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="170.0" prefHeight="51.0" prefWidth="478.0" text="You can update your password in Settings" textFill="#2c2828" wrapText="true">
+                  <Label layoutX="15.0" layoutY="179.0" prefHeight="32.0" prefWidth="478.0" text="Add register course for Credit Student in Register TAB" textFill="#2c2828" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="15.0" layoutY="212.0" prefHeight="32.0" prefWidth="478.0" text="Add mark for student in Mark TAB" textFill="#2c2828" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="15.0" layoutY="112.0" prefHeight="32.0" prefWidth="478.0" text="Create and manger Annual Class on Annual Class TAB." textFill="#2c2828" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -73,17 +82,17 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="75.0" layoutY="462.0" prefHeight="77.0" prefWidth="621.0" style="-fx-background-color: white; -fx-border-color: #0096c9; -fx-background-radius: 5; -fx-border-width: 0 0 0 5,0 0; -fx-border-radius: 5;">
+            <Pane layoutX="75.0" layoutY="429.0" prefHeight="110.0" prefWidth="732.0" style="-fx-background-color: white; -fx-border-color: #0096c9; -fx-background-radius: 5; -fx-border-width: 0 0 0 5,0 0; -fx-border-radius: 5;">
                <effect>
                   <DropShadow />
                </effect>
                <children>
-                  <Label layoutX="14.0" layoutY="14.0" prefHeight="51.0" prefWidth="314.0" text="Update system information after a year of study" textFill="#2c2828" wrapText="true">
+                  <Label layoutX="15.0" layoutY="15.0" prefHeight="32.0" prefWidth="314.0" text="Update system information after a year of study" textFill="#2c2828" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="btnGraduate" alignment="CENTER" buttonType="RAISED" layoutX="375.0" layoutY="18.0" onAction="#updateStudy" prefWidth="210.0" style="-fx-background-color: #0096c9;" text="Update Study Year" textFill="WHITE">
+                  <JFXButton fx:id="btnGraduate" alignment="CENTER" buttonType="RAISED" layoutX="446.0" layoutY="33.0" onAction="#updateStudy" prefWidth="210.0" style="-fx-background-color: #0096c9;" text="Update Study Year" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -94,6 +103,11 @@
                         <MaterialDesignIconView glyphName="ARROW_UP_BOLD_HEXAGON_OUTLINE" size="24" wrappingWidth="30.0" />
                      </graphic>
                   </JFXButton>
+                  <Label layoutX="14.0" layoutY="52.0" prefHeight="32.0" prefWidth="386.0" text="Note: System will automatically update info for each student" textFill="#2c2828" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </children>
