@@ -1,7 +1,6 @@
 package com.project.javafx.controllerfx.course;
 
 import com.jfoenix.controls.JFXButton;
-import com.project.javafx.model.Course;
 import com.project.javafx.model.CreditCourse;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.ulti.AlertMaker;
@@ -159,13 +158,6 @@ public class AddPrerequisiteCourseController implements Initializable {
         initCols();
         creditCourseObservableList.setAll(CourseRepository.getInstance().findAllCreditCourse());
         refreshTable();
-
-        Course cc11 = CourseRepository.getInstance().findById("CC11");
-        Course cc12 = CourseRepository.getInstance().findById("CC12");
-        if (cc11 instanceof CreditCourse) {
-            boolean equals = ((CreditCourse) cc11).getPrerequisiteCourse().get(0).equals(cc12);
-            System.out.println();
-        }
     }
 
     private void initCols() {

@@ -72,7 +72,7 @@ public class AddCourseListController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.creditMajor = (CreditMajor) resources.getObject("major");
-        System.out.println(creditMajor.getMajorTitle());
+        System.out.println(creditMajor);
         initCols();
         creditCourseObservableList.setAll(CourseRepository.getInstance().findAllCreditCourse());
         initComboBox();

@@ -256,7 +256,6 @@ public class GradeController implements Initializable {
     private void handleSearchByCourse(Event event) {
         ObservableList<GradeModel> temp = FXCollections.observableArrayList();
         String courseCode = txtCourseCode.getText().toUpperCase();
-        System.out.println(courseCode);
         boolean found = false;
         String courseName = "";
         for (GradeModel gradeModel : gradeModels) {
@@ -280,7 +279,6 @@ public class GradeController implements Initializable {
         ObservableList<GradeModel> temp = FXCollections.observableArrayList();
         String classCode = txtClassCode.getText().toUpperCase();
         CreditClass creditClass = CreditClassRepository.getInstance().findById(classCode);
-        System.out.println(creditClass);
 
         if (creditClass == null) {
             throw new IllegalArgumentException("Could not found class !");

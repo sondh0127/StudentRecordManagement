@@ -1,6 +1,6 @@
 package com.project.javafx.model;
 
-public enum YearOfStudy {
+public enum StudyLevel {
         FIRST_YEAR("First Year"),
         SECOND_YEAR("Second Year"),
         THIRD_YEAR("Third Year"),
@@ -9,7 +9,7 @@ public enum YearOfStudy {
 
         private final String text;
 
-        YearOfStudy(String text) {
+        StudyLevel(String text) {
             this.text = text;
         }
 

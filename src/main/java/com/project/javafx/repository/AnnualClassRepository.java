@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
-import com.project.javafx.model.YearOfStudy;
+import com.project.javafx.model.StudyLevel;
 import com.project.javafx.ulti.gsonUtil.AnnualClassDeserializer;
 import com.project.javafx.ulti.gsonUtil.AnnualStudentDeserializer;
 import com.project.javafx.ulti.gsonUtil.CourseDeserializer;
@@ -33,10 +33,10 @@ public class AnnualClassRepository extends AbstractRepository<AnnualClass, Strin
 
     public void deleteCourseForAllClass(Course course) {
         for (AnnualClass annualClass : objects) {
-            List<Course> FIRST_YEAR = annualClass.getCoursesCatalog(YearOfStudy.FIRST_YEAR);
-            List<Course> SECOND_YEAR = annualClass.getCoursesCatalog(YearOfStudy.SECOND_YEAR);
-            List<Course> THIRD_YEAR = annualClass.getCoursesCatalog(YearOfStudy.THIRD_YEAR);
-            List<Course> FOURTH_YEAR = annualClass.getCoursesCatalog(YearOfStudy.FOURTH_YEAR);
+            List<Course> FIRST_YEAR = annualClass.getCoursesCatalog(StudyLevel.FIRST_YEAR);
+            List<Course> SECOND_YEAR = annualClass.getCoursesCatalog(StudyLevel.SECOND_YEAR);
+            List<Course> THIRD_YEAR = annualClass.getCoursesCatalog(StudyLevel.THIRD_YEAR);
+            List<Course> FOURTH_YEAR = annualClass.getCoursesCatalog(StudyLevel.FOURTH_YEAR);
 
             if (FIRST_YEAR.remove(course)
                     || SECOND_YEAR.remove(course)

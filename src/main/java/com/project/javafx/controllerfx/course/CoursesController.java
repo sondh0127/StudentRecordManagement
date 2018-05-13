@@ -102,31 +102,23 @@ public class CoursesController implements Initializable {
         cbxMajor.valueProperty().addListener((observable, oldValue, newValue) -> {
             courseObservableList.clear();
             if (newValue instanceof CreditMajor) {
-                System.out.println(((CreditMajor) newValue).getMajorCode());
                 courseObservableList.addAll(((CreditMajor) newValue).getMajorCatalog());
                 courseObservableList.addAll(((CreditMajor) newValue).getMinorCatalog());
             } else {
                 courseObservableList.addAll(CourseRepository.getInstance().findAll());
-                System.out.println(newValue);
             }
         });
         cbxClass.valueProperty().addListener((observable, oldValue, newValue) -> {
             courseObservableList.clear();
             if (newValue instanceof AnnualClass) {
-                System.out.println(((AnnualClass) newValue).getClassCode());
-                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(YearOfStudy.FIRST_YEAR));
-                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(YearOfStudy.SECOND_YEAR));
-                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(YearOfStudy.THIRD_YEAR));
-                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(YearOfStudy.FOURTH_YEAR));
+                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(StudyLevel.FIRST_YEAR));
+                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(StudyLevel.SECOND_YEAR));
+                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(StudyLevel.THIRD_YEAR));
+                courseObservableList.addAll(((AnnualClass) newValue).getCoursesCatalog(StudyLevel.FOURTH_YEAR));
             } else {
                 courseObservableList.addAll(CourseRepository.getInstance().findAll());
-                System.out.println(newValue);
             }
         });
-//        filterToggle.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue.equals(majorFilter)) lblFindBy.setText("Find by " + newValue.getProperties().toString());
-//            else if (newValue.equals(classFilter)) lblFindBy.setText("Find by Annual Class");
-//        });
 
     }
 
@@ -189,7 +181,6 @@ public class CoursesController implements Initializable {
         ObservableList<Course> temp = FXCollections.observableArrayList();
         if (event.getSource().equals(txtCode)) {
             String courseCode = txtCode.getText().toUpperCase();
-            System.out.println(courseCode);
             if (courseCode.isEmpty()) temp.addAll(all);
             else {
                 for (Course course : all) {

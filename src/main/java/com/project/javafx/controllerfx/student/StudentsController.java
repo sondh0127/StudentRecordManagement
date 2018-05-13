@@ -4,10 +4,12 @@ package com.project.javafx.controllerfx.student;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.project.javafx.model.AnnualStudent;
-import com.project.javafx.model.CreditMajor;
 import com.project.javafx.model.CreditStudent;
 import com.project.javafx.model.Student;
-import com.project.javafx.repository.*;
+import com.project.javafx.repository.AnnualClassRepository;
+import com.project.javafx.repository.CreditClassRepository;
+import com.project.javafx.repository.StudentRepository;
+import com.project.javafx.repository.UserRepository;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.DateUtil;
 import com.project.javafx.ulti.ViewConstants;
@@ -201,22 +203,18 @@ public class StudentsController implements Initializable {
             btnGraduate.setVisible(true);
 
             if (student instanceof CreditStudent) {
-                CreditMajor creditMajor = ((CreditStudent) student).getCreditMajor();
-                System.out.println(creditMajor.equals(CreditMajorRepository.getInstance().findById(creditMajor.getMajorCode())));
-
-
                 int num = ((CreditStudent) student).getPassedMajorCredits() + ((CreditStudent) student).getPassedMinorCredits();
                 String totalCredit = String.valueOf(num);
                 lblMajorClass.setText("Major: " + ((CreditStudent) student).getCreditMajor().getMajorTitle());
                 lblAddition.setText("Credit Taken: " + totalCredit);
                 lblAvgCpa.setText("CPA: " + ((CreditStudent) student).getCPA());
             } else if (student instanceof AnnualStudent) {
-                String years = ((AnnualStudent) student).getStudyYear().toString();
+                String years = ((AnnualStudent) student).getStudyLevel().toString();
                 String className = ((AnnualStudent) student).getAnnualClass().getClassName();
 //                String className = AnnualClassRepository.getInstance().getAnnualClassOf((AnnualStudent) student).getClassName();
                 lblMajorClass.setText("Class: " + className);
                 lblAddition.setText("Year: " + years);
-                lblAvgCpa.setText("AVG: " + ((AnnualStudent) student).getAvg());
+                lblAvgCpa.setText("AVG: " + ((AnnualStudent) student).getAVG());
             }
         } else {
             lbl_FullName.setText("");

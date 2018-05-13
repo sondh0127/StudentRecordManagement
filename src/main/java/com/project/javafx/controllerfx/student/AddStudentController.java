@@ -160,12 +160,14 @@ public class AddStudentController implements Initializable {
                 newStudent = new CreditStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address, majorValue);
             } else if (classValue != null) {
                 newStudent = new AnnualStudent(studentID, firstName, lastName, gender, birthdayDate, phone, email, address);
-                if (!classValue.addStudentToClass((AnnualStudent) newStudent))
-                    throw new RuntimeException("Class is full !");
-                AnnualClassRepository.getInstance().update(classValue);
+
             }
             if (newStudent != null) {
                 if (StudentRepository.getInstance().save(newStudent)) {
+                    if (classValue != null) {
+                        classValue.addStudentToClass((AnnualStudent) newStudent);
+                        AnnualClassRepository.getInstance().update(classValue);
+                    }
                     // TODO: 11/05/2018 find here for auto create user
 //                    UserRepository.getInstance().save(new User(studentID, studentID, UserType.USER));
                     AlertMaker.showNotification("Success", "Student info inserted successfully !", AlertMaker.image_checked);

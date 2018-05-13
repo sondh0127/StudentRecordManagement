@@ -91,7 +91,7 @@ public class RegisterController implements Initializable {
                 try {
                     if (student instanceof AnnualStudent) {
                         throw new IllegalArgumentException("Annual Student can not remove register course !");
-                    } else if (student instanceof CreditStudent){
+                    } else if (student instanceof CreditStudent) {
                         CreditClass creditClass = CreditClassRepository.getInstance().findById(removeReg.getRegisterClass());
                         Course course = CourseRepository.getInstance().findById(removeReg.getCourseCode());
                         if (creditClass.removeStudent((CreditStudent) student)) {
@@ -117,9 +117,10 @@ public class RegisterController implements Initializable {
         ObservableList<RegisterModel> temp = FXCollections.observableArrayList();
         try {
             if (event.getSource().equals(txtStudentID)) {
-                long studentID = Long.parseLong(txtStudentID.getText());
-                if (txtStudentID.getText().isEmpty()) temp.addAll(registerModels);
+                String studentIDText = txtStudentID.getText();
+                if (studentIDText.isEmpty()) temp.addAll(registerModels);
                 else {
+                    long studentID = Long.parseLong(studentIDText);
                     for (RegisterModel registerModel : registerModels) {
                         if (registerModel.getStudentID().equals(studentID)) {
                             temp.add(registerModel);

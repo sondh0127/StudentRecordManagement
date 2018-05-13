@@ -3,7 +3,7 @@ package com.project.javafx.controllerfx.annual;
 import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.Course;
-import com.project.javafx.model.YearOfStudy;
+import com.project.javafx.model.StudyLevel;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
@@ -72,7 +72,7 @@ public class AnnualController implements Initializable {
     private JFXButton btnRemove;
 
     @FXML
-    private ComboBox<YearOfStudy> cbxYear;
+    private ComboBox<StudyLevel> cbxYear;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,14 +80,13 @@ public class AnnualController implements Initializable {
         tblCourseList.setItems(courseObservableList);
         initCols();
         annualClassObservableList.setAll(AnnualClassRepository.getInstance().findAll());
-
         initComboBox();
     }
 
     private void initComboBox() {
-        cbxYear.getItems().addAll(YearOfStudy.values());
+        cbxYear.getItems().addAll(StudyLevel.values());
         cbxYear.getSelectionModel().selectFirst();
-        cbxYear.getItems().remove(YearOfStudy.GRADUATED);
+        cbxYear.getItems().remove(StudyLevel.GRADUATED);
         cbxYear.valueProperty().addListener((observable, oldValue, newValue) ->
                 lblYear.setText(newValue.toString().toUpperCase()));
     }
@@ -121,7 +120,7 @@ public class AnnualController implements Initializable {
         if (event.getSource().equals(btnViewCourseList)) {
             AnnualClass selectedItem = tblClass.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                YearOfStudy value = cbxYear.getValue();
+                StudyLevel value = cbxYear.getValue();
                 if (value != null) {
                     courseObservableList.setAll(selectedItem.getCoursesCatalog(value));
                 }

@@ -1,6 +1,7 @@
 package com.project.javafx.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +59,7 @@ public class CreditStudent extends Student {
     }
 
     public boolean registerCourse(CreditCourse course) throws IllegalArgumentException {
+        List<String> courses;
         if (!isMajorCourse(course))
             throw new IllegalArgumentException(course.getCourseCode() + " course isn't in Major Catalog!");
         else {
@@ -74,8 +76,13 @@ public class CreditStudent extends Student {
                 takenCourses.add(new StudentResult(course));
                 registerCredits += addedCredit;
                 return true;
-            } else
-                throw new IllegalArgumentException(course.getCourseCode() + " needs Prerequisite Course " + prerequisiteList.toString());
+            } else {
+                courses = new ArrayList<>();
+                prerequisiteList.stream()
+                        .map(Course::getCourseCode)
+                        .forEach(courses::add);
+                throw new IllegalArgumentException(course.getCourseCode() + " needs Prerequisite Course " + courses.toString());
+            }
         }
     }
 
@@ -98,15 +105,24 @@ public class CreditStudent extends Student {
         int minorCreditsRequired = creditMajor.getMinorCreditsRequired();
         return passedMajorCredits >= majorCreditsRequired
                 && passedMinorCredits >= minorCreditsRequired
-                && getCPA() >= 2.0;
+                && getCPA() >= 2.0
+                && super.ableToGraduate();
     }
 
+    public void updateStudyYear() {
+        super.updateStudyYear();
+        updatePassedCourse();
+        calculateGPA();
+        calculateCPA();
+        takenCourses.clear();
+        registerCredits = 0;
+    }
 
     public boolean isPassResult(StudentResult result) {
         return result.getScoreTransfer() > 1.0;
     }
 
-    public void updatePassedCourseAll() {
+    public void updatePassedCourse() {
         if (takenCourses.isEmpty()) {
             return;
         }
@@ -141,10 +157,6 @@ public class CreditStudent extends Student {
                 }
             }
         }
-        calculateGPA();
-        calculateCPA();
-        takenCourses.clear();
-        registerCredits = 0;
     }
 
     private void calculateGPA() {

@@ -1,7 +1,9 @@
 package com.project.javafx.controllerfx;
 
 import com.jfoenix.controls.JFXButton;
-import com.project.javafx.model.*;
+import com.project.javafx.model.CreditClass;
+import com.project.javafx.model.Student;
+import com.project.javafx.model.StudentResult;
 import com.project.javafx.repository.CreditClassRepository;
 import com.project.javafx.repository.StudentRepository;
 import com.project.javafx.ulti.AlertMaker;
@@ -17,32 +19,29 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class HomeController implements Initializable{
+public class HomeController implements Initializable {
 
+    Set<Student> noResult;
     @FXML
     private ImageView gear1;
-
     @FXML
     private ImageView gear2;
-
     @FXML
     private ImageView gear3;
-
     @FXML
     private JFXButton btnGraduate;
 
-    private void rotategears()
-    {
-        RotateTransition rg1=new RotateTransition(Duration.seconds(5),gear1);
+    private void rotategears() {
+        RotateTransition rg1 = new RotateTransition(Duration.seconds(5), gear1);
         rg1.setFromAngle(0);
         rg1.setToAngle(360);
-        RotateTransition rg2=new RotateTransition(Duration.seconds(5),gear2);
+        RotateTransition rg2 = new RotateTransition(Duration.seconds(5), gear2);
         rg2.setFromAngle(360);
         rg2.setToAngle(0);
-        RotateTransition rg3=new RotateTransition(Duration.seconds(5),gear3);
+        RotateTransition rg3 = new RotateTransition(Duration.seconds(5), gear3);
         rg3.setFromAngle(0);
         rg3.setToAngle(360);
-        ParallelTransition pt=new ParallelTransition(rg1,rg2,rg3);
+        ParallelTransition pt = new ParallelTransition(rg1, rg2, rg3);
         pt.setCycleCount(ParallelTransition.INDEFINITE);
         pt.play();
     }
@@ -52,21 +51,13 @@ public class HomeController implements Initializable{
         rotategears();
     }
 
-    Set<Student> noResult;
-
     public void updateStudy(ActionEvent event) {
         boolean confirmation = AlertMaker.getConfirmation("Closing year of study", "Are you sure to update this Year of Study");
         if (confirmation) {
             if (ableToUpdate()) {
                 for (Student student : StudentRepository.getInstance().findAll()) {
-                    if (student instanceof CreditStudent) {
-                        ((CreditStudent) student).updatePassedCourseAll();
-                        StudentRepository.getInstance().update(student);
-                    }
-                    if (student instanceof AnnualStudent) {
-                        ((AnnualStudent) student).updateStudyYear();
-                        StudentRepository.getInstance().update(student);
-                    }
+                    student.updateStudyYear();
+                    StudentRepository.getInstance().update(student);
                 }
                 Set<CreditClass> all1 = CreditClassRepository.getInstance().findAll();
                 for (CreditClass creditClass : all1) {

@@ -8,7 +8,6 @@ public class AnnualClass {
 
     private final String classCode;
     private final String className;
-    private int capacity;
 
     private List<AnnualStudent> students;
 
@@ -17,7 +16,6 @@ public class AnnualClass {
     public AnnualClass(String classCode, String className, int capacity) {
         this.classCode = classCode;
         this.className = className;
-        this.capacity = capacity;
         courseCatalog = new ArrayList<>(4);
         for (int i = 0; i < 4; i++) {
             courseCatalog.add(new ArrayList<>());
@@ -32,7 +30,7 @@ public class AnnualClass {
     }
 
     // main method
-    public void addAnnualCourseCatalog(Course course, YearOfStudy year) {
+    public void addAnnualCourseCatalog(Course course, StudyLevel year) {
         switch (year) {
             case FIRST_YEAR:
                 courseCatalog.get(0).add(course);
@@ -58,7 +56,7 @@ public class AnnualClass {
         return classCode;
     }
 
-    public List<Course> getCoursesCatalog(YearOfStudy year) {
+    public List<Course> getCoursesCatalog(StudyLevel year) {
         switch (year) {
             case FIRST_YEAR:
                 return courseCatalog.get(0);
@@ -72,7 +70,7 @@ public class AnnualClass {
         return new ArrayList<>();
     }
 
-    public void setCoursesCatalog(List<Course> coursesCatalog, YearOfStudy year) {
+    public void setCoursesCatalog(List<Course> coursesCatalog, StudyLevel year) {
         switch (year) {
             case FIRST_YEAR:
                 courseCatalog.add(0, coursesCatalog);
@@ -85,14 +83,10 @@ public class AnnualClass {
         }
     }
 
-    public boolean addStudentToClass(AnnualStudent student) {
-        if (students.size() < capacity) {
-            students.add(student);
-            student.setAnnualClass(this);
-            student.addYearCourseList(courseCatalog.get(0));
-            return true;
-        }
-        return false;
+    public void addStudentToClass(AnnualStudent student) {
+        students.add(student);
+        student.setAnnualClass(this);
+        student.addYearCourseList(courseCatalog.get(0));
     }
 
     public void removeStudent(AnnualStudent student) {

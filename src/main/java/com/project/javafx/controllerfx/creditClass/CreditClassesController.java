@@ -106,7 +106,6 @@ public class CreditClassesController implements Initializable {
         ObservableList<CreditCourse> temp = FXCollections.observableArrayList();
         if (event.getSource().equals(txtCode)) {
             String courseCode = txtCode.getText().toUpperCase();
-            System.out.println(courseCode);
             if (courseCode.isEmpty()) temp.addAll(all);
             else {
                 all.stream().filter(course -> course.getCourseCode().contains(courseCode))

@@ -3,38 +3,38 @@ package com.project.javafx.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.project.javafx.model.YearOfStudy.*;
+import static com.project.javafx.model.StudyLevel.*;
 
 public class AnnualStudent extends Student {
 
-    private YearOfStudy studyYear;
-    private double avg;
+    private StudyLevel studyLevel;
+    private double AVG;
     private transient AnnualClass annualClass;
 
     public AnnualStudent(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {
         super(studentID, firstName, lastName, gender, birthday, phone, email, address);
-        this.studyYear = FIRST_YEAR;
+        this.studyLevel = FIRST_YEAR;
     }
 
     // GETTER AND SETTER
 
-    public YearOfStudy getStudyYear() {
-        return studyYear;
+    public StudyLevel getStudyLevel() {
+        return studyLevel;
     }
 
-    public void setStudyYear(YearOfStudy studyYear) {
-        this.studyYear = studyYear;
+    public void setStudyLevel(StudyLevel studyLevel) {
+        this.studyLevel = studyLevel;
     }
 
     // METHOD
 
-    public double getAvg() {
-        return avg;
+    public double getAVG() {
+        return AVG;
     }
 
     @Override
     public boolean ableToGraduate() {
-        return studyYear == GRADUATED;
+        return studyLevel == GRADUATED && super.ableToGraduate();
     }
 
     public void addYearCourseList(List<Course> courses) {
@@ -51,22 +51,38 @@ public class AnnualStudent extends Student {
         takenCourses.remove(result);
     }
 
-    public boolean passedAllCourseInYear() {
-        for (StudentResult result : takenCourses) {
-            if (result.getScore() < 4) {
-                return false;
-            }
-        }
-        return true;
+    @Override
+    boolean isPassResult(StudentResult result) {
+        return result.getScore() >= 4.0;
     }
 
-    public double calculateAVG() {
+    public boolean passedAllCourseInYear() {
+        return takenCourses.stream()
+                .allMatch(this::isPassResult);
+    }
+
+    private void calculateTotalAVG() {
         double sum = 0;
-        for (StudentResult result : takenCourses) {
-            sum += result.getScore();
+        int credits = 0;
+        for (StudentResult result : passedCourses) {
+            double score = result.getScore();
+            int credit = result.getCourse().getCredit();
+            credits += credit;
+            sum += score * credit;
         }
-        avg = Math.round(sum / takenCourses.size() * 10.0) / 10.0;
-        return avg;
+        AVG = Math.round(sum / credits * 10.0) /10.0;
+    }
+
+    private double calculateAVG() {
+        double sum = 0;
+        int credits = 0;
+        for (StudentResult result : takenCourses) {
+            double score = result.getScore();
+            int credit = result.getCourse().getCredit();
+            credits += credit;
+            sum += score * credit;
+        }
+        return Math.round(sum / credits * 10.0) /10.0;
     }
 
     public AnnualClass getAnnualClass() {
@@ -78,23 +94,26 @@ public class AnnualStudent extends Student {
     }
 
     public void updateStudyYear() {
-        switch (studyYear) {
-            case FIRST_YEAR:
-                if (passedAllCourseInYear() && calculateAVG() > 5.0) setStudyYear(SECOND_YEAR);
-                break;
-            case SECOND_YEAR:
-                if (passedAllCourseInYear() && calculateAVG() > 5.0) setStudyYear(THIRD_YEAR);
-                break;
-            case THIRD_YEAR:
-                if (passedAllCourseInYear() && calculateAVG() > 5.0) setStudyYear(FOURTH_YEAR);
-                break;
-            case FOURTH_YEAR:
-                if (passedAllCourseInYear() && calculateAVG() > 5.0) setStudyYear(GRADUATED);
-                break;
-            default:
-                break;
+        super.updateStudyYear();
+        updatePassedCourse();
+        calculateTotalAVG();
+    }
+
+    private void updatePassedCourse() {
+        boolean canUpdateLevel = passedAllCourseInYear() && calculateAVG() >= 5.0;
+        if (canUpdateLevel) {
+            if (studyLevel == StudyLevel.FIRST_YEAR) {
+                setStudyLevel(SECOND_YEAR);
+            } else if (studyLevel == StudyLevel.SECOND_YEAR) {
+                setStudyLevel(THIRD_YEAR);
+            } else if (studyLevel == StudyLevel.THIRD_YEAR) {
+                setStudyLevel(FOURTH_YEAR);
+            } else if (studyLevel == StudyLevel.FOURTH_YEAR) {
+                setStudyLevel(GRADUATED);
+            }
+            passedCourses.addAll(takenCourses);
         }
-        addYearCourseList(annualClass.getCoursesCatalog(studyYear));
+        addYearCourseList(annualClass.getCoursesCatalog(this.studyLevel));
     }
 
 }

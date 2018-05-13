@@ -7,17 +7,16 @@ import java.util.List;
 public abstract class Student {
 
     private final long studentID;
+    List<StudentResult> takenCourses;
+    List<StudentResult> passedCourses;
     private String firstName;
     private String lastName;
     private Gender gender;
-
     private String phone;
     private String email;
     private String address;
     private LocalDate birthday;
-
-    List<StudentResult> takenCourses;
-    List<StudentResult> passedCourses;
+    private int studyYears;
 
     public Student(long studentID, String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {
         this.studentID = studentID;
@@ -28,6 +27,7 @@ public abstract class Student {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.studyYears = 1;
         takenCourses = new ArrayList<>();
         passedCourses = new ArrayList<>();
     }
@@ -73,6 +73,10 @@ public abstract class Student {
         return address;
     }
 
+    public int getStudyYears() {
+        return studyYears;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -91,7 +95,15 @@ public abstract class Student {
                 .orElse(null);
     }
 
-    abstract public boolean ableToGraduate();
+    abstract boolean isPassResult(StudentResult result);
+
+    public boolean ableToGraduate() {
+        return studyYears < 8;
+    }
+
+    public void updateStudyYear() {
+        studyYears++;
+    }
 
     public void updateStudentProfile(String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {
         this.firstName = firstName;
@@ -118,26 +130,6 @@ public abstract class Student {
         }
         return false;
     }
-
-//    /**
-//     * Education System
-//     */
-//    public enum EduSystem {
-//        CREDIT("Academic Credit"),
-//        ANNUAL("Annual Curriculum");
-//
-//        private final String text;
-//
-//        EduSystem(String text) {
-//            this.text = text;
-//        }
-//
-//
-//        @Override
-//        public String toString() {
-//            return text;
-//        }
-//    }
 
     public enum Gender {
         MALE("Male"),

@@ -78,14 +78,12 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
                         objects.add(o);
                     }
                 }
-
-
             }
             reader.close();
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 

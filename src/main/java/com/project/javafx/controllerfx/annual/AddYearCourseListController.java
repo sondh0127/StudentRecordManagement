@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.AnnualClass;
 import com.project.javafx.model.AnnualStudent;
 import com.project.javafx.model.Course;
-import com.project.javafx.model.YearOfStudy;
+import com.project.javafx.model.StudyLevel;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
 import com.project.javafx.repository.StudentRepository;
@@ -67,7 +67,7 @@ public class AddYearCourseListController implements Initializable {
     private TextField txtName;
 
     @FXML
-    private ComboBox<YearOfStudy> cbxYear;
+    private ComboBox<StudyLevel> cbxYear;
 
     @FXML
     private JFXButton btnViewCourseList;
@@ -79,7 +79,7 @@ public class AddYearCourseListController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.annualClass = (AnnualClass) resources.getObject("annual");
-//        System.out.println(annualClass.getClassName());
+        System.out.println(annualClass.getClassName());
         initCols();
         courseObservableList.setAll(CourseRepository.getInstance().findAllNormalCourse());
         initComboBox();
@@ -88,9 +88,9 @@ public class AddYearCourseListController implements Initializable {
     }
 
     private void initComboBox() {
-        cbxYear.getItems().addAll(YearOfStudy.values());
+        cbxYear.getItems().addAll(StudyLevel.values());
         cbxYear.getSelectionModel().selectFirst();
-        cbxYear.getItems().remove(YearOfStudy.GRADUATED);
+        cbxYear.getItems().remove(StudyLevel.GRADUATED);
         cbxYear.valueProperty().addListener((observable, oldValue, newValue) -> {
             lblYear.setText(newValue.toString().toUpperCase());
             refreshTable();
@@ -135,11 +135,11 @@ public class AddYearCourseListController implements Initializable {
             boolean confirmation = AlertMaker.getConfirmation("Delete Course", "Are you sure to delete course \n" +
                     "\"" + removeCourse.getCourseName() + "\" ?");
             if (confirmation) {
-                YearOfStudy yearValue = cbxYear.getValue();
+                StudyLevel yearValue = cbxYear.getValue();
                 this.annualClass.getCoursesCatalog(yearValue).remove(removeCourse);
                 List<AnnualStudent> students = annualClass.getStudents();
                 for (AnnualStudent student : students) {
-                    if (student.getStudyYear().equals(yearValue)) {
+                    if (student.getStudyLevel().equals(yearValue)) {
                         student.removeYearCourse(removeCourse);
                         toUpdateStudents.add(student);
                     }
@@ -185,11 +185,11 @@ public class AddYearCourseListController implements Initializable {
         Course selectCourse = tblCourse.getSelectionModel().getSelectedItem();
         if (notExist(selectCourse)) {
             if (selectCourse != null) {
-                YearOfStudy yearValue = cbxYear.getValue();
+                StudyLevel yearValue = cbxYear.getValue();
                 annualClass.addAnnualCourseCatalog(selectCourse, yearValue);
                 List<AnnualStudent> students = annualClass.getStudents();
                 for (AnnualStudent student : students) {
-                    if (student.getStudyYear().equals(yearValue)) {
+                    if (student.getStudyLevel().equals(yearValue)) {
                         student.addYearCourse(selectCourse);
                         toUpdateStudents.add(student);
                     }
@@ -204,10 +204,10 @@ public class AddYearCourseListController implements Initializable {
     }
 
     private boolean notExist(Course selectedItem) {
-        YearOfStudy[] yearOfStudies = YearOfStudy.values();
-        for (YearOfStudy yearOfStudy : yearOfStudies) {
-            if (!yearOfStudy.equals(YearOfStudy.GRADUATED)) {
-                if (this.annualClass.getCoursesCatalog(yearOfStudy).contains(selectedItem)) {
+        StudyLevel[] yearOfStudies = StudyLevel.values();
+        for (StudyLevel studyLevel : yearOfStudies) {
+            if (!studyLevel.equals(StudyLevel.GRADUATED)) {
+                if (this.annualClass.getCoursesCatalog(studyLevel).contains(selectedItem)) {
                     return false;
                 }
             }
