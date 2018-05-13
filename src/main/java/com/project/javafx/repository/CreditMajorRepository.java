@@ -50,6 +50,11 @@ public class CreditMajorRepository extends AbstractRepository<CreditMajor, Strin
         return new Document("majorCode", s);
     }
 
+    public boolean checkExistMajorTitle(String majorTitle) {
+        return objects.stream()
+                .anyMatch(object -> object.getMajorTitle().equals(majorTitle));
+    }
+
     @Override
     protected Gson gsonCreator() {
         JsonSerializer<CreditCourse> serializer = (src, typeOfSrc, context) -> {

@@ -59,11 +59,13 @@ public class AddMajorController {
             else majorCredits = Integer.parseInt(txtMajorCredits.getText());
             if (txtMajorCredits.getText().trim().isEmpty()) throw new IllegalArgumentException("Enter Minor Credit!");
             else minorCredits = Integer.parseInt(txtMinorCredits.getText());
+            if (CreditMajorRepository.getInstance().checkExistMajorTitle(majorTitle))
+                throw new IllegalArgumentException("Major title is exist.\n Please choose other name!");
             newMajor = new CreditMajor(majorCode, majorTitle, majorCredits, minorCredits);
             if (CreditMajorRepository.getInstance().save(newMajor)) {
                 AlertMaker.showNotification("Success", "Major inserted successfully !", AlertMaker.image_checked);
             } else {
-                AlertMaker.showErrorMessage("Failed!", "Major is exist !");
+                AlertMaker.showErrorMessage("Failed!", "Major code is exist !");
             }
         } catch (NumberFormatException e) {
             AlertMaker.showErrorMessage("Input Error", "Credit number must be number !");
