@@ -168,7 +168,7 @@ public class AddStudentController implements Initializable {
                         classValue.addStudentToClass((AnnualStudent) newStudent);
                         AnnualClassRepository.getInstance().update(classValue);
                     }
-                    // TODO: 11/05/2018 find here for auto create user
+                    // TODO: remove to auto create user account
 //                    UserRepository.getInstance().save(new User(studentID, studentID, UserType.USER));
                     AlertMaker.showNotification("Success", "Student info inserted successfully !", AlertMaker.image_checked);
                 } else {

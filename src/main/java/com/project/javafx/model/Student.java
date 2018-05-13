@@ -102,11 +102,20 @@ public abstract class Student {
     abstract boolean isPassResult(StudentResult result);
 
     public boolean ableToGraduate() {
-        return studyYears < 8;
+        return checkGraduated().toString().trim().isEmpty();
+    }
+
+    public StringBuilder checkGraduated() {
+        StringBuilder sb = new StringBuilder();
+        if (studyYears > 8)
+            sb.append("Study year exceed the regulations: ")
+                    .append(studyYears).append(" > 8.");
+        return sb;
     }
 
     public void updateStudyYear() {
-        studyYears++;
+        if (!ableToGraduate())
+            studyYears++;
     }
 
     public void updateStudentProfile(String firstName, String lastName, Gender gender, LocalDate birthday, String phone, String email, String address) {

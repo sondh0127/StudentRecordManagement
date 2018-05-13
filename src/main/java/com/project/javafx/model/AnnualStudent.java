@@ -33,8 +33,12 @@ public class AnnualStudent extends Student {
     }
 
     @Override
-    public boolean ableToGraduate() {
-        return studyLevel == GRADUATED && super.ableToGraduate();
+    public StringBuilder checkGraduated() {
+        StringBuilder sb;
+        sb = super.checkGraduated();
+        if (studyLevel!= GRADUATED)
+            sb.append("Study level not enough: ").append(studyLevel.toString());
+        return sb;
     }
 
     public void addYearCourseList(List<Course> courses) {

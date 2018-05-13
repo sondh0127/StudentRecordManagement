@@ -94,6 +94,7 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        openMenus();
+        btnLogOut.setVisible(false);
         FXMLLoader loader = null;
         try {
             loader = new FXMLLoader(getClass().getResource(ViewConstants.HOME_VIEW));

@@ -103,7 +103,7 @@ public class LoginController implements Initializable {
             stage.initOwner(txtAdminUser.getScene().getWindow());
             stage.show();
         } catch (IOException e) {
-//            AlertMaker.showErrorMessage(e);
+            AlertMaker.showErrorMessage(e);
             e.printStackTrace();
         }
     }

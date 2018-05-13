@@ -100,13 +100,19 @@ public class CreditStudent extends Student {
     }
 
     @Override
-    public boolean ableToGraduate() {
+    public StringBuilder checkGraduated() {
+        StringBuilder sb = super.checkGraduated();
         int majorCreditsRequired = creditMajor.getMajorCreditsRequired();
         int minorCreditsRequired = creditMajor.getMinorCreditsRequired();
-        return passedMajorCredits >= majorCreditsRequired
-                && passedMinorCredits >= minorCreditsRequired
-                && getCPA() >= 2.0
-                && super.ableToGraduate();
+        if (passedMajorCredits < majorCreditsRequired)
+            sb.append("\n").append("Major Credit: ")
+                    .append(passedMajorCredits).append("/").append(majorCreditsRequired);
+        if (passedMinorCredits < minorCreditsRequired)
+            sb.append("\n").append("Minor Credit: ")
+                    .append(passedMinorCredits).append("/").append(minorCreditsRequired);
+        if (CPA < 2.0)
+            sb.append("\n").append("CPA < 2.0");
+        return sb;
     }
 
     public void updateStudyYear() {

@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import com.project.javafx.model.*;
 import com.project.javafx.repository.AnnualClassRepository;
 import com.project.javafx.repository.CourseRepository;
+import com.project.javafx.repository.CreditClassRepository;
 import com.project.javafx.repository.CreditMajorRepository;
 import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
@@ -228,9 +229,10 @@ public class CoursesController implements Initializable {
             boolean confirmation = AlertMaker.getConfirmation("Delete Course", "Are you sure to delete course " + removeCourse.getCourseCode() + " ?");
             if (confirmation) {
                 CourseRepository.getInstance().delete(removeCourse);
-                // TODO: 22/04/2018 xoa everywhere
-                if (removeCourse instanceof CreditCourse)
+                if (removeCourse instanceof CreditCourse) {
                     CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
+                    CreditClassRepository.getInstance().deleterCourseForAllClass((CreditCourse) removeCourse);
+                }
                 else AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
                 refreshTable();
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);

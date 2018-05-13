@@ -99,10 +99,10 @@ public class StudentsController implements Initializable {
         Student checkStudent = studentTableView.getSelectionModel().getSelectedItem();
         if (checkStudent != null) {
             if (checkStudent.ableToGraduate()) {
-                // TODO: 10/05/2018 more info
-                AlertMaker.showSimpleAlert("Graduation", "Student " + checkStudent.getStudentID() + " able to graduated");
+                AlertMaker.showSimpleAlert("Graduation", "Student " + checkStudent.getStudentID() + " able to graduated.");
             } else {
-                AlertMaker.showSimpleAlert("Graduation", "Student " + checkStudent.getStudentID() + " not able to graduated");
+                AlertMaker.showSimpleAlert("Graduation", "Student " + checkStudent.getStudentID() + " not able to graduated.\n" +
+                        checkStudent.checkGraduated().toString());
             }
         } else {
             AlertMaker.showNotification("Error", "No  Student Selected", AlertMaker.image_cross);
@@ -273,6 +273,7 @@ public class StudentsController implements Initializable {
                         }
                         return null;
                     }
+
                     @Override
                     public Enumeration<String> getKeys() {
                         return null;

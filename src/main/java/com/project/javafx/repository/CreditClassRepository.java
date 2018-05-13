@@ -85,4 +85,10 @@ public class CreditClassRepository extends AbstractRepository<CreditClass, Strin
                 .create();
         return gson;
     }
+
+    public void deleterCourseForAllClass(CreditCourse removeCourse) {
+        objects.stream()
+                .filter(object -> object.getCourse().equals(removeCourse))
+                .forEach(this::delete);
+    }
 }
