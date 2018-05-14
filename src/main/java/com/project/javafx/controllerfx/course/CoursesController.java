@@ -99,7 +99,15 @@ public class CoursesController implements Initializable {
         initCols();
         refreshTable();
         filterTableView();
-
+        courseTableView.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        txtCode.setText(newValue.getCourseCode());
+                    } else {
+                        txtCode.setText("");
+                    }
+                });
     }
 
     private void filterTableView() {

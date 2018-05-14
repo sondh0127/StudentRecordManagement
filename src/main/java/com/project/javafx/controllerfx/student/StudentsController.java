@@ -194,6 +194,7 @@ public class StudentsController implements Initializable {
      */
     private void showStudentDetail(Student student) {
         if (student != null) {
+            txtSearchField.setText(String.valueOf(student.getStudentID()));
             lbl_FullName.setText(student.getLastName() + " " + student.getFirstName());
             lblEmail.setText(student.getEmail());
             lblPhone.setText(student.getPhone());
@@ -217,6 +218,7 @@ public class StudentsController implements Initializable {
                 lblAvgCpa.setText("AVG: " + ((AnnualStudent) student).getAVG());
             }
         } else {
+            txtSearchField.setText("");
             lbl_FullName.setText("");
             lblEmail.setText("");
             lblPhone.setText("");
