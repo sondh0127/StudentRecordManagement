@@ -68,6 +68,9 @@ public class CoursesController implements Initializable {
     private TableColumn<Course, String> creditNum;
 
     @FXML
+    private TableColumn<Course, String> prerequisite;
+
+    @FXML
     private TextField txtCode;
 
     @FXML
@@ -156,7 +159,7 @@ public class CoursesController implements Initializable {
             Course c = param.getValue();
             if (c instanceof CreditCourse) {
                 return new SimpleStringProperty("Credit Course");
-            } else return new SimpleStringProperty("Normal Course");
+            } else return new SimpleStringProperty("Annual Course");
         });
         scale.setCellValueFactory(param -> {
             Course c = param.getValue();
@@ -172,6 +175,16 @@ public class CoursesController implements Initializable {
             int creditHours = c.getCredit();
             String creditStr = String.valueOf(creditHours);
             return new SimpleStringProperty(creditStr);
+        });
+
+        prerequisite.setCellValueFactory(param -> {
+            Course c = param.getValue();
+            if (c instanceof CreditCourse) {
+                if (((CreditCourse) c).hasPrerequisites())
+                    return new SimpleStringProperty("Yes");
+                else return new SimpleStringProperty("No");
+            }
+            return new SimpleStringProperty("");
         });
     }
 
@@ -232,8 +245,7 @@ public class CoursesController implements Initializable {
                 if (removeCourse instanceof CreditCourse) {
                     CreditMajorRepository.getInstance().deleteCourseForAllMajor((CreditCourse) removeCourse);
                     CreditClassRepository.getInstance().deleterCourseForAllClass((CreditCourse) removeCourse);
-                }
-                else AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
+                } else AnnualClassRepository.getInstance().deleteCourseForAllClass(removeCourse);
                 refreshTable();
                 AlertMaker.showNotification("Deleted", "Course deleted successfully", AlertMaker.image_trash_can);
             }
