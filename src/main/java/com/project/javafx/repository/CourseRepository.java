@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class CourseRepository extends AbstractRepository<Course, String> {
     private static CourseRepository instance = null;
-    private static final String path = "Courses.json";
+    private static final String path = "./Courses.json";
 
     private CourseRepository() {
         super(Course.class, MongoDBHandler.COURSE_COLL, path);

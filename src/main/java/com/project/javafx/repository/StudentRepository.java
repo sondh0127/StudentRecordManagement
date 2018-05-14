@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class StudentRepository extends AbstractRepository<Student, Long> {
 
-    private static final String path = "Students.json";
+    private static final String path = "./Students.json";
     private static StudentRepository instance = null;
 
     private StudentRepository() {

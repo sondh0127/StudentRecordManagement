@@ -18,7 +18,7 @@ import java.util.List;
 public class AnnualClassRepository extends AbstractRepository<AnnualClass, String> {
 
     private static AnnualClassRepository instance = null;
-    private static final String path = "AnnualClasses.json";
+    private static final String path = "./AnnualClasses.json";
 
     private AnnualClassRepository() {
         super(AnnualClass.class, MongoDBHandler.CLASS_COLL,path);

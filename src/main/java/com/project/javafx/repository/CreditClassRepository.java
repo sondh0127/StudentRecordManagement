@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class CreditClassRepository extends AbstractRepository<CreditClass, String> {
 
     private static CreditClassRepository instance = null;
-    private static final String path = "CreditClasses.json";
+    private static final String path = "./CreditClasses.json";
 
 
     private CreditClassRepository() {

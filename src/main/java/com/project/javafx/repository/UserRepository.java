@@ -6,7 +6,7 @@ import org.bson.Document;
 public class UserRepository extends AbstractRepository<User, String> {
 
     private static UserRepository instance = null;
-    private static final String path = "Users.json";
+    private static final String path = "./Users.json";
 
     private UserRepository() {
         super(User.class, USER_COLL, path);

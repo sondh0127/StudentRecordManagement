@@ -16,7 +16,7 @@ import java.util.List;
 public class CreditMajorRepository extends AbstractRepository<CreditMajor, String> {
 
     private static CreditMajorRepository instance = null;
-    private static final String path = "CreditMajors.json";
+    private static final String path = "./CreditMajors.json";
 
     private CreditMajorRepository() {
         super(CreditMajor.class,MongoDBHandler.MAJOR_COLL,path);
