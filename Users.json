@@ -8,5 +8,10 @@
     "username": "Admin",
     "password": "adminpass",
     "userType": "ADMINISTRATOR"
+  },
+  {
+    "username": "student001",
+    "password": "student001",
+    "userType": "USER"
   }
 ]

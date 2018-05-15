@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 public class AddRegisterController implements Initializable {
 
     private ObservableList<CreditClass> classObservableList = FXCollections.observableArrayList();
+    private ObservableList<CreditCourse> courseObservableList = FXCollections.observableArrayList();
 
     @FXML
     private JFXButton btnBack;
@@ -51,6 +52,18 @@ public class AddRegisterController implements Initializable {
     private TableColumn<CreditClass, Number> colEnrolled;
 
     @FXML
+    private TableView<CreditCourse> tblCreditCourse;
+
+    @FXML
+    private TableColumn<CreditCourse, String> colCC;
+
+    @FXML
+    private TableColumn<CreditCourse, String> colCN;
+
+    @FXML
+    private JFXButton btnViewClass;
+
+    @FXML
     private Label lblName;
 
     @FXML
@@ -65,6 +78,16 @@ public class AddRegisterController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initCols();
+        courseObservableList.setAll(CourseRepository.getInstance().findAllCreditCourse());
+        tblCreditCourse.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        txtCourseCode.setText(newValue.getCourseCode());
+                    } else {
+                        txtCourseCode.setText("");
+                    }
+                });
     }
 
     private void initCols() {
@@ -82,6 +105,16 @@ public class AddRegisterController implements Initializable {
         colEnrolled.setCellValueFactory(param -> {
             CreditClass c = param.getValue();
             return new SimpleIntegerProperty(c.getEnrolled());
+        });
+
+        tblCreditCourse.setItems(courseObservableList);
+        colCC.setCellValueFactory(param -> {
+            CreditCourse c = param.getValue();
+            return new SimpleStringProperty(c.getCourseCode());
+        });
+        colCN.setCellValueFactory(param -> {
+            CreditCourse c = param.getValue();
+            return new SimpleStringProperty(c.getCourseName());
         });
         lblID.setText("");
         lblName.setText("");
@@ -118,7 +151,7 @@ public class AddRegisterController implements Initializable {
     }
 
     @FXML
-    void handleSearchStudent(ActionEvent event){
+    void handleSearchStudent(ActionEvent event) {
         String text = txtStudentID.getText();
         if (text.trim().isEmpty()) throw new IllegalArgumentException("No input on Student ID!");
         try {

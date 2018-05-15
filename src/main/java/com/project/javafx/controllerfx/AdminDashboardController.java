@@ -94,7 +94,6 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        openMenus();
-        btnLogOut.setVisible(false);
         FXMLLoader loader = null;
         try {
             loader = new FXMLLoader(getClass().getResource(ViewConstants.HOME_VIEW));
@@ -233,12 +232,6 @@ public class AdminDashboardController implements Initializable {
     private void exit(ActionEvent event) {
         boolean exitCf = AlertMaker.getConfirmation("Exit Confirmation", "Are you sure want to exit?");
         if (exitCf) {
-//            CourseRepository.getInstance().saveObjectToFile();
-//            CreditMajorRepository.getInstance().saveObjectToFile();
-//            StudentRepository.getInstance().saveObjectToFile();
-//            AnnualClassRepository.getInstance().saveObjectToFile();
-//            CreditClassRepository.getInstance().saveObjectToFile();
-//            UserRepository.getInstance().saveObjectToFile();
             Platform.exit();
         }
     }

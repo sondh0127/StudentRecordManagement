@@ -56,7 +56,6 @@ public class LoginController implements Initializable {
 
     private String fakeID = "admin";
     private String fakePass = "adminpass";
-    private String fakeStudentID = "20143798";
 
     // Reference to the main application
 //    private MainApp mainApp;
@@ -77,6 +76,8 @@ public class LoginController implements Initializable {
 //        initLoginButton(); // replace by action one password field
         txtAdminUser.setText(fakeID);
         txtAdminPass.setText(fakePass);
+        txtStudentUser.setText("student001");
+        txtStudentPass.setText("student001");
     }
 
     void loadWindow(String location, String title) {
@@ -87,7 +88,10 @@ public class LoginController implements Initializable {
                 protected Object handleGetObject(String key) {
                     if (key.equals("stage"))
                         return stage;
-                    else return null;
+                    if (key.equals("user")) {
+                        return txtStudentUser.getText();
+                    }
+                    return null;
                 }
 
                 @Override

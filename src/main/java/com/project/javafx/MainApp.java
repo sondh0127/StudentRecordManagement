@@ -1,8 +1,8 @@
 package com.project.javafx;
 
 import com.project.javafx.controllerfx.AdminDashboardController;
+import com.project.javafx.controllerfx.UserDashboardController;
 import com.project.javafx.repository.*;
-import com.project.javafx.ulti.AlertMaker;
 import com.project.javafx.ulti.ViewConstants;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,11 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.ResourceBundle;
 
 public class MainApp extends Application {
 
@@ -23,9 +20,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
-//        showLoginStage();
-        loadWindow(ViewConstants.ADMIN_DASHBOARD_VIEW, ViewConstants.APP_NAME + " - Admin");
-
+        showLoginStage();
     }
 
     public void showLoginStage() throws IOException {
@@ -40,36 +35,9 @@ public class MainApp extends Application {
         createReference();
     }
 
-    void loadWindow(String location, String title) {
-        try {
-            Stage stage = new Stage(StageStyle.UNDECORATED);
-            Parent root = FXMLLoader.load(getClass().getResource(location), new ResourceBundle() {
-                @Override
-                protected Object handleGetObject(String key) {
-                    if (key.equals("stage"))
-                        return stage;
-                    else return null;
-                }
-
-                @Override
-                public Enumeration<String> getKeys() {
-                    return null;
-                }
-            });
-
-
-            stage.setTitle(title);
-            stage.setScene(new Scene(root));
-            stage.getIcons().add(new Image(ViewConstants.APP_ICON));
-            stage.show();
-        } catch (IOException e) {
-            AlertMaker.showErrorMessage(e);
-            e.printStackTrace();
-        }
-    }
-
     private void createReference() {
         AdminDashboardController.setMainApp(this);
+        UserDashboardController.setMainApp(this);
     }
 
 

@@ -304,5 +304,10 @@ public class CoursesController implements Initializable {
         }
     }
 
-
+    public void hiddenFucntionForStudent() {
+        btnAdd.setVisible(false);
+        btnAddPrerequisite.setVisible(false);
+        btnRefresh.setVisible(false);
+        btnRemove.setVisible(false);
+    }
 }

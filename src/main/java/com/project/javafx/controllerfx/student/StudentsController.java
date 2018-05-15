@@ -328,4 +328,10 @@ public class StudentsController implements Initializable {
             System.out.println(ex.getMessage());
         }
     }
+
+    public void hiddenFucntionForStudent() {
+        btnAdd.setVisible(false);
+        btnRefresh.setVisible(false);
+        btnRemove.setVisible(false);
+    }
 }

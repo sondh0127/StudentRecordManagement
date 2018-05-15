@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.register.AddRegisterController">
+<BorderPane prefHeight="680.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.javafx.controllerfx.register.AddRegisterController">
    <top>
       <HBox alignment="CENTER" prefHeight="50.0" spacing="10.0" style="-fx-background-color: #0096c9;" BorderPane.alignment="CENTER">
          <children>
@@ -96,7 +96,7 @@
                         </GridPane>
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="10.0">
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="48.0" prefWidth="251.0">
                      <children>
                         <GridPane hgap="20.0">
                            <columnConstraints>
@@ -121,18 +121,46 @@
                         </GridPane>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="320.0" layoutY="10.0" prefHeight="48.0" prefWidth="513.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="btnViewClass" alignment="BASELINE_LEFT" onAction="#handleSearchClass" prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: #3f63ff;" text="View Class List" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="ARROW_RIGHT" size="18" wrappingWidth="22.5" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="7.0" left="10.0" right="10.0" top="7.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </HBox>
                </children>
                <BorderPane.margin>
                   <Insets bottom="10.0" />
                </BorderPane.margin>
             </HBox>
          </top>
-         <center>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="292.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <right>
+            <TableView fx:id="tblCreditClass" prefHeight="292.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+              <columns>
+                  <TableColumn prefWidth="75.0" text="REGISTER CLASS">
+                     <columns>
+                      <TableColumn fx:id="colClassCode" prefWidth="142.0" text="Class Code" />
+                      <TableColumn fx:id="colCourseCode" prefWidth="170.0" text="Course Code" />
+                        <TableColumn fx:id="colEnrolled" prefWidth="137.0" text="Enrolled" />
+                     </columns>
+                  </TableColumn>
+              </columns>
+            </TableView>
+         </right>
+         <left>
+            <VBox alignment="TOP_CENTER" prefHeight="472.0" prefWidth="206.0" spacing="30.0" BorderPane.alignment="CENTER">
                <children>
                   <GridPane>
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="70.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                     </columnConstraints>
                     <rowConstraints>
@@ -184,20 +212,26 @@
                   </GridPane>
                </children>
             </VBox>
-         </center>
-         <right>
-            <TableView fx:id="tblCreditClass" prefHeight="292.0" prefWidth="450.0" BorderPane.alignment="CENTER">
-              <columns>
-                  <TableColumn prefWidth="75.0" text="Register Class">
+         </left>
+         <center>
+            <HBox BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </BorderPane.margin>
+               <children>
+                  <TableView fx:id="tblCreditCourse">
                      <columns>
-                      <TableColumn fx:id="colClassCode" prefWidth="142.0" text="Class Code" />
-                      <TableColumn fx:id="colCourseCode" prefWidth="170.0" text="Course Code" />
-                        <TableColumn fx:id="colEnrolled" prefWidth="137.0" text="Enrolled" />
+                        <TableColumn prefWidth="110.0" text="COURSE LIST">
+                           <columns>
+                              <TableColumn fx:id="colCC" prefWidth="110.0" text="Course Code" />
+                              <TableColumn fx:id="colCN" prefWidth="222.0" text="Course Name" />
+                           </columns>
+                        </TableColumn>
                      </columns>
-                  </TableColumn>
-              </columns>
-            </TableView>
-         </right>
+                  </TableView>
+               </children>
+            </HBox>
+         </center>
       </BorderPane>
    </center>
 </BorderPane>
