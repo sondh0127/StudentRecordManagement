@@ -143,8 +143,8 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
     public boolean update(T entity) {
         ID id = getID(entity);
         if (objects.contains(entity)) {
-//            updateObject(entity, findOldQuery(id));
-            saveObjectToFile();
+            updateObject(entity, findOldQuery(id));
+//            saveObjectToFile();
             return true;
         }
         return false;
@@ -161,8 +161,8 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
     public boolean save(T entity) {
         if (!existsById(getID(entity))) {
             objects.add(entity);
-//            insertObject(entity);
-            saveObjectToFile();
+            insertObject(entity);
+//            saveObjectToFile();
             System.out.println("Saved successfully");
             return true;
 
