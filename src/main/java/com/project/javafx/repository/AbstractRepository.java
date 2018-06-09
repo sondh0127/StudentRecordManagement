@@ -32,7 +32,8 @@ public abstract class AbstractRepository<T, ID> extends MongoDBHandler implement
     }
 
     public MongoCollection<Document> getCollection() {
-        return mongoLoadCollectionTo(DB_NAME, collectionName);
+        return getConnectionToMLab(collectionName);
+//        return mongoLoadCollectionTo(DB_NAME, collectionName);
     }
 
     protected abstract ID getID(T e);

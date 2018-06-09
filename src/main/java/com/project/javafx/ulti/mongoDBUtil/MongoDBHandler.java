@@ -1,6 +1,7 @@
 package com.project.javafx.ulti.mongoDBUtil;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
@@ -19,12 +20,12 @@ public class MongoDBHandler {
     public final static String DB_NAME = "AppDev";
     public final static int PORT = 27017;
 
-    public final static String STUDENT_COLL = "Students";
-    public final static String COURSE_COLL = "Courses";
-    public final static String MAJOR_COLL = "Majors";
-    public final static String CLASS_COLL = "AnnualClasses";
-    public final static String CREDIT_CLASS_COLL = "CreditClasses";
-    public final static String USER_COLL = "Users";
+    public final static String STUDENT_COLL = "students";
+    public final static String COURSE_COLL = "courses";
+    public final static String MAJOR_COLL = "creditmajors";
+    public final static String CLASS_COLL = "annualclasses";
+    public final static String CREDIT_CLASS_COLL = "creditclasses";
+    public final static String USER_COLL = "users";
 
     public static MongoCollection<Document> mongoLoadCollectionTo(String dbName, String collName) {
         try {
@@ -37,6 +38,15 @@ public class MongoDBHandler {
         }
         return null;
     }
+
+    public static MongoCollection<Document> getConnectionToMLab(String collName) {
+        MongoClientURI uri = new MongoClientURI("mongodb://tuan:tuan@ds161529.mlab.com:61529/sis");
+        MongoClient mongoClient = new MongoClient(uri);
+        MongoDatabase db = mongoClient.getDatabase(uri.getDatabase());
+        System.out.println("Successfully connected to Mlab database");
+        return db.getCollection(collName);
+    }
+
 
    // connect to MongoDB is not mandatory security.
    private static MongoClient getMongoClient_1() throws UnknownHostException {
